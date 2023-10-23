@@ -1,4 +1,26 @@
-### Hi there 👋
+markdown
+# Hi, I'm Andrii Litkovskyi 👋
+
+I'm a Front-End Developer based in Hille, Germany.
+
+## My Skills 🛠️
+
+- HTML5
+- CSS3
+
+- JavaScript
+
+- React
+- Node.js
+
+- MongoDB
+- Git
+
+- Figma
+
+## Connect with me 🌐
+
+- [LinkedIn](https://www.linkedin.com/in/andrii-litkovskyi/)
 
 <!--
 **alitkovsky/alitkovsky** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
