@@ -71,7 +71,7 @@ const stats = [
 const Stats = () => {
    const [commitCount, setCommitCount] = useState(null);
    const username = "alitkovsky"; // Your GitHub username
-   const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN; // Your personal access token
+   const token = process.env.GITHUB_TOKEN; // Your personal access token
 
    useEffect(() => {
      const fetchCommitCounts = async () => {
