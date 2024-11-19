@@ -15,7 +15,7 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <section className="section hero">
+    <section className="section hero" id="hero">
       {/* <div className="text-head hidden opacity-100 transform translate-x-0 translate-y-0">
 				<div className="toggleversion-bloc">
           <p className="opacity-100 transform translate-x-0 translate-y-0">Apparence</p></div>

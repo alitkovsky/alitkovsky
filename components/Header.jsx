@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import Nav from "@/components/Nav";
 import MobileNav from "@/components/MobileNav";
+import ScrollToSection from "@/components/ScrollToSection";
 
 const Header = () => {
    const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -32,7 +33,13 @@ const Header = () => {
       <header className="section py-[var(--grid--main-margin)] sticky top-0 min-h-[120px] z-50">
          <div className="mx-auto flex justify-between items-center col-span-12 w-full">
 
-            <Link href="/" className="brand">
+            <Link
+               href="/" 
+               className="brand"
+               onClick={(event) => ScrollToSection("hero", event)}
+               scroll={false}
+               aria-label="Get to the top"
+            >
                <div>
                   <h3>
                     <span>A</span>

@@ -1,31 +1,29 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+
+import ScrollToSection from "@/components/ScrollToSection";
 
 const links = [
    {
-      name: "home",
-      path: "/"
+      name: "intro",
+      path: "intro"
    },
    {
-      name: "services",
-      path: "/services"
+      name: "projects",
+      path: "projects"
    },
    {
-      name: "resume",
-      path: "/resume"
-   },
-   {
-      name: "work",
-      path: "/work"
+      name: "bio",
+      path: "bio"
    },
    {
       name: "contact",
-      path: "/contact"
+      path: "contact"
    }
 ];
-
 
 const Nav = () => {
    const pathname = usePathname();
@@ -36,8 +34,11 @@ const Nav = () => {
             {links.map((link, index) => (
                   <li key={index}>
                      <Link
-                        href={link.path}
-                        className={`${link.path === pathname ? "border-b-2 border-accent" : ""} capitalize hover:text-accent transition-all`}
+                        onClick={(event) => ScrollToSection(link.path, event)}
+                        href=""
+                        scroll={false}
+                        aria-label={link.name}
+                        className={`decoration ${link.path === pathname ? "" : ""}`}
                      >
                         {link.name}
                      </Link>

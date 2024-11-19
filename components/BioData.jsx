@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 import { MdArrowOutward } from "react-icons/md";
 
@@ -146,146 +147,153 @@ const interests = {
 
 const BioData = () => {
   return (
-    <section className="section profile mt-36">
-      <div className="content">
-         <div className="flex flex-row gap-8 w-full">
-            {/* <div className="flex w-[30%] flex-col gap-8">
-               <div className="flex flex-col">
-                  <div className="pb-5">
-                     <h2 className="text-large--sm">{skills.title}</h2>
-                     <div className="pt-6">
-                        <ul className="grid grid-cols-1 gap-2">
-                           {skills.skillList.map((item, index) => {
-                              return (
-                              <li
-                                 key={index}
-                                 className="flex flex-col gap-1"
-                              >
-                                 <span className="">{item.name}</span>
-                              </li>
-                              );
-                           })}
-                        </ul>
+      <motion.section
+         className="section profile mt-36"
+         id="bio"
+         initial={{ opacity: 0, y: 50 }}
+         whileInView={{ opacity: 1, y: 0 }}
+         viewport={{ once: true }}
+         transition={{ duration: 0.8 }}
+      >
+         <div className="content">
+            <div className="flex flex-row gap-8 w-full">
+               {/* <div className="flex w-[30%] flex-col gap-8">
+                  <div className="flex flex-col">
+                     <div className="pb-5">
+                        <h2 className="text-large--sm">{skills.title}</h2>
+                        <div className="pt-6">
+                           <ul className="grid grid-cols-1 gap-2">
+                              {skills.skillList.map((item, index) => {
+                                 return (
+                                 <li
+                                    key={index}
+                                    className="flex flex-col gap-1"
+                                 >
+                                    <span className="">{item.name}</span>
+                                 </li>
+                                 );
+                              })}
+                           </ul>
+                        </div>
+                     </div>
+                     <div className="pb-5">
+                        <h2 className="text-large--sm">Languages</h2>
+                        <div className="pt-6">
+                           <ul className="grid grid-cols-1 gap-2">
+                                 <li className="flex flex-col gap-1">
+                                    <span className="">English | C1</span>
+                                    <span className="">German | B2</span>
+                                    <span className="">Ukrainian & Russian | Native </span>
+                                 </li>
+                           </ul>
+                        </div>
+                     </div>
+                     <div className="pb-5">
+                        <h2 className="text-large--sm">Interests</h2>
+                        <div className="pt-6">
+                           <ul className="grid grid-cols-1 gap-2">
+                                 <li className="flex gap-2 items-center">
+                                    <p>Triathlon </p>
+                                    <Link href="https://www.strava.com/athletes/32473024">
+                                       <MdArrowOutward />
+                                    </Link>
+                                 </li>
+                                 <li className="flex flex-col gap-1">
+                                    <p>Bouldering </p>
+                                 </li>
+                                 <li className="flex gap-2 items-center">
+                                    <p>Drone filming </p>
+                                    <Link href="https://www.youtube.com/@alitkovsky">
+                                       <MdArrowOutward />
+                                    </Link>
+                                 </li>
+                                 <li className="flex flex-col gap-1">
+                                    <p>Vanlife</p>
+                                 </li>
+                           </ul>
+                        </div>
                      </div>
                   </div>
-                  <div className="pb-5">
-                     <h2 className="text-large--sm">Languages</h2>
-                     <div className="pt-6">
-                        <ul className="grid grid-cols-1 gap-2">
-                              <li className="flex flex-col gap-1">
-                                 <span className="">English | C1</span>
-                                 <span className="">German | B2</span>
-                                 <span className="">Ukrainian & Russian | Native </span>
-                              </li>
-                        </ul>
-                     </div>
+               </div> */}
+               <div className="flex flex-col gap-2 w-full">
+                  <div className="">
+                     <h2 className="text-large--lg">Experience</h2>
+                     <ul className="grid grid-cols-1 gap-2">
+                        {experience.items.map((item, index) => {
+                           return (
+                           <li
+                              key={index}
+                              className="flex gap-2 py-6"
+                           >
+                              <div className="flex-none w-28 pr-6 border-foreground border-r-[1px] text-right h-[50px] self-baseline">
+                                 <p>{item.end}</p>
+                                 <p>{item.start}</p>
+                              </div>
+                              <div className="flex-initial px-4 flex flex-col content-between self-baseline">
+                                 <h3>{item.company}</h3>
+                                 <p>{item.position}</p>
+                                 <p>{item.description}</p>
+                              </div>
+                           </li>
+                           );
+                        })}
+                     </ul>
                   </div>
-                  <div className="pb-5">
-                     <h2 className="text-large--sm">Interests</h2>
-                     <div className="pt-6">
-                        <ul className="grid grid-cols-1 gap-2">
-                              <li className="flex gap-2 items-center">
-                                 <p>Triathlon </p>
-                                 <Link href="https://www.strava.com/athletes/32473024">
-                                    <MdArrowOutward />
-                                 </Link>
-                              </li>
-                              <li className="flex flex-col gap-1">
-                                 <p>Bouldering </p>
-                              </li>
-                              <li className="flex gap-2 items-center">
-                                 <p>Drone filming </p>
-                                 <Link href="https://www.youtube.com/@alitkovsky">
-                                    <MdArrowOutward />
-                                 </Link>
-                              </li>
-                              <li className="flex flex-col gap-1">
-                                 <p>Vanlife</p>
-                              </li>
-                        </ul>
-                     </div>
+
+                  <div className="">
+                     <h2 className="text-large--lg">{education.title}</h2>
+                     <ul className="grid grid-cols-1 gap-2">
+                        {education.items.map((item, index) => {
+                           return (
+                           <li
+                              key={index}
+                              className="flex flex-row gap-2 py-6"
+                           >
+                              <div className="flex-none w-28 pr-6 border-foreground border-r-[1px] text-right h-[50px] self-baseline">
+                                 <p>{item.end}</p>
+                                 <p>{item.start}</p>
+                              </div>
+                              <div className="flex-initial px-4 flex flex-col content-between self-baseline">
+                                 <h3 className="text-lg">{item.institution}</h3>
+                                 <p className="text-white/60 font-bold">{item.degree}</p>
+                              </div>
+                           </li>
+                           );
+                        })}
+                     </ul>
                   </div>
-               </div>
-            </div> */}
-            <div className="flex flex-col gap-2 w-full">
-               <div className="">
-                  <h2 className="text-large--lg">Experience</h2>
-                  <ul className="grid grid-cols-1 gap-2">
-                     {experience.items.map((item, index) => {
-                        return (
-                        <li
-                           key={index}
-                           className="flex gap-2 py-6"
-                        >
-                           <div className="flex-none w-28 pr-6 border-foreground border-r-[1px] text-right h-[50px] self-baseline">
-                              <p>{item.end}</p>
-                              <p>{item.start}</p>
-                           </div>
-                           <div className="flex-initial px-4 flex flex-col content-between self-baseline">
-                              <h3>{item.company}</h3>
-                              <p>{item.position}</p>
-                              <p>{item.description}</p>
-                           </div>
-                        </li>
-                        );
-                     })}
-                  </ul>
-               </div>
 
-               <div className="">
-                  <h2 className="text-large--lg">{education.title}</h2>
-                  <ul className="grid grid-cols-1 gap-2">
-                     {education.items.map((item, index) => {
-                        return (
-                        <li
-                           key={index}
-                           className="flex flex-row gap-2 py-6"
-                        >
-                           <div className="flex-none w-28 pr-6 border-foreground border-r-[1px] text-right h-[50px] self-baseline">
-                              <p>{item.end}</p>
-                              <p>{item.start}</p>
-                           </div>
-                           <div className="flex-initial px-4 flex flex-col content-between self-baseline">
-                              <h3 className="text-lg">{item.institution}</h3>
-                              <p className="text-white/60 font-bold">{item.degree}</p>
-                           </div>
-                        </li>
-                        );
-                     })}
-                  </ul>
-               </div>
+                  <div className="">
+                     <h2 className="pb-6">{certification.title}</h2>
+                     <ul className="grid grid-cols-1 gap-2 pt-2">
+                        {certification.items.map((item, index) => {
+                           return (
+                           <li
+                              key={index}
+                              className="flex gap-2"
+                           >
+                              <div className="flex-none w-28 pr-6 border-foreground border-r-[1px] text-right items-baseline">
+                                 <p>{item.date}</p>
+                              </div>
+                              <div className="px-4 flex items-center gap-2">
+                                 <h3>{item.platform}</h3>
+                                 <p>{item.direction}</p>
+                                 {item.link ? (
+                                    <Link href={item.link}>
+                                       <MdArrowOutward />
+                                    </Link>
+                                 ) : null}
+                              </div>
+                           </li>
+                           );
+                        })}
+                     </ul>
+                  </div>
 
-               <div className="">
-                  <h2 className="pb-6">{certification.title}</h2>
-                  <ul className="grid grid-cols-1 gap-2 pt-2">
-                     {certification.items.map((item, index) => {
-                        return (
-                        <li
-                           key={index}
-                           className="flex gap-2"
-                        >
-                           <div className="flex-none w-28 pr-6 border-foreground border-r-[1px] text-right items-baseline">
-                              <p>{item.date}</p>
-                           </div>
-                           <div className="px-4 flex items-center gap-2">
-                              <h3>{item.platform}</h3>
-                              <p>{item.direction}</p>
-                              {item.link ? (
-                                 <Link href={item.link}>
-                                    <MdArrowOutward />
-                                 </Link>
-                              ) : null}
-                           </div>
-                        </li>
-                        );
-                     })}
-                  </ul>
                </div>
-
             </div>
          </div>
-      </div>
-    </section>
+      </motion.section>
   )
 };
 

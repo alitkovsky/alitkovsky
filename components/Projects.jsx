@@ -3,19 +3,9 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 import Project from "@/components/Project";
 import Modal from "@/components/Modal";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-
-import { BsArrowUpRight } from "react-icons/bs";
-import { FaGithub } from "react-icons/fa";
-
-import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
-import WorkSliderButtons from "@/components/WorkSliderButtons";
 
 const projects = [
   {
@@ -73,7 +63,14 @@ const Projects = () => {
    const [modal, setModal] = useState({active: false, index: 0});
 
   return (
-   <section className="section projects mt-[var(--grid--main-xheight)]">
+    <motion.section
+      className="section projects mt-[var(--grid--main-xheight)]"
+      id="projects"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+    >
     <div className="content">
       <h1>Feature projects</h1>
       <div className="project-container w-full flex flex-col items-center justify-center py-10">
@@ -82,9 +79,9 @@ const Projects = () => {
           })}
       </div>
       <Modal modal={modal} projects={projects} />
-      <Link href="https://github.com/alitkovsky" className="text-large--xl justify-self-end">View all projects</Link>
+      {/* <Link href="https://github.com/alitkovsky" className="text-large--xl justify-self-end">View all projects</Link> */}
     </div>
-   </section>
+   </motion.section>
   )
 };
 
