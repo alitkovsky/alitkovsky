@@ -1,54 +1,66 @@
+"use client";
+
 import Photo from "@/components/Photo";
 import Socials from "@/components/Socials";
+import Stats from "@/components/Stats";
+import Time from "@/components/Time";
+
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
 import { FiDownload } from "react-icons/fi";
 import { motion } from "framer-motion";
+
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
-      <section className="container mx-auto mt-6">
-        <div className="grid-container grid gap-[var(--grid--app-gutter)] items-center justify-between xl:pt-8 xl:pb-24" style={{ '--grid--app-columns': 'var(--grid--app-columns-12)' }}>
-
-          <div className="text-start lg:text-left lg:order-none">
-            <span className="text-xl">React Front-End Developer</span>
-            <h1 className="h1 mb-12 mt-6">
-              Hello, I&apos;m Andrii Litkovskyi a React Front-End developer with a passion for creating beautiful and functional user interfaces.
-            </h1>
-
-            <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row items-center gap-10">
-              <Button
-                variant="outline"
-                size="lg"
-                className="uppercase flex items-center gap-2"
-              >
-                <span>Download CV</span>
-                <FiDownload className="text-xl" />
-              </Button>
-              <div className="">
-                <Socials
-                  containerStyles="flex gap-6"
-                  iconStyles="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="w-[300px] md:order-0 lg:order-none lg:mb-0 xl:order-none xl:mb-0 2xl:order-none 2xl:mb-0">
-            {/* <Photo /> */}
-            <Image
-               src="/assets/photo.png"
-               alt=""
-               priority
-               width={300}
-               height={400}
-               className="object-contain"
-            />
-          </div>
-
+    <section className="section hero">
+      {/* <div className="text-head hidden opacity-100 transform translate-x-0 translate-y-0">
+				<div className="toggleversion-bloc">
+          <p className="opacity-100 transform translate-x-0 translate-y-0">Apparence</p></div>
+			</div> */}
+      <div className="content content-between">
+        <div>
+          <h2>Front-End Developer</h2>
+          <h3 className="text-[var(--color--foreground--33)]">based in Germany / available worldwide</h3>
+          <div className="place-self-end">
+          <p className="pr-4 justify-start text-[var(--color--foreground--33)]">Berlin <Time /></p>
         </div>
-      </section>
+        </div>
+        <h1>
+          With a unique blend of marketing insight and frontend expertise, I bridge the gap between user needs and product design.
+        </h1>
+        {/* <Image
+            alt="Andrii Litkovskyi"
+            src="/assets/photo_bg_last.png"
+            width={500}
+            height={500}
+            layout="responsive"
+            className="place-self-end"
+          /> */}
+      </div>
+      <div className="links items-end flex justify-between">
+        <div className="flex flex-col gap-[2px]">
+          <p>Contact</p>
+          <p>
+            <Link href="mailto:alitkovsky@me.com" className="mail">alitkovsky@me.com</Link>
+          </p>
+          <p className="text-[var(--color--foreground--33)]">
+            <Link href="tel:+4917658238236">+49 176 5823 8236</Link>
+          </p>
+        </div>
+        <div className="">
+          <Socials
+            containerStyles="flex flex-col gap-[2px]"
+            iconStyles="flex justify-end items-end text-[var(--color--foreground--33)] hover:bg-[var(--color--background--100)] hover:text-[var(--color--foreground--100)] hover:transition-all duration-500"
+          />
+        </div>
+      </div>
+      {/* <div id="scroll">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 285" width="10" height="285" preserveAspectRatio="xMidYMid meet" style="width: 100%; height: 100%; transform: translate3d(0px, 0px, 0px);"><defs><clipPath id="__lottie_element_6"><rect width="10" height="285" x="0" y="0"></rect></clipPath></defs><g clip-path="url(#__lottie_element_6)"><g transform="matrix(0,0.7144200205802917,-1,0,43.5,141.93800354003906)" opacity="1" style="display: block;"><g opacity="1" transform="matrix(1,0,0,1,0,0)"><path stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0" stroke-miterlimit="4" stroke="rgb(255,255,255)" stroke-opacity="1" stroke-width="10" d=" M142.9810028076172,38.5 C177.55799865722656,38.5 200.25,38.5 200.25,38.5"></path></g></g></g></svg>
+      </div> */}
+    </section>
   )
 };
 

@@ -1,16 +1,11 @@
-import Head from "next/head";
-import { Fira_Code } from "next/font/google";
 import "./globals.css";
+import "./media-queries.css";
+
+import Head from "next/head";
+import { ThemeProvider } from "next-themes";
 
 import Header from "@/components/Header";
-import PageTransition from "@/components/PageTransition";
-import StairTransition from "@/components/StairTransition";
-
-const fira = Fira_Code({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-fira-code",
-});
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Hi! I'm Andrii Litkovskyi",
@@ -19,14 +14,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
+    <html lang="en" suppressHydrationWarning>
+      <Head>
         <link rel="shortcut icon" type="image/png" href="favicon-32x32.png" />
-      </head>
+      </Head>
       <body>
-        <Header />
-        <StairTransition />
-        <PageTransition>{children}</PageTransition>
+            <ThemeProvider>
+              <Header />
+              {children}
+            </ThemeProvider>
       </body>
     </html>
   );

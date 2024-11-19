@@ -12,15 +12,8 @@ module.exports = {
     container: {
       center: true,
       padding: {
-        DEFAUlT: "15px"
+        DEFAUlT: "16px"
       },
-    },
-    screens: {
-      sm: "500px",
-      md: "864px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1536px",
     },
     fontFamily: {
       primary: "var(--font-family)",
@@ -36,7 +29,7 @@ module.exports = {
         "grid-columns-1": "repeat(11 [col-start] 1fr)",
       },
       colors: {
-        primary: "#1c1c22",
+        primary: "rgb(5 26 28 / 1)",
         accent: {
           DEFAULT: "rgb(195 235 241 / 1)",
           hover: "rgb(195 235 241 / 1)",
@@ -46,10 +39,18 @@ module.exports = {
         link: "rgb(195 235 241 / 0.45)",
       },
       fontSize: {
-        clamp: "clamp(1rem, 5vw, 3rem)",
-        // lg: "clamp(1rem, 5vw, 3rem)",
-        // xl: "clamp(36px, 6.35vw, 6.35vw)",
-        // xxl: "clamp(1rem, 5vw, 3rem)",
+        "huge--sm": "clamp(32px, 7.5vw, 7.5vw)",
+        "large--sm": "clamp(22px, 2.64vw, 2.64vw)",
+        "huge--lg": "clamp(36px, 7.77vw, 7.77vw)",
+        "large--lg": "clamp(22px, 2.74vw, 2.74vw)",
+        "huge--xl": "clamp(36px, 6.35vw, 6.35vw)",
+        "large--xl": "clamp(26px, 2.24vw, 2.24vw)",
+        "medium": "var(--font--size-medium)",
+        "regular": "var(--font--size-regular)",
+
+      },
+      background: {
+        hero: "url(/assets/photo_bg.png)",
       },
       keyframes: {
         "accordion-down": {

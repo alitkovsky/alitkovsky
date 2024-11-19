@@ -1,31 +1,68 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+"use client";
 
+import { useState, useEffect } from "react";
+import Link from "next/link";
 
 import Nav from "@/components/Nav";
 import MobileNav from "@/components/MobileNav";
 
 const Header = () => {
-   return (
-      <header className="py-8 xl:py-12">
-         <div className="container mx-auto flex justify-between items-center">
+   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+   const [isMobileViewport, setIsMobileViewport] = useState(false);
 
-            <Link href="/">
-               <div className="brand text-4xl">
-                  <h3><span>A</span><span>n</span><span>d</span><span>r</span><span>i</span><span>i</span><span> </span><span>L</span><span>i</span><span>t</span><span>k</span><span>o</span><span>v</span><span>s</span><span>k</span><span>y</span><span>i</span></h3>
+   useEffect(() => {
+      const handleResize = () => {
+         setIsMobileViewport(window.innerWidth < 1020);
+         if (window.innerWidth >= 1020) {
+            setIsMobileNavOpen(false);
+         }
+      };
+
+      handleResize();
+      window.addEventListener("resize", handleResize);
+
+      return () => window.removeEventListener("resize", handleResize);
+   }, []);
+
+   const toggleMobileNav = () => {
+      setIsMobileNavOpen((prev) => !prev);
+   };
+
+   return (
+      <header className="section py-[var(--grid--main-margin)] sticky top-0 min-h-[120px] z-50">
+         <div className="mx-auto flex justify-between items-center col-span-12 w-full">
+
+            <Link href="/" className="brand">
+               <div>
+                  <h3>
+                    <span>A</span>
+                    <span>n</span>
+                    <span>d</span>
+                    <span>r</span>
+                    <span>i</span>
+                    <span>i</span>
+                    <span> </span>
+                    <span>L</span>
+                    <span>i</span>
+                    <span>t</span>
+                    <span>k</span>
+                    <span>o</span>
+                    <span>v</span>
+                    <span>s</span>
+                    <span>k</span>
+                    <span>y</span>
+                    <span>i</span>
+                  </h3>
                </div>
             </Link>
 
-            <div className="hidden xl:flex items-center gap-8">
+            {!isMobileViewport && (
                <Nav />
-               <Link href="/contact">
-                  <Button>Hire me</Button>
-               </Link>
-            </div>
+            )}
 
-            <div className="xl:hidden">
-               <MobileNav />
-            </div>
+            {isMobileViewport && (
+               <MobileNav toggleMobileNav={toggleMobileNav} isMobileNavOpen={isMobileNavOpen} />
+            )}
 
          </div>
       </header>

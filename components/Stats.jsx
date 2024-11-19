@@ -63,7 +63,7 @@ const stats = [
       text: "Projects completed",
    },
    {
-      num: 5,
+      num: 6,
       text: "Technologies mastered",
    },
 ];
@@ -115,7 +115,7 @@ const Stats = () => {
 
    useEffect(() => {
       const calculateExperience = () => {
-        const startDate = new Date("2023-10-01");
+        const startDate = new Date("2022-07-01");
         const currentDate = new Date();
 
         // Calculate the difference in months and years
@@ -137,23 +137,21 @@ const Stats = () => {
     }, []);
 
   return (
-   <section className="pt-12 pb-12 xl:pt-4 xl:pb-0">
-      <div className="container mx-auto">
-         <div className="flex flex-wrap gap-6 max-w-auto mx-auto">
-         <div
-               className="flex flex-1 gap-4 items-center justify-start"
-            ><CountUp
-            end={experience}
-            delay={2}
-            duration={6}
-            className="text-4xl xl:text-6xl font-extrabold"
-         />
-               <p
-                  className="max-w-[100px] leading-snug text-white/80"
-               >
+   <section className="section stats py-28">
+      <div className="content col-span-12">
+         <div className="flex gap-6 max-w-auto mx-auto justify-between items-center">
+            <div className="flex flex-1 gap-4 items-center justify-start">
+               <CountUp
+                  end={experience}
+                  delay={2}
+                  duration={6}
+                  className="text-4xl xl:text-6xl font-extrabold"
+               />
+               <p className="max-w-[100px] leading-snug text-white/80">
                   Year of experience
                </p>
             </div>
+
             {stats.map((item, index) => {
                return (
                   <div
@@ -170,9 +168,8 @@ const Stats = () => {
                   </div>
                )
             })}
-            <div
-               className="flex flex-1 gap-4 items-center justify-start"
-            >
+
+            <div className="flex flex-1 gap-4 items-center justify-start">
                <CountUp
                   end={commitCount}
                   delay={2}

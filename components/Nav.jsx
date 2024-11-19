@@ -29,19 +29,21 @@ const links = [
 
 const Nav = () => {
    const pathname = usePathname();
+
    return (
-      <nav className="flex gap-8">
-         {links.map((link, index) => (
-            <Link
-               key={index}
-               href={link.path}
-               className={`${
-                  link.path === pathname && "text-accent border-b-2 border-accent"} capitalize font-medium hover:text-accent transition-all
-               `}
-            >
-               {link.name}
-            </Link>
-         ))}
+      <nav className="main-nav">
+         <ul>
+            {links.map((link, index) => (
+                  <li key={index}>
+                     <Link
+                        href={link.path}
+                        className={`${link.path === pathname ? "border-b-2 border-accent" : ""} capitalize hover:text-accent transition-all`}
+                     >
+                        {link.name}
+                     </Link>
+                  </li>
+            ))}
+         </ul>
       </nav>
    )
 };

@@ -1,13 +1,15 @@
 import Hero from "@/components/Hero";
-import Stats from "@/components/Stats";
+import Projects from "@/components/Projects";
 import BioData from "@/components/BioData";
+import Contact from "@/components/Contact";
 
 export default function Home() {
   return (
-    <section className="h-screen">
+    <main>
       <Hero />
-      <Stats />
+      <Projects />
       <BioData />
-    </section>
+      <Contact />
+    </main>
   );
 };
