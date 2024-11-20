@@ -22,7 +22,8 @@
     /* --color--foreground--100: rgb(227 205 176 / 1); */
 
     /* Blue dianne and norway */
-    --color--foreground--100: rgb(164 191 157 / 1);
+    --color--foreground--100: rgb(187 205 177 / 1); /* AAA WCAG Standard passed */
+    /* --color--foreground--100: rgb(164 191 157 / 1); // AAA WCAG Standard didn't passed */
     --color--foreground--33:  rgb(164 191 157 / 0.45);
     --color--foreground--25:  rgb(164 191 157 / 0.4);
     --color--foreground--10:  rgb(164 191 157 / 0.17);

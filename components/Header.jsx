@@ -6,6 +6,7 @@ import Link from "next/link";
 import Nav from "@/components/Nav";
 import MobileNav from "@/components/MobileNav";
 import ScrollToSection from "@/components/ScrollToSection";
+import LogoAnimation from "@/components/LogoAnimation";
 
 const Header = () => {
    const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -34,31 +35,19 @@ const Header = () => {
          <div className="mx-auto flex justify-between items-center col-span-12 w-full">
 
             <Link
-               href="/" 
-               className="brand"
+               href=""
+               className=""
+               onMouseEnter={LogoAnimation}
+               onMouseLeave={LogoAnimation}
                onClick={(event) => ScrollToSection("hero", event)}
                scroll={false}
                aria-label="Get to the top"
             >
                <div>
                   <h3>
-                    <span>A</span>
-                    <span>n</span>
-                    <span>d</span>
-                    <span>r</span>
-                    <span>i</span>
-                    <span>i</span>
-                    <span> </span>
-                    <span>L</span>
-                    <span>i</span>
-                    <span>t</span>
-                    <span>k</span>
-                    <span>o</span>
-                    <span>v</span>
-                    <span>s</span>
-                    <span>k</span>
-                    <span>y</span>
-                    <span>i</span>
+                     <LogoAnimation
+                        initialText="Andrii Litkovskyi" hoverText="alitkovsky@me.com"
+                     />
                   </h3>
                </div>
             </Link>
