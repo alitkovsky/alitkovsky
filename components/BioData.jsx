@@ -127,6 +127,7 @@ const skills = {
      },
    ]
 };
+
 const interests = {
    title: "Interests",
    list: [
@@ -157,64 +158,6 @@ const BioData = () => {
       >
          <div className="content">
             <div className="flex flex-row gap-8 w-full">
-               {/* <div className="flex w-[30%] flex-col gap-8">
-                  <div className="flex flex-col">
-                     <div className="pb-5">
-                        <h2 className="text-large--sm">{skills.title}</h2>
-                        <div className="pt-6">
-                           <ul className="grid grid-cols-1 gap-2">
-                              {skills.skillList.map((item, index) => {
-                                 return (
-                                 <li
-                                    key={index}
-                                    className="flex flex-col gap-1"
-                                 >
-                                    <span className="">{item.name}</span>
-                                 </li>
-                                 );
-                              })}
-                           </ul>
-                        </div>
-                     </div>
-                     <div className="pb-5">
-                        <h2 className="text-large--sm">Languages</h2>
-                        <div className="pt-6">
-                           <ul className="grid grid-cols-1 gap-2">
-                                 <li className="flex flex-col gap-1">
-                                    <span className="">English | C1</span>
-                                    <span className="">German | B2</span>
-                                    <span className="">Ukrainian & Russian | Native </span>
-                                 </li>
-                           </ul>
-                        </div>
-                     </div>
-                     <div className="pb-5">
-                        <h2 className="text-large--sm">Interests</h2>
-                        <div className="pt-6">
-                           <ul className="grid grid-cols-1 gap-2">
-                                 <li className="flex gap-2 items-center">
-                                    <p>Triathlon </p>
-                                    <Link href="https://www.strava.com/athletes/32473024">
-                                       <MdArrowOutward />
-                                    </Link>
-                                 </li>
-                                 <li className="flex flex-col gap-1">
-                                    <p>Bouldering </p>
-                                 </li>
-                                 <li className="flex gap-2 items-center">
-                                    <p>Drone filming </p>
-                                    <Link href="https://www.youtube.com/@alitkovsky">
-                                       <MdArrowOutward />
-                                    </Link>
-                                 </li>
-                                 <li className="flex flex-col gap-1">
-                                    <p>Vanlife</p>
-                                 </li>
-                           </ul>
-                        </div>
-                     </div>
-                  </div>
-               </div> */}
                <div className="flex flex-col gap-2 w-full">
                   <div className="">
                      <h2 className="text-large--lg">Experience</h2>

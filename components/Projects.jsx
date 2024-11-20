@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import Link from "next/link";
 
 import Project from "@/components/Project";
 import Modal from "@/components/Modal";
@@ -79,7 +78,6 @@ const Projects = () => {
           })}
       </div>
       <Modal modal={modal} projects={projects} />
-      {/* <Link href="https://github.com/alitkovsky" className="text-large--xl justify-self-end">View all projects</Link> */}
     </div>
    </motion.section>
   )

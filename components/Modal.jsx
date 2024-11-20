@@ -1,7 +1,6 @@
 import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
 
 const scaleAnimation = {
@@ -41,27 +40,25 @@ const Modal = ( {modal, projects, live} ) => {
 
   return (
    <>
-        <motion.div ref={modalContainer} variants={scaleAnimation} initial="initial" animate={active ? "enter" : "closed"} className="h-[450px] w-[400px] absolute overflow-hidden pointer-events-none flex justify-center items-center">
-            <div style={{top: index * -100 + "%"}} className="h-full w-full absolute transition-top ease-custom duration-500">
-            {
-                projects.map( (project, index) => {
-                const { src, color } = project
-                return <div className="h-full w-full flex justify-center items-center" key={`modal_${index}`}>
-                  <Image
-                    src={project.image}
-                    width={400}
-                    height={0}
-                    loading="lazy"
-                    alt={project.title}
-                    className="h-auto object-contain rounded-xl"
-                  />
-                </div>
-                })
-            }
-            </div>
-        </motion.div>
-        {/* <motion.div ref={cursor} className="w-[80px] h-[80px] rounded-[50%] bg-[#455ce9] text-white absolute flex justify-center items-center z-2 text-[14px] font-light pointer-events-none" variants={scaleAnimation} initial="initial" animate={active ? "enter" : "closed"}></motion.div>
-        <motion.div ref={cursorLabel} className="w-[80px] h-[80px] rounded-[50%] bg-transparent text-white absolute flex justify-center items-center z-2 text-[14px] font-light pointer-events-none " variants={scaleAnimation} initial="initial" animate={active ? "enter" : "closed"}>View</motion.div> */}
+      <motion.div ref={modalContainer} variants={scaleAnimation} initial="initial" animate={active ? "enter" : "closed"} className="h-[450px] w-[400px] absolute overflow-hidden pointer-events-none flex justify-center items-center">
+          <div style={{top: index * -100 + "%"}} className="h-full w-full absolute transition-top ease-custom duration-500">
+          {
+              projects.map( (project, index) => {
+              const { src, color } = project
+              return <div className="h-full w-full flex justify-center items-center" key={`modal_${index}`}>
+                <Image
+                  src={project.image}
+                  width={400}
+                  height={0}
+                  loading="lazy"
+                  alt={project.title}
+                  className="h-auto object-contain rounded-xl"
+                />
+              </div>
+              })
+          }
+          </div>
+      </motion.div>
     </>
   )
 };

@@ -312,9 +312,8 @@
   .decoration {
     display: inline-block;
     position: relative
-}
-
-.decoration:after {
+  }
+  .decoration:after {
     background: currentColor;
     bottom: -4px;
     content: "";
@@ -325,12 +324,15 @@
     transform-origin: 100% 0;
     transition: transform .8s cubic-bezier(.49,.23,0,1);
     width: 100%
-}
-
-.decoration:hover:after {
+  }
+  .decoration:hover:after {
     transform: scaleX(1);
     transform-origin: 0 0
-}
+  }
+  .decoration.active:after {
+    transform: scaleX(1);
+    transform-origin: 0 0;
+  }
 
   /* Hero */
   .hero {

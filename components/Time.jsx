@@ -24,6 +24,6 @@ function Time() {
       {time}
     </>
   );
-}
+};
 
 export default Time;

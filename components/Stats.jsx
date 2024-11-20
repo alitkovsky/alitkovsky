@@ -1,61 +1,8 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CountUp from "react-countup";
-
-// const GitHubAllCommits = () => {
-//    const [commitCount, setCommitCount] = useState(null);
-//    const username = "alitkovsky"; // Your GitHub username
-//    const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN; // Your personal access token
-
-//    useEffect(() => {
-//      const fetchCommitCounts = async () => {
-//        try {
-//          const headers = {
-//            Authorization: `token ${token}`, // GitHub token for authentication
-//          };
-
-//          // 1. Fetch all repositories for the user
-//          const reposResponse = await axios.get(
-//            `https://api.github.com/users/${username}/repos?per_page=100`,
-//            { headers }
-//          );
-//          const repositories = reposResponse.data;
-
-//          let totalCommits = 0;
-
-//          // 2. Loop through each repository and fetch the commits
-//          const commitPromises = repositories.map(async (repo) => {
-//            const commitResponse = await axios.get(
-//              `https://api.github.com/repos/${username}/${repo.name}/commits`,
-//              { headers }
-//            );
-//            // Add the number of commits in this repo to the total count
-//            return commitResponse.data.length;
-//          });
- 
-//          const commitCounts = await Promise.all(commitPromises);
-//          totalCommits = commitCounts.reduce((sum, count) => sum + count, 0);
-
-//          setCommitCount(totalCommits);
-//        } catch (error) {
-//          console.error("Error fetching commit data:", error);
-//        }
-//      };
-
-//      fetchCommitCounts();
-//    }, [username, token]);
-
-//    return (
-//      <>
-//        {commitCount !== null ? (
-//          <span>{commitCount}</span>
-//        ) : (
-//          <span></span>
-//        )}
-//      </>
-//    );
-//  };
 
 const stats = [
    {

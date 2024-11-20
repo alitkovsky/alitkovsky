@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 import ScrollToSection from "@/components/ScrollToSection";
 
@@ -26,7 +25,32 @@ const links = [
 ];
 
 const Nav = () => {
-   const pathname = usePathname();
+   const [activeSection, setActiveSection] = useState("");
+
+   useEffect(() => {
+      const sections = document.querySelectorAll("section");
+      const observerOptions = {
+         root: null, // viewport
+         rootMargin: "0px",
+         threshold: 0.6, // section is active when 60% is visible
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+         entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+               setActiveSection(entry.target.id); // update active section
+            }
+         });
+      }, observerOptions);
+
+      sections.forEach((section) => observer.observe(section));
+
+      return () => {
+         sections.forEach((section) => observer.unobserve(section)); // cleanup observer
+      };
+   }, []);
+
+   const isActive = (id) => activeSection === id;
 
    return (
       <nav className="main-nav">
@@ -38,7 +62,8 @@ const Nav = () => {
                         href=""
                         scroll={false}
                         aria-label={link.name}
-                        className={`decoration ${link.path === pathname ? "" : ""}`}
+                        aria-current={isActive(link.name) ? "true" : "false"}
+                        className={`decoration ${isActive(link.path) ? "active" : ""}`}
                      >
                         {link.name}
                      </Link>

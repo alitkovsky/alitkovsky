@@ -1,12 +1,16 @@
+"use client";
+
 const ScrollToSection = (id, event) => {
-   event?.preventDefault();
+   event?.preventDefault(); // prevent default behavior and rely only on the scrollTo function
 
    const element = document.getElementById(id);
    if (element) {
       const isLastSection = element === document.querySelector("section:last-of-type");
       const offsetAdjustment = isLastSection ? 0 : 120;
       const top = element.offsetTop - offsetAdjustment;
-      window.scrollTo({ top, behavior: "smooth" });
+      setTimeout(() => {
+         window.scrollTo({ top, behavior: "smooth" });
+      }, 50); // delay to wait for layout stabilization
    }
 };
 

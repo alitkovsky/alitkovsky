@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 
-
 const Project = ( {index, title, year, live, projectsStack, setModal} ) => {
   return (
     <div onMouseEnter={() => {setModal({active: true, index})}} onMouseLeave={() => {setModal({active: false, index})}} className="project-item flex w-full justify-between items-center px-0 py-10 border-b-[1px] border-b-foreground cursor-pointer transition-all delay-2000 last-of-type:border-none h-[200px] hover:h-[400px]">
