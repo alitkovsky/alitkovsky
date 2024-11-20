@@ -1,7 +1,11 @@
+"use client";
+
 import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import gsap from "gsap";
+
+
 
 const scaleAnimation = {
     initial: {scale: 0, x:"-50%", y:"-50%"},
@@ -9,7 +13,7 @@ const scaleAnimation = {
     closed: {scale: 0, x:"-50%", y:"-50%", transition: {duration: 0.4, ease: [0.32, 0, 0.67, 0]}}
 };
 
-const Modal = ( {modal, projects, live} ) => {
+const Modal = ( {modal, projects} ) => {
 
    const { active, index } = modal;
    const modalContainer = useRef(null);
@@ -35,7 +39,11 @@ const Modal = ( {modal, projects, live} ) => {
         yMoveCursor(pageY)
         xMoveCursorLabel(pageX)
         yMoveCursorLabel(pageY)
-      })
+      });
+
+      return () => {
+        // Cleanup logic here
+     };
     }, [])
 
   return (

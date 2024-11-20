@@ -18,10 +18,6 @@ const Contact = () => {
     >
       <div className="side content-center justify-between gap-20">
         <div className="flex flex-col gap-1 mt-8">
-          {/* <div class="look">
-            <div class="radius"></div>
-            <div class="dot"></div>
-          </div> */}
           <p className="self-center">currently available for work</p>
         </div>
         <div className="flex flex-col gap-1">

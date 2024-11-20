@@ -129,7 +129,7 @@
 
 
 /* NOISE */ /* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE */
-.noise {
+/* .noise {
   position: fixed;
   top: 0;
   left: 0;
@@ -137,7 +137,7 @@
   height: 100%;
   pointer-events: none;
   z-index: 999999;
-  opacity: 0.1;
+  opacity: 0.9;
 }
 
 @keyframes noise-animation {
@@ -151,7 +151,7 @@
 
 .noise-animate {
   animation: noise-animation 5s ease-in-out infinite;
-}
+} */
 
 /* NOISE */ /* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE */
 
@@ -178,7 +178,6 @@
   .brand {
     padding: 12px 0;
     color: var(--color--foreground--100);
-    z-index: 100;
   }
   .brand:hover {
     cursor: default;
@@ -240,7 +239,7 @@
     margin-right: -12px;
     border-radius: 24px;
     position: relative;
-    z-index: 100;
+    z-index: 99;
   }
   .navigation:hover {
     cursor: pointer;
@@ -311,7 +310,7 @@
 
   .decoration {
     display: inline-block;
-    position: relative
+    position: relative;
   }
   .decoration:after {
     background: currentColor;
@@ -361,16 +360,6 @@
 
   .mail {
     color: var(--color--foreground--33);
-  }
-
-  #scroll {
-    position: absolute;
-    right: 70px;
-    bottom: 60px;
-    width: 3px
-  }
-  #scroll svg path {
-  stroke: #767676 !important
   }
 
   /* Projects */

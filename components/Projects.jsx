@@ -49,7 +49,7 @@ const projects = [
     title: "Personal portfolio website",
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error dignissimos aspernatur assumenda mollitia sint amet!",
     stack: [{ name: "Next.js" }, { name: "TailwindCSS" }],
-    image: "/assets/work/thumb3.png",
+    image: "/assets/work/thumb4.png",
     color: "#000000",
     live: "/",
     github: "",

@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import { motion } from "framer-motion";
 
 import Nav from "@/components/Nav";
 import MobileNav from "@/components/MobileNav";
-import ScrollToSection from "@/components/ScrollToSection";
 import LogoAnimation from "@/components/LogoAnimation";
 
 const Header = () => {
@@ -30,39 +29,54 @@ const Header = () => {
       setIsMobileNavOpen((prev) => !prev);
    };
 
+   const closeMobileNav = () => {
+      setIsMobileNavOpen(false);
+   };
+
    return (
-      <header className="section py-[var(--grid--main-margin)] sticky top-0 min-h-[120px] z-50">
+      <motion.header
+         className="section py-[var(--grid--main-margin)] sticky top-0 min-h-[120px] z-50"
+         initial={{ opacity: 0, y: 50 }}
+         whileInView={{ opacity: 1, y: 0 }}
+         viewport={{ once: true }}
+         transition={{ duration: 0.8 }}
+      >
          <div className="mx-auto flex justify-between items-center col-span-12 w-full">
 
-            <Link
-               href=""
-               className=""
-               onMouseEnter={LogoAnimation}
-               onMouseLeave={LogoAnimation}
-               onClick={(event) => ScrollToSection("hero", event)}
-               scroll={false}
-               aria-label="Get to the top"
-            >
-               <div>
-                  <h3>
-                     <LogoAnimation
-                        initialText="Andrii Litkovskyi" hoverText="alitkovsky@me.com"
-                     />
-                  </h3>
-               </div>
-            </Link>
+            <h3>
+               <LogoAnimation
+                  initialText="Andrii Litkovskyi" hoverText="alitkovsky@me.com"
+               />
+            </h3>
 
             {!isMobileViewport && (
                <Nav />
             )}
 
             {isMobileViewport && (
-               <MobileNav toggleMobileNav={toggleMobileNav} isMobileNavOpen={isMobileNavOpen} />
+               <MobileNav
+                  toggleMobileNav={toggleMobileNav}
+                  isMobileNavOpen={isMobileNavOpen}
+               />
+            )}
+
+            {isMobileViewport && isMobileNavOpen && (
+               <div
+                  className={`fixed inset-0 z-40 flex flex-col items-center justify-center transition-all duration-300 bg-[var(--color--background--100)] ${
+                     isMobileNavOpen ? "opacity-100 visible" : "opacity-0 invisible"
+                  }`}
+                  onClick={closeMobileNav}
+               >
+                  <Nav
+                     onNavClick={closeMobileNav}
+                     isMobile={true}
+                  />
+               </div>
             )}
 
          </div>
-      </header>
-  )
+      </motion.header>
+  );
 };
 
 export default Header;

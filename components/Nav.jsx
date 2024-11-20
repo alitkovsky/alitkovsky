@@ -24,7 +24,7 @@ const links = [
    }
 ];
 
-const Nav = () => {
+const Nav = ({ onNavClick = () => {}, isMobile = false }) => {
    const [activeSection, setActiveSection] = useState("");
 
    useEffect(() => {
@@ -53,25 +53,30 @@ const Nav = () => {
    const isActive = (id) => activeSection === id;
 
    return (
-      <nav className="main-nav">
-         <ul>
-            {links.map((link, index) => (
+      <>
+         <nav className={`${isMobile ? "flex flex-col items-center z-90" : ""} main-nav`}>
+            <ul className={`${isMobile ? "" : ""}`}>
+               {links.map((link, index) => (
                   <li key={index}>
                      <Link
-                        onClick={(event) => ScrollToSection(link.path, event)}
+                        onClick={(event) => {
+                           ScrollToSection(link.path, event);
+                           onNavClick();
+                        }}
                         href=""
                         scroll={false}
                         aria-label={link.name}
                         aria-current={isActive(link.name) ? "true" : "false"}
-                        className={`decoration ${isActive(link.path) ? "active" : ""}`}
+                        className={`decoration ${isActive(link.path) ? "active" : ""} ${isMobile ? "pt-4 top-0" : ""}`}
                      >
                         {link.name}
                      </Link>
                   </li>
-            ))}
-         </ul>
-      </nav>
-   )
+               ))}
+            </ul>
+         </nav>
+      </>
+   );
 };
 
 export default Nav;

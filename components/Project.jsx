@@ -10,7 +10,7 @@ const Project = ( {index, title, year, live, projectsStack, setModal} ) => {
           <Link href={live}>{title}</Link>
         </h1>
         <ul className="flex gap-4">
-          {projectsStack.map((item, i) => {
+          {projectsStack.map((item, index) => {
             return (
               <li
                 key={index}

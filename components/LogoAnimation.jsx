@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
+import ScrollToSection from "@/components/ScrollToSection";
+
 const LogoAnimation = ({
   initialText,
   hoverText,
@@ -81,6 +83,10 @@ const LogoAnimation = ({
       href=""
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={(event) => ScrollToSection("hero", event)}
+      scroll={false}
+      aria-label="Get to the top"
+
     >
       {displayedText.map((char, i) => (
         <span key={i}>{char}</span>
