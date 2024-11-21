@@ -131,6 +131,20 @@
   .section.about > .content {
     grid-template-columns: var(--grid--main-columns);
   }
+  .section.intro .content .tools {
+    grid-template-columns: var(--grid--main-columns-2);
+  }
+  .section.intro .content .description {
+    grid-template-columns: var(--grid--main-columns-2);
+    h2 {
+      grid-column: 1 / -1;
+      font-size: var(--font--size-small);
+    }
+    p {
+      grid-column: 2 / -1;
+      text-align: right;
+    }
+  }
   .section.background .description,
   .section.background .item .description,
   .section.references .item {
@@ -166,8 +180,11 @@
     --grid--main-margin: 16px;
     --grid--main-columns: var(--grid--main-columns-2);
     --grid--main-gutter: 16px;
-    --font--size-huge: clamp(32px, 7.5vw, 7.5vw);
-    --font--size-large: clamp(22px, 2.64vw, 2.64vw);
+    --font--size-monster: clamp(32px, 4.45vw, 4.45vw);
+    --font--size-huge: clamp(20px, 3.45vw, 3.45vw);
+    --font--size-large: clamp(18px, 1.81vw, 1.81vw);
+    --font--size-medium: clamp(16px, 1vw, 1vw);
+    --font--size-xs: clamp(10px, 0.4vw, 0.4vw);
   }
   .section h1 {
     line-height: 1;
@@ -179,6 +196,16 @@
   .section.about > .content,
   .section.about .biography {
     grid-column: 1 / -1;
+  }
+  .section.intro .content .description {
+    h2 {
+      grid-column: 1 / -1;
+      font-size: var(--font--size-small);
+    }
+    p {
+      grid-column: 2 / -1;
+      text-align: right;
+    }
   }
   .section.contact .text .content {
     max-width: none;

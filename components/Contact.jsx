@@ -16,7 +16,7 @@ const Contact = () => {
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
     >
-      <div className="side content-center justify-between gap-20">
+      <div className="aside content-center justify-between gap-20">
         <div className="flex flex-col gap-1 mt-8">
           <p className="self-center">currently available for work</p>
         </div>

@@ -63,22 +63,24 @@ const Projects = () => {
 
   return (
     <motion.section
-      className="section projects mt-[var(--grid--main-xheight)]"
+      className="section projects"
       id="projects"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
     >
-    <div className="content">
-      <h1>Feature projects</h1>
-      <div className="project-container w-full flex flex-col items-center justify-center py-10">
-          {projects.map( (project, index) => {
-            return <Project key={index} index={index} setModal={setModal} title={project.title} year={project.year} live={project.live} projectsStack={project.stack} />
-          })}
+      <div className="aside">
+        <h1>Feature projects</h1>
       </div>
-      <Modal modal={modal} projects={projects} />
-    </div>
+      <div className="content">
+        <div className="project-container w-full flex flex-col items-center justify-center py-10">
+            {projects.map( (project, index) => {
+              return <Project key={index} index={index} setModal={setModal} title={project.title} year={project.year} live={project.live} projectsStack={project.stack} />
+            })}
+        </div>
+        <Modal modal={modal} projects={projects} />
+      </div>
    </motion.section>
   )
 };

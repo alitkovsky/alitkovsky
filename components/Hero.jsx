@@ -13,6 +13,9 @@ const Hero = () => {
       className="section hero"
       id="hero"
     >
+      <div className="aside">
+        <h1>Intro</h1>
+      </div>
       <div className="content content-between">
         <div>
           <h2>Front-End Developer</h2>

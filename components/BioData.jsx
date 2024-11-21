@@ -83,7 +83,7 @@ const certification = {
      {
        platform: "Meta",
        link: "",
-       direction: "Front-End Developer Professional Certificate",
+       direction: "Front-End Developer Professional",
        date: "JAN, 2024",
      },
      {
@@ -156,6 +156,9 @@ const BioData = () => {
          viewport={{ once: true }}
          transition={{ duration: 0.8 }}
       >
+         <div className="aside">
+            <h1>About</h1>
+         </div>
          <div className="content">
             <div className="flex flex-row gap-8 w-full">
                <div className="flex flex-col gap-2 w-full">
