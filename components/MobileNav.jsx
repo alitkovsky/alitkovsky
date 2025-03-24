@@ -10,8 +10,12 @@ const MobileNav = ({ isMobileNavOpen, toggleMobileNav}) => {
          >
             <div className="content">
                <div className="icon">
-               <div className="line"><div className="content"></div></div>
-               <div className="line"><div className="content"></div></div>
+                  <div className="line">
+                     <div className="content"></div>
+                  </div>
+                  <div className="line">
+                     <div className="content"></div>
+                  </div>
                </div>
             </div>
          </div>

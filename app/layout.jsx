@@ -15,10 +15,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <Head>
         <link rel="shortcut icon" type="image/png" href="favicon-32x32.png" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-R9C07PPTEZ"></script>
       </Head>
       <body>
-          <Header />
-          {children}
+          <div className="isolate">
+            <Header />
+            {children}
+          </div>
       </body>
     </html>
   );

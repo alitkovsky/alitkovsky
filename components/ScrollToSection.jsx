@@ -6,11 +6,11 @@ const ScrollToSection = (id, event) => {
    const element = document.getElementById(id);
    if (element) {
       const isLastSection = element === document.querySelector("section:last-of-type");
-      const offsetAdjustment = isLastSection ? 0 : 120;
+      const offsetAdjustment = isLastSection ? 0 : 10;
       const top = element.offsetTop - offsetAdjustment;
       setTimeout(() => {
          window.scrollTo({ top, behavior: "smooth" });
-      }, 50); // delay to wait for layout stabilization
+      }, 100); // delay to wait for layout stabilization
    }
 };
 

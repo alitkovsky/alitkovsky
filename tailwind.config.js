@@ -29,14 +29,14 @@ module.exports = {
         "grid-columns-1": "repeat(11 [col-start] 1fr)",
       },
       colors: {
-        primary: "rgb(5 26 28 / 1)",
+        primary: "rgba(5 26 28 / 1)",
         accent: {
-          DEFAULT: "rgb(195 235 241 / 1)",
-          hover: "rgb(195 235 241 / 1)",
+          DEFAULT: "rgba(195 235 241 / 1)",
+          hover: "rgba(195 235 241 / 1)",
         },
-        background: "rgb(5 26 28 / 1)",
-        foreground: "rgb(195 235 241 / 1)",
-        link: "rgb(195 235 241 / 0.45)",
+        background: "y",
+        foreground: "rgba(195 235 241 / 1)",
+        link: "rgba(195 235 241 / 0.45)",
       },
       fontSize: {
         "huge--sm": "clamp(32px, 7.5vw, 7.5vw)",

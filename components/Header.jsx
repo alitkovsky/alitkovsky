@@ -35,7 +35,7 @@ const Header = () => {
 
    return (
       <motion.header
-         className="section py-[var(--grid--main-margin)] sticky top-0 min-h-[120px] z-50"
+         className={`section py-(--grid--main-margin) sticky top-0 min-h-[120px] z-50 ${isMobileNavOpen ? "" : "mix-blend-difference"}`}
          initial={{ opacity: 0, y: 50 }}
          whileInView={{ opacity: 1, y: 0 }}
          viewport={{ once: true }}
@@ -43,7 +43,7 @@ const Header = () => {
       >
          <div className="mx-auto flex justify-between items-center col-span-12 w-full">
 
-            <h3>
+            <h3 className="z-50">
                <LogoAnimation
                   initialText="Andrii Litkovskyi" hoverText="alitkovsky@me.com"
                />
@@ -62,7 +62,7 @@ const Header = () => {
 
             {isMobileViewport && isMobileNavOpen && (
                <div
-                  className={`fixed inset-0 z-40 flex flex-col items-center justify-center transition-all duration-300 bg-[var(--color--background--100)] ${
+                  className={`fixed inset-0 z-40 flex flex-col items-center justify-center transition-all duration-300 bg-(--color--background--100) ${
                      isMobileNavOpen ? "opacity-100 visible" : "opacity-0 invisible"
                   }`}
                   onClick={closeMobileNav}

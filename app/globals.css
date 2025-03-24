@@ -1,8 +1,98 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
+@config '../tailwind.config.js';
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
 @layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+@layer base { 
   :root {
     --grid--main-margin: 40px;
     --grid--main-columns: var(--grid--main-columns-12);
@@ -18,11 +108,19 @@
   }
 
   :root {
+    /* Pantone */
+    --color--background--100: rgb(14 63 62 / 1);
+    /* --color--foreground--33: rgb(82 133 60 / 1); */
+    --color--foreground--100: rgb(183 210 152 / 1);
+    /* --color--foreground--33: rgb(220 226 200 / 1); */
+
+
     /* Midnight blue and grain brown */
     /* --color--foreground--100: rgb(227 205 176 / 1); */
 
     /* Blue dianne and norway */
-    --color--foreground--100: rgb(187 205 177 / 1); /* AAA WCAG Standard passed */
+    /* --color--foreground--100: rgb(187 205 177 / 1); */
+
     /* --color--foreground--100: rgb(164 191 157 / 1); // AAA WCAG Standard didn't passed */
     --color--foreground--33:  rgb(164 191 157 / 0.45);
     --color--foreground--25:  rgb(164 191 157 / 0.4);
@@ -31,7 +129,7 @@
 
     /* --color--foreground--100: rgb(195 235 241 / 1); */
     --color--foreground--50:  rgb(195 235 241 / 0.6);
-    --color--foreground--33:  rgb(195 235 241 / 0.45);
+    /* --color--foreground--33:  rgb(195 235 241 / 0.45); */
     --color--foreground--25:  rgb(195 235 241 / 0.4);
     --color--foreground--20:  rgb(195 235 241 / 0.27);
     --color--foreground--15:  rgb(195 235 241 / 0.22);
@@ -45,7 +143,7 @@
     /* --color--background--100: rgb(10 51 98 / 1); */
 
     /* Blue dianne and norway */
-    --color--background--100: rgb(12 61 72 / 1);
+    /* --color--background--100: rgb(12 61 72 / 1); */
 
     --font--family: "UnitySans Display", system-ui, sans-serif;
     --font--style: normal;
@@ -127,51 +225,25 @@
     font-size: var(--font--size-xs);
   }
 
-
-/* NOISE */ /* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE */
-/* .noise {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 999999;
-  opacity: 0.9;
-}
-
-@keyframes noise-animation {
-  0% {
-      background-position: 0 0;
-  }
-  100% {
-      background-position: 500px 500px;
-  }
-}
-
-.noise-animate {
-  animation: noise-animation 5s ease-in-out infinite;
-} */
-
-/* NOISE */ /* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE *//* NOISE */
-
   /* Section */
   .section {
     padding: 0 var(--grid--main-margin);
     display: grid;
     grid-template-columns: var(--grid--main-columns);
     gap: var(--grid--main-gutter);
+    z-index: 1;
   }
   .section > .aside {
     display: grid;
-    grid-column: 1 / 3;
+    grid-column: span 3;
+
     p {
       font-size: var(--font--size-xxs);
     }
   }
   .section > .content {
     display: grid;
-    grid-column: 5 / -1;
+    grid-column: 3 / -1;
   }
 
   /* Header */
@@ -237,15 +309,16 @@
     display: block;
     padding: 12px;
     margin-right: -12px;
-    border-radius: 24px;
+    border-radius: 20px;
     position: relative;
     z-index: 99;
   }
   .navigation:hover {
     cursor: pointer;
   }
+
   .navigation .icon {
-    width: 24px;
+    width: 48px;
     height: 24px;
     display: flex;
     flex-direction: column;
@@ -255,7 +328,7 @@
     position: absolute;
   }
   .navigation .line .content {
-    width: 24px;
+    width: 48px;
     height: 2px;
     background-color: var(--color--foreground--100);
   }
@@ -361,6 +434,144 @@
   .mail {
     color: var(--color--foreground--33);
   }
+
+  .scroll {
+    position: absolute;
+    bottom: 16px;
+    right: var(--grid--main-margin);
+    width: 2px;
+    height: 80px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 5s ease-in-out;
+  }
+  .scroll .invisible {
+    opacity: 0;
+    transition: opacity 5s ease-in-out;
+  }
+
+  .scroll-line {
+    width: 2px;
+    height: 80px;
+    background: var(--color--foreground--100);
+    animation: height 2.5s ease-in infinite;
+  }
+
+  @keyframes height {
+    0% {
+      transform: translateY(-100%);
+    }
+    50% {
+      transform: translateY(0);
+    }
+    60% {
+      transform: translateY(0);
+    }
+    90% {
+      transform: translateY(110%);
+    }
+    100% {
+      transform: translateY(110%);
+    }
+  }
+
+  .to-top {
+    position: fixed;
+    bottom: 16px;
+    right: var(--grid--main-margin);
+    width: 48px;
+    height: 48px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  .to-top.visible {
+    opacity: 1;
+  }
+
+  /* Target the two lines */
+  .to-top .arrow {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .to-top.visible .arrow .line {
+    position: absolute;
+    width: 48px;
+    height: 2px;
+    animation: left 0.5s ease-in-out forwards;
+  }
+  @keyframes left {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .to-top .arrow .line::before,
+  .to-top .arrow .line::after {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: var(--color--foreground--100);
+  }
+
+/* Default positions */
+.to-top .arrow .line:nth-child(1)::before,
+.to-top .arrow .line:nth-child(2)::before {
+  left: 0;
+  transform: rotate(0deg) translateX(0);
+  animation: left 2.5s ease-in-out forwards;
+}
+.to-top .arrow .line:nth-child(1)::after,
+.to-top .arrow .line:nth-child(2)::after {
+  right: 0;
+  transform: rotate(0deg) translateX(0);
+  animation: left 2.5s ease-in-out forwards;
+}
+
+  /* Second animation: Arrow appears after the first animation completes */
+.to-top.animated .arrow .line:nth-child(1)::before,
+.to-top.animated .arrow .line:nth-child(2)::before {
+  animation: arrow-up-left 0.5s 0.5s ease-in-out forwards;
+}
+.to-top.animated .arrow .line:nth-child(1)::after,
+.to-top.animated .arrow .line:nth-child(2)::after {
+  animation: arrow-up-right 0.5s 0.5s ease-in-out forwards;
+}
+
+/* Arrow animations */
+@keyframes arrow-up-left {
+  0% {
+    transform: rotate(0deg) translateX(0);
+  }
+  100% {
+    transform: rotate(-45deg) translateX(6px);
+  }
+}
+
+@keyframes arrow-up-right {
+  0% {
+    transform: rotate(0deg) translateX(0);
+  }
+  100% {
+    transform: rotate(45deg) translateX(-6px);
+  }
+}
+
 
   /* Projects */
   .section.projects .content {

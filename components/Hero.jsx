@@ -9,22 +9,19 @@ import Link from "next/link";
 
 const Hero = () => {
   return (
-    <motion.section
+    <section
       className="section hero"
       id="hero"
     >
-      <div className="aside">
-        <h1>Intro</h1>
-      </div>
       <div className="content content-between">
-        <div>
+        <div className="col-span-10 grid">
           <h2>Front-End Developer</h2>
-          <h3 className="text-[var(--color--foreground--33)]">based in Germany / available worldwide</h3>
+          <h3 className="text-(--color--foreground--33)">based in Germany / available worldwide</h3>
           <div className="place-self-end">
-            <p className="justify-start text-[var(--color--foreground--33)] mt-8">Berlin <Time /></p>
+            <p className="justify-start text-(--color--foreground--33) mt-8">Berlin <Time /></p>
           </div>
         </div>
-        <h1>
+        <h1 className="col-span-9">
           With a unique blend of marketing insight and frontend expertise, I bridge the gap between user needs and product design.
         </h1>
       </div>
@@ -34,18 +31,18 @@ const Hero = () => {
           <p>
             <Link href="mailto:alitkovsky@me.com" className="mail">alitkovsky@me.com</Link>
           </p>
-          <p className="text-[var(--color--foreground--33)]">
+          <p className="text-(--color--foreground--33)">
             <Link href="tel:+4917658238236">+49 176 5823 8236</Link>
           </p>
         </div>
         <div>
-          <Socials
+          {/* <Socials
             containerStyles="flex flex-col gap-[2px]"
-            iconStyles="flex justify-end items-end text-[var(--color--foreground--33)] hover:bg-[var(--color--background--100)] hover:text-[var(--color--foreground--100)] hover:transition-all duration-500"
-          />
+            iconStyles="flex justify-end items-end text-(--color--foreground--33) hover:bg-(--color--background--100) hover:text-(--color--foreground--100) hover:transition-all duration-500"
+          /> */}
         </div>
       </div>
-    </motion.section>
+    </section>
   )
 };
 
