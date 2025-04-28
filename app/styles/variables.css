@@ -1,0 +1,57 @@
+
+
+/* Variables
+----------------------------------------------------------------------------- */
+
+:root {
+  --font--style: normal;
+  --font--weight: 400;
+  --font--margin-left: -0.07em;
+  --font--margin-left-opening-quote-mark: -0.406em;
+  --font--feature-settings: "liga", "ss02", "ss03", "ss04", "ss06";
+  --font--feature-settings-no-stylized-numeral-8: "ss06" 0;
+  --font--size-monster: clamp(42px, 6.45vw, 6.45vw);
+  --font--size-huge: clamp(36px, 5.14vw, 5.14vw);
+  --font--size-large: clamp(32px, 2.81vw, 2.81vw);
+  --font--size-medium: 22px;
+  --font--size-regular: 16px;
+  --font--size-small: 14px;
+  --font--size-xs: 12px;
+  --font--size-xxs: 10px;
+  --font--size-regular-line-height: 1.25;
+}
+
+:root {
+  --grid--app-margin: 40px;
+  --grid--app-columns: var(--grid--app-columns-12);
+  --grid--app-columns-12: repeat(12, [col-start] 1fr);
+  --grid--app-columns-6: repeat(6, [col-start] 1fr);
+  --grid--app-columns-4: repeat(4, [col-start] 1fr);
+  --grid--app-columns-3: repeat(3, [col-start] 1fr);
+  --grid--app-columns-2: repeat(2, [col-start] 1fr);
+  --grid--app-columns-1: repeat(1, [col-start] 1fr);
+  --grid--app-gutter: 20px;
+  --grid--app-xheight: 120px; /* 120px */
+  --primary-curve: cubic-bezier(0.62,0.05,0.01,0.99);
+}
+
+:root {
+  --color--foreground--100: rgb(183 210 152 / 1);
+  --color--foreground--50:  rgb(183 210 152 / 0.5);
+  --color--foreground--33:  rgb(183 210 152 / 0.333);
+  --color--foreground--25:  rgb(183 210 152 / 0.25);
+  --color--foreground--20:  rgb(183 210 152 / 0.2);
+  --color--foreground--15:  rgb(183 210 152 / 0.15);
+  --color--foreground--10:  rgb(183 210 152 / 0.1);
+  --color--foreground--5:   rgb(183 210 152 / 0.05);
+  --color--foreground--0:   rgb(183 210 152 / 0);
+  --color--background--100: rgb(14 63 62 / 1);
+  --color--background--0:   rgb(14 63 62 / 0);
+
+  /* Midnight blue and grain brown */
+    /* --color--foreground--100: rgb(227 205 176 / 1); */
+    /* --color--background--100: rgb(10 51 98 / 1); */
+    /* Blue dianne and norway */
+    /* --color--foreground--100: rgb(187 205 177 / 1); */
+    /* --color--background--100: rgb(12 61 72 / 1); */
+}

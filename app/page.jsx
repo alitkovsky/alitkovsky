@@ -1,18 +1,18 @@
-import Hero from "@/components/Hero";
-import Intro from "@/components/Intro";
-import Projects from "@/components/Projects";
-import BioData from "@/components/BioData";
+import Cover from "@/components/Cover";
+import About from "@/components/About";
 import Contact from "@/components/Contact";
-import ScrollToTop from "@/components/ScrollToTop";
+import Intro from "@/components/Intro";
+import Values from "@/components/Values";
+import Background from "@/components/Background";
 
 export default function Home() {
   return (
-    <main className="isolate">
-      <ScrollToTop />
-      <Hero />
+    <main className="app-main">
+      <Cover />
       <Intro />
-      <Projects />
-      <BioData />
+      <Values />
+      <Background />
+      <About />
       <Contact />
     </main>
   );

@@ -1,82 +1,44 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import Time from "@/components/Time";
+import useMobileNav from "@/hooks/useMobileNav";
 
-import Nav from "@/components/Nav";
-import MobileNav from "@/components/MobileNav";
-import LogoAnimation from "@/components/LogoAnimation";
+export default function Header() {
+  useMobileNav();
 
-const Header = () => {
-   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-   const [isMobileViewport, setIsMobileViewport] = useState(false);
-
-   useEffect(() => {
-      const handleResize = () => {
-         setIsMobileViewport(window.innerWidth < 1020);
-         if (window.innerWidth >= 1020) {
-            setIsMobileNavOpen(false);
-         }
-      };
-
-      handleResize();
-      window.addEventListener("resize", handleResize);
-
-      return () => window.removeEventListener("resize", handleResize);
-   }, []);
-
-   const toggleMobileNav = () => {
-      setIsMobileNavOpen((prev) => !prev);
-   };
-
-   const closeMobileNav = () => {
-      setIsMobileNavOpen(false);
-   };
-
-   return (
-      <motion.header
-         className={`section py-(--grid--main-margin) sticky top-0 min-h-[120px] z-50 ${isMobileNavOpen ? "" : "mix-blend-difference"}`}
-         initial={{ opacity: 0, y: 50 }}
-         whileInView={{ opacity: 1, y: 0 }}
-         viewport={{ once: true }}
-         transition={{ duration: 0.8 }}
-      >
-         <div className="mx-auto flex justify-between items-center col-span-12 w-full">
-
-            <h3 className="z-50">
-               <LogoAnimation
-                  initialText="Andrii Litkovskyi" hoverText="alitkovsky@me.com"
-               />
+  return (
+    <header className="app-header">
+      <div className="content">
+        <div className="brand">
+          <div className="brand-inner">
+            <h3 className="first-name">
+              <span>A</span><span>n</span><span>d</span><span>r</span><span>i</span><span>ı</span>
             </h3>
+            <h3 className="last-name">
+              <span className="first">L</span><span>ı</span><span>t</span><span>k</span><span>o</span><span>v</span><span>s</span><span>k</span><span>y</span><span>i</span>
+            </h3>
+          </div>
+        </div>
+        <Time />
+        <div className="actions">
+          {/* <div className="language">
+            <a href="/">De</a>&nbsp;|&nbsp;<a href="/">En</a>
+          </div> */}
+          <div className="status content">
+            <span className="arrow">→</span>
+            <a href="" className="text">Let's meat!</a>
+          </div>
+          <div className="option navigation">
+            <div className="content">
+              <div className="icon">
+                <div className="line"><div className="content"></div></div>
+                <div className="line"><div className="content"></div></div>
+              </div>
+            </div>
+          </div>
 
-            {!isMobileViewport && (
-               <Nav />
-            )}
-
-            {isMobileViewport && (
-               <MobileNav
-                  toggleMobileNav={toggleMobileNav}
-                  isMobileNavOpen={isMobileNavOpen}
-               />
-            )}
-
-            {isMobileViewport && isMobileNavOpen && (
-               <div
-                  className={`fixed inset-0 z-40 flex flex-col items-center justify-center transition-all duration-300 bg-(--color--background--100) ${
-                     isMobileNavOpen ? "opacity-100 visible" : "opacity-0 invisible"
-                  }`}
-                  onClick={closeMobileNav}
-               >
-                  <Nav
-                     onNavClick={closeMobileNav}
-                     isMobile={true}
-                  />
-               </div>
-            )}
-
-         </div>
-      </motion.header>
+        </div>
+      </div>
+    </header>
   );
 };
-
-export default Header;

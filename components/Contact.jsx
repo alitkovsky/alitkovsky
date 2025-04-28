@@ -1,48 +1,46 @@
 "use client";
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-
-import Time from "@/components/Time";
-import Footer from "@/components/Footer";
-
 const Contact = () => {
   return (
-    <motion.section
-      className="section contact justify-between"
-      id="contact"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-    >
-      <div className="aside content-center justify-between gap-20">
-        <div className="flex flex-col gap-1 mt-8">
-          <p className="self-center">currently available for work</p>
-        </div>
-        <div className="flex flex-col gap-1">
-          <p><Time /></p>
-          <p>Hille, NRW, Germany</p>
-        </div>
-      </div>
-      <div className="content content-evenly">
-          <h1>Reach out</h1>
-          <div>
-            <h2 className="flex flex-col">
-              For any collaborative projects <br />or inquiries feel free to <br />reach out to me.
-            </h2>
-            <Link href="mailto:alitkovsky@me.com" className="mail decoration"><h2>alitkovsky@me.com</h2></Link>
-          </div>
-          <div className="more place-self-end justify-between gap-20">
-            <p className="self-center">currently available for work</p>
-            <div className="flex flex-col gap-1">
-              <p><Time /></p>
-              <p>Hille, NRW, Germany</p>
+    <section className="section contact" id="contact">
+      <div className="content">
+
+        <div className="text">
+
+          <div className="content">
+
+            <div className="look">
+              <div className="radius"></div>
+              <div className="dot"></div>
             </div>
+
+            <div className="status">
+              <h3>Exploring new opportunities</h3>
+            </div>
+
+            <div className="interest">
+              <h2>I am recently open to work.</h2>
+            </div>
+
           </div>
+
+          <div className="actions">
+            <div className="item"><a href="mailto:alitkovsky@me.com?subject=Enquiry%20from%20website">alitkovsky@me.com</a></div>
+            <div className="item"><a href="/" target="_blank">LinkedIn</a></div>
+          </div>
+
+        </div>
+
+        <div className="image">
+          <figure>
+            <img src="assets/profile/andrii-litkovskyi-1600x1600.jpg" alt="Profile photo of Andrii Litkovskyi" />
+            <div className="image-overlay-01"></div>
+            <div className="image-overlay-02"></div>
+          </figure>
+        </div>
+
       </div>
-      <Footer />
-    </motion.section>
+    </section>
   )
 };
 
