@@ -26,7 +26,7 @@ export default function Header() {
           </div> */}
           <div className="status content">
             <span className="arrow">→</span>
-            <a href="" className="text">Let's meat!</a>
+            <a href="" className="text">Let's meet!</a>
           </div>
           <div className="option navigation">
             <div className="content">
