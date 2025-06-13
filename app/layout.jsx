@@ -9,6 +9,9 @@ import Head from "next/head";
 import ThemeBootScript from "@/components/ThemeBootScript";
 // import { GoogleTagManager } from "@next/third-parties/google";
 
+import { useEffect } from "react";
+import clarity from "@microsoft/clarity";
+
 import AppWrapper from "@/components/AppWrapper";
 
 export const metadata = {
@@ -27,6 +30,13 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }) {
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      clarity('start', 'q521snvldj');
+    }
+  }, []);
+
   return (
     <html lang="en">
       <Head>
