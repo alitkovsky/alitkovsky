@@ -31,6 +31,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head>
+      <GoogleTagManager gtmId="GTM-N4GKN2G2" />
+      <Clarity />
         <link rel="shortcut icon" type="image/png" href="favicon-32x32.png" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -60,8 +62,6 @@ export default function RootLayout({ children }) {
         <ThemeBootScript />
 
       </Head>
-      <GoogleTagManager gtmId="GTM-N4GKN2G2" />
-      <Clarity />
       <body className="cover--is--visible is--loading theme--16">
           <AppWrapper>{children}</AppWrapper>
           {/* <noscript>
