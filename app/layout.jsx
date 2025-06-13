@@ -61,6 +61,7 @@ export default function RootLayout({ children }) {
 
       </Head>
       <GoogleTagManager gtmId="GTM-N4GKN2G2" />
+      <Clarity />
       <body className="cover--is--visible is--loading theme--16">
           <AppWrapper>{children}</AppWrapper>
           {/* <noscript>
