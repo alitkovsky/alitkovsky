@@ -7,10 +7,8 @@ import "./styles/grid.css";
 
 import Head from "next/head";
 import ThemeBootScript from "@/components/ThemeBootScript";
-// import { GoogleTagManager } from "@next/third-parties/google";
-
-import { useEffect } from "react";
-import clarity from "@microsoft/clarity";
+import { GoogleTagManager } from "@next/third-parties/google";
+import Clarity from "@/components/Clarity";
 
 import AppWrapper from "@/components/AppWrapper";
 
@@ -30,13 +28,6 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }) {
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      clarity('start', 'q521snvldj');
-    }
-  }, []);
-
   return (
     <html lang="en">
       <Head>
@@ -69,7 +60,7 @@ export default function RootLayout({ children }) {
         <ThemeBootScript />
 
       </Head>
-      {/* <GoogleTagManager gtmId="GTM-N4GKN2G2" /> */}
+      <GoogleTagManager gtmId="GTM-N4GKN2G2" />
       <body className="cover--is--visible is--loading theme--16">
           <AppWrapper>{children}</AppWrapper>
           {/* <noscript>
