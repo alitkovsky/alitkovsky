@@ -28,7 +28,7 @@ export default function Intro() {
           </h1>
 
           <h1 className="text recruiters">
-            I bring 7+ years of experience across paid media, SEO, CRO, and analytics. Proven track record in both B2B and B2C, with 70%+ YoY booking growth in my latest role.<br />
+            I bring 15+ years of experience across paid media, SEO, CRO, and analytics. Proven track record in both B2B and B2C, with 70%+ YoY booking growth in my latest role.<br />
             I’m not just a channel expert—I connect dots between creative, data, and business strategy.
           </h1>
 
