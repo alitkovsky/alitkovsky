@@ -37,7 +37,7 @@
   min-height: 100vh;
   transform: translateY(-15vh);
   opacity: 0;
-  transition: transform 1.5s cubic-bezier(0.33, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.33, 0, 0.2, 1) 0.25s;
+  transition: transform 2.5s cubic-bezier(0.33, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.33, 0, 0.2, 1) 0.25s;
   pointer-events: none;
 }
 .section.cover > .content {
@@ -48,8 +48,10 @@
 .section.cover h1 {
   margin-top: auto;
   margin-bottom: auto;
-  padding-bottom: 40px;
   animation: welcome 1.5s ease-in-out;
+  margin-left: var(--font--margin-left);
+  font-size: var(--font--size-huge);
+  line-height: 1;
 }
 @keyframes welcome {
   0% {
@@ -69,7 +71,7 @@ body.is--loading {
 body.is--loading .app-header,
 body.is--loading .app-nav,
 body.is--loading .app-aside .options .option {
-  transition: opacity 1s cubic-bezier(0.33, 0, 0.2, 1) 0.75s;
+  transition: opacity 1.5s cubic-bezier(0.33, 0, 0.2, 1) 0.75s;
 }
 body.is--loading .app-main {
   position: relative;
@@ -98,7 +100,6 @@ body.cover--is--visible .app-aside .options .option {
 
 /* App header
 ----------------------------------------------------------------------------- */
-
 .app-header {
   position: fixed;
   width: 100%;
@@ -145,110 +146,68 @@ body.cover--is--visible .app-aside .options .option {
   transform-origin: 0 0;
 }
 .app-header .brand {
-  display: flex;
-  justify-content: start;
   padding: 12px 0;
-  overflow: hidden;
-  position: relative;
 }
 .app-header .brand:hover {
   cursor: default;
 }
-.app-header .brand .brand-inner {
-  display: inline-flex;
-  transform: translateX(-3.05em);
-  transition: transform 0.6s cubic-bezier(0.33, 0, 0.2, 1);
-}
-.app-header .brand:hover .brand-inner {
-  transform: translateX(0.05em);
-  transition: transform 0.6s cubic-bezier(0.33, 0, 0.2, 1) 0s;
-}
-.app-header .brand:not(:hover) .brand-inner {
-  transition-delay: 0.3s;
-}
 .app-header .brand h3 {
   margin-left: var(--font--margin-left);
-  font-size: var(--font--size-medium);
+  font-size: var(--font--size-large);
+  font-weight: 700;
   line-height: 1;
 }
-/* First name */
-.app-header .brand h3.first-name span:nth-last-child(n+1) {
-  margin-right: var(--font--margin-left);
-  margin-right: -0.035em;
-  opacity: 0;
-  transition: margin-right 0.3s ease-in, opacity 0.3s ease-in;
-}
-.app-header .brand:hover h3.first-name span:nth-last-child(n+1) {
-  margin-right: -0.035em;
-  opacity: 1;
-  transition: margin-right 0.3s ease-out, opacity 0.3s ease-out;
-}
-
-.app-header .brand:hover h3.first-name span:nth-last-child(1)  { transition-delay: 0.01s; }
-.app-header .brand:hover h3.first-name span:nth-last-child(2)  { transition-delay: 0.02s; }
-.app-header .brand:hover h3.first-name span:nth-last-child(3)  { transition-delay: 0.03s; }
-.app-header .brand:hover h3.first-name span:nth-last-child(4)  { transition-delay: 0.04s; }
-.app-header .brand:hover h3.first-name span:nth-last-child(5)  { transition-delay: 0.05s; }
-.app-header .brand:hover h3.first-name span:nth-last-child(6)  { transition-delay: 0.06s; }
-
-.app-header .brand h3.first-name span:nth-last-child(1)  { transition-delay: 0.06s; }
-.app-header .brand h3.first-name span:nth-last-child(2)  { transition-delay: 0.05s; }
-.app-header .brand h3.first-name span:nth-last-child(3)  { transition-delay: 0.04s; }
-.app-header .brand h3.first-name span:nth-last-child(4)  { transition-delay: 0.03s; }
-.app-header .brand h3.first-name span:nth-last-child(5)  { transition-delay: 0.02s; }
-.app-header .brand h3.first-name span:nth-last-child(6)  { transition-delay: 0.01s; }
-
-/* Last name */
-.app-header .brand h3.last-name {
-  padding-left: 0.4em;
-}
-.app-header .brand h3.last-name span:nth-child(n+2) {
+.app-header .brand h3 span:nth-child(n+2) {
   margin-left: var(--font--margin-left);
   margin-left: -0.035em;
   opacity: 0;
   transition: margin-left 0.3s ease-in, opacity 0.3s ease-in;
 }
-.app-header .brand:hover h3.last-name span:nth-child(n+2) {
+.app-header .brand:hover h3 span:nth-child(n+2) {
   margin-left: 0;
   opacity: 1;
   transition: margin-left 0.3s ease-out, opacity 0.3s ease-out;
 }
+/* first name */
+.app-header .brand h3.first-name span:nth-child(1)::before  { content: "\02D9"; position: absolute; opacity: 1; margin-left:1.02em; transition: margin-left 0.3s ease-in, opacity 0.3s ease-in; }
+.app-header .brand h3.first-name span:nth-child(1)::after  { content: "\02D9"; position: absolute; opacity: 1; margin-left:0.05em; transform-origin: center; transition: margin-left 0.3s ease-in, opacity 0.3s ease-in; }
 
-.app-header .brand h3.last-name span:nth-child(1)::before  { content: "˙"; position: absolute; opacity: 1; margin-left: -0.5em; }
-.app-header .brand h3.last-name span:nth-child(1)::after  { content: "˘"; position: absolute; opacity: 1; margin-left: -0.09em; animation: eyeBlink 3.6s ease-in-out infinite; transform-origin: center; }
-@keyframes eyeBlink {
-  0%, 88%, 100% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-  90% {
-    transform: scaleY(0.2);
-    opacity: 0.3;
-  }
-  92% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-}
-.app-header .brand:hover h3.last-name span:nth-child(2)  { transition-delay: 0.01s; }
-.app-header .brand:hover h3.last-name span:nth-child(3)  { transition-delay: 0.02s; }
-.app-header .brand:hover h3.last-name span:nth-child(4)  { transition-delay: 0.03s; }
-.app-header .brand:hover h3.last-name span:nth-child(5)  { transition-delay: 0.04s; }
-.app-header .brand:hover h3.last-name span:nth-child(6)  { transition-delay: 0.05s; }
-.app-header .brand:hover h3.last-name span:nth-child(7)  { transition-delay: 0.06s; }
-.app-header .brand:hover h3.last-name span:nth-child(8)  { transition-delay: 0.07s; }
-.app-header .brand:hover h3.last-name span:nth-child(9)  { transition-delay: 0.08s; }
-.app-header .brand:hover h3.last-name span:nth-child(10) { transition-delay: 0.09s; }
+.app-header .brand:hover h3.first-name span:nth-child(1)::before  { content: "\02D9"; position: absolute; opacity: 1; margin-left:2.57em; transition: margin-left 0.3s ease-out, opacity 0.3s ease-out; transition-delay: 0.03s; }
 
-.app-header .brand h3.last-name span:nth-child(2) { transition-delay: 0.09s; }
-.app-header .brand h3.last-name span:nth-child(3)  { transition-delay: 0.08s; }
-.app-header .brand h3.last-name span:nth-child(4)  { transition-delay: 0.07s; }
-.app-header .brand h3.last-name span:nth-child(5)  { transition-delay: 0.06s; }
-.app-header .brand h3.last-name span:nth-child(6)  { transition-delay: 0.05s; }
-.app-header .brand h3.last-name span:nth-child(7)  { transition-delay: 0.04s; }
-.app-header .brand h3.last-name span:nth-child(8)  { transition-delay: 0.03s; }
-.app-header .brand h3.last-name span:nth-child(9)  { transition-delay: 0.02s; }
-.app-header .brand h3.last-name span:nth-child(10) { transition-delay: 0.01s; }
+.app-header .brand:hover h3.first-name span:nth-child(1)::after  { content: "\02D9"; position: absolute; opacity: 1; margin-left:2.18em; transform-origin: center; transition: margin-left 0.3s ease-out, opacity 0.3s ease-out; transition-delay: 0.04s; }
+
+
+
+/* last name */
+.app-header .brand h3.last-name span:nth-child(1)::before  { content: "\02D9"; position: absolute; opacity: 1; margin-left:0.33em; transition: margin-left 0.6s ease-in, opacity 0.6s ease-in; }
+.app-header .brand h3.last-name span:nth-child(1)::after  { content: "\02D9"; position: absolute; opacity: 1; margin-left:0.33em; transform-origin: center; transition: margin-left 0.6s ease-in, opacity 0.6s ease-in; }
+
+.app-header .brand:hover h3.last-name span:nth-child(1)::before  { content: "\02D9"; position: absolute; opacity: 1; margin-left:0.32em; transition: margin-left 0.3s ease-out, opacity 0.3s ease-out; transition-delay: 0.03s; }
+
+.app-header .brand:hover h3.last-name span:nth-child(1)::after  { content: "\02D9"; position: absolute; opacity: 1; margin-left:4.20em; transform-origin: center; transition: margin-left 0.3s ease-out, opacity 0.3s ease-out; transition-delay: 0.04s; }
+
+.app-header .brand:hover h3.first-name span:nth-child(1)  { transition-delay: 0.00s;}
+.app-header .brand:hover h3.last-name span:nth-child(1)  {  margin-left:0em; transition-delay: 0.00s;}
+.app-header .brand:hover h3 span:nth-child(2)  { transition-delay: 0.01s; }
+.app-header .brand:hover h3 span:nth-child(3)  { transition-delay: 0.02s; }
+.app-header .brand:hover h3 span:nth-child(4)  { transition-delay: 0.03s; }
+.app-header .brand:hover h3 span:nth-child(5)  { transition-delay: 0.04s; }
+.app-header .brand:hover h3 span:nth-child(6)  { transition-delay: 0.05s; }
+.app-header .brand:hover h3 span:nth-child(7)  { transition-delay: 0.06s; }
+.app-header .brand:hover h3 span:nth-child(8)  { transition-delay: 0.07s; }
+.app-header .brand:hover h3 span:nth-child(9)  { transition-delay: 0.08s; }
+.app-header .brand:hover h3 span:nth-child(10) { transition-delay: 0.09s; }
+
+.app-header .brand h3.last-name span:nth-child(1)  { margin-left:-1.7em; transition: margin-left 0.3s ease-in, opacity 0.3s ease-in; transition-delay: 0.09s; }
+.app-header .brand h3 span:nth-child(2)  { transition-delay: 0.08s; }
+.app-header .brand h3 span:nth-child(3)  { transition-delay: 0.07s; }
+.app-header .brand h3 span:nth-child(4)  { transition-delay: 0.06s; }
+.app-header .brand h3 span:nth-child(5)  { transition-delay: 0.05s; }
+.app-header .brand h3 span:nth-child(6)  { transition-delay: 0.04s; }
+.app-header .brand h3 span:nth-child(7)  { transition-delay: 0.03s; }
+.app-header .brand h3 span:nth-child(8)  { transition-delay: 0.02s; }
+.app-header .brand h3 span:nth-child(9)  { transition-delay: 0.01s; }
+.app-header .brand h3 span:nth-child(10) { transition-delay: 0.00s; }
 
 /* Menu */
 .app-header .actions {
@@ -338,14 +297,14 @@ body.cover--is--visible .app-aside .options .option {
   display: none;
   padding: 12px;
   margin-right: -12px;
-  border-radius: 24px;
+  border-radius: 28px;
 }
 .app-header .navigation:hover {
   cursor: pointer;
 }
 .app-header .navigation .icon {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -354,9 +313,10 @@ body.cover--is--visible .app-aside .options .option {
   position: absolute;
 }
 .app-header .navigation .line .content {
-  width: 24px;
-  height: 1.5px;
+  width: 28px;
+  height: 3.2px;
   background-color: var(--color--foreground--100);
+  border-radius: 16px;
 }
 .app-header .navigation .line:nth-child(1) {
   transform: rotate(0);
@@ -875,6 +835,7 @@ body.theme-slider--is--visible .app-aside .option.theme .dot:nth-child(1)  { tra
 }
 .section.intro .texts {
   grid-column: 1 / 1;
+  margin-top:calc(var(--grid--app-xheight) - 100px);
 }
 .section.intro .text {
   min-height: calc(1em * 0.975 * 7);
@@ -908,7 +869,7 @@ body.theme-slider--is--visible .app-aside .option.theme .dot:nth-child(1)  { tra
 .section.values .main {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: var(--grid--app-columns-6);
+  grid-template-columns: var(--grid--app-columns-4);
   gap: var(--grid--app-gutter);
 }
 .section.values .aside {
@@ -916,22 +877,24 @@ body.theme-slider--is--visible .app-aside .option.theme .dot:nth-child(1)  { tra
   align-self: end;
 }
 .section.values .description {
-  grid-column: 3 / -1;
+  grid-column: 2 / -1;
 }
 .section.values .tools {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: var(--grid--app-columns-6);
+  grid-template-columns: var(--grid--app-columns-4);
   gap: var(--grid--app-gutter);
   margin-top: 4rem;
 }
 .section.values .tools .title {
-  grid-column: 1 / 3;
+  grid-column: 1 / 2;
+  display: flex;
+  justify-content: space-between;
 }
 .section.values .tools .content {
   grid-column: 3 / -1;
   display: grid;
-  grid-template-columns: var(--grid--app-columns-4);
+  grid-template-columns: var(--grid--app-columns-2);
   gap: var(--grid--app-gutter);
 }
 .section.values .tools h3 {

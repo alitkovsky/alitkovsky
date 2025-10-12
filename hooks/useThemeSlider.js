@@ -51,7 +51,7 @@ export default function useThemeSlider() {
         const padded = String(value).padStart(2, "0");
         removeThemeClasses();
         document.body.classList.add(`theme--${padded}`);
-        slider.value = value;
+        slider.value = Number(value);
 
         // Animate icon to selected dot
         icon.style.transition = "bottom 0.25s ease";
@@ -60,11 +60,13 @@ export default function useThemeSlider() {
         // Animate icon back to resting position
         setTimeout(() => {
           icon.style.transition = "bottom 0.35s ease";
-          icon.style.bottom = `${0 * 20}px`; // resting position for theme--16
+          icon.style.bottom = `${0 * 20}px`; // resting position for default theme slot
         }, 700);
 
-        updateDotActiveState(value);
-        localStorage.setItem("preferred-theme", value);
+        updateDotActiveState(Number(value));
+        localStorage.setItem("preferred-theme", padded);
+        const maxAge = 60 * 60 * 24 * 365; // one year
+        document.cookie = `preferred-theme=${padded};path=/;max-age=${maxAge}`;
 
         // Auto-hide theme slider on touch devices
         if (document.documentElement.classList.contains("touchevents")) {
@@ -93,17 +95,12 @@ export default function useThemeSlider() {
 
       slider.addEventListener("input", handleSliderInput);
 
-      // Load saved theme or apply dark mode
+      // Load saved theme or fall back to project default (theme 04)
       const stored = localStorage.getItem("preferred-theme");
       if (stored !== null) {
         applyTheme(stored);
-      } else if (
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-      ) {
-        applyTheme(0);
       } else {
-        applyTheme(16);
+        applyTheme(4);
       }
 
       // Hover behavior (desktop)

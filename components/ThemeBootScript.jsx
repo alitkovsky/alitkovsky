@@ -3,23 +3,54 @@
 export default function ThemeBootScript() {
   const inlineScript = `
     (function() {
+      var DEFAULT_THEME = '04';
+      var MAX_THEME_INDEX = 16;
+
+      function sanitize(theme) {
+        if (typeof theme !== 'string' || !/^\\d{1,2}$/.test(theme)) {
+          return DEFAULT_THEME;
+        }
+
+        var numeric = Number(theme);
+        if (!Number.isFinite(numeric) || numeric < 0 || numeric > MAX_THEME_INDEX) {
+          return DEFAULT_THEME;
+        }
+
+        return String(numeric).padStart(2, '0');
+      }
+
+      function persist(theme) {
+        try {
+          localStorage.setItem('preferred-theme', theme);
+        } catch (e) {}
+
+        var maxAge = 60 * 60 * 24 * 365; // one year
+        document.cookie = 'preferred-theme=' + theme + ';path=/;max-age=' + maxAge;
+      }
+
+      function readCookieTheme() {
+        var match = document.cookie.match(/(?:^|; )preferred-theme=([^;]+)/);
+        return match ? match[1] : null;
+      }
+
       try {
-        var theme = localStorage.getItem('preferred-theme');
+        var theme = null;
 
-        // If no saved theme, detect system preference
+        try {
+          theme = localStorage.getItem('preferred-theme');
+        } catch (e) {}
+
         if (theme === null) {
-          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-          theme = prefersDark ? '00' : '16';
-          localStorage.setItem('preferred-theme', theme);
+          theme = readCookieTheme();
         }
 
-        // Fallback if theme is invalid
-        if (!/^\\d{1,2}$/.test(theme) || Number(theme) > 16) {
-          theme = '16';
-          localStorage.setItem('preferred-theme', theme);
-        }
+        var padded = sanitize(theme === null ? DEFAULT_THEME : theme);
+        persist(padded);
 
-        var padded = ('0' + theme).slice(-2);
+        document.body.className = document.body.className
+          .split(' ')
+          .filter(function(cls) { return cls && cls.indexOf('theme--') !== 0; })
+          .join(' ');
         document.body.classList.add('theme--' + padded);
 
         // Extract --theme-color from that theme
