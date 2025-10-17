@@ -10,7 +10,7 @@ import References from "@/components/References";
 export default function Home() {
   return (
     <main className="app-main">
-      {/* <Cover /> */}
+      <Cover />
       <Intro />
       <Values />
       {/* <CaseStudy /> */}

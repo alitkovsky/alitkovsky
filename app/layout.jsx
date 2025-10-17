@@ -77,7 +77,7 @@ export default async function RootLayout({ children }) {
     <html lang="en" className={comfortaa.variable} data-theme={initialTheme} style={{ colorScheme: initialTheme }}>
       <head>
         <GoogleTagManager gtmId="GTM-N4GKN2G2" />
-        <Clarity />
+        {/* <Clarity /> */}
       </head>
       <body className={`cover--is--visible is--loading theme-${initialTheme}`}>
           <AppWrapper initialTheme={initialTheme}>

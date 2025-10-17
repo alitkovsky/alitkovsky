@@ -3,7 +3,6 @@
 import useIntroSwitcher from "@/hooks/useIntroSwitcher";
 import useLanguage from "@/hooks/useLanguage";
 
-import ShinyText from "@/components/ShinyText";
 import TextEffect from "@/components/TextEffect";
 
 // Add new copy for each language here; keep keys in sync across locales.

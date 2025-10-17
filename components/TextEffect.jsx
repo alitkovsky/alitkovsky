@@ -1,13 +1,13 @@
-import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react'
-import { cn } from '@/lib/utils'
-import { useTextEffect, resolveAutoVariant } from '@/hooks/useTextEffect'
+import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from "react"
+import { cn } from "@/lib/utils"
+import { useTextEffect, resolveAutoVariant } from "@/hooks/useTextEffect"
 
 const TextEffect = forwardRef(function TextEffect(
   {
-    as: Component = 'span',
-    variant = 'underlineLong',
-    trigger = 'hover',
-    basePath = '/text-effects',
+    as: Component = "span",
+    variant = "underlineLong",
+    trigger = "hover",
+    basePath = "/text-effects",
     initiallyVisible = false,
     visibilityRootMargin,
     visibilityThreshold,
@@ -19,9 +19,9 @@ const TextEffect = forwardRef(function TextEffect(
   forwardedRef,
 ) {
   // Resolve auto variants once per component instance
-  // This ensures the random selection is stable during the component's lifecycle
+  // This ensures the random selection is stable during the component"s lifecycle
   const resolvedVariant = useMemo(() => resolveAutoVariant(variant), [variant])
-  
+
   const effect = useTextEffect({
     variant: resolvedVariant,
     trigger,
@@ -36,7 +36,7 @@ const TextEffect = forwardRef(function TextEffect(
     (node) => {
       effect.ref(node)
       nodeRef.current = node
-      if (typeof forwardedRef === 'function') {
+      if (typeof forwardedRef === "function") {
         forwardedRef(node)
       } else if (forwardedRef) {
         forwardedRef.current = node
@@ -57,10 +57,10 @@ const TextEffect = forwardRef(function TextEffect(
   )
 
   return (
-    <Component ref={setNode} className={cn('relative', className)} {...rest}>
+    <Component ref={setNode} className={cn("relative", className)} {...rest}>
       {children}
     </Component>
   )
 })
 
-export default TextEffect
+export default TextEffect;

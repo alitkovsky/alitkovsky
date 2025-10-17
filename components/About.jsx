@@ -114,8 +114,8 @@ export default function About() {
         >
           <h2>Colophon</h2>
           <p>
-            <span className="description">Design and code by <a href="index.html">Andrii Litkovskyi</a><br /></span>
-            <span className="description">Typeset in <a href="https://fonts.google.com/specimen/Comfortaa" target="_blank">Comfortaa</a> by <a href="https://fonts.google.com/?query=Johan%20Aakerlund" target="_blank">Johan Aakerlund</a><br /><br /></span>
+            <span className="description">Design and code by <Link href="index.html">Andrii Litkovskyi</Link><br /></span>
+            <span className="description">Typeset in <Link href="https://fonts.google.com/specimen/Comfortaa" target="_blank">Comfortaa</Link> by <Link href="https://fonts.google.com/?query=Johan%20Aakerlund" target="_blank">Johan Aakerlund</Link><br /><br /></span>
             <span className="copyright">©&nbsp;<span className="year">{new Date().getFullYear()}</span> — made in Germany</span>
           </p>
         </TextEffect>
