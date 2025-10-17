@@ -962,6 +962,9 @@ body.theme-transition * {
   padding-top: 0.1em;
   padding-bottom: 0.1em;
 }
+.section.background .item .role h2 {
+  font-weight: 700;
+}
 .section.background .item .metadata {
   grid-column: 1 / 5;
   padding-top: 10px;
