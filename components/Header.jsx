@@ -1,7 +1,7 @@
 "use client";
 
 import useMobileNav from "@/hooks/useMobileNav";
-import TextEffect from "@/components/TextEffect";
+import Link from "next/link";
 
 export default function Header() {
   useMobileNav();
@@ -10,10 +10,10 @@ export default function Header() {
     <header className="app-header">
       <div className="content">
         <div className="brand">
-          <a href="/" className="flex">
+          <Link href="/" className="flex">
               <h3 className="first-name"><span>a</span><span>n</span><span>d</span><span>r</span><span>ı</span><span>ı</span></h3>
               <h3 className="last-name"><span>l</span><span>ı</span><span>t</span><span>k</span><span>o</span><span>v</span><span>s</span><span>k</span><span>y</span><span>ı</span></h3>
-          </a>
+          </Link>
       </div>
         <div className="actions">
           <div className="option navigation">
