@@ -2,9 +2,7 @@
 
 const Core = () => {
   return (
-    <section
-      className="section about"
-      id="intro">
+    <section className="section about" id="intro">
       <div className="content">
         <h1>
           Creative developer with a design background, crafting immersive digital experiences that combine creativity and functionality.

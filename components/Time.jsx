@@ -34,8 +34,7 @@ function Time() {
             <span>{char}</span>
           </span>
         )
-      )}
-      &nbsp;Berlin
+      )}&nbsp;—&nbsp;berlin
     </div>
   );
 }

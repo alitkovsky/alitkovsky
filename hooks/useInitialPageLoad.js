@@ -9,19 +9,33 @@ export default function useInitialPageLoad() {
     }
   }, []);
 
-  // Hide splash cover after a short delay.
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      document.body.classList.remove("cover--is--visible");
-    }, 1750);
-    return () => clearTimeout(timeout);
-  }, []);
+    if (typeof window === "undefined") {
+      return undefined;
+    }
 
-  // Remove loading class after full load and delay.
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      document.body.classList.remove("is--loading");
-    }, 3250);
-    return () => clearTimeout(timeout);
+    let loadingTimeout;
+    let fallbackTimeout;
+    let hasCompleted = false;
+
+    const finishCover = () => {
+      if (hasCompleted) return;
+      hasCompleted = true;
+
+      document.body.classList.remove("cover--is--visible");
+
+      loadingTimeout = setTimeout(() => {
+        document.body.classList.remove("is--loading");
+      }, 1500);
+    };
+
+    window.addEventListener("cover:complete", finishCover);
+    fallbackTimeout = setTimeout(finishCover, 6000);
+
+    return () => {
+      window.removeEventListener("cover:complete", finishCover);
+      clearTimeout(loadingTimeout);
+      clearTimeout(fallbackTimeout);
+    };
   }, []);
 };

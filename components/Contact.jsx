@@ -1,47 +1,88 @@
 "use client";
 
-const Contact = () => {
+import Time from "@/components/Time";
+import TiltedCard from '@/components/TiltedCard';
+import Footer from "@/components/Footer";
+
+import TextEffect from "@/components/TextEffect";
+
+export default function Contact() {
   return (
     <section className="section contact" id="contact">
       <div className="content">
 
-        <div className="text">
-
-          <div className="content">
-
-            <div className="look">
-              <div className="radius"></div>
-              <div className="dot"></div>
-            </div>
-
-            <div className="status">
-              <h3>Exploring new opportunities</h3>
-            </div>
-
-            <div className="interest">
-              <h2>I am recently open to work.</h2>
-            </div>
-
-          </div>
-
-          <div className="actions">
-            <div className="item"><a href="mailto:alitkovsky@me.com?subject=Enquiry%20from%20website">alitkovsky@me.com</a></div>
-            <div className="item"><a href="/" target="_blank">LinkedIn</a></div>
-          </div>
-
+        <div className="hook">
+          <h2>I would love to hear from you,<br />let's work —&nbsp;
+          <TextEffect
+            as="span"
+            variant="underlineZigzag"
+            trigger="visible"
+            visibilityRootMargin="0px 0px -33%"
+            className="inline-block"
+          >
+            together
+          </TextEffect></h2>
         </div>
 
         <div className="image">
           <figure>
-            <img src="assets/profile/andrii-litkovskyi-1600x1600.jpg" alt="Profile photo of Andrii Litkovskyi" />
-            <div className="image-overlay-01"></div>
-            <div className="image-overlay-02"></div>
+            <TiltedCard
+              imageSrc="og-image.png"
+              altText=""
+              captionText="Feel free to get in touch"
+              containerWidth="100%"
+              imageWidth="100%"
+              rotateAmplitude={12}
+              scaleOnHover={1}
+              showMobileWarning={false}
+              showTooltip={false}
+              displayOverlayContent={true}
+            />
           </figure>
         </div>
 
-      </div>
-    </section>
-  )
-};
+        <div className="text">
+          <div>
+            <p>phone</p>
+            <p>+49 176 58238236</p>
+          </div>
+          <div>
+            <p>email</p>
+            <p>alitkovsky@me.com</p>
+          </div>
+          <div>
+            <p>location</p>
+            <p>mindener straße 87, 32479 hille germany</p>
+          </div>
+          <div>
+            <p>working hours</p>
+            <p>mon - fri: 9:00 — 19:00</p>
+            <p>saturday: 9:00 — 17:00</p>
+          </div>
+          <div></div>
+          <div>
+            <p>local time</p>
+            <Time />
+          </div>
+          <div></div>
+        </div>
 
-export default Contact;
+        <div className="actions">
+          <div className="item">
+          <TextEffect
+            as="a"
+            variant="ellipseAuto"
+            href="/"
+            trigger="hover"
+            className="inline-block"
+          >
+            LinkedIn
+          </TextEffect>
+          </div>
+        </div>
+
+      </div>
+      <Footer />
+    </section>
+  );
+};

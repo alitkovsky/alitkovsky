@@ -5,12 +5,11 @@ import "./styles/font.css";
 import "./styles/variables.css";
 import "./styles/grid.css";
 
+import { Comfortaa } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { cookies } from "next/headers";
 
-import ThemeBootScript from "@/components/ThemeBootScript";
-import { GoogleTagManager } from "@next/third-parties/google";
 import Clarity from "@/components/Clarity";
-
 import AppWrapper from "@/components/AppWrapper";
 
 export const metadata = {
@@ -42,52 +41,46 @@ export const metadata = {
     description: "My personal website",
     type: "website",
     url: "https://alitkovsky.vercel.app/",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Hi! I'm Andrii Litkovskyi",
     description: "My personal website",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.png"],
   },
 };
 
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#ffffff",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f2fbfd" },
+    { media: "(prefers-color-scheme: dark)", color: "#12191a" },
+    { color: "#12191a" },
+  ],
 };
 
-const DEFAULT_THEME_INDEX = 4;
-
-function sanitizeTheme(value) {
-  if (typeof value !== "string" || !/^(\d{1,2})$/.test(value)) {
-    return DEFAULT_THEME_INDEX;
-  }
-
-  const numeric = Number(value);
-  if (!Number.isFinite(numeric) || numeric < 0 || numeric > 16) {
-    return DEFAULT_THEME_INDEX;
-  }
-
-  return numeric;
-}
+const comfortaa = Comfortaa({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-family-primary",
+});
 
 export default async function RootLayout({ children }) {
   const cookieStore = await cookies();
-  const rawTheme = cookieStore.get("preferred-theme")?.value ?? String(DEFAULT_THEME_INDEX).padStart(2, "0");
-  const numericTheme = sanitizeTheme(rawTheme);
-  const themeClass = `theme--${String(numericTheme).padStart(2, "0")}`;
+  const themeCookie = cookieStore.get("nav-theme")?.value;
+  const initialTheme = themeCookie === "light" ? "light" : "dark";
 
   return (
-    <html lang="en">
+    <html lang="en" className={comfortaa.variable} data-theme={initialTheme} style={{ colorScheme: initialTheme }}>
       <head>
         <GoogleTagManager gtmId="GTM-N4GKN2G2" />
         <Clarity />
-        <ThemeBootScript />
       </head>
-      <body className={`cover--is--visible is--loading ${themeClass}`}>
-          <AppWrapper>
+      <body className={`cover--is--visible is--loading theme-${initialTheme}`}>
+          <AppWrapper initialTheme={initialTheme}>
             {children}
           </AppWrapper>
           <noscript>
