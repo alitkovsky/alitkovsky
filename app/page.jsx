@@ -11,13 +11,13 @@ export default function Home() {
   return (
     <main className="app-main">
       <Cover />
-      <Intro />
-      <Values />
+      {/* <Intro /> */}
+      {/* <Values /> */}
       {/* <CaseStudy /> */}
-      <Background />
+      {/* <Background /> */}
       {/* <References /> */}
-      <About />
-      <Contact />
+      {/* <About /> */}
+      {/* <Contact /> */}
     </main>
   );
 };
