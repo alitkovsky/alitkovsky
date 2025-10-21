@@ -24,7 +24,7 @@ export default function AppWrapper({ children, initialTheme = "dark" }) {
         duration={400}
       >
         <Header />
-        <Nav initialTheme={initialTheme} />
+        {/* <Nav initialTheme={initialTheme} /> */}
         {children}
         <GridOverlay />
       </ClickSpark>
