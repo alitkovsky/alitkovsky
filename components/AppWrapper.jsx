@@ -5,6 +5,7 @@ import useTouchDetection from "@/hooks/useTouchDetection";
 
 import ClickSpark from "@/components/ClickSpark";
 import LanguageProvider from "@/components/LanguageProvider";
+import PwaRegister from "@/components/PwaRegister";
 
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
@@ -16,6 +17,7 @@ export default function AppWrapper({ children, initialTheme = "dark" }) {
 
   return (
     <LanguageProvider>
+      <PwaRegister />
       <ClickSpark
         sparkColor="var(--color--foreground--100)"
         sparkSize={10}
@@ -24,7 +26,7 @@ export default function AppWrapper({ children, initialTheme = "dark" }) {
         duration={400}
       >
         <Header />
-        {/* <Nav initialTheme={initialTheme} /> */}
+        <Nav initialTheme={initialTheme} />
         {children}
         <GridOverlay />
       </ClickSpark>

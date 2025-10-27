@@ -21,6 +21,7 @@
   ::selection {
     background-color: var(--color--foreground--10);
   }
+}
 
 /* Style
 ------------------------------------------------------------ */
@@ -1233,6 +1234,3 @@ body.page-not-found .section.intro .text {
 body.page-not-found .section.intro h1 {
   padding-bottom: 0.5em;
 }
-
-
-};

@@ -1,5 +1,3 @@
-import nextPwa from "next-pwa";
-
 /** @type {import('next').NextConfig} */
 const immutableCacheHeaders = [
   { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
@@ -13,6 +11,7 @@ const nextConfig = {
   reactStrictMode: true,
   // Allow cross-origin requests during development
   allowedDevOrigins: ['192.168.178.79'],
+  turbopack: {},
   // You can add other config here as needed
   async headers() {
     return [
@@ -52,11 +51,4 @@ const nextConfig = {
   },
 };
 
-const isDev = process.env.NODE_ENV === "development";
-
-export default nextPwa({
-  dest: "public",
-  disable: isDev, // disables service worker during dev
-  register: true,
-  skipWaiting: true,
-})(nextConfig);
+export default nextConfig;

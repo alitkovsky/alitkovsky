@@ -74,7 +74,13 @@ export default async function RootLayout({ children }) {
   const initialTheme = themeCookie === "light" ? "light" : "dark";
 
   return (
-    <html lang="en" className={comfortaa.variable} data-theme={initialTheme} style={{ colorScheme: initialTheme }}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={comfortaa.variable}
+      data-theme={initialTheme}
+      style={{ colorScheme: initialTheme }}
+    >
       <head>
         <GoogleTagManager gtmId="GTM-N4GKN2G2" />
         {/* <Clarity /> */}
