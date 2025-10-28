@@ -1,0 +1,45 @@
+:root {
+  --custom-cursor-text-color: #0d63f8;
+}
+
+body,
+body.theme-dark,
+body.theme-light {
+  --custom-cursor-base-color: var(--color--foreground--100, currentColor);
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    --custom-cursor-base-color: var(--color--foreground--100, currentColor);
+  }
+}
+
+body.custom-cursor-active {
+  cursor: none !important;
+}
+
+body.custom-cursor-active *:not(input):not(textarea):not([data-cursor="native"]) {
+  cursor: none !important;
+}
+
+body.custom-cursor-active input,
+body.custom-cursor-active textarea {
+  cursor: text;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  will-change: width, height, transform, opacity, background-color;
+  z-index: 10000;
+  mix-blend-mode: normal;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor {
+    transition: width 0.12s ease-out, height 0.12s ease-out, opacity 0.12s ease-out;
+  }
+}

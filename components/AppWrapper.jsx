@@ -6,6 +6,7 @@ import useTouchDetection from "@/hooks/useTouchDetection";
 import ClickSpark from "@/components/ClickSpark";
 import LanguageProvider from "@/components/LanguageProvider";
 import PwaRegister from "@/components/PwaRegister";
+import CustomCursor from "@/components/CustomCursor";
 
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
@@ -18,6 +19,7 @@ export default function AppWrapper({ children, initialTheme = "dark" }) {
   return (
     <LanguageProvider>
       <PwaRegister />
+      <CustomCursor />
       <ClickSpark
         sparkColor="var(--color--foreground--100)"
         sparkSize={10}

@@ -4,6 +4,7 @@ import "./styles/color.css";
 import "./styles/font.css";
 import "./styles/variables.css";
 import "./styles/grid.css";
+import "./styles/cursor.css";
 
 import { Comfortaa } from "next/font/google";
 import { GoogleTagManager } from "@next/third-parties/google";
@@ -83,7 +84,7 @@ export default async function RootLayout({ children }) {
     >
       <head>
         <GoogleTagManager gtmId="GTM-N4GKN2G2" />
-        {/* <Clarity /> */}
+        <Clarity />
       </head>
       <body className={`cover--is--visible is--loading theme-${initialTheme}`}>
           <AppWrapper initialTheme={initialTheme}>
