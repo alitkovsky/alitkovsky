@@ -816,7 +816,23 @@ body.theme-transition * {
   display: flex;
   gap: 0.5em;
 }
-.app-nav .toggles .language .active {
+.app-nav .toggles .language button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.app-nav .toggles .language button:hover {
+  color: var(--color--foreground--100);
+}
+.app-nav .toggles .language button:focus-visible {
+  outline: 1px dotted currentColor;
+  outline-offset: 2px;
+}
+.app-nav .toggles .language button.active {
   color: var(--color--foreground--100);
 }
 
@@ -1040,13 +1056,23 @@ body.theme-transition * {
 }
 .section.intro .texts {
   grid-column: 1 / -1;
+  position: relative;
+  min-height: calc(1em * 0.975 * 7);
 }
 .section.intro .text {
   grid-column: 1 / -1;
-  min-height: calc(1em * 0.975 * 7);
-  display: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
 }
-.section.intro .texts h1 {
+.section.intro .texts .text {
+  margin-left: var(--font--margin-left);
+  font-size: var(--font--size-huge);
+  line-height: 0.975;
+  letter-spacing: -0.02em;
   font-weight: 700;
 }
 .section.intro .scroll {
@@ -1066,7 +1092,10 @@ body.theme-transition * {
   max-width: 520px;
 }
 .section.intro .text.is--visible {
-  display: block;
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 /* .section h1 a {
   border-bottom: 2px solid var(--color--foreground--25);
@@ -2219,6 +2248,10 @@ body.page-not-found .section.intro > .content {
 body.page-not-found .section.intro .text {
   min-height: none;
   display: block;
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 body.page-not-found .section.intro h1 {
   padding-bottom: 0.5em;

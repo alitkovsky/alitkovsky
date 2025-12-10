@@ -9,6 +9,7 @@ import Link from "next/link";
 
 import TextEffect from "@/components/TextEffect";
 import BookCTA from "@/components/BookCTA";
+import useLanguage from "@/hooks/useLanguage";
 
 const THEME_STORAGE_KEY = "nav-theme";
 const THEME_COOKIE_KEY = "nav-theme";
@@ -49,6 +50,7 @@ export default function Nav({ initialTheme = "dark" }) {
   const activeId = useActiveSection({ enabled: isHomeRoute });
   const [theme, setTheme] = useState(initialTheme);
   const transitionTimeoutRef = useRef(null);
+  const { language, setLanguage, supportedLanguages } = useLanguage();
 
   useEffect(() => {
     if (typeof document === "undefined") {
@@ -175,6 +177,8 @@ export default function Nav({ initialTheme = "dark" }) {
     { id: "cases", label: "cases", route: "/cases" },
     { id: "about", label: "about", route: "/about" }
   ];
+
+  const languages = supportedLanguages ?? ["en", "de"];
 
   function NavItem({ id, label, isActive, onActivate }) {
     const lineEffect = useRef(null)
@@ -396,9 +400,18 @@ export default function Nav({ initialTheme = "dark" }) {
               night mode
             </span>
           </div>
-          <div className="language">
-            <div className="active">en</div>
-            <div>de</div>
+          <div className="language" role="group" aria-label="Language">
+            {languages.map((lang) => (
+              <button
+                key={lang}
+                type="button"
+                className={cn({ active: language === lang })}
+                aria-pressed={language === lang}
+                onClick={() => setLanguage(lang)}
+              >
+                {lang}
+              </button>
+            ))}
           </div>
         </div>
         {/* <div className="nav-cta">
