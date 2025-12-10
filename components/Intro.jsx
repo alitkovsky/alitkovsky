@@ -4,6 +4,8 @@ import useIntroSwitcher from "@/hooks/useIntroSwitcher";
 import useLanguage from "@/hooks/useLanguage";
 
 import TextEffect from "@/components/TextEffect";
+import HandwritingEffect from "@/components/HandwritingEffect";
+import BookCTA from "@/components/BookCTA";
 
 // Add new copy for each language here; keep keys in sync across locales.
 const INTRO_COPY = {
@@ -127,14 +129,34 @@ export default function Intro() {
           })}
         </div>
 
+        {/* <div className="intro-cta">
+          <BookCTA
+            size="lg"
+            label="Kostenloses 20-minütiges Erstgespräch buchen"
+            subline="Ich antworte innerhalb von 24h – Slots montags bis freitags"
+            fullWidth
+          />
+        </div> */}
+
         <div className="scroll">
-          <TextEffect
+          {/* <TextEffect
             as="div"
             variant="question"
             trigger="visible"
             visibilityRootMargin="0px 0px -3%"
             className="inline-block"
-          ></TextEffect>
+          ></TextEffect> */}
+          {/* <HandwritingEffect
+            as="span"
+            trigger="visible"
+            visibilityRootMargin="0px 0px 0%"
+            duration={2000}
+            className="inline-block"
+            letterSpacing={0}
+            fontSize={22}
+          >
+            do i really need to remind you to scroll
+          </HandwritingEffect> */}
           <p>do i really need to <br />remind you to scroll</p>
         </div>
       </div>

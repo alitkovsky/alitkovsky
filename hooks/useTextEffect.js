@@ -20,8 +20,8 @@ const EFFECTS = {
     style: {
       position: "absolute",
       top: "-10%",
-      left: "-20%",
-      width: "140%",
+      left: "-10%",
+      width: "120%",
       height: "110%",
     },
   },
@@ -32,7 +32,7 @@ const EFFECTS = {
       position: "absolute",
       top: "0%",
       left: "-20%",
-      width: "140%",
+      width: "120%",
       height: "110%",
     },
   },
@@ -142,7 +142,7 @@ const EFFECT_GROUPS = {
  * Resolves an auto variant to a specific effect name.
  * If the variant ends with 'Auto', randomly selects from the corresponding group.
  * Otherwise, returns the variant as-is.
- * 
+ *
  * @param {string} variant - The variant name (e.g., 'underlineAuto', 'ellipseAuto', or a specific effect)
  * @returns {string} - The resolved effect name
  */
@@ -155,13 +155,13 @@ export function resolveAutoVariant(variant) {
   if (variant.endsWith('Auto')) {
     const groupName = variant.slice(0, -4); // Remove 'Auto' suffix
     const group = EFFECT_GROUPS[groupName];
-    
+
     if (group && group.length > 0) {
       // Randomly select from the group
       const randomIndex = Math.floor(Math.random() * group.length);
       return group[randomIndex];
     }
-    
+
     console.warn(`Unknown auto variant group: ${groupName}. Using default.`);
     return 'underlineLong';
   }
@@ -230,6 +230,10 @@ class TextEffectController {
     this.basePath = basePath
 
     this.currentFrame = 0
+    this.currentLayerIndex = 0
+    this.currentFrameIndex = 0
+    this.framePlaybackActive = false
+    this.totalFrames = 0
     this.layers = []
     this.frameCount = 0
     this.running = false
@@ -257,7 +261,7 @@ class TextEffectController {
 
     // Remove all <style> elements that contain hardcoded colors
     svgElement.querySelectorAll("style").forEach((styleEl) => styleEl.remove())
-    
+
     // Clean up all paths immediately to prevent black strokes from CSS classes
     svgElement.querySelectorAll("path").forEach((path) => {
       // Remove class attributes that reference deleted styles
@@ -278,12 +282,16 @@ class TextEffectController {
     this.updateColor()
 
     const allPaths = Array.from(svgElement.querySelectorAll("path"))
-    const layerCount = Math.max(1, Number(this.config.layers) || 1)
+    const groupElements = Array.from(svgElement.querySelectorAll("g"))
+
+    const configLayerCount = Number(this.config.layers)
+    const shouldUseGroups =
+      (Number.isFinite(configLayerCount) && configLayerCount > 1) ||
+      (!Number.isFinite(configLayerCount) && groupElements.length > 1)
 
     const layerSources = []
 
-    if (layerCount > 1) {
-      const groupElements = Array.from(svgElement.querySelectorAll("g"))
+    if (shouldUseGroups) {
       groupElements.forEach((group) => {
         const groupPaths = Array.from(group.querySelectorAll("path"))
         if (groupPaths.length) {
@@ -316,7 +324,11 @@ class TextEffectController {
       (max, layer) => Math.max(max, layer.frames.length),
       0
     )
-    this.currentFrame = 0
+    this.totalFrames = this.layers.reduce(
+      (sum, layer) => sum + layer.frames.length,
+      0
+    )
+    this.resetFrameState()
 
     this.startRaf()
     this.attachResize()
@@ -334,19 +346,19 @@ class TextEffectController {
     paths.forEach((path, index) => {
       const d = path.getAttribute("d")
       if (d) frames.push(d)
-      
+
       // Remove class that might reference deleted styles
       path.removeAttribute("class")
-      
+
       // Explicitly set stroke and fill attributes
       path.setAttribute("stroke", "currentColor")
       path.setAttribute("fill", "none")
       path.setAttribute("vector-effect", "non-scaling-stroke")
-      
+
       // Remove any inline styles that might override
       path.style.stroke = ""
       path.style.fill = ""
-      
+
       if (index === 0) {
         path.style.opacity = "0"
       } else {
@@ -407,7 +419,7 @@ class TextEffectController {
       for (const mutation of mutations) {
         if (mutation.type === "attributes") {
           const target = mutation.target
-          
+
           // Check for class changes (body.theme-dark, body.theme-light, body.theme--XX)
           if (mutation.attributeName === "class" && target === document.body) {
             const classList = target.classList
@@ -417,12 +429,12 @@ class TextEffectController {
               this.handleThemeChange()
             }
           }
-          
+
           // Check for data-theme changes (html[data-theme])
           if (mutation.attributeName === "data-theme" && target === document.documentElement) {
             this.handleThemeChange()
           }
-          
+
           // Check for style attribute changes (for inline style theme changes)
           if (mutation.attributeName === "style") {
             this.handleThemeChange()
@@ -464,58 +476,134 @@ class TextEffectController {
   }
 
   onRaf(now) {
-    if (!this.layers.length || !this.running) return
+    if (!this.layers.length || !this.running || !this.framePlaybackActive) return
     const elapsed = now - this.lastFrame
     if (elapsed < this.fpsInterval) return
     this.lastFrame = now - (elapsed % this.fpsInterval)
 
-    const frameIndex = this.currentFrame
-    this.layers.forEach((layer) => {
-      if (!layer.path || !layer.frames.length) return
-      const frame = layer.frames[frameIndex % layer.frames.length]
-      if (frame) {
-        layer.path.setAttribute("d", frame)
-      }
-    })
-    this.randomFrame()
+    this.advanceFrame()
   }
 
-  randomFrame() {
+  shouldPlayFrames() {
+    const strategy = this.config.frameStrategy || "random"
+    if (strategy === "none") return false
+    return this.totalFrames > 1
+  }
+
+  setLayerFrame(layer, frameIndex) {
+    if (!layer?.path || !layer.frames.length) return
+    const frame = layer.frames[frameIndex % layer.frames.length]
+    if (frame) {
+      layer.path.setAttribute("d", frame)
+    }
+  }
+
+  updateLayerFrames(frameIndex) {
+    this.layers.forEach((layer) => {
+      this.setLayerFrame(layer, frameIndex)
+    })
+  }
+
+  resetFrameState() {
+    this.currentFrame = 0
+    this.currentLayerIndex = 0
+    this.currentFrameIndex = 0
+    this.framePlaybackActive = this.shouldPlayFrames()
+    const strategy = this.config.frameStrategy || "random"
+    if (strategy === "sequential") {
+      this.layers.forEach((layer) => this.setLayerFrame(layer, 0))
+    } else {
+      this.updateLayerFrames(this.currentFrame)
+    }
+  }
+
+  moveToNextLayer() {
+    const loopFrames = this.config.loopFrames !== false
+    if (this.currentLayerIndex < this.layers.length - 1) {
+      this.currentLayerIndex += 1
+      this.currentFrameIndex = 0
+      return true
+    }
+    if (loopFrames) {
+      this.currentLayerIndex = 0
+      this.currentFrameIndex = 0
+      return true
+    }
+    this.framePlaybackActive = false
+    return false
+  }
+
+  advanceFrameSequential() {
+    if (!this.layers.length) {
+      this.framePlaybackActive = false
+      return
+    }
+
+    const layer = this.layers[this.currentLayerIndex]
+    if (!layer || !layer.frames.length) {
+      this.moveToNextLayer()
+      return
+    }
+
+    const nextFrameIndex = this.currentFrameIndex + 1
+    if (nextFrameIndex < layer.frames.length) {
+      this.currentFrameIndex = nextFrameIndex
+      this.setLayerFrame(layer, this.currentFrameIndex)
+      return
+    }
+
+    const moved = this.moveToNextLayer()
+    if (!moved) return
+    const nextLayer = this.layers[this.currentLayerIndex]
+    this.setLayerFrame(nextLayer, this.currentFrameIndex)
+  }
+
+  advanceFrameRandom() {
     if (!this.frameCount) return
     let targetFrame = Math.floor(Math.random() * this.frameCount)
     if (this.frameCount > 1 && targetFrame === this.currentFrame) {
       targetFrame = (targetFrame + 1) % this.frameCount
     }
     this.currentFrame = targetFrame
+    this.updateLayerFrames(this.currentFrame)
   }
 
-  async animatePaths(before, after) {
-    if (!this.layers.length) return
-    
+  advanceFrame() {
+    const strategy = this.config.frameStrategy || "random"
+    if (strategy === "sequential") {
+      this.advanceFrameSequential()
+    } else {
+      this.advanceFrameRandom()
+    }
+  }
+
+  async animatePaths(before, after, targetLayers = this.layers) {
+    if (!this.layers.length || !targetLayers?.length) return
+
     // Track animation ID to prevent conflicts from rapid triggers
     this.lastAnimation++
     const animationId = this.lastAnimation
-    
+
     const animationDuration = this.config.animationDuration
     const steps = Math.max(1, Math.round((20 * animationDuration) / 1000))
-    this.layers.forEach(({ path }) => {
+    targetLayers.forEach(({ path }) => {
       if (!path) return
       path.style.transition = `stroke-dashoffset ${animationDuration}ms steps(${steps}), stroke-dasharray ${animationDuration}ms steps(${steps})`
     })
 
-    before?.(this.layers)
+    before?.(targetLayers)
     await new Promise((resolve) => setTimeout(resolve, animationDuration + 10))
 
     // Only proceed if this is still the latest animation
     if (animationId !== this.lastAnimation) return
 
-    this.layers.forEach(({ path }) => {
+    targetLayers.forEach(({ path }) => {
       if (path?.style) {
         path.style.transition = "none"
       }
     })
 
-    after?.(this.layers)
+    after?.(targetLayers)
   }
 
   async animateIn() {
@@ -523,7 +611,28 @@ class TextEffectController {
     if (!this.layers.some((layer) => layer.pathLength)) {
       this.setSizes()
     }
+    this.resetFrameState()
     this.running = true
+    this.framePlaybackActive = this.shouldPlayFrames()
+
+    if (this.config.groupSequence) {
+      for (const layer of this.layers) {
+        if (!layer) continue
+        await this.animatePaths(
+          (targetLayers) => {
+            targetLayers.forEach((item) => {
+              if (!item.path) return
+              item.path.style.strokeDashoffset = "0"
+              item.path.style.opacity = "1"
+            })
+          },
+          null,
+          [layer],
+        )
+      }
+      return
+    }
+
     await this.animatePaths((layers) => {
       layers.forEach((layer) => {
         if (!layer.path) return
@@ -539,23 +648,61 @@ class TextEffectController {
       this.setSizes()
     }
     this.running = false
-    await this.animatePaths(
-      (layers) => {
-        layers.forEach((layer) => {
-          if (!layer.path) return
-          const length = layer.pathLength || 0
-          layer.path.style.strokeDashoffset = `-${length}`
-        })
-      },
-      (layers) => {
-        layers.forEach((layer) => {
-          if (!layer.path) return
-          const length = layer.pathLength || 0
-          layer.path.style.opacity = "0"
-          layer.path.style.strokeDashoffset = `${length}`
-        })
+    this.framePlaybackActive = false
+    this.currentLayerIndex = 0
+    this.currentFrameIndex = 0
+
+    const targetOrder = this.config.groupSequence
+      ? [...this.layers].filter(Boolean).reverse()
+      : this.layers
+
+    const animateLayerOut = async (layer) => {
+      if (!layer) return
+      await this.animatePaths(
+        (layers) => {
+          layers.forEach((item) => {
+            if (!item.path) return
+            const length = item.pathLength || 0
+            item.path.style.strokeDashoffset = `-${length}`
+          })
+        },
+        (layers) => {
+          layers.forEach((item) => {
+            if (!item.path) return
+            const length = item.pathLength || 0
+            item.path.style.opacity = "0"
+            item.path.style.strokeDashoffset = `${length}`
+          })
+        },
+        [layer],
+      )
+    }
+
+    if (this.config.groupSequence) {
+      for (const layer of targetOrder) {
+        await animateLayerOut(layer)
       }
-    )
+    } else {
+      await this.animatePaths(
+        (layers) => {
+          layers.forEach((layer) => {
+            if (!layer.path) return
+            const length = layer.pathLength || 0
+            layer.path.style.strokeDashoffset = `-${length}`
+          })
+        },
+        (layers) => {
+          layers.forEach((layer) => {
+            if (!layer.path) return
+            const length = layer.pathLength || 0
+            layer.path.style.opacity = "0"
+            layer.path.style.strokeDashoffset = `${length}`
+          })
+        }
+      )
+    }
+
+    this.updateLayerFrames(0)
   }
 
   handleResize() {
@@ -637,6 +784,7 @@ export function useTextEffect(options = {}) {
     initiallyVisible = false,
     visibilityRootMargin = "0px 0px -33%",
     visibilityThreshold = 0,
+    customEffect,
   } = options
 
   const effectRef = useRef(null)
@@ -650,9 +798,17 @@ export function useTextEffect(options = {}) {
   useEffect(() => {
     if (!isBrowser || !node) return undefined
 
-    const config = EFFECTS[variant]
+    const config = customEffect ?? EFFECTS[variant]
     if (!config) {
-      console.warn(`Unknown text effect variant: ${variant}`)
+      const message = customEffect
+        ? "Invalid text effect config provided to useTextEffect"
+        : `Unknown text effect variant: ${variant}`
+      console.warn(message)
+      return undefined
+    }
+
+    if (!config.file) {
+      console.warn("Text effect config must include a `file` property")
       return undefined
     }
 
@@ -660,6 +816,17 @@ export function useTextEffect(options = {}) {
     effectRef.current = controller
 
     let cancelled = false
+    let colorSyncId = null
+
+    const scheduleColorUpdate = () => {
+      if (colorSyncId) {
+        cancelAnimationFrame(colorSyncId)
+      }
+      colorSyncId = requestAnimationFrame(() => {
+        colorSyncId = null
+        controller.updateColor()
+      })
+    }
 
     controller
       .setup()
@@ -675,11 +842,18 @@ export function useTextEffect(options = {}) {
       })
 
     let cleanupHover = null
+    let cleanupColorEvents = null
     let observer = null
 
     if (trigger === "hover") {
-      const handleEnter = () => controller.animateIn()
-      const handleLeave = () => controller.animateOut()
+      const handleEnter = () => {
+        scheduleColorUpdate()
+        controller.animateIn()
+      }
+      const handleLeave = () => {
+        scheduleColorUpdate()
+        controller.animateOut()
+      }
       node.addEventListener("mouseenter", handleEnter)
       node.addEventListener("mouseleave", handleLeave)
       cleanupHover = () => {
@@ -709,10 +883,24 @@ export function useTextEffect(options = {}) {
       // No automatic listeners; consumer controls animations
     }
 
+    const colorEvents = ["focus", "blur", "pointerdown", "pointerup", "mouseenter", "mouseleave"]
+    colorEvents.forEach((eventName) => {
+      node.addEventListener(eventName, scheduleColorUpdate)
+    })
+    cleanupColorEvents = () => {
+      colorEvents.forEach((eventName) => {
+        node.removeEventListener(eventName, scheduleColorUpdate)
+      })
+    }
+
     return () => {
       cancelled = true
       cleanupHover?.()
+      cleanupColorEvents?.()
       observer?.disconnect()
+      if (colorSyncId) {
+        cancelAnimationFrame(colorSyncId)
+      }
       controller.destroy()
       if (effectRef.current === controller) {
         effectRef.current = null
@@ -727,6 +915,7 @@ export function useTextEffect(options = {}) {
     initiallyVisible,
     visibilityRootMargin,
     visibilityThreshold,
+    customEffect,
   ])
 
   const controls = useMemo(

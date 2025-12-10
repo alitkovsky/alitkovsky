@@ -4,10 +4,21 @@ import { useEffect, useState } from "react";
 
 const SECTION_IDS = ["intro", "values", "background", "about", "contact"];
 
-export default function useActiveSection() {
-  const [activeId, setActiveId] = useState("intro");
+export default function useActiveSection({ enabled = true } = {}) {
+  const [activeId, setActiveId] = useState(() => (enabled ? SECTION_IDS[0] : null));
 
   useEffect(() => {
+    if (!enabled) {
+      setActiveId(null);
+      return undefined;
+    }
+
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
+    setActiveId((current) => current ?? SECTION_IDS[0]);
+
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries.find((entry) => entry.isIntersecting);
@@ -24,7 +35,7 @@ export default function useActiveSection() {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [enabled]);
 
   return activeId;
 };

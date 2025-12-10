@@ -2,6 +2,7 @@
 
 import useMobileNav from "@/hooks/useMobileNav";
 import Link from "next/link";
+import BookCTA from "@/components/BookCTA";
 
 export default function Header() {
   useMobileNav();
@@ -16,6 +17,13 @@ export default function Header() {
           </Link>
       </div>
         <div className="actions">
+          <div className="option booking">
+            <BookCTA
+              label="termin buchen"
+              className="inline-flex"
+              ctaLocation="header"
+            />
+          </div>
           <div className="option navigation">
             <div className="content">
             <div className="icon">

@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
+import WiggleSvg from "@/components/WiggleSvg";
 
 const springValues = {
   damping: 30,
@@ -37,6 +38,11 @@ export default function TiltedCard({
   });
 
   const [lastY, setLastY] = useState(0);
+  const overlayBadgeContent =
+    overlayContent ??
+    (
+      <div className="tilted-card-overlay-default" aria-hidden="true" />
+    );
 
   function handleMouse(e) {
     if (!ref.current) return;
@@ -102,14 +108,27 @@ export default function TiltedCard({
         <motion.img
           src={imageSrc}
           alt={altText}
-          className="tilted-card-img"
+          className="tilted-card-img image-overlay-01"
           style={{
             width: imageWidth,
             height: imageHeight
           }} />
 
-        {displayOverlayContent && overlayContent && (
-          <motion.div className="tilted-card-overlay">{overlayContent}</motion.div>
+        {displayOverlayContent && (
+          <motion.div className="tilted-card-overlay">
+            <WiggleSvg
+              as="div"
+              trigger="visible"
+              rootMargin="0px 0px -33% 0px"
+              selector="self"
+              distance={0.75}
+              duration={0.9}
+              steps={7}
+              style={{ width: "100%", height: "100%", display: "block" }}
+            >
+              {overlayBadgeContent}
+            </WiggleSvg>
+          </motion.div>
         )}
       </motion.div>
       {showTooltip && (
@@ -124,8 +143,6 @@ export default function TiltedCard({
           {captionText}
         </motion.figcaption>
       )}
-      <div className="image-overlay-01"></div>
-      <div className="image-overlay-02"></div>
     </figure>
   );
 }

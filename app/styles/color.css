@@ -4,19 +4,18 @@
 ----------------------------------------------------------------------------- */
 
 body {
-  --color--foreground--100: rgb(235 237 223 / 1);
-  --color--foreground--50:  rgb(235 237 223 / 0.5);
-  --color--foreground--33:  rgb(235 237 223 / 0.333);
-  --color--foreground--25:  rgb(235 237 223 / 0.25);
-  --color--foreground--20:  rgb(235 237 223 / 0.2);
-  --color--foreground--15:  rgb(235 237 223 / 0.15);
-  --color--foreground--10:  rgb(235 237 223 / 0.1);
-  --color--foreground--5:   rgb(235 237 223 / 0.05);
-  --color--foreground--0:   rgb(235 237 223 / 0);
-  --color--background--100: rgb(51 59 48);
-  --color--background--80: rgb(51 59 48 / 0.8);
-  --color--background--30: rgb(151 59 48/ 0.3);
-  --color--background--0:   rgb(51 59 48 / 0);
+  --color--foreground--100: rgb(255 251 245);
+  --color--foreground--50:  rgb(255 251 245 / 0.6);
+  --color--foreground--33:  rgb(255 251 245 / 0.45);
+  --color--foreground--25:  rgb(255 251 245 / 0.4);
+  --color--foreground--20:  rgb(255 251 245 / 0.27);
+  --color--foreground--15:  rgb(255 251 245 / 0.22);
+  --color--foreground--10:  rgb(255 251 245 / 0.17);
+  --color--foreground--5:   rgb(255 251 245 / 0.05);
+  --color--foreground--0:   rgb(255 251 245 / 0);
+  --color--background--100: rgb(9 41 41);
+  --color--background--60: rgb(9 41 41 / 0.6);
+  --color--background--0:   rgb(9 41 41 / 0);
 
   color: var(--color--foreground--100);
   background-color: var(--color--background--100);
@@ -24,19 +23,18 @@ body {
 }
 
 body.theme-dark {
-  --color--foreground--100: rgb(235 237 223 / 1);
-  --color--foreground--50:  rgb(235 237 223 / 0.5);
-  --color--foreground--33:  rgb(235 237 223 / 0.333);
-  --color--foreground--25:  rgb(235 237 223 / 0.25);
-  --color--foreground--20:  rgb(235 237 223 / 0.2);
-  --color--foreground--15:  rgb(235 237 223 / 0.15);
-  --color--foreground--10:  rgb(235 237 223 / 0.1);
-  --color--foreground--5:   rgb(235 237 223 / 0.05);
-  --color--foreground--0:   rgb(235 237 223 / 0);
-  --color--background--100: rgb(51 59 48);
-  --color--background--80: rgb(51 59 48 / 0.8);
-  --color--background--30: rgb(151 59 48/ 0.3);
-  --color--background--0:   rgb(51 59 48 / 0);
+  --color--foreground--100: rgb(255 251 245);
+  --color--foreground--50:  rgb(255 251 245 / 0.6);
+  --color--foreground--33:  rgb(255 251 245 / 0.45);
+  --color--foreground--25:  rgb(255 251 245 / 0.4);
+  --color--foreground--20:  rgb(255 251 245 / 0.27);
+  --color--foreground--15:  rgb(255 251 245 / 0.22);
+  --color--foreground--10:  rgb(255 251 245 / 0.17);
+  --color--foreground--5:   rgb(255 251 245 / 0.05);
+  --color--foreground--0:   rgb(255 251 245 / 0);
+  --color--background--100: rgb(9 41 41);
+  --color--background--60: rgb(9 41 41 / 0.6);
+  --color--background--0:   rgb(9 41 41 / 0);
 
   color: var(--color--foreground--100);
   background-color: var(--color--background--100);
@@ -44,19 +42,18 @@ body.theme-dark {
 }
 
 body.theme-light {
-  --color--foreground--100: rgb(51 59 48 / 1);
-  --color--foreground--50:  rgb(51 59 48 / 0.5);
-  --color--foreground--33:  rgb(51 59 48 / 0.333);
-  --color--foreground--25:  rgb(51 59 48 / 0.25);
-  --color--foreground--20:  rgb(51 59 48 / 0.2);
-  --color--foreground--15:  rgb(51 59 48 / 0.15);
-  --color--foreground--10:  rgb(51 59 48 / 0.1);
-  --color--foreground--5:   rgb(51 59 48 / 0.05);
-  --color--foreground--0:   rgb(51 59 48 / 0);
-  --color--background--100: rgb(235 237 223);
-  --color--background--80: rgb(235 237 223 / 0.8);
-  --color--background--30: rgb(235 237 223 / 0.3);
-  --color--background--0:   rgb(235 237 223 / 0);
+  --color--foreground--100: rgb(9 41 41);
+  --color--foreground--50:  rgb(9 41 41 / 0.5);
+  --color--foreground--33:  rgb(9 41 41 / 0.333);
+  --color--foreground--25:  rgb(9 41 41 / 0.25);
+  --color--foreground--20:  rgb(9 41 41 / 0.2);
+  --color--foreground--15:  rgb(9 41 41 / 0.15);
+  --color--foreground--10:  rgb(9 41 41 / 0.1);
+  --color--foreground--5:   rgb(9 41 41 / 0.05);
+  --color--foreground--0:   rgb(9 41 41 / 0);
+  --color--background--100: rgb(255 251 245);
+  --color--background--60: rgb(255 251 245 / 0.6);
+  --color--background--0:   rgb(255 251 245 / 0);
 
   color: var(--color--foreground--100);
   background-color: var(--color--background--100);
@@ -65,34 +62,41 @@ body.theme-light {
 
 @media (prefers-color-scheme: light) {
   body {
-    --color--foreground--100: rgb(51 59 48 / 1);
-    --color--foreground--50:  rgb(51 59 48 / 0.5);
-    --color--foreground--33:  rgb(51 59 48 / 0.333);
-    --color--foreground--25:  rgb(51 59 48 / 0.25);
-    --color--foreground--20:  rgb(51 59 48 / 0.2);
-    --color--foreground--15:  rgb(51 59 48 / 0.15);
-    --color--foreground--10:  rgb(51 59 48 / 0.1);
-    --color--foreground--5:   rgb(51 59 48 / 0.05);
-    --color--foreground--0:   rgb(51 59 48 / 0);
-    --color--background--100: rgb(235 237 223);
-    --color--background--80: rgb(235 237 223 / 0.8);
-    --color--background--30: rgb(235 237 223 / 0.3);
-    --color--background--0:   rgb(235 237 223 / 0);
+    --color--foreground--100: rgb(9 41 41);
+    --color--foreground--50:  rgb(9 41 41 / 0.5);
+    --color--foreground--33:  rgb(9 41 41 / 0.333);
+    --color--foreground--25:  rgb(9 41 41 / 0.25);
+    --color--foreground--20:  rgb(9 41 41 / 0.2);
+    --color--foreground--15:  rgb(9 41 41 / 0.15);
+    --color--foreground--10:  rgb(9 41 41 / 0.1);
+    --color--foreground--5:   rgb(9 41 41 / 0.05);
+    --color--foreground--0:   rgb(9 41 41 / 0);
+    --color--background--100: rgb(255 251 245);
+    --color--background--60: rgb(255 251 245 / 0.6);
+    --color--background--0:   rgb(255 251 245 / 0);
   }
 }
-body.theme-light .image-overlay-01 {
+/* body.theme-light .image-overlay-01 {
   display: none;
 }
 body.theme-dark .image-overlay-02 {
   display: none;
-}
+} */
 body.theme-dark .image-overlay-01 {
   background-color: var(--color--background--100);
-  opacity: 0.15;
+  opacity: 0.65;
   mix-blend-mode: multiply;
 }
-body.theme-light .image-overlay-02 {
+body.theme-light .image-overlay-01 {
   background-color: var(--color--background--100);
-  opacity: 0.15;
+  opacity: 0.75;
   mix-blend-mode: lighten;
+}
+
+body.theme-light .page-transition-overlay {
+  background-color: var(--color--background--100);
+}
+
+body.theme-light .page-transition-overlay__line {
+  background-color: var(--color--foreground--100);
 }

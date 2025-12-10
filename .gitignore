@@ -26,6 +26,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.env
+screenshots/
+test-portfolio-screenshots.js
+docs/
 
 # local env files
 .env*.local

@@ -1,15 +1,15 @@
 import { useRef, useEffect, useCallback, useState } from "react";
 
-const ClickSpark = ({
+export default function ClickSpark ({
   sparkColor = "var(--color--foreground--100)",
-  sparkSize = 10,
-  sparkRadius = 15,
+  sparkSize = 15,
+  sparkRadius = 20,
   sparkCount = 8,
   duration = 400,
   easing = "ease-out",
-  extraScale = 1.0,
+  extraScale = 1.5,
   children
-}) => {
+}) {
   const canvasRef = useRef(null);
   const sparksRef = useRef([]);
   const startTimeRef = useRef(null);
@@ -221,5 +221,3 @@ const ClickSpark = ({
     </div>
   );
 };
-
-export default ClickSpark;

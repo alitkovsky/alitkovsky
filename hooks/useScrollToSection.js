@@ -1,3 +1,5 @@
+export const MOBILE_NAV_TRANSITION_DURATION = 300;
+
 const useScrollToSection = () => {
   return (id) => {
     const scroll = () => {
@@ -16,7 +18,7 @@ const useScrollToSection = () => {
       setTimeout(() => {
         scroll();
         body.classList.remove("mobile-nav--is--transitioning");
-      }, 300); // Adjust delay to match nav animation duration
+      }, MOBILE_NAV_TRANSITION_DURATION); // Adjust delay to match nav animation duration
     } else {
       scroll();
     }

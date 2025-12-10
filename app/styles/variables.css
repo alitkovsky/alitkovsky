@@ -8,17 +8,17 @@
   --font--margin-left-opening-quote-mark: -0.406em;
   --font--feature-settings: "liga", "ss02", "ss03", "ss04", "ss06";
   --font--feature-settings-no-stylized-numeral-8: "ss06" 0;
-  --font--size-monster: clamp(42px, 6.45vw, 6.45vw);
-  --font--size-huge: clamp(32px, 4.14vw, 4.14vw);
-  --font--size-large: clamp(26px, 3.14vw, 3.14vw);
-  --font--size-medium: 26px;
-  --font--size-regular: 16px;
-  --font--size-small: 14px;
+  --font--size-monster: clamp(2.625rem, 6.45vw, 6.45vw);
+  --font--size-huge: clamp(2rem, 4.14vw, 4.14vw);
+  --font--size-large: clamp(1.625rem, 3.14vw, 3.14vw);
+  --font--size-medium: 1.625rem;
+  --font--size-regular: 1.125rem;
+  --font--size-small: 0.875rem;
   --font--size-regular-line-height: 1.25;
 }
 
 :root {
-  --grid--app-margin: 40px;
+  --grid--app-margin: 2.5rem;
   --grid--app-columns: var(--grid--app-columns-12);
   --grid--app-columns-12: repeat(12, [col-start] 1fr);
   --grid--app-columns-8: repeat(8, [col-start] 1fr);
@@ -27,21 +27,21 @@
   --grid--app-columns-3: repeat(3, [col-start] 1fr);
   --grid--app-columns-2: repeat(2, [col-start] 1fr);
   --grid--app-columns-1: repeat(1, [col-start] 1fr);
-  --grid--app-gutter: 20px;
-  --grid--app-xheight: 220px; /* 120px */
-  --image--height: 560px;
+  --grid--app-gutter: 1.25rem;
+  --grid--app-xheight: 13.75rem; /* 120px */
+  --image--height: 35rem;
 }
 
 :root {
-  --color--foreground--100: rgb(242 251 253 / 1);
-  --color--foreground--50:  rgb(242 251 253 / 0.5);
-  --color--foreground--33:  rgb(242 251 253 / 0.333);
-  --color--foreground--25:  rgb(242 251 253 / 0.25);
-  --color--foreground--20:  rgb(242 251 253 / 0.2);
-  --color--foreground--15:  rgb(242 251 253 / 0.15);
-  --color--foreground--10:  rgb(242 251 253 / 0.1);
-  --color--foreground--5:   rgb(242 251 253 / 0.05);
-  --color--foreground--0:   rgb(242 251 253 / 0);
-  --color--background--100: rgb(18 25 26);
-  --color--background--0:   rgb(18 25 26 / 0);
+  --color--foreground--100: rgb(255 251 245);
+  --color--foreground--50:  rgb(255 251 245 / 0.5);
+  --color--foreground--33:  rgb(255 251 245 / 0.333);
+  --color--foreground--25:  rgb(255 251 245 / 0.25);
+  --color--foreground--20:  rgb(255 251 245 / 0.2);
+  --color--foreground--15:  rgb(255 251 245 / 0.15);
+  --color--foreground--10:  rgb(255 251 245 / 0.1);
+  --color--foreground--5:   rgb(255 251 245 / 0.05);
+  --color--foreground--0:   rgb(255 251 245 / 0);
+  --color--background--100: rgb(9 41 41);
+  --color--background--0:   rgb(9 41 41 / 0);
 }

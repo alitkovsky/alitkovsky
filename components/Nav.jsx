@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import useScrollToSection from "@/hooks/useScrollToSection";
+import useScrollToSection, { MOBILE_NAV_TRANSITION_DURATION } from "@/hooks/useScrollToSection";
 import useActiveSection from "@/hooks/useActiveSection";
+import Link from "next/link";
 
 import TextEffect from "@/components/TextEffect";
+import BookCTA from "@/components/BookCTA";
 
 const THEME_STORAGE_KEY = "nav-theme";
 const THEME_COOKIE_KEY = "nav-theme";
@@ -40,7 +43,10 @@ const readStoredTheme = () => {
 
 export default function Nav({ initialTheme = "dark" }) {
   const scrollTo = useScrollToSection();
-  const activeId = useActiveSection();
+  const router = useRouter();
+  const pathname = usePathname();
+  const isHomeRoute = pathname === "/";
+  const activeId = useActiveSection({ enabled: isHomeRoute });
   const [theme, setTheme] = useState(initialTheme);
   const transitionTimeoutRef = useRef(null);
 
@@ -114,6 +120,39 @@ export default function Nav({ initialTheme = "dark" }) {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
+  const closeMobileNavIfNeeded = (callback) => {
+    if (typeof document === "undefined" || typeof window === "undefined") {
+      callback?.();
+      return;
+    }
+
+    const { body } = document;
+
+    if (!body.classList.contains("mobile-nav--is--visible")) {
+      callback?.();
+      return;
+    }
+
+    body.classList.remove("mobile-nav--is--visible");
+    body.classList.add("mobile-nav--is--transitioning");
+
+    window.setTimeout(() => {
+      callback?.();
+      body.classList.remove("mobile-nav--is--transitioning");
+    }, MOBILE_NAV_TRANSITION_DURATION);
+  };
+
+  const handleSectionRequest = (id) => {
+    if (isHomeRoute) {
+      scrollTo(id);
+      return;
+    }
+
+    closeMobileNavIfNeeded(() => {
+      router.push(`/#${id}`);
+    });
+  };
+
   const handleModeKeyDown = (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -124,9 +163,17 @@ export default function Nav({ initialTheme = "dark" }) {
   const items = [
     { id: "intro", label: "intro" },
     { id: "values", label: "values" },
+    // { id: "process", label: "process" },
+    // { id: "services", label: "services" },
+    // { id: "cases", label: "cases" },
     { id: "background", label: "background" },
-    { id: "about", label: "about" },
+    { id: "expertise", label: "expertise" },
     { id: "contact", label: "contact" }
+  ];
+
+  const subItems = [
+    { id: "cases", label: "cases", route: "/cases" },
+    { id: "about", label: "about", route: "/about" }
   ];
 
   function NavItem({ id, label, isActive, onActivate }) {
@@ -134,8 +181,8 @@ export default function Nav({ initialTheme = "dark" }) {
     const activationTimeout = useRef(null)
 
     useEffect(() => {
-      const effect = lineEffect.current
-      if (!effect) return
+      const getEffect = () => lineEffect.current
+      if (!getEffect()) return
 
       if (activationTimeout.current) {
         clearTimeout(activationTimeout.current)
@@ -145,19 +192,27 @@ export default function Nav({ initialTheme = "dark" }) {
       let raf
 
       const runWhenReady = (callback) => {
-        if (!effect.ready) {
+        const instance = getEffect()
+        if (!instance) {
+          return
+        }
+        if (!instance.ready) {
           raf = requestAnimationFrame(() => runWhenReady(callback))
           return
         }
-        callback()
+        callback(instance)
       }
 
       if (isActive) {
+        // Wait for previous item to animate out (300ms) plus delay (300ms) = 600ms total
         activationTimeout.current = window.setTimeout(() => {
-          runWhenReady(() => effect.animateIn?.())
-        }, LINE_EFFECT_DELAY)
+          runWhenReady((instance) => instance.animateIn?.())
+        }, LINE_EFFECT_DELAY * 2)
       } else {
-        runWhenReady(() => effect.animateOut?.())
+        // Add delay before animating out
+        activationTimeout.current = window.setTimeout(() => {
+          runWhenReady((instance) => instance.animateOut?.())
+        }, LINE_EFFECT_DELAY)
       }
 
       return () => {
@@ -193,9 +248,99 @@ export default function Nav({ initialTheme = "dark" }) {
           as="span"
           variant="ellipseAuto"
           trigger="hover"
-          className="inline-block pt-2"
+          active={isActive}
+          activeVariant="linethrough"
+          activeTrigger="manual"
+          activeDelay={LINE_EFFECT_DELAY}
+          effectRef={lineEffect}
+          className="inline-block"
         >
           <span className={cn("nav-link", { "is--active": isActive })}>{label}</span>
+        </TextEffect>
+      </div>
+    )
+  }
+
+  function SubNavItem({ id, label, route, isActive, onActivate }) {
+    const lineEffect = useRef(null)
+    const activationTimeout = useRef(null)
+
+    useEffect(() => {
+      const getEffect = () => lineEffect.current
+      if (!getEffect()) return
+
+      if (activationTimeout.current) {
+        clearTimeout(activationTimeout.current)
+        activationTimeout.current = null
+      }
+
+      let raf
+
+      const runWhenReady = (callback) => {
+        const instance = getEffect()
+        if (!instance) {
+          return
+        }
+        if (!instance.ready) {
+          raf = requestAnimationFrame(() => runWhenReady(callback))
+          return
+        }
+        callback(instance)
+      }
+
+      if (isActive) {
+        // Wait for previous item to animate out (300ms) plus delay (300ms) = 600ms total
+        activationTimeout.current = window.setTimeout(() => {
+          runWhenReady((instance) => instance.animateIn?.())
+        }, LINE_EFFECT_DELAY * 2)
+      } else {
+        // Add delay before animating out
+        activationTimeout.current = window.setTimeout(() => {
+          runWhenReady((instance) => instance.animateOut?.())
+        }, LINE_EFFECT_DELAY)
+      }
+
+      return () => {
+        if (raf) cancelAnimationFrame(raf)
+        if (activationTimeout.current) {
+          clearTimeout(activationTimeout.current)
+          activationTimeout.current = null
+        }
+      }
+    }, [isActive])
+
+    const handleActivate = (event) => {
+      event?.preventDefault()
+      onActivate?.()
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault()
+        onActivate?.()
+      }
+    }
+
+    return (
+      <div
+        className={cn("item", id, { "is--active": isActive })}
+        role="button"
+        tabIndex={0}
+        onClick={handleActivate}
+        onKeyDown={handleKeyDown}
+      >
+        <TextEffect
+          as="span"
+          variant="ellipseAuto"
+          trigger="hover"
+          active={isActive}
+          activeVariant="linethrough"
+          activeTrigger="manual"
+          activeDelay={LINE_EFFECT_DELAY}
+          effectRef={lineEffect}
+          className="inline-block"
+        >
+          <Link href={route} className={cn("nav-link", { "is--active": isActive })}>{label}</Link>
         </TextEffect>
       </div>
     )
@@ -211,10 +356,27 @@ export default function Nav({ initialTheme = "dark" }) {
               id={id}
               label={label}
               isActive={activeId === id}
-              onActivate={() => scrollTo(id)}
+              onActivate={() => handleSectionRequest(id)}
             />
           ))}
 
+          {/* <TextEffect
+          as="div"
+          variant="linethrough"
+          trigger="visible"
+          className="inline-block w-[40%] my-6"
+        ></TextEffect>
+
+          {subItems.map(({ id, label, route }) => (
+            <SubNavItem
+              key={id}
+              id={id}
+              label={label}
+              route={route}
+              isActive={activeId === id}
+              onActivate={() => handleSectionRequest(id)}
+            />
+          ))} */}
         </div>
         <div className="toggles">
           <div
@@ -239,6 +401,16 @@ export default function Nav({ initialTheme = "dark" }) {
             <div>de</div>
           </div>
         </div>
+        {/* <div className="nav-cta">
+          <BookCTA
+            label="Termin vereinbaren"
+            subline="30 Min · Google Meet"
+            size="sm"
+            variant="secondary"
+            fullWidth
+            align="center"
+          />
+        </div> */}
       </div>
     </nav>
   );
