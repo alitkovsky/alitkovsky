@@ -12,7 +12,16 @@ const nextConfig = {
   // Allow cross-origin requests during development
   allowedDevOrigins: ['192.168.178.79'],
   turbopack: {},
-  // You can add other config here as needed
+  // Business card QR code redirect
+  async redirects() {
+    return [
+      {
+        source: '/bc',
+        destination: '/?utm_source=visitenkarte&utm_medium=qr&utm_campaign=andrii_brand',
+        permanent: false, // 302 redirect for flexibility
+      },
+    ];
+  },
   async headers() {
     return [
       {
