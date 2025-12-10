@@ -172,27 +172,29 @@
     grid-column: 1 / -1;
     grid-template-columns: subgrid;
   }
-  .section.values .title,
-  .section.values .tools .title,
-  .section.values .tools .content,
+  .section.values > .content .title,
+  .section.values > .content .tools .title,
+  .section.values > .content .tools .content,
+  .section.background > .content .description,
   .section.background .item .company,
-  .section.background .item .metadata,
   .section.background .item .description,
-  .section.about .certification {
+  .section.background .item .metadata .location,
+  .section.about > .content .certification {
     grid-column: 1 / 4;
   }
-  .section.values .description,
-  .section.background .description,
-  .section.about .biography,
-  .section.about .education,
-  .section.about .colophon,
-  .section.contact .text {
+  .section.values > .content .description,
+  .section.background > .content .brief,
+  .section.background .item .metadata .time,
+  .section.about > .content .biography,
+  .section.about > .content .education,
+  .section.about > .content .colophon,
+  .section.contact > .content .text {
     grid-column: 4 / -1;
   }
-  .section.contact .hook {
+  .section.contact > .content .hook {
     grid-column: 1 / -1;
   }
-  .section.contact .image {
+  .section.contact > .content .image {
     grid-column: 1 / 3;
   }
   footer > h1:nth-child(1) {
@@ -211,6 +213,7 @@
 
   body {
     --grid--app-columns: var(--grid--app-columns-4);
+    --image--height: 500px;
   }
   .app-grid-overlay .column:nth-child(n+5) {
     display: none;
@@ -236,11 +239,11 @@
   .section.values .main {
     grid-template-columns: subgrid;
   }
-  .section.values .description {
+  .section.values > .content .description {
     grid-column: 3 / -1;
     font-size: var(--font--size-regular);
   }
-  .section.values .tools {
+  .section.values > .content .tools {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: var(--grid--app-columns);
@@ -252,7 +255,7 @@
     padding-top: 0;
     font-size: var(--font--size-large);
   }
-  .section.values .tools .content {
+  .section.values > .content .tools .content {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: var(--grid--app-columns-2);
@@ -263,7 +266,6 @@
   .section.values .tools p {
     font-size: var(--font--size-regular);
   }
-  .section.background .description,
   .section.references .item {
     grid-column: 1 / 3;
   }
@@ -272,7 +274,9 @@
     grid-column: 1 / -1;
   }
   .section.background .item .metadata,
-  .section.background .item .description {
+  .section.background .item .description,
+  .section.background .item .metadata .location,
+  .section.about > .content .certification {
     grid-column: 1 / 3;
   }
   .section.background .item .company,
@@ -290,16 +294,15 @@
   .section.references .quote {
     padding-right: 0;
   }
-  .section.about .certification {
-    grid-column: 1 / 3;
-  }
-  .section.about .education {
+  .section.background > .content .brief,
+  .section.background .item .metadata .time,
+  .section.about > .content .education {
     grid-column: 3 / -1;
   }
   .section.about .awards,
   .section.about .press,
-  .section.about .colophon,
-  .section.about .biography {
+  .section.about > .content .colophon,
+  .section.about > .content .biography {
     grid-column: 3 / -1;
   }
   .section.contact > .content {
@@ -314,9 +317,6 @@
   .section.contact > .content .text {
     grid-column: 3 / -1;
     grid-template-columns: var(--grid--app-columns-1);
-  }
-  .section.contact .actions {
-    padding: 80px 0 20px;
   }
   footer > h1:nth-child(1) {
     grid-column-start: 1;
@@ -355,7 +355,9 @@
   .section.background > .content,
   .section.background .item,
   .section.references > .content,
-  .section.about > .content {
+  .section.about > .content,
+  .section.values > .content .tools,
+  .section.contact > .content {
     grid-template-columns: subgrid;
   }
   .app-grid-overlay .column:nth-child(n+3) {
@@ -373,16 +375,24 @@
   }
   .section.values .description,
   .section.background .item .description,
-  .section.background .description,
-  .section.references .item,
-  .section.about .biography {
+  .section.references .item {
     grid-column: 1 / -1;
   }
-  .section.about .certification {
+  .section.about > .content .certification {
     grid-column: 1 / -1;
   }
-  .section.about .education {
+  .section.about > .content .education {
     grid-column: 1 / -1;
+  }
+  .section.background .item .metadata .location {
+    grid-column: 1 / 2;
+  }
+  .section.values > .content .description,
+  .section.background > .content .brief,
+  .section.about > .content .biography,
+  .section.background .item .metadata .time,
+  .section.about > .content .colophon {
+    grid-column: 2 / -1;
   }
   .section.contact > .content .hook {
     grid-column: 1 / -1;
