@@ -4,7 +4,7 @@ import CountUp from "@/components/CountUp";
 
 export default function CaseStudy() {
   return (
-    <section className="section cases" id="values">
+    <section className="section cases">
       <div className="content">
         <div className="title">
           <h1>
