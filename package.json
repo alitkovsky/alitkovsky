@@ -1,6 +1,10 @@
 {
   "name": "alitkovsky",
   "version": "0.2.0",
+  "engines": {
+    "node": "22.x",
+    "npm": "10.x"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
