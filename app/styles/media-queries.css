@@ -315,12 +315,15 @@
   .section.values .tools .tool-list .item .description h3 {
     font-size: var(--font--size-medium);
   }
-  .section.values .tools .tool-list .item.mobile-inactive .skill-icon-3d-wrapper,
-  .section.values .tools .tool-list .item.mobile-inactive .skill-icon-3d-canvas {
+  .section.values .tools .tool-list .item.mobile-inactive .tool-icon-3d-canvas {
     opacity: 0;
     pointer-events: none;
   }
-  .skill-icon-3d-fallback {
+  .section.values .tools .tool-list .item.mobile-inactive .tool-icon-3d-fallback {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  .tool-icon-3d-fallback {
     opacity: 1 !important;
     pointer-events: auto !important;
   }

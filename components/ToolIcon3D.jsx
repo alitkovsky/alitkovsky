@@ -40,7 +40,7 @@ function ToolIcon3D({
         lookAtMouse={lookAtMouse}
         disableBelow={disableBelow}
         pullApart={pullApart}
-        inlineFallback={false}
+        inlineFallback
         trigger={trigger}
         visibilityRootMargin={visibilityRootMargin}
         visibilityThreshold={visibilityThreshold}

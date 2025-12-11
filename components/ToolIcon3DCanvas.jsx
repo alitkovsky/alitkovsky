@@ -32,7 +32,6 @@ function ToolIcon3DCanvas({
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const hasAnimatedRef = useRef(false); // Track if draw animation has played
 
   // Detect mobile/tablet viewport
   useEffect(() => {
@@ -45,6 +44,8 @@ function ToolIcon3DCanvas({
 
   // Initialize Three.js scene with SVG loading
   useEffect(() => {
+    let cancelled = false;
+
     if (prefersReducedMotion || !svgSrc || isMobile) {
       setFailed(true);
       onError?.();
@@ -66,23 +67,25 @@ function ToolIcon3DCanvas({
     scene
       .loadFromSVG()  // Load SVG directly
       .then(() => {
-        // Immediately animate in to make the icon visible
-        scene.animateIn();
-        hasAnimatedRef.current = true;
+        if (cancelled) return;
         setReady(true);
         onReady?.();
+        if (trigger !== "visible") {
+          scene.animateIn();
+        }
       })
       .catch((err) => {
         console.error('SVG load error:', err);
+        if (cancelled) return;
         setFailed(true);
         scene.dispose();
         onError?.();
       });
 
     return () => {
+      cancelled = true;
       scene.dispose();
       sceneRef.current = null;
-      hasAnimatedRef.current = false;
     };
   }, [svgSrc, color, thickness, mode, prefersReducedMotion, isMobile, pullApart, trigger, onReady, onError]);
 
@@ -96,12 +99,10 @@ function ToolIcon3DCanvas({
       entries.forEach((entry) => {
         if (entry.target !== el) return;
 
-        // Only animate in once when it first becomes visible
         if (entry.isIntersecting && entry.intersectionRatio > visibilityThreshold) {
-          if (!hasAnimatedRef.current) {
-            sceneRef.current?.animateIn();
-            hasAnimatedRef.current = true;
-          }
+          sceneRef.current?.animateIn();
+        } else {
+          sceneRef.current?.stopRotate();
         }
       });
     };
@@ -120,25 +121,21 @@ function ToolIcon3DCanvas({
 
   // Handle rotation based on isActive prop (when trigger is "visible")
   useEffect(() => {
-    if (trigger !== "visible" || !ready) return;
+    if (!ready) return;
 
     if (isActive) {
       sceneRef.current?.startRotate();
     } else {
       sceneRef.current?.stopRotate();
     }
-  }, [isActive, trigger, ready]);
+  }, [isActive, ready]);
 
   // Mouse interaction handlers (only for trigger="hover")
   const handleEnter = () => {
-    if (trigger === "hover") {
-      sceneRef.current?.startRotate();
-    }
+    sceneRef.current?.startRotate();
   };
   const handleLeave = () => {
-    if (trigger === "hover") {
-      sceneRef.current?.stopRotate();
-    }
+    sceneRef.current?.stopRotate();
   };
   const handleMove = (e) => {
     if (!lookAtMouse) return;

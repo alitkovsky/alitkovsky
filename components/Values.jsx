@@ -6,10 +6,7 @@ import BookCTA from "@/components/BookCTA";
 import ToolList from "@/components/ToolList";
 import WiggleSvg from "@/components/WiggleSvg";
 
-import { motion, useAnimationControls, useReducedMotion } from "framer-motion";
 import { SiCanva, SiAdobe, SiAdobecreativecloud, SiGoogleadsense, SiGoogleanalytics, SiGoogletagmanager, SiLooker, SiHubspot, SiLinkedin, SiMeta, SiMailchimp, SiSemrush } from "react-icons/si";
-
-import Link from "next/link";
 
 const techLogos = [
   { node: <SiAdobe />, title: "Adobe", href: "/" },
@@ -71,7 +68,7 @@ export default function Values() {
             className="clients-cards-group"
             scaleOnHover
             fadeOut
-            fadeOutColor="var(--color--background--100"
+            fadeOutColor="var(--color--background--100)"
             ariaLabel="Marketing tools"
             renderItem={(item, itemIndex) => {
               const rotationClass = itemIndex % 2 === 0 ? "r1" : "r2";

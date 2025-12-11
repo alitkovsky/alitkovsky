@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import ToolIcon3D from "@/components/ToolIcon3D";
 import useToolList from "@/hooks/useToolList";
@@ -70,7 +69,7 @@ const itemVariants = {
 };
 
 export default function ToolList() {
-  const { active, setActive, strokeY, containerRef, itemRefs } = useToolList(tools);
+  const { active, setActive, containerRef, itemRefs } = useToolList(tools, { initialActive: 0 });
   const [iconColor, setIconColor] = useState("#131313");
 
   // Read CSS variable for icon color
