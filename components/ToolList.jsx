@@ -74,28 +74,76 @@ export default function ToolList() {
 
   // Read CSS variable for icon color
   useEffect(() => {
-    const updateColor = () => {
-      if (typeof window !== "undefined") {
-        const color = getComputedStyle(document.documentElement)
-          .getPropertyValue("--color--foreground--100")
-          .trim();
-        if (color) {
-          setIconColor(color);
-        }
+    let rafId = null;
+    let debounceId = null;
+
+    const readColor = () => {
+      if (typeof window === "undefined") return;
+      const target = containerRef.current || document.body || document.documentElement;
+      const color = getComputedStyle(target)
+        .getPropertyValue("--color--foreground--100")
+        .trim();
+      if (color) {
+        setIconColor(color);
       }
     };
 
-    updateColor();
+    const updateColorNow = () => {
+      if (debounceId) {
+        clearTimeout(debounceId);
+        debounceId = null;
+      }
+      readColor();
+    };
 
-    // Listen for theme changes
-    const observer = new MutationObserver(updateColor);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class", "data-theme"],
+    const scheduleUpdate = () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+      rafId = requestAnimationFrame(updateColorNow);
+    };
+
+    const scheduleDebounced = () => {
+      if (debounceId) {
+        clearTimeout(debounceId);
+      }
+      debounceId = setTimeout(updateColorNow, 50);
+    };
+
+    scheduleUpdate();
+
+    // Listen for theme changes on both html and body
+    const observer = new MutationObserver(() => {
+      scheduleDebounced();
+    });
+    const targets = [document.documentElement, document.body].filter(Boolean);
+    targets.forEach((el) =>
+      observer.observe(el, {
+        attributes: true,
+        attributeFilter: ["class", "data-theme", "style"],
+      })
+    );
+
+    // Also respond to system theme changes
+    const media = window.matchMedia?.("(prefers-color-scheme: dark)");
+    media?.addEventListener?.("change", scheduleUpdate);
+
+    // Re-check on focus/hover events similar to TextEffect
+    const colorEvents = ["focus", "blur", "pointerdown", "pointerup", "mouseenter", "mouseleave"];
+    colorEvents.forEach((eventName) => {
+      document.addEventListener(eventName, scheduleUpdate, { capture: true, passive: true });
     });
 
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
+      media?.removeEventListener?.("change", scheduleUpdate);
+      if (rafId) cancelAnimationFrame(rafId);
+      if (debounceId) clearTimeout(debounceId);
+      colorEvents.forEach((eventName) => {
+        document.removeEventListener(eventName, scheduleUpdate, { capture: true });
+      });
+    };
+  }, [containerRef]);
 
   return (
     <>
