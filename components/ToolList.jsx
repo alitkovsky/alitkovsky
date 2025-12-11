@@ -117,6 +117,8 @@ export default function ToolList() {
             ref={(el) => (itemRefs.current[idx] = el)}
             onMouseEnter={() => setActive(idx)}
             onFocus={() => setActive(idx)}
+            onMouseLeave={() => setActive(null)}
+            onBlur={() => setActive(null)}
           >
               <div className="icon">
                 <ToolIcon3D
