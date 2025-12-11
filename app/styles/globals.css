@@ -1283,6 +1283,11 @@ body.theme-transition * {
   pointer-events: none;
   transition: opacity 200ms ease;
 }
+.tool-icon-3d-wrapper.is-ready .tool-icon-3d-fallback {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
 .tool-icon-3d-canvas {
   position: absolute;
   inset: 0;

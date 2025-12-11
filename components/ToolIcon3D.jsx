@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, memo } from "react";
-import Image from "next/image";
+import { memo, useCallback, useMemo, useState } from "react";
 import SkillIcon3DCanvas from "@/components/ToolIcon3DCanvas";
 
 function ToolIcon3D({
@@ -20,17 +19,59 @@ function ToolIcon3D({
   visibilityThreshold = 0,
   isActive = false,
 }) {
-  const [hideFallback, setHideFallback] = useState(false);
+  const [renderState, setRenderState] = useState({
+    ready: false,
+    failed: false,
+    isMobile: false,
+    prefersReducedMotion: false,
+  });
+
+  const hideFallback = useMemo(() => {
+    return (
+      renderState.ready &&
+      !renderState.failed &&
+      !renderState.isMobile &&
+      !renderState.prefersReducedMotion
+    );
+  }, [renderState]);
+
+  const fallbackStyle = useMemo(
+    () => ({
+      maskImage: `url(${svgSrc})`,
+      WebkitMaskImage: `url(${svgSrc})`,
+      maskRepeat: "no-repeat",
+      WebkitMaskRepeat: "no-repeat",
+      maskSize: "contain",
+      WebkitMaskSize: "contain",
+      maskPosition: "center",
+      WebkitMaskPosition: "center",
+      backgroundColor: "var(--color--foreground--100)",
+    }),
+    [svgSrc]
+  );
+
+  const handleReady = useCallback(
+    () => setRenderState((prev) => ({ ...prev, ready: true, failed: false })),
+    []
+  );
+
+  const handleError = useCallback(
+    () => setRenderState((prev) => ({ ...prev, ready: false, failed: true })),
+    []
+  );
+
+  const handleStateChange = useCallback(
+    (state) => setRenderState((prev) => ({ ...prev, ...state })),
+    []
+  );
 
   return (
-    <span className={`tool-icon-3d-wrapper ${className}`}>
-      <Image
-        src={svgSrc}
-        alt={title || "Tool icon"}
-        width={150}
-        height={60}
-        draggable={false}
-        className={`tool-icon-3d-fallback ${hideFallback ? "is-hidden" : ""}`}
+    <span className={`tool-icon-3d-wrapper ${hideFallback ? "is-ready" : ""} ${className}`}>
+      <span
+        role="presentation"
+        aria-hidden="true"
+        className="tool-icon-3d-fallback"
+        style={fallbackStyle}
       />
       <SkillIcon3DCanvas
         svgSrc={svgSrc}
@@ -40,13 +81,14 @@ function ToolIcon3D({
         lookAtMouse={lookAtMouse}
         disableBelow={disableBelow}
         pullApart={pullApart}
-        inlineFallback
+        inlineFallback={false}
         trigger={trigger}
         visibilityRootMargin={visibilityRootMargin}
         visibilityThreshold={visibilityThreshold}
         isActive={isActive}
-        onReady={() => setHideFallback(true)}
-        onError={() => setHideFallback(false)}
+        onReady={handleReady}
+        onError={handleError}
+        onStateChange={handleStateChange}
       />
     </span>
   );

@@ -25,6 +25,7 @@ function ToolIcon3DCanvas({
   visibilityRootMargin = "0px 0px -33%",
   visibilityThreshold = 0,
   isActive = false,
+  onStateChange,
 }) {
   const containerRef = useRef(null);
   const sceneRef = useRef(null);
@@ -41,6 +42,16 @@ function ToolIcon3DCanvas({
     mq.addEventListener("change", handle);
     return () => mq.removeEventListener("change", handle);
   }, [disableBelow]);
+
+  // Sync status upstream
+  useEffect(() => {
+    onStateChange?.({
+      ready,
+      failed,
+      isMobile,
+      prefersReducedMotion,
+    });
+  }, [ready, failed, isMobile, prefersReducedMotion, onStateChange]);
 
   // Initialize Three.js scene with SVG loading
   useEffect(() => {
