@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "engines": {
     "node": "22.x",
-    "npm": "10.x"
+    "npm": ">=10.x"
   },
   "private": true,
   "scripts": {
@@ -24,7 +24,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
     "gsap": "^3.14.1",
-    "lucide-react": "^0.559.0",
+    "lucide-react": "^0.560.0",
     "mathjs": "^15.1.0",
     "motion": "^12.23.26",
     "next": "^16.0.8",
