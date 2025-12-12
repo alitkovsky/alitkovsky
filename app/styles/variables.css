@@ -8,12 +8,12 @@
   --font--margin-left-opening-quote-mark: -0.406em;
   --font--feature-settings: "liga", "ss02", "ss03", "ss04", "ss06";
   --font--feature-settings-no-stylized-numeral-8: "ss06" 0;
-  --font--size-monster: clamp(2.625rem, 6.45vw, 6.45vw);
-  --font--size-huge: clamp(2rem, 4.14vw, 4.14vw);
-  --font--size-large: clamp(1.625rem, 3.14vw, 3.14vw);
-  --font--size-medium: 1.625rem;
-  --font--size-regular: 1.125rem;
-  --font--size-small: 0.875rem;
+  --font--size-monster: clamp(2.625rem, 1.5rem + 5vw, 5rem);
+  --font--size-huge: clamp(2rem, 1.25rem + 3.5vw, 3.25rem);
+  --font--size-large: clamp(1.625rem, 1rem + 2.5vw, 2.5rem);
+  --font--size-medium: clamp(1.25rem, 0.875rem + 1.5vw, 1.625rem);
+  --font--size-regular: clamp(1rem, 0.875rem + 0.5vw, 1.125rem);
+  --font--size-small: clamp(0.875rem, 0.8125rem + 0.25vw, 0.9375rem);
   --font--size-regular-line-height: 1.25;
 }
 

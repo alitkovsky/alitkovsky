@@ -12,9 +12,9 @@ const tools = [
     iconId: "analytics",
     svg: "/assets/svg/analytics.svg",
     bullets: [
-      "Google Ads, GA4 and GTM",
-      "Performance conversion tracking",
-      "Hyper-targeted campaigns"
+      "google ads, GA4 and GTM",
+      "performance conversion tracking",
+      "hyper-targeted campaigns"
     ],
   },
   {
@@ -23,9 +23,9 @@ const tools = [
     iconId: "seo",
     svg: "/assets/svg/seo.svg",
     bullets: [
-      "On-page, tech, and content SEO",
-      "Comprehensive ongoing analysis",
-      "Long-term organic visibility"
+      "on-page, tech, and content SEO",
+      "comprehensive ongoing analysis",
+      "long-term organic visibility"
     ],
   },
   {
@@ -34,9 +34,9 @@ const tools = [
     iconId: "paid-social",
     svg: "/assets/svg/paid-social.svg",
     bullets: [
-      "Meta Ads Manager",
-      "LinkedIn Campaign Manager",
-      "Funnel stage and creative testing"
+      "meta ads manager",
+      "linkedIn campaign manager",
+      "funnel stage and creative testing"
     ],
   },
   {
@@ -45,9 +45,9 @@ const tools = [
     iconId: "crm-email-marketing",
     svg: "/assets/svg/crm-email-marketing.svg",
     bullets: [
-      "HubSpot, Mailchimp, Klaviyo",
-      "Nurture flows",
-      "Onboarding journeys"
+      "hubspot, mailchimp, klaviyo",
+      "nurture flows",
+      "onboarding journeys"
     ],
   }
 ];

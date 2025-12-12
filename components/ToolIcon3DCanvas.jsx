@@ -167,6 +167,7 @@ function ToolIcon3DCanvas({
       onMouseLeave={handleLeave}
       onMouseMove={handleMove}
       role="presentation"
+      aria-hidden="true"
     >
       {showFallback && svgSrc ? (
         <Image

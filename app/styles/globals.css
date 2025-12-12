@@ -144,14 +144,20 @@
 .tilted-card-overlay {
   --tilted-card-overlay-scale: 1.08;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: calc(100% * var(--tilted-card-overlay-scale));
-  height: calc(100% * var(--tilted-card-overlay-scale));
+  inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 2;
   pointer-events: none;
   will-change: transform;
-  transform: translate(-50%, -50%) translateZ(30px);
+  transform-origin: center;
+  transform: translateZ(30px) scale(var(--tilted-card-overlay-scale));
+}
+
+.tilted-card-overlay > * {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .tilted-card-overlay-default {
@@ -159,11 +165,11 @@
   height: 100%;
   background-color: var(--color--foreground--100);
   mask-image: url("/assets/svg/og-image-marks.svg");
-  mask-size: contain;
+  mask-size: 100% 100%;
   mask-repeat: no-repeat;
   mask-position: center;
   -webkit-mask-image: url("/assets/svg/og-image-marks.svg");
-  -webkit-mask-size: contain;
+  -webkit-mask-size: 100% 100%;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
 }
@@ -1144,8 +1150,8 @@ body.theme-transition * {
   align-items: center;
   justify-content: center;
   padding: 0.85rem 1.2rem;
-  width: clamp(134px, 18vw, 190px);
-  height: clamp(48px, 9vw, 78px);
+  width: clamp(90px, 16vw, 110px);
+  height: clamp(90px, 16vw, 110px);
   border-radius: 16px;
   background: color-mix(in srgb, var(--color--foreground--5) 70%, transparent);
   box-shadow:
@@ -1188,9 +1194,13 @@ body.theme-transition * {
     drop-shadow(0 0 4px color-mix(in srgb, var(--color--foreground--25) 45%, transparent));
 }
 .section.values .tools .tool-list .item .icon {
-  width: clamp(140px, 16vw, 100px);
-  height: clamp(120px, 16vw, 100px);
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  width: clamp(90px, 16vw, 110px);
+  height: clamp(90px, 16vw, 110px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: center;
 }
 .section.values .tools .tool-list .item .content h3 {
   font-weight: 700;
@@ -1323,19 +1333,21 @@ body.theme-transition * {
   grid-template-columns: var(--grid--app-columns-2); */
   display: flex;
   gap: var(--grid--app-gutter);
+  align-items: center;
   transition: color 180ms ease, transform 200ms ease;
 }
 .section.values .tools .tool-list .item.is-active {
   color: var(--color--foreground--100);
 }
 .section.values .tools .tool-list .item .description {
-  grid-column: 2 / -1;
+  
 }
 .section.values .tools .tool-list .item .description h3 {
+  font-size: var(--font--size-regular);
   padding-bottom: 1rem;
   font-weight: 700;
 }
-.section.values .tools .tool-list .item .description p {
+.section.values .tools .tool-list .item .description ul li {
   font-size: var(--font--size-small);
 }
 .section.values .metrics {
@@ -1985,6 +1997,7 @@ body.theme-transition * {
 .section.contact > footer {
   grid-column: 1 / -1;
   grid-row: 2;
+  color: var(--color--foreground--33);
 }
 .section.contact > .content .text {
   grid-column: 5 / -1;
@@ -2083,10 +2096,25 @@ body.theme-transition * {
 }
 .section.contact > .content .image {
   grid-column: 1 / 4;
-  min-height: var(--image--height, 560px);
+  min-height: var(--image--height);
 }
 .section.contact .image figure {
   position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+}
+.section.contact .image .tilted-card-figure {
+  height: auto !important;
+}
+.section.contact .image .tilted-card-inner {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute;
+  inset: 0;
+}
+.section.contact .image .tilted-card-img {
+  width: 100% !important;
+  height: 100% !important;
 }
 .section.contact .image img {
   width: 100%;

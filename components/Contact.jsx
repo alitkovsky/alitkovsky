@@ -80,7 +80,9 @@ export default function Contact() {
               altText=""
               captionText="Feel free to get in touch"
               containerWidth="100%"
+              containerHeight="100%"
               imageWidth="100%"
+              imageHeight="100%"
               rotateAmplitude={12}
               scaleOnHover={1}
               showMobileWarning={false}
