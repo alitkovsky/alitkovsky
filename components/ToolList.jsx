@@ -178,7 +178,7 @@ export default function ToolList() {
                   mode="contain"
                   lookAtMouse={false}
                   trigger="visible"
-                  visibilityRootMargin="0px 0px -33%"
+                  visibilityRootMargin="0px 0px -20%"
                   isActive={active === idx}
                 />
               </div>
