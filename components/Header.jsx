@@ -12,8 +12,8 @@ export default function Header() {
       <div className="content">
         <div className="brand">
           <Link href="/" className="flex">
-              <h3 className="first-name"><span>a</span><span>n</span><span>d</span><span>r</span><span>ı</span><span>ı</span></h3>
-              <h3 className="last-name"><span>l</span><span>ı</span><span>t</span><span>k</span><span>o</span><span>v</span><span>s</span><span>k</span><span>y</span><span>ı</span></h3>
+              <h3 className="first-name"><span>a</span><span>n</span><span>d</span><span>r</span><span>ı</span><span>ı</span><span>&nbsp;</span><span>l</span><span>ı</span><span>t</span><span>k</span><span>o</span><span>v</span><span>s</span><span>k</span><span>y</span><span>ı</span></h3>
+              {/* <h3 className="last-name"><span>l</span><span>ı</span><span>t</span><span>k</span><span>o</span><span>v</span><span>s</span><span>k</span><span>y</span><span>ı</span></h3> */}
           </Link>
       </div>
         <div className="actions">

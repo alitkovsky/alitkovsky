@@ -486,6 +486,9 @@
     width: 1.5625rem;
     height: 0.14375rem;
   }
+  .app-header .brand h3 {
+    font-size: var(--font--size-huge);
+  }
   .section.values > .content,
   .section.background > .content,
   .section.background .item,
@@ -530,7 +533,7 @@
     padding-right: 0rem;
   }
   .section.background > .content .items .item .background-arrow {
-    left: 1rem;
+    left: 0rem;
   }
   .section.contact .text__cta h3 {
     font-size: var(--font--size-medium);
@@ -626,17 +629,17 @@
   }
   .section.values .logos .client-card {
     border-radius: 6.4vw;
-    width: 44.5vw;
-    height: 44.5vw;
+    width: 20.5vw;
+    height: 20.5vw;
   }
   .section.values .logos .logoloop__item,
   .section.values .logos .logoloop__item:last-child {
     margin-right: 1.6vw;
   }
   .section.values .logos .client-logo {
-    width: 32vw;
-    height: 32vw;
-    font-size: 32vw;
+    width: 10vw;
+    height: 10vw;
+    font-size: 10vw;
   }
 }
 
