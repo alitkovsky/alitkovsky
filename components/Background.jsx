@@ -24,12 +24,6 @@ export  default function Background() {
             </div>
             <div className="right">
               <p>2022 — 2025</p>
-              {/* <SvgStrokeEffect
-                file="path-down-first.svg"
-                width={60}
-                height="100%"
-                className="background-arrow"
-              /> */}
               <WiggleSvg
                 selector="path"
                 distance={1.2}
