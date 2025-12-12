@@ -43,7 +43,7 @@ export default function WiggleSvg({
   selector = DEFAULT_SELECTOR,
   trigger = "always",
   active,
-  rootMargin = "0px 0px -20% 0px",
+  rootMargin = "0px 0px 0% 0px",
   threshold = 0,
   delay = 0,
   duration = 0.8,
@@ -57,23 +57,43 @@ export default function WiggleSvg({
   const [internalActive, setInternalActive] = useState(trigger === "always")
   const resolvedActive = isControlled ? Boolean(active) : internalActive
 
-  // Keep the target element reference up to date (important if children change)
+  // Keep the target element reference up to date (important if children change or load async)
   useEffect(() => {
     const wrapper = wrapperRef.current
-    const target = resolveTarget(wrapper, selector)
-    if (!target) return undefined
+    if (!wrapper) return undefined
 
-    targetRef.current = target
-    target.classList.add("wiggle")
-    applyVariables(target, { duration, steps, distance, delay })
-    target.dataset.wiggleActive = resolvedActive ? "true" : "false"
+    const applyTarget = (target) => {
+      if (!target) return
+      if (targetRef.current === target) return
+
+      if (targetRef.current) {
+        targetRef.current.classList.remove("wiggle")
+        delete targetRef.current.dataset.wiggleActive
+      }
+
+      targetRef.current = target
+      target.classList.add("wiggle")
+      applyVariables(target, { duration, steps, distance, delay })
+      target.dataset.wiggleActive = resolvedActive ? "true" : "false"
+    }
+
+    const updateTarget = () => {
+      const nextTarget = resolveTarget(wrapper, selector)
+      applyTarget(nextTarget || wrapper)
+    }
+
+    updateTarget()
+
+    const observer = new MutationObserver(() => updateTarget())
+    observer.observe(wrapper, { childList: true, subtree: true })
 
     return () => {
-      if (targetRef.current === target) {
+      observer.disconnect()
+      if (targetRef.current) {
+        targetRef.current.classList.remove("wiggle")
+        delete targetRef.current.dataset.wiggleActive
         targetRef.current = null
       }
-      target.classList.remove("wiggle")
-      delete target.dataset.wiggleActive
     }
   }, [selector, children])
 
