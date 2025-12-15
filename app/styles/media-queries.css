@@ -435,23 +435,6 @@
   .section.process > .content .service-item:nth-child(even) {
     margin-top: 0;
   }
-  .cookie-banner {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.2rem 1.5rem;
-    gap: 1rem;
-  }
-
-  .cookie-banner__actions {
-    flex-direction: row;
-    width: auto;
-  }
-
-  .cookie-banner__btn {
-    width: auto;
-  }
-
   .cookie-settings__wrapper {
     align-items: center;
   }
@@ -462,6 +445,34 @@
 
   .cookie-settings__footer-actions {
     flex-direction: row;
+  }
+}
+
+/* Cookie banner row layout for wider screens */
+@media all and (min-width: 47.5rem) { /* 760px+ */
+  .cookie-banner {
+    flex-direction: row;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .cookie-banner__actions {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    width: auto;
+  }
+
+  .cookie-banner__btn {
+    width: auto;
+  }
+}
+
+/* Cookie banner wide screen alignment */
+@media all and (min-width: 96.25rem) { /* 1540px+ */
+  .cookie-banner {
+    justify-content: space-between;
   }
 }
 

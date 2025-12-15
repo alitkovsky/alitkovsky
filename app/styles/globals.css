@@ -2325,8 +2325,8 @@ body.page-not-found .section.intro h1 {
   gap: 0.75rem;
   padding: 0.75rem 1rem;
   backdrop-filter: blur(1.125rem);
-  border: 1px solid rgba(255 251 245 / 0.1);
-  box-shadow: 0 1.25rem 1.875rem rgb(255 251 245 / 0.35);
+  border-top: 1px solid var(--color--foreground--5);
+  box-shadow: 0 1.25rem 1.875rem var(--color--foreground--25);
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
@@ -2386,6 +2386,9 @@ body.page-not-found .section.intro h1 {
 }
 
 .cookie-banner__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 2.5rem;
   border-radius: 999px;
   padding: 0 1rem;
@@ -2405,17 +2408,17 @@ body.page-not-found .section.intro h1 {
 }
 
 .cookie-banner__btn--primary:hover {
-  background: rgb(255 251 245 / 0.9);
+  background: var(--color--foreground--100);
 }
 
 .cookie-banner__btn--ghost {
-  background: rgb(255 251 245 / 0.08);
+  background: var(--color--foreground--5);
   color: var(--color--foreground--100);
-  border-color: rgb(255 251 245 / 0.12);
+  border-color: var(--color--foreground--15);
 }
 
 .cookie-banner__btn--ghost:hover {
-  background: rgb(255 251 245 / 0.16);
+  background: var(--color--foreground--10);
 }
 
 /* Cookie settings modal */
