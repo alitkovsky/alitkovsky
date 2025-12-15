@@ -7,7 +7,6 @@ import ClickSpark from "@/components/ClickSpark";
 import LanguageProvider from "@/components/LanguageProvider";
 import PwaRegister from "@/components/PwaRegister";
 import CustomCursor from "@/components/CustomCursor";
-import PageTransitionOverlay from "@/components/PageTransitionOverlay";
 import { CalendlyProvider } from "@/components/CalendlyProvider";
 
 import GridOverlay from "@/components/GridOverlay";
@@ -22,7 +21,6 @@ export default function AppWrapper({ children, initialTheme = "dark" }) {
   return (
     <LanguageProvider>
       <CalendlyProvider>
-        <PageTransitionOverlay />
         <PwaRegister />
         <CustomCursor />
         <ClickSpark

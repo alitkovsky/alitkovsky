@@ -9,6 +9,7 @@ import Link from "next/link";
 
 export default function CookieBanner() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
@@ -16,8 +17,8 @@ export default function CookieBanner() {
     const consent = getConsent();
     let timer;
     if (!consent) {
-      // Delay appearance for better UX
-      timer = setTimeout(() => setIsOpen(true), 1000);
+      // Delay appearance until after cover animation completes (3250ms + buffer)
+      timer = setTimeout(() => setIsOpen(true), 3250);
     }
 
     const handleOpenSettingsEvent = () => {
@@ -31,6 +32,19 @@ export default function CookieBanner() {
       window.removeEventListener("openCookieSettings", handleOpenSettingsEvent);
     };
   }, []);
+
+  // Handle visibility transition after mount
+  useEffect(() => {
+    if (isOpen) {
+      // Trigger transition after element is rendered
+      const frame = requestAnimationFrame(() => {
+        setIsVisible(true);
+      });
+      return () => cancelAnimationFrame(frame);
+    } else {
+      setIsVisible(false);
+    }
+  }, [isOpen]);
 
   const handleAccept = () => {
     const consent = {
@@ -81,7 +95,7 @@ export default function CookieBanner() {
           role="dialog"
           aria-labelledby="cookieConsentTitle"
           aria-describedby="cookieConsentDesc"
-          className={`cookie-banner ${isOpen ? "cookie-banner--visible" : "cookie-banner--hidden"}`}
+          className={`cookie-banner ${isVisible ? "cookie-banner--visible" : "cookie-banner--hidden"}`}
         >
           <div className="cookie-banner__content">
             <p

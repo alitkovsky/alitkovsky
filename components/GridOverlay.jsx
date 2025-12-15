@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 const GridOverlay = () => {
   const overlayRef = useRef(null);
   const hasActivatedRef = useRef(false);
-  const hasScheduledRevealRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -16,10 +15,7 @@ const GridOverlay = () => {
       return undefined;
     }
 
-    let fallbackTimeoutId;
-    let transitionTimeoutId;
-    let visibilityTimeoutId;
-    let cleanupTransitionListener = () => {};
+    let timeoutId;
 
     const revealOverlay = () => {
       if (hasActivatedRef.current || !overlayRef.current) {
@@ -30,86 +26,17 @@ const GridOverlay = () => {
       overlayRef.current.classList.add("is--visible");
     };
 
-    // Wait for the main content transition to finish, then delay the overlay reveal.
-    const scheduleRevealAfterMainAnimation = () => {
-      if (hasScheduledRevealRef.current) {
-        return;
-      }
-
-      hasScheduledRevealRef.current = true;
-
-      if (fallbackTimeoutId) {
-        window.clearTimeout(fallbackTimeoutId);
-        fallbackTimeoutId = undefined;
-      }
-
-      const appMain = document.querySelector(".app-main");
-
-      const startVisibilityDelay = () => {
-        if (visibilityTimeoutId) {
-          return;
-        }
-
-        visibilityTimeoutId = window.setTimeout(revealOverlay, 300);
-      };
-
-      if (!appMain) {
-        startVisibilityDelay();
-        return;
-      }
-
-      const handleTransitionEnd = (event) => {
-        if (event.target !== appMain || event.propertyName !== "transform") {
-          return;
-        }
-
-        cleanupTransitionListener();
-        startVisibilityDelay();
-      };
-
-      cleanupTransitionListener = () => {
-        appMain.removeEventListener("transitionend", handleTransitionEnd);
-        if (transitionTimeoutId) {
-          window.clearTimeout(transitionTimeoutId);
-          transitionTimeoutId = undefined;
-        }
-      };
-
-      appMain.addEventListener("transitionend", handleTransitionEnd);
-
-      const computedStyle = window.getComputedStyle(appMain);
-      const properties = computedStyle.transitionProperty.split(",").map((value) => value.trim());
-      const delays = computedStyle.transitionDelay.split(",").map((value) => parseFloat(value) * 1000);
-      const durations = computedStyle.transitionDuration.split(",").map((value) => parseFloat(value) * 1000);
-
-      const index = properties.findIndex((property) => property === "transform" || property === "all");
-      const fallbackDuration = index !== -1 ? (delays[index] || 0) + (durations[index] || 0) : 1500;
-
-      transitionTimeoutId = window.setTimeout(() => {
-        cleanupTransitionListener();
-        startVisibilityDelay();
-      }, Math.max(fallbackDuration + 200, 1600));
-    };
-
-    const handleCoverComplete = () => {
-      scheduleRevealAfterMainAnimation();
-    };
-
+    // If cover is not visible, reveal immediately with small delay
     if (!document.body.classList.contains("cover--is--visible")) {
-      scheduleRevealAfterMainAnimation();
+      timeoutId = window.setTimeout(revealOverlay, 300);
     } else {
-      window.addEventListener("cover:complete", handleCoverComplete);
-      fallbackTimeoutId = window.setTimeout(scheduleRevealAfterMainAnimation, 6000);
+      // Wait for cover transition to complete (1750ms cover hide + 1500ms transition + buffer)
+      timeoutId = window.setTimeout(revealOverlay, 3550);
     }
 
     return () => {
-      window.removeEventListener("cover:complete", handleCoverComplete);
-      cleanupTransitionListener();
-      if (visibilityTimeoutId) {
-        window.clearTimeout(visibilityTimeoutId);
-      }
-      if (fallbackTimeoutId) {
-        window.clearTimeout(fallbackTimeoutId);
+      if (timeoutId) {
+        window.clearTimeout(timeoutId);
       }
     };
   }, []);
