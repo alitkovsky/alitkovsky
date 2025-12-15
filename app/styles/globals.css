@@ -1908,6 +1908,14 @@ body.theme-transition * {
   grid-column: 1 / 5;
   color: var(--color--foreground--50);
 }
+.section.background .cta {
+  grid-column: 1 / -1;
+  padding-bottom: 4rem;
+  margin: clamp(40px, 8vw, 72px) 0 0;
+  padding: 0 clamp(16px, 3vw, 32px);
+  display: flex;
+  justify-content: flex-end;
+}
 
 /* Section references
 ------------------------------------------------------------ */
@@ -2022,6 +2030,14 @@ body.theme-transition * {
 
 .section.contact .text .actions {
   margin-top: auto;
+}
+.section.contact .text .cta {
+  grid-column: 1 / -1;
+  padding-bottom: 4rem;
+  margin: clamp(40px, 8vw, 72px) 0 0;
+  padding: 0 clamp(16px, 3vw, 32px);
+  display: flex;
+  justify-content: flex-end;
 }
 .section.contact .text__cta {
   grid-column: 1 / -1;

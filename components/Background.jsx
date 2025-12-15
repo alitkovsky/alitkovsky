@@ -1,5 +1,6 @@
 import SvgStrokeEffect from "@/components/SvgStrokeEffect";
 import WiggleSvg from "@/components/WiggleSvg";
+import BookCTA from "@/components/BookCTA";
 
 export  default function Background() {
   return (
@@ -89,6 +90,10 @@ export  default function Background() {
               </WiggleSvg>
             </div>
           </div>
+        </div>
+
+        <div className="cta">
+        <BookCTA label="give me a sign if you want to find out more" ctaLocation="background" />
         </div>
       </div>
     </section>

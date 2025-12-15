@@ -168,6 +168,9 @@ export default function Contact() {
               </TextEffect>
             </div>
           </div>
+          <div className="cta">
+            <BookCTA label="... or just book a call" ctaLocation="contact" />
+          </div>
         </div>
 
         {/* <div className="contact__calendly" ref={calendlyRef}>
