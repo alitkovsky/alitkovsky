@@ -2422,12 +2422,12 @@ body.page-not-found .section.intro h1 {
   z-index: 101;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   padding: 1rem;
 }
 
 .cookie-settings {
-  width: 100%;
+  width: 60%;
   max-height: 90vh;
   overflow: hidden;
   border-radius: 1.125rem;
