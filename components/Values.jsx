@@ -28,8 +28,8 @@ export default function Values() {
     <section className="section values" id="values">
       <div className="content">
         <div className="title">
-          <h1>strategic</h1>
-          <h1>performance</h1>
+          <h1>transparent</h1>
+          <h1>hands-on</h1>
           <TextEffect
             as="h1"
             variant="ellipseBold"
@@ -37,13 +37,17 @@ export default function Values() {
             visibilityRootMargin="0px 0px -33%"
             className="inline-block"
           >
-            humanity
+            auf augenhöhe
           </TextEffect>
-          <h1>curious</h1>
+          <h1>lokal verankert</h1>
         </div>
         <div className="main">
           <p className="description">
-            I started my marketing journey in the hospitality industry — first creating campaigns for hotels, then evolving into a digital strategist for full-funnel performance. That hands-on foundation taught me to blend brand, business, and behavior into growth engines.<br />I've always been making things and inventing ways to improve my surroundings. Solving a tangible need with a beautiful solution is a practice I love and resides in my core. Collaborating with a team to create a far better outcome than otherwise possible alone gives me energy.
+            Marketing ohne Buzzwords und leere Versprechen. Ich arbeite seit über 15 Jahren im Online-Marketing — von Paid Social über SEO bis CRM-Automatisierung. Was mich antreibt: echte Ergebnisse für echte Unternehmen. Keine Langzeitverträge, keine versteckten Kosten. Nur klare Strategien, die funktionieren.
+          </p>
+          <p className="description results">
+            <strong>Meine bisherigen Ergebnisse für Kunden:</strong><br />
+            +48% Sichtbarkeit / +35% Conversions / +25% qualifizierte Leads / −22% Werbekosten
           </p>
         </div>
         <div className="tools">

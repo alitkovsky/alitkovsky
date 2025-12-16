@@ -4,6 +4,7 @@ import { useEffect, useId, useMemo, useState } from "react";
 import TextEffect from "@/components/TextEffect";
 import Magnet from "@/components/Magnet";
 import useCalendly from "@/hooks/useCalendly";
+import useLanguage from "@/hooks/useLanguage";
 import { cn } from "@/lib/utils";
 import { trackCTAClick } from "@/lib/analytics";
 import { canLoadTool } from "@/lib/consent";
@@ -14,8 +15,25 @@ const normalizeUrl = (value, fallback) => {
   return trimmed.length ? trimmed : fallback;
 };
 
+const COPY = {
+  en: {
+    defaultLabel: "book a free call to find out more",
+    loadingLabel: "opening…",
+    srLoading: "Opening Calendly booking widget",
+    consentNotePrefix: "Enable functional cookies to book inline, or",
+    consentNoteLink: "open Calendly in a new tab",
+  },
+  de: {
+    defaultLabel: "Kostenloses Erstgespräch buchen",
+    loadingLabel: "öffne …",
+    srLoading: "Calendly-Buchungsfenster wird geöffnet",
+    consentNotePrefix: "Aktivieren Sie funktionale Cookies, um direkt hier zu buchen, oder",
+    consentNoteLink: "Calendly in einem neuen Tab öffnen",
+  },
+};
+
 export default function BookCTA({
-  label = "book a free call to find out more",
+  label,
   url,
   prefill,
   className,
@@ -23,6 +41,8 @@ export default function BookCTA({
   autoActive = true,
 }) {
   const { openCalendly, isLoading, eventUrl, lastError } = useCalendly();
+  const { language } = useLanguage();
+  const copy = COPY[language] ?? COPY.en;
   const noteId = useId();
   const targetUrl = useMemo(
     () => normalizeUrl(url, eventUrl),
@@ -59,7 +79,22 @@ export default function BookCTA({
     openCalendly({ url: targetUrl, prefill });
   };
 
-  const displayLabel = isLoading ? "opening…" : label;
+  const resolvedLabel = useMemo(() => {
+    if (typeof label === "string" && label.trim()) {
+      return label;
+    }
+
+    if (label && typeof label === "object") {
+      const candidate = label[language] ?? label.en ?? label.de;
+      if (typeof candidate === "string" && candidate.trim()) {
+        return candidate;
+      }
+    }
+
+    return copy.defaultLabel;
+  }, [copy.defaultLabel, label, language]);
+
+  const displayLabel = isLoading ? copy.loadingLabel : resolvedLabel;
 
   return (
     <div
@@ -89,15 +124,15 @@ export default function BookCTA({
           <span>{displayLabel}</span>
           <i aria-hidden className="cta-icon" data-loading={isLoading ? "true" : undefined}>↗</i>
           <span className="sr-only" aria-live="polite">
-            {isLoading ? "Opening Calendly booking widget" : ""}
+            {isLoading ? copy.srLoading : ""}
           </span>
         </TextEffect>
       </Magnet>
       {consentBlocked ? (
         <p className="book-cta__note" role="tooltip" id={noteId}>
-          Enable functional cookies to book inline, or{" "}
+          {copy.consentNotePrefix}{" "}
           <a href={targetUrl} target="_blank" rel="noopener noreferrer">
-            open Calendly in a new tab
+            {copy.consentNoteLink}
           </a>
           .
         </p>

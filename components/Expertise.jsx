@@ -71,7 +71,13 @@ export default function Expertise() {
       <div className="content">
         <div className="biography">
           <p>
-          Ich baue Marketing, das wirkt, und zwar zielklar, datenbasiert, freundlich im Ton. Ich plane und steuere Search- und Sozialkampagnen, schreibe Landingpages, die konvertieren, und liefere saubere Analysen in GA4 und Looker. Mein Fokus ist B2B, wo Strategie und Performance zusammengehören. Ergebnisse zuletzt: +48 % Sichtbarkeit, +35 % Conversions, +25 % qualifizierte Leads, -22 % CPC. Was mich auszeichnet, ist ruhiger Kopf, klare Prioritäten, ehrliche Kommunikation und das gemeinsame Ziel, dass Zahlen und Menschen zufrieden sind.
+            Ich bin Andrii Litkovskyi — Online-Marketing-Berater mit Sitz in Hille, Kreis Minden-Lübbecke. Seit über 15 Jahren helfe ich Unternehmen dabei, online sichtbar zu werden und planbar Kunden zu gewinnen.
+          </p>
+          <p>
+            Mein Ansatz: persönliche Beratung auf Augenhöhe, hands-on Umsetzung und ein tiefes Verständnis für lokale Märkte. Ich arbeite nicht mit Standardpaketen — jede Strategie wird individuell auf Ihre Ziele zugeschnitten.
+          </p>
+          <p>
+            Ob Google Ads, Meta-Kampagnen, SEO oder Marketing-Automatisierung mit HubSpot — ich bringe die Erfahrung und die Zertifizierungen mit, um Ihr Marketing auf das nächste Level zu heben.
           </p>
         </div>
 
@@ -85,7 +91,16 @@ export default function Expertise() {
                 {/* <span className="skills">Skills: {item.skills}<br /></span> */}
                 <span className="description">
                   {item.link ? (
-                    <Link href={item.link} target="_blank">view certificate</Link>
+                    <TextEffect
+                      as="a"
+                      variant="ellipseAuto"
+                      href={item.link}
+                      trigger="hover"
+                      className="inline-block"
+                      autoActive
+                    >
+                      view certificate
+                    </TextEffect>
                   ) : null}
                 </span>
               </p>

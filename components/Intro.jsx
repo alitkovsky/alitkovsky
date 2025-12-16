@@ -10,63 +10,63 @@ import BookCTA from "@/components/BookCTA";
 
 // Add new copy for each language here; keep keys in sync across locales.
 const INTRO_COPY = {
-  en: {
-    options: {
-      anyone: "for anyone",
-      recruiters: "recruiters",
-      "marketing-leads": "marketing leads",
-      founders: "founders",
-      "product-managers": "product managers",
-      developers: "developers",
-    },
-    texts: {
-      anyone: [
-        "Hi! I’m a marketing strategist who crafts full-funnel campaigns that not only look good — but drive real growth.",
-      ],
-      recruiters: [
-        "I bring 15+ years of experience across paid media, SEO, CRO, and analytics. Proven track record in both B2B and B2C, with 70%+ YoY booking growth in my latest role.",
-      ],
-      "marketing-leads": [
-        "From zero to revenue - I'm your go-to for structuring strategy, scaling performance, and aligning campaigns with business goals. Expect numbers.",
-      ],
-      founders: [
-        "Need traction? I help early-stage teams find clarity, build marketing engines, and scale sustainably - no fluff, just frameworks that work.",
-      ],
-      "product-managers": [
-        "I bring cross-functional energy to any product table. Clear on GTM, strong on insights, fluent in the metrics that matter.",
-      ],
-      developers: [
-        "I don’t touch code (anymore), but I’ll happily debug a GTM container, optimize site speed, or coordinate a clean SEO rollout with you.",
-      ],
-    },
-  },
   de: {
     options: {
       anyone: "für alle",
-      recruiters: "recruiter:innen",
-      "marketing-leads": "marketing-leads",
-      founders: "founder",
-      "product-managers": "product manager",
-      developers: "developers",
+      praxen: "arztpraxen",
+      handwerker: "handwerker",
+      dienstleister: "dienstleister",
+      agenturen: "agenturen",
     },
+    cta: {
+      label: "kostenloses erstgespräch buchen",
+    },
+    scroll: ["muss ich dich wirklich daran", "erinnern weiter zu scrollen"],
     texts: {
       anyone: [
-        "Hi! Ich bin ein Marketingstratege, der ganzheitliche Kampagnen entwickelt, die nicht nur gut aussehen, sondern echtes Wachstum liefern.",
+        "Hi! Ich bin Andrii — Online-Marketing-Berater aus OWL. Ich helfe lokalen Unternehmen, online sichtbar zu werden und planbar neue Kunden zu gewinnen.",
       ],
-      recruiters: [
-        "Ich bringe über 15 Jahre Erfahrung in Paid Media, SEO, CRO und Analytics mit. Erfolgsbilanz in B2B und B2C, zuletzt über 70 % Buchungswachstum im Jahresvergleich.",
+      praxen: [
+        "Sie wollen mehr Privatpatienten oder Neupatienten gewinnen? Ich sorge dafür, dass Ihre Praxis bei Google gefunden wird — mit SEO, lokalen Anzeigen und einer Website, die Vertrauen schafft.",
       ],
-      "marketing-leads": [
-        "Von null auf Umsatz - ich strukturiere Strategie, skaliere Performance und richte Kampagnen auf Geschäftsziele aus. Zahlen geliefert.",
+      handwerker: [
+        "Keine Zeit für Marketing? Ich übernehme das. Von Google-Anzeigen bis zur Webseite — Sie bekommen qualifizierte Anfragen, ich kümmere mich um den Rest.",
       ],
-      founders: [
-        "Braucht ihr Traction? Ich helfe Early-Stage-Teams, Klarheit zu gewinnen, Marketing-Maschinen aufzubauen und nachhaltig zu skalieren - kein Blabla, nur funktionierende Frameworks.",
+      dienstleister: [
+        "Ob Steuerberater, Immobilienmakler oder Fitnessstudio — ich entwickle Marketing-Strategien, die zu Ihrem Budget passen und messbare Ergebnisse liefern.",
       ],
-      "product-managers": [
-        "Ich bringe cross-funktionale Energie in jedes Produktteam. Klar in GTM, stark in Insights, sicher in den relevanten Kennzahlen.",
+      agenturen: [
+        "Kapazitätsengpass? Ich unterstütze als externer Spezialist bei Paid Social, Analytics und CRO — zuverlässig, erfahren, hands-on.",
       ],
-      developers: [
-        "Ich fasse keinen Code mehr an, aber ich debugge gern einen GTM-Container, optimiere die Site-Speed oder koordiniere mit euch einen sauberen SEO-Rollout.",
+    },
+  },
+  en: {
+    options: {
+      anyone: "for everyone",
+      praxen: "medical practices",
+      handwerker: "tradespeople",
+      dienstleister: "service providers",
+      agenturen: "agencies",
+    },
+    cta: {
+      label: "book a free call",
+    },
+    scroll: ["do i really need to", "remind you to scroll"],
+    texts: {
+      anyone: [
+        "Hi! I'm Andrii — an online marketing consultant based in OWL, Germany. I help local businesses become visible online and win new customers predictably.",
+      ],
+      praxen: [
+        "Want to attract more private or new patients? I make sure your practice gets found on Google — with SEO, local ads, and a website that builds trust.",
+      ],
+      handwerker: [
+        "No time for marketing? I've got you covered. From Google Ads to your website — you get qualified leads, I handle the rest.",
+      ],
+      dienstleister: [
+        "Whether you're a tax advisor, real estate agent, or gym owner — I develop marketing strategies that fit your budget and deliver measurable results.",
+      ],
+      agenturen: [
+        "Capacity bottleneck? I support as an external specialist for Paid Social, Analytics, and CRO — reliable, experienced, hands-on.",
       ],
     },
   },
@@ -74,11 +74,10 @@ const INTRO_COPY = {
 
 const OPTION_KEYS = [
   "anyone",
-  "recruiters",
-  "marketing-leads",
-  "founders",
-  "product-managers",
-  "developers",
+  "praxen",
+  "handwerker",
+  "dienstleister",
+  "agenturen",
 ];
 
 export default function Intro() {
@@ -86,6 +85,8 @@ export default function Intro() {
 
   const copy = INTRO_COPY[language] ?? INTRO_COPY.en;
   const fallbackCopy = INTRO_COPY.en;
+  const ctaLabel = copy.cta?.label ?? fallbackCopy.cta?.label ?? "book a free call";
+  const scrollLines = copy.scroll ?? fallbackCopy.scroll ?? [];
 
   const availableKeys = useMemo(() => (
     OPTION_KEYS.filter((key) => {
@@ -212,39 +213,21 @@ export default function Intro() {
           })}
 
           <div className="cta">
-            <BookCTA label="book a free call" ctaLocation="intro" />
-        </div>
+            <BookCTA label={ctaLabel} ctaLocation="intro" />
+          </div>
         </div>
 
-        {/* <div className="intro-cta">
-          <BookCTA
-            size="lg"
-            label="Kostenloses 20-minütiges Erstgespräch buchen"
-            subline="Ich antworte innerhalb von 24h – Slots montags bis freitags"
-            fullWidth
-          />
-        </div> */}
+
 
         <div className="scroll">
-          {/* <TextEffect
-            as="div"
-            variant="question"
-            trigger="visible"
-            visibilityRootMargin="0px 0px -3%"
-            className="inline-block"
-          ></TextEffect> */}
-          {/* <HandwritingEffect
-            as="span"
-            trigger="visible"
-            visibilityRootMargin="0px 0px 0%"
-            duration={2000}
-            className="inline-block"
-            letterSpacing={0}
-            fontSize={22}
-          >
-            do i really need to remind you to scroll
-          </HandwritingEffect> */}
-          <p>do i really need to <br />remind you to scroll</p>
+          <p>
+            {scrollLines.map((line, index) => (
+              <span key={`scroll-${index}`}>
+                {line}
+                {index < scrollLines.length - 1 && <br />}
+              </span>
+            ))}
+          </p>
         </div>
       </div>
     </section>

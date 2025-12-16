@@ -8,23 +8,21 @@ export  default function Background() {
       <div className="content">
         <div className="brief">
           <p>
-            I bring 15+ years of experience across paid media, SEO, CRO, and analytics. Proven track record in both B2B and B2C, with 70%+ YoY booking growth in my latest role.
-            I bring 15+ years of experience across paid media, SEO, CRO, and analytics. Proven track record in both B2B and B2C, with 70%+ YoY booking growth in my latest role.
-            I bring 15+ years of experience across paid media, SEO, CRO, and analytics. Proven track record in both B2B and B2C, with 70%+ YoY booking growth in my latest role.
+            Über 15 Jahre Erfahrung in Paid Media, SEO, CRO und Web Analytics. Mein Fokus: messbare Ergebnisse für lokale Unternehmen in OWL und darüber hinaus. Von der Strategie bis zur Umsetzung — alles aus einer Hand.
           </p>
         </div>
 
         <div className="items">
           <div className="item">
             <div className="left">
-              <p className="company">andrii litkovskyi marketing, hille</p>
-              <h3 className="role">Digital Marketing Consultant</h3>
+              <p className="company">selbstständig, hille (owl)</p>
+              <h3 className="role">Online-Marketing-Berater</h3>
               <p className="description">
-                I've been commissioned to create custom websites, apps, and identity systems for select clients including National Geographic photographers, Academy award-winning film-makers, and global entrepreneurs. I've been commissioned to create custom websites, apps, and identity systems for select clients including National Geographic photographers, Academy award-winning film-makers, and global entrepreneurs.
+                beratung und Umsetzung für lokale KMU: Google Ads, Meta Ads, SEO-Optimierung, Landing-Page-Erstellung und Web-Analytics-Setup. Spezialisiert auf Praxen, Handwerksbetriebe und lokale Dienstleister.
               </p>
             </div>
             <div className="right">
-              <p>2022 — 2025</p>
+              <p>2022 — heute</p>
               <WiggleSvg
                 selector="path"
                 distance={1.2}
@@ -45,7 +43,7 @@ export  default function Background() {
                 <p className="company">stimul sport resort, feodosiya</p>
                 <h3 className="role">Digital Marketing & Performance Manager</h3>
                 <p className="description">
-                  +30 % Markenbekanntheitssteigerung durch gezielte Rebranding- und SEO-Maßnahmen. +20 % Conversion-Rate durch optimierte Paid-Media-Kampagnen (Google Ads, Facebook Ads). +40 % Umsatzwachstum durch datengetriebene Performance-Marketing-Strategien. Lead-Generierung & CRM-Strategie mit HubSpot zur erfolgreichen Kundenbindung implementiert. Event- & Messeplanung mit Fokus auf Kundeninteraktion und Marktdurchdringung. Koordination mit Vertrieb & Produktmanagement zur Ausrichtung der Marketingstrategie.
+                  +70% Buchungswachstum YoY durch Full-Funnel-Kampagnen. Verantwortlich für Paid Social, SEO, CRM-Strategie (HubSpot) und Event-Marketing. Team von 3 Mitarbeitern koordiniert.
                 </p>
             </div>
             <div className="right">
@@ -70,7 +68,7 @@ export  default function Background() {
               <p className="company">sunny bay hotel, feodosiya</p>
                 <h3 className="role">Paid Social & SEO Manager</h3>
                 <p className="description">
-                  +35 % Website-Traffic durch strategische SEO- & Social-Media-Optimierung. +20 % Umsatzsteigerung durch datenbasierte Paid Social Media Kampagnen. Keyword- & Marktanalysen zur Identifikation neuer Wachstumschancen. Optimierung der Customer Journey durch Retargeting & Content-Marketing-Strategien.
+                  +35% Website-Traffic durch SEO-Optimierung. +20% Umsatzsteigerung durch datenbasierte Social-Media-Kampagnen. Aufbau der ersten digitalen Marketing-Infrastruktur des Hotels.
                 </p>
             </div>
             <div className="right">

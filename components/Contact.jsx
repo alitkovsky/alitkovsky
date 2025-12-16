@@ -51,8 +51,7 @@ export default function Contact() {
       <div className="content">
         <div className="hook">
           <h2>
-            I would love to hear from you,<br />
-            let&apos;s work —&nbsp;
+            Lassen Sie uns sprechen —<br />unverbindlich und&nbsp;
             <TextEffect
               as="span"
               variant="underlineZigzag"
@@ -60,9 +59,12 @@ export default function Contact() {
               visibilityRootMargin="0px 0px -33%"
               className="inline-block"
             >
-              together
+              kostenlos
             </TextEffect>
           </h2>
+          <p className="hook__subtitle">
+            In 20 Minuten klären wir, ob und wie ich Ihnen helfen kann. Keine Verkaufsgespräche, kein Druck — versprochen.
+          </p>
           {/* <p className="hook__subtitle">
             30-Minuten-Video-Call via Google Meet · Vorbereitung inklusive Audit-Checkliste.
           </p>
