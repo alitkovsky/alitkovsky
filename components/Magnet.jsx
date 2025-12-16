@@ -1,5 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+"use client";
 
+import { useState, useEffect, useRef } from 'react';
+import useDeviceCapabilities from '@/hooks/useDeviceCapabilities';
+
+/**
+ * Magnet - Creates a magnetic hover effect that follows the cursor.
+ *
+ * PERFORMANCE OPTIMIZED:
+ * - Uses useDeviceCapabilities to detect trackpad presence
+ * - Completely disables mousemove listener on touch-only devices
+ * - Works on iPad with Magic Keyboard/trackpad
+ */
 const Magnet = ({
   children,
   padding = 100,
@@ -15,8 +26,14 @@ const Magnet = ({
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const magnetRef = useRef(null);
 
+  // OPTIMIZATION: Use centralized device detection
+  const { showCursorEffects } = useDeviceCapabilities();
+
+  // Effective disabled state - disable on touch-only devices
+  const isEffectivelyDisabled = disabled || !showCursorEffects;
+
   useEffect(() => {
-    if (disabled) {
+    if (isEffectivelyDisabled) {
       setPosition({ x: 0, y: 0 });
       return;
     }
@@ -47,7 +64,7 @@ const Magnet = ({
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [padding, disabled, magnetStrength]);
+  }, [padding, isEffectivelyDisabled, magnetStrength]);
 
   const transitionStyle = isActive ? activeTransition : inactiveTransition;
 

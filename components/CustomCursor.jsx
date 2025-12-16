@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import useDeviceCapabilities from "@/hooks/useDeviceCapabilities";
 
 const DEFAULT_DIAMETER = 12;
 const LINK_SCALE = 1.35;
@@ -85,8 +86,18 @@ function resolveTextElement(target) {
   return target.closest(TEXT_SELECTOR);
 }
 
+/**
+ * CustomCursor - Custom cursor that follows mouse movement.
+ *
+ * PERFORMANCE OPTIMIZED:
+ * - Uses useDeviceCapabilities to detect trackpad presence
+ * - Returns null early on touch-only devices (no springs running)
+ * - Enables cursor effects on iPad with Magic Keyboard/trackpad
+ */
 export default function CustomCursor() {
-  const [isEnabled, setIsEnabled] = useState(false);
+  // OPTIMIZATION: Use centralized device detection
+  const { showCursorEffects, prefersReducedMotion } = useDeviceCapabilities();
+
   const [mounted, setMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [cursorStyles, setCursorStyles] = useState({
@@ -117,34 +128,8 @@ export default function CustomCursor() {
     return remainder ? `translate(-50%, -50%) ${remainder}` : "translate(-50%, -50%)";
   }, []);
 
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
-
-    const mediaQuery = window.matchMedia("(pointer: fine)");
-
-    const update = () => {
-      const html = document.documentElement;
-      const hasNoTouch = html.classList.contains("no-touchevents");
-      setIsEnabled(mediaQuery.matches && hasNoTouch);
-    };
-
-    update();
-
-    mediaQuery.addEventListener("change", update);
-
-    const observer = new MutationObserver(update);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => {
-      mediaQuery.removeEventListener("change", update);
-      observer.disconnect();
-    };
-  }, []);
+  // Determine if cursor should be enabled
+  const isEnabled = showCursorEffects && !prefersReducedMotion;
 
   useEffect(() => {
     if (!isEnabled) {
@@ -247,6 +232,8 @@ export default function CustomCursor() {
     };
   }, [isEnabled, xValue, yValue]);
 
+  // OPTIMIZATION: Return null early if cursor effects disabled
+  // This prevents spring animations from running at all
   if (!mounted || !isEnabled) {
     return null;
   }

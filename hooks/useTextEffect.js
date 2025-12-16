@@ -140,24 +140,17 @@ const EFFECT_GROUPS = {
 
 /**
  * Resolves an auto variant to a specific effect name.
- * If the variant ends with 'Auto', randomly selects from the corresponding group.
- * Otherwise, returns the variant as-is.
- *
- * @param {string} variant - The variant name (e.g., 'underlineAuto', 'ellipseAuto', or a specific effect)
- * @returns {string} - The resolved effect name
  */
 export function resolveAutoVariant(variant) {
   if (!variant || typeof variant !== 'string') {
-    return 'underlineLong'; // Default fallback
+    return 'underlineLong';
   }
 
-  // Check if this is an auto variant
   if (variant.endsWith('Auto')) {
-    const groupName = variant.slice(0, -4); // Remove 'Auto' suffix
+    const groupName = variant.slice(0, -4);
     const group = EFFECT_GROUPS[groupName];
 
     if (group && group.length > 0) {
-      // Randomly select from the group
       const randomIndex = Math.floor(Math.random() * group.length);
       return group[randomIndex];
     }
@@ -166,7 +159,6 @@ export function resolveAutoVariant(variant) {
     return 'underlineLong';
   }
 
-  // Return the variant as-is if it's not an auto variant
   return variant;
 }
 
@@ -221,7 +213,169 @@ async function loadSvg(fileName, basePath) {
 
   svgTextCache.set(cacheKey, svgText)
   return svgText
-};
+}
+
+// ============================================================================
+// PERFORMANCE OPTIMIZATION: Shared Observer System
+// Instead of each TextEffect instance creating its own observers,
+// we use module-level singletons with registration patterns.
+// This reduces observer count from 30+ to just 3 (resize, mutation, RAF).
+// ============================================================================
+
+// Shared ResizeObserver
+let sharedResizeObserver = null;
+const resizeCallbacks = new Map(); // element -> Set of callbacks
+
+function getSharedResizeObserver() {
+  if (!isBrowser || typeof ResizeObserver === "undefined") return null;
+
+  if (!sharedResizeObserver) {
+    sharedResizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const callbacks = resizeCallbacks.get(entry.target);
+        if (callbacks) {
+          callbacks.forEach((callback) => callback(entry));
+        }
+      }
+    });
+  }
+  return sharedResizeObserver;
+}
+
+function registerResizeCallback(element, callback) {
+  const observer = getSharedResizeObserver();
+  if (!observer || !element) return () => {};
+
+  if (!resizeCallbacks.has(element)) {
+    resizeCallbacks.set(element, new Set());
+    observer.observe(element);
+  }
+  resizeCallbacks.get(element).add(callback);
+
+  return () => {
+    const callbacks = resizeCallbacks.get(element);
+    if (callbacks) {
+      callbacks.delete(callback);
+      if (callbacks.size === 0) {
+        resizeCallbacks.delete(element);
+        observer.unobserve(element);
+      }
+    }
+  };
+}
+
+// Shared MutationObserver for theme changes
+let sharedThemeObserver = null;
+const themeCallbacks = new Set();
+let themeDebounceTimeout = null;
+
+function initSharedThemeObserver() {
+  if (!isBrowser || typeof MutationObserver === "undefined") return;
+  if (sharedThemeObserver) return;
+
+  const notifyThemeChange = () => {
+    if (themeDebounceTimeout) {
+      clearTimeout(themeDebounceTimeout);
+    }
+    themeDebounceTimeout = setTimeout(() => {
+      themeCallbacks.forEach((callback) => callback());
+      themeDebounceTimeout = null;
+    }, 50);
+  };
+
+  sharedThemeObserver = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (mutation.type === "attributes") {
+        const target = mutation.target;
+
+        if (mutation.attributeName === "class" && target === document.body) {
+          const classList = target.classList;
+          if (Array.from(classList).some(cls =>
+            cls.startsWith("theme-") || cls.startsWith("theme--")
+          )) {
+            notifyThemeChange();
+            return;
+          }
+        }
+
+        if (mutation.attributeName === "data-theme" && target === document.documentElement) {
+          notifyThemeChange();
+          return;
+        }
+
+        if (mutation.attributeName === "style") {
+          notifyThemeChange();
+          return;
+        }
+      }
+    }
+  });
+
+  sharedThemeObserver.observe(document.body, {
+    attributes: true,
+    attributeFilter: ["class", "style"],
+  });
+
+  sharedThemeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme", "style"],
+  });
+}
+
+function registerThemeCallback(callback) {
+  if (!isBrowser) return () => {};
+
+  initSharedThemeObserver();
+  themeCallbacks.add(callback);
+
+  return () => {
+    themeCallbacks.delete(callback);
+  };
+}
+
+// Shared RAF loop for frame animations
+let sharedRafId = null;
+const rafCallbacks = new Set();
+let lastRafTime = 0;
+const RAF_INTERVAL = 1000 / 10; // 10 FPS for frame animations
+
+function sharedRafLoop(timestamp) {
+  if (rafCallbacks.size === 0) {
+    sharedRafId = null;
+    return;
+  }
+
+  const elapsed = timestamp - lastRafTime;
+  if (elapsed >= RAF_INTERVAL) {
+    lastRafTime = timestamp - (elapsed % RAF_INTERVAL);
+    rafCallbacks.forEach((callback) => callback(timestamp));
+  }
+
+  sharedRafId = requestAnimationFrame(sharedRafLoop);
+}
+
+function registerRafCallback(callback) {
+  if (!isBrowser) return () => {};
+
+  rafCallbacks.add(callback);
+
+  if (!sharedRafId) {
+    lastRafTime = performance.now();
+    sharedRafId = requestAnimationFrame(sharedRafLoop);
+  }
+
+  return () => {
+    rafCallbacks.delete(callback);
+    if (rafCallbacks.size === 0 && sharedRafId) {
+      cancelAnimationFrame(sharedRafId);
+      sharedRafId = null;
+    }
+  };
+}
+
+// ============================================================================
+// TextEffectController - Updated to use shared observers
+// ============================================================================
 
 class TextEffectController {
   constructor(element, config, { basePath }) {
@@ -238,16 +392,17 @@ class TextEffectController {
     this.frameCount = 0
     this.running = false
     this.svg = null
-    this.rafId = null
-    this.lastFrame = 0
-    this.fpsInterval = 1000 / 10
-    this.resizeObserver = null
-    this.mutationObserver = null
-    this.addedPosition = false
     this.lastAnimation = 0
-    this.themeChangeTimeout = null
+    this.addedPosition = false
+
+    // Cleanup functions for shared observers
+    this._cleanupResize = null;
+    this._cleanupTheme = null;
+    this._cleanupRaf = null;
+
     this.onResize = this.handleResize.bind(this)
     this.onThemeChange = this.handleThemeChange.bind(this)
+    this.onRaf = this.handleRaf.bind(this)
   }
 
   async setup() {
@@ -259,14 +414,10 @@ class TextEffectController {
     const parser = new DOMParser()
     const svgElement = parser.parseFromString(svgText, "image/svg+xml").documentElement
 
-    // Remove all <style> elements that contain hardcoded colors
     svgElement.querySelectorAll("style").forEach((styleEl) => styleEl.remove())
 
-    // Clean up all paths immediately to prevent black strokes from CSS classes
     svgElement.querySelectorAll("path").forEach((path) => {
-      // Remove class attributes that reference deleted styles
       path.removeAttribute("class")
-      // Remove any inline stroke/fill styles
       path.removeAttribute("style")
     })
 
@@ -330,11 +481,11 @@ class TextEffectController {
     )
     this.resetFrameState()
 
-    this.startRaf()
-    this.attachResize()
-    this.attachThemeObserver()
+    // OPTIMIZATION: Use shared observers
+    this._cleanupRaf = registerRafCallback(this.onRaf);
+    this._cleanupResize = registerResizeCallback(this.element, this.onResize);
+    this._cleanupTheme = registerThemeCallback(this.onThemeChange);
 
-    // Delay size calculation to ensure fonts and layout are fully loaded
     setTimeout(() => this.setSizes(), 2000)
   }
 
@@ -347,15 +498,10 @@ class TextEffectController {
       const d = path.getAttribute("d")
       if (d) frames.push(d)
 
-      // Remove class that might reference deleted styles
       path.removeAttribute("class")
-
-      // Explicitly set stroke and fill attributes
       path.setAttribute("stroke", "currentColor")
       path.setAttribute("fill", "none")
       path.setAttribute("vector-effect", "non-scaling-stroke")
-
-      // Remove any inline styles that might override
       path.style.stroke = ""
       path.style.fill = ""
 
@@ -399,88 +545,17 @@ class TextEffectController {
     }
   }
 
-  attachResize() {
-    if (typeof ResizeObserver !== "undefined") {
-      this.resizeObserver = new ResizeObserver(() => {
-        this.setSizes()
-        this.updateColor()
-      })
-      this.resizeObserver.observe(this.element)
-    } else {
-      window.addEventListener("resize", this.onResize)
-    }
-  }
-
-  attachThemeObserver() {
-    if (typeof MutationObserver === "undefined") return
-
-    // Watch for theme changes on both html and body elements
-    this.mutationObserver = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        if (mutation.type === "attributes") {
-          const target = mutation.target
-
-          // Check for class changes (body.theme-dark, body.theme-light, body.theme--XX)
-          if (mutation.attributeName === "class" && target === document.body) {
-            const classList = target.classList
-            if (Array.from(classList).some(cls => 
-              cls.startsWith("theme-") || cls.startsWith("theme--")
-            )) {
-              this.handleThemeChange()
-            }
-          }
-
-          // Check for data-theme changes (html[data-theme])
-          if (mutation.attributeName === "data-theme" && target === document.documentElement) {
-            this.handleThemeChange()
-          }
-
-          // Check for style attribute changes (for inline style theme changes)
-          if (mutation.attributeName === "style") {
-            this.handleThemeChange()
-          }
-        }
-      }
-    })
-
-    // Observe body for class changes
-    this.mutationObserver.observe(document.body, {
-      attributes: true,
-      attributeFilter: ["class", "style"],
-    })
-
-    // Observe html for data-theme changes
-    this.mutationObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme", "style"],
-    })
+  handleResize() {
+    this.setSizes()
+    this.updateColor()
   }
 
   handleThemeChange() {
-    // Debounce theme change updates to avoid excessive repaints
-    if (this.themeChangeTimeout) {
-      clearTimeout(this.themeChangeTimeout)
-    }
-    this.themeChangeTimeout = setTimeout(() => {
-      this.updateColor()
-      this.themeChangeTimeout = null
-    }, 50) // 50ms debounce for smooth transitions
+    this.updateColor()
   }
 
-  startRaf() {
-    const tick = (time) => {
-      this.onRaf(time)
-      this.rafId = requestAnimationFrame(tick)
-    }
-    this.rafId = requestAnimationFrame(tick)
-  }
-
-  onRaf(now) {
+  handleRaf(now) {
     if (!this.layers.length || !this.running || !this.framePlaybackActive) return
-    const elapsed = now - this.lastFrame
-    if (elapsed < this.fpsInterval) return
-    this.lastFrame = now - (elapsed % this.fpsInterval)
-
     this.advanceFrame()
   }
 
@@ -580,7 +655,6 @@ class TextEffectController {
   async animatePaths(before, after, targetLayers = this.layers) {
     if (!this.layers.length || !targetLayers?.length) return
 
-    // Track animation ID to prevent conflicts from rapid triggers
     this.lastAnimation++
     const animationId = this.lastAnimation
 
@@ -594,7 +668,6 @@ class TextEffectController {
     before?.(targetLayers)
     await new Promise((resolve) => setTimeout(resolve, animationDuration + 10))
 
-    // Only proceed if this is still the latest animation
     if (animationId !== this.lastAnimation) return
 
     targetLayers.forEach(({ path }) => {
@@ -705,11 +778,6 @@ class TextEffectController {
     this.updateLayerFrames(0)
   }
 
-  handleResize() {
-    this.setSizes()
-    this.updateColor()
-  }
-
   setSizes() {
     if (!this.layers.length) return
     const fontSize = parseFloat(window.getComputedStyle(this.element).fontSize) || 16
@@ -737,24 +805,11 @@ class TextEffectController {
   }
 
   destroy() {
-    if (this.rafId) {
-      cancelAnimationFrame(this.rafId)
-      this.rafId = null
-    }
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect()
-      this.resizeObserver = null
-    } else {
-      window.removeEventListener("resize", this.onResize)
-    }
-    if (this.mutationObserver) {
-      this.mutationObserver.disconnect()
-      this.mutationObserver = null
-    }
-    if (this.themeChangeTimeout) {
-      clearTimeout(this.themeChangeTimeout)
-      this.themeChangeTimeout = null
-    }
+    // OPTIMIZATION: Unregister from shared observers
+    this._cleanupRaf?.();
+    this._cleanupResize?.();
+    this._cleanupTheme?.();
+
     if (this.svg?.parentNode === this.element) {
       this.svg.remove()
     }
@@ -879,8 +934,6 @@ export function useTextEffect(options = {}) {
         },
       )
       observer.observe(node)
-    } else if (trigger === "manual") {
-      // No automatic listeners; consumer controls animations
     }
 
     const colorEvents = ["focus", "blur", "pointerdown", "pointerup", "mouseenter", "mouseleave"]

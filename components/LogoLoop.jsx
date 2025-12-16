@@ -55,7 +55,10 @@ const useImageLoader = (seqRef, onLoad, dependencies) => {
   }, [onLoad, seqRef, dependencies]);
 };
 
-const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical) => {
+/**
+ * PERFORMANCE OPTIMIZED: Animation loop that pauses when not visible
+ */
+const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical, isVisible) => {
   const rafRef = useRef(null);
   const lastTimestampRef = useRef(null);
   const offsetRef = useRef(0);
@@ -67,12 +70,18 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHover
 
     const seqSize = isVertical ? seqHeight : seqWidth;
 
+    // Update initial position
     if (seqSize > 0) {
       offsetRef.current = ((offsetRef.current % seqSize) + seqSize) % seqSize;
       const transformValue = isVertical
         ? `translate3d(0, ${-offsetRef.current}px, 0)`
         : `translate3d(${-offsetRef.current}px, 0, 0)`;
       track.style.transform = transformValue;
+    }
+
+    // OPTIMIZATION: Don't start animation if not visible
+    if (!isVisible) {
+      return;
     }
 
     const animate = timestamp => {
@@ -111,7 +120,48 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHover
       }
       lastTimestampRef.current = null;
     };
-  }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical, trackRef]);
+  }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical, trackRef, isVisible]);
+};
+
+/**
+ * PERFORMANCE OPTIMIZED: Visibility detection hook
+ */
+const useVisibility = (containerRef, rootMargin = "50px 0px") => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element) return;
+
+    // Fallback for older browsers
+    if (typeof IntersectionObserver === "undefined") {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target === element) {
+            setIsVisible(entry.isIntersecting);
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin, // Start animation slightly before visible
+        threshold: 0,
+      }
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [containerRef, rootMargin]);
+
+  return isVisible;
 };
 
 export const LogoLoop = memo(({
@@ -139,6 +189,9 @@ export const LogoLoop = memo(({
   const [seqHeight, setSeqHeight] = useState(0);
   const [copyCount, setCopyCount] = useState(ANIMATION_CONFIG.MIN_COPIES);
   const [isHovered, setIsHovered] = useState(false);
+
+  // OPTIMIZATION: Only animate when visible
+  const isVisible = useVisibility(containerRef);
 
   const effectiveHoverSpeed = useMemo(() => {
     if (hoverSpeed !== undefined) return hoverSpeed;
@@ -194,6 +247,7 @@ export const LogoLoop = memo(({
 
   useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight, isVertical]);
 
+  // Pass isVisible to animation loop
   useAnimationLoop(
     trackRef,
     targetVelocity,
@@ -201,7 +255,8 @@ export const LogoLoop = memo(({
     seqHeight,
     isHovered,
     effectiveHoverSpeed,
-    isVertical
+    isVertical,
+    isVisible
   );
 
   const cssVariables = useMemo(() => ({

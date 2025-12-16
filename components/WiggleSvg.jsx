@@ -1,9 +1,28 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState, useCallback } from "react"
 import { cn } from "@/lib/utils"
 
 const DEFAULT_SELECTOR = "svg"
+
+// OPTIMIZATION: Debounce helper for mutation callbacks
+function debounce(fn, delay) {
+  let timeoutId = null;
+  const debounced = (...args) => {
+    if (timeoutId) clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      timeoutId = null;
+      fn(...args);
+    }, delay);
+  };
+  debounced.cancel = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+  };
+  return debounced;
+}
 
 function resolveTime(value, fallback) {
   if (typeof value === "number") return `${value}s`
@@ -84,10 +103,18 @@ export default function WiggleSvg({
 
     updateTarget()
 
-    const observer = new MutationObserver(() => updateTarget())
-    observer.observe(wrapper, { childList: true, subtree: true })
+    // OPTIMIZATION: Debounce mutation callback to reduce processing
+    // Multiple rapid mutations (e.g., during hydration) will be batched
+    const debouncedUpdate = debounce(updateTarget, 16) // ~1 frame
+
+    // OPTIMIZATION: Only watch direct children unless selector requires deeper search
+    // For simple cases (selector="svg" with direct child), subtree:false is more efficient
+    const needsSubtree = selector !== "self" && selector !== DEFAULT_SELECTOR
+    const observer = new MutationObserver(debouncedUpdate)
+    observer.observe(wrapper, { childList: true, subtree: needsSubtree })
 
     return () => {
+      debouncedUpdate.cancel()
       observer.disconnect()
       if (targetRef.current) {
         targetRef.current.classList.remove("wiggle")

@@ -2646,3 +2646,124 @@ body.page-not-found .section.intro h1 {
 .cookie-settings__btn--ghost:hover {
   background: rgba(255, 255, 255, 0.16);
 }
+
+/* ==========================================================================
+   PERFORMANCE OPTIMIZATIONS
+   ========================================================================== */
+
+/**
+ * will-change hints for animated elements
+ * These help browsers optimize rendering by creating compositor layers
+ */
+
+/* LogoLoop marquee - continuously transforms */
+.logoloop__track {
+  will-change: transform;
+  contain: layout style;
+}
+
+/* Wiggle animation - transforms during active state */
+.wiggle[data-wiggle-active="true"] {
+  will-change: transform;
+}
+
+/* Cover section transitions */
+.section.cover {
+  will-change: transform, opacity;
+  contain: layout paint;
+}
+
+/* Fixed header - backdrop-filter is expensive */
+.app-header {
+  contain: layout style;
+}
+
+/* Custom cursor - continuously transforms */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  contain: layout style paint;
+  background-color: var(--custom-cursor-base-color, rgba(0, 0, 0, 0.85));
+  mix-blend-mode: difference;
+}
+
+/* Custom cursor CSS variables for theming */
+:root {
+  --custom-cursor-base-color: rgba(0, 0, 0, 0.85);
+  --custom-cursor-text-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Hide native cursor when custom cursor is active */
+body.custom-cursor-active {
+  cursor: none;
+}
+
+body.custom-cursor-active a,
+body.custom-cursor-active button,
+body.custom-cursor-active [role="button"],
+body.custom-cursor-active input,
+body.custom-cursor-active textarea,
+body.custom-cursor-active select {
+  cursor: none;
+}
+
+/**
+ * Touch device fallbacks
+ * Hide cursor effects on touch-only devices (no trackpad)
+ * Note: Primary control is via JS conditional rendering,
+ * but CSS provides a fallback and immediate hiding
+ */
+@media (pointer: coarse) and (hover: none) {
+  .custom-cursor {
+    display: none !important;
+  }
+
+  body.custom-cursor-active {
+    cursor: auto;
+  }
+
+  body.custom-cursor-active a,
+  body.custom-cursor-active button,
+  body.custom-cursor-active [role="button"],
+  body.custom-cursor-active input,
+  body.custom-cursor-active textarea,
+  body.custom-cursor-active select {
+    cursor: auto;
+  }
+}
+
+/**
+ * Reduced motion preferences
+ * Respect user's system settings for reduced motion
+ */
+@media (prefers-reduced-motion: reduce) {
+  /* Disable wiggle animation */
+  .wiggle,
+  .wiggle[data-wiggle-active="true"] {
+    animation: none !important;
+    will-change: auto;
+  }
+
+  /* Disable LogoLoop animation */
+  .logoloop__track {
+    animation: none !important;
+    will-change: auto;
+  }
+
+  /* Reduce transition durations */
+  .section.cover,
+  .app-header,
+  .app-nav,
+  .app-main {
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Disable custom cursor (too much movement) */
+  .custom-cursor {
+    display: none !important;
+  }
+}

@@ -8,6 +8,10 @@ import Image from "next/image";
 /**
  * Three.js-powered Tool icon renderer using direct SVG loading.
  * Falls back to flat SVG if WebGL fails or when reduced motion is preferred.
+ *
+ * PERFORMANCE OPTIMIZED:
+ * - Pauses Three.js rendering when off-screen (0 GPU when not visible)
+ * - Resumes rendering when scrolled back into view
  */
 function ToolIcon3DCanvas({
   svgSrc, // SVG file path (e.g., "/assets/svg/icon.svg")
@@ -100,9 +104,10 @@ function ToolIcon3DCanvas({
     };
   }, [svgSrc, color, thickness, mode, prefersReducedMotion, isMobile, pullApart, trigger, onReady, onError]);
 
-  // Visibility observer for animate in/out (only when trigger is "visible")
+  // OPTIMIZATION: Visibility observer for pause/resume rendering
+  // This significantly reduces GPU usage when icons are off-screen
   useEffect(() => {
-    if (trigger !== "visible" || !ready) return undefined;
+    if (!ready) return undefined;
     const el = containerRef.current;
     if (!el) return undefined;
 
@@ -110,10 +115,21 @@ function ToolIcon3DCanvas({
       entries.forEach((entry) => {
         if (entry.target !== el) return;
 
-        if (entry.isIntersecting && entry.intersectionRatio > visibilityThreshold) {
-          sceneRef.current?.animateIn();
+        if (entry.isIntersecting) {
+          // Resume rendering when visible
+          sceneRef.current?.resumeRendering();
+
+          // Handle trigger="visible" animation
+          if (trigger === "visible" && entry.intersectionRatio > visibilityThreshold) {
+            sceneRef.current?.animateIn();
+          }
         } else {
-          sceneRef.current?.stopRotate();
+          // Pause rendering when off-screen (OPTIMIZATION)
+          sceneRef.current?.pauseRendering();
+
+          if (trigger === "visible") {
+            sceneRef.current?.stopRotate();
+          }
         }
       });
     };

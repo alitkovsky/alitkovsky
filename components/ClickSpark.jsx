@@ -1,6 +1,15 @@
+"use client";
+
 import { useRef, useEffect, useCallback, useState } from "react";
 
-export default function ClickSpark ({
+/**
+ * ClickSpark - Creates spark effects on click.
+ *
+ * PERFORMANCE OPTIMIZED:
+ * - RAF loop only runs when sparks exist (0 CPU when idle)
+ * - Automatically starts/stops animation based on spark count
+ */
+export default function ClickSpark({
   sparkColor = "var(--color--foreground--100)",
   sparkSize = 15,
   sparkRadius = 20,
@@ -12,7 +21,8 @@ export default function ClickSpark ({
 }) {
   const canvasRef = useRef(null);
   const sparksRef = useRef([]);
-  const startTimeRef = useRef(null);
+  const animationIdRef = useRef(null);
+  const isRunningRef = useRef(false);
   const [resolvedColor, setResolvedColor] = useState(sparkColor);
 
   const resolveColor = useCallback(() => {
@@ -120,45 +130,70 @@ export default function ClickSpark ({
     }
   }, [easing]);
 
+  // Memoize draw configuration to avoid recreating in RAF
+  const drawConfigRef = useRef({
+    resolvedColor,
+    sparkSize,
+    sparkRadius,
+    extraScale,
+    duration,
+    easeFunc
+  });
+
   useEffect(() => {
+    drawConfigRef.current = {
+      resolvedColor,
+      sparkSize,
+      sparkRadius,
+      extraScale,
+      duration,
+      easeFunc
+    };
+  }, [resolvedColor, sparkSize, sparkRadius, extraScale, duration, easeFunc]);
+
+  // Animation loop - only runs when sparks exist
+  const startAnimationLoop = useCallback(() => {
+    if (isRunningRef.current) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    isRunningRef.current = true;
+
     const dpr = window.devicePixelRatio || 1;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.lineCap = "round";
 
-    let animationId;
+    const draw = (timestamp) => {
+      const config = drawConfigRef.current;
 
-    const draw = timestamp => {
-      if (!startTimeRef.current) {
-        startTimeRef.current = timestamp;
-      }
+      // Clear canvas
       ctx.save();
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.restore();
 
+      // Filter and draw remaining sparks
       sparksRef.current = sparksRef.current.filter(spark => {
         const elapsed = timestamp - spark.startTime;
-        if (elapsed >= duration) {
+        if (elapsed >= config.duration) {
           return false;
         }
 
-        const progress = elapsed / duration;
-        const eased = easeFunc(progress);
+        const progress = elapsed / config.duration;
+        const eased = config.easeFunc(progress);
 
-        const distance = eased * sparkRadius * extraScale;
-        const lineLength = sparkSize * (1 - eased);
+        const distance = eased * config.sparkRadius * config.extraScale;
+        const lineLength = config.sparkSize * (1 - eased);
 
         const x1 = spark.x + distance * Math.cos(spark.angle);
         const y1 = spark.y + distance * Math.sin(spark.angle);
         const x2 = spark.x + (distance + lineLength) * Math.cos(spark.angle);
         const y2 = spark.y + (distance + lineLength) * Math.sin(spark.angle);
 
-        ctx.strokeStyle = resolvedColor;
+        ctx.strokeStyle = config.resolvedColor;
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(x1, y1);
@@ -168,17 +203,32 @@ export default function ClickSpark ({
         return true;
       });
 
-      animationId = requestAnimationFrame(draw);
+      // OPTIMIZATION: Stop loop when no sparks remain
+      if (sparksRef.current.length === 0) {
+        isRunningRef.current = false;
+        animationIdRef.current = null;
+        return;
+      }
+
+      // Continue animation
+      animationIdRef.current = requestAnimationFrame(draw);
     };
 
-    animationId = requestAnimationFrame(draw);
+    animationIdRef.current = requestAnimationFrame(draw);
+  }, []);
 
+  // Cleanup on unmount
+  useEffect(() => {
     return () => {
-      cancelAnimationFrame(animationId);
+      if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current);
+        animationIdRef.current = null;
+        isRunningRef.current = false;
+      }
     };
-  }, [resolvedColor, sparkSize, sparkRadius, sparkCount, duration, easeFunc, extraScale]);
+  }, []);
 
-  const handleClick = e => {
+  const handleClick = useCallback((e) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
@@ -194,7 +244,10 @@ export default function ClickSpark ({
     }));
 
     sparksRef.current.push(...newSparks);
-  };
+
+    // OPTIMIZATION: Start animation loop only when sparks are added
+    startAnimationLoop();
+  }, [sparkCount, startAnimationLoop]);
 
   return (
     <div
@@ -220,4 +273,4 @@ export default function ClickSpark ({
       {children}
     </div>
   );
-};
+}
