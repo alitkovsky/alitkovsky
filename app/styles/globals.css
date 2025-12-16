@@ -1857,6 +1857,7 @@ body.theme-transition * {
 }
 .section.background .item .company {
   grid-column: 1 / 5;
+  font-weight: 700;
 }
 .section.background .item .role {
   grid-column: 1 / 5;
@@ -1984,8 +1985,8 @@ body.theme-transition * {
 .section.contact .hook__subtitle {
   color: var(--color--foreground--50);
   font-size: var(--font--size-small);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  text-transform: lowercase;
+  margin-top: 1em;
 }
 .section.contact .hook .book-cta {
   max-width: 360px;
