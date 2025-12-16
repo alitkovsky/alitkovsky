@@ -14,12 +14,20 @@ import GridOverlay from "@/components/GridOverlay";
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
 
-export default function AppWrapper({ children, initialTheme = "dark" }) {
+export default function AppWrapper({
+  children,
+  initialTheme = "dark",
+  initialLanguage,
+  initialLanguageSource,
+}) {
   useInitialPageLoad();
   useTouchDetection();
 
   return (
-    <LanguageProvider>
+    <LanguageProvider
+      initialLanguage={initialLanguage}
+      initialLanguageSource={initialLanguageSource}
+    >
       <CalendlyProvider>
         <PwaRegister />
         <CustomCursor />

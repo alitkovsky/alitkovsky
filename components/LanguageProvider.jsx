@@ -2,13 +2,59 @@
 
 import { createContext, useEffect, useMemo, useState } from "react";
 
-const LANGUAGE_STORAGE_KEY = "app-language";
-const FALLBACK_LANGUAGE = "en";
-export const SUPPORTED_LANGUAGES = ["de", "en"];
+import {
+  FALLBACK_LANGUAGE,
+  SUPPORTED_LANGUAGES as SUPPORTED_LANGUAGES_LIST,
+  LANGUAGE_STORAGE_KEY,
+  LANGUAGE_SOURCE_STORAGE_KEY,
+  LANGUAGE_COOKIE_KEY,
+  LANGUAGE_SOURCE_COOKIE_KEY,
+  LANGUAGE_SOURCE_AUTO,
+  LANGUAGE_SOURCE_MANUAL,
+  isDachCountry,
+  isDachTimeZone,
+  resolveLanguageFromCountry,
+  sanitizeLanguage,
+  sanitizeLanguageSource,
+} from "@/lib/language";
 
-const sanitizeLanguage = (value) => (
-  SUPPORTED_LANGUAGES.includes(value) ? value : FALLBACK_LANGUAGE
-);
+export const SUPPORTED_LANGUAGES = SUPPORTED_LANGUAGES_LIST;
+
+const readLocalStorage = (key) => {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.localStorage.getItem(key);
+  } catch (error) {
+    return null;
+  }
+};
+
+const writeLocalStorage = (key, value) => {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(key, value);
+  } catch (error) {}
+};
+
+const readCookie = (name) => {
+  if (typeof document === "undefined") return null;
+
+  const cookies = document.cookie ? document.cookie.split(";") : [];
+  for (const cookie of cookies) {
+    const [rawKey, ...rawValue] = cookie.trim().split("=");
+    if (!rawKey) continue;
+    if (rawKey === name) {
+      return decodeURIComponent(rawValue.join("="));
+    }
+  }
+
+  return null;
+};
+
+const writeCookie = (name, value, { maxAge = 60 * 60 * 24 * 365 } = {}) => {
+  if (typeof document === "undefined") return;
+  document.cookie = `${name}=${encodeURIComponent(value)};path=/;max-age=${maxAge};SameSite=Lax`;
+};
 
 const findBrowserLocale = () => {
   if (typeof window === "undefined") {
@@ -27,33 +73,56 @@ const findBrowserLocale = () => {
   return navigator.language ?? null;
 };
 
-const resolveInitialLanguage = () => {
+const findTimeZone = () => {
   if (typeof window === "undefined") {
-    return FALLBACK_LANGUAGE;
+    return null;
   }
 
-  const stored = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
-  if (stored) {
-    return sanitizeLanguage(stored);
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone ?? null;
+  } catch (error) {
+    return null;
+  }
+};
+
+const resolveAutomaticLanguage = () => {
+  const countryFromCookie = readCookie("app-country");
+  if (countryFromCookie) {
+    return resolveLanguageFromCountry(countryFromCookie);
+  }
+
+  const timeZone = findTimeZone();
+  if (timeZone) {
+    return isDachTimeZone(timeZone) ? "de" : "en";
   }
 
   const locale = findBrowserLocale();
-  if (!locale) {
-    return FALLBACK_LANGUAGE;
-  }
-
-  const normalized = locale.toLowerCase();
-  const [languagePart, regionPart] = normalized.split(/[-_]/);
-
-  if (regionPart === "de") {
-    return "de";
-  }
-
-  if (languagePart === "de") {
-    return "de";
+  if (locale) {
+    const [, regionPart] = locale.split(/[-_]/);
+    if (regionPart) {
+      return isDachCountry(regionPart) ? "de" : "en";
+    }
   }
 
   return FALLBACK_LANGUAGE;
+};
+
+const resolveStoredPreference = () => {
+  const storedLanguage = readLocalStorage(LANGUAGE_STORAGE_KEY);
+  const storedSource = readLocalStorage(LANGUAGE_SOURCE_STORAGE_KEY);
+
+  if (storedLanguage && (!storedSource || storedSource === LANGUAGE_SOURCE_MANUAL)) {
+    return { language: sanitizeLanguage(storedLanguage), source: LANGUAGE_SOURCE_MANUAL };
+  }
+
+  const cookieLanguage = readCookie(LANGUAGE_COOKIE_KEY);
+  const cookieSource = readCookie(LANGUAGE_SOURCE_COOKIE_KEY);
+
+  if (cookieLanguage && (!cookieSource || cookieSource === LANGUAGE_SOURCE_MANUAL)) {
+    return { language: sanitizeLanguage(cookieLanguage), source: LANGUAGE_SOURCE_MANUAL };
+  }
+
+  return { language: resolveAutomaticLanguage(), source: LANGUAGE_SOURCE_AUTO };
 };
 
 export const LanguageContext = createContext({
@@ -61,22 +130,22 @@ export const LanguageContext = createContext({
   setLanguage: () => {},
 });
 
-export default function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState(() => {
-    if (typeof window === "undefined") {
-      return FALLBACK_LANGUAGE;
-    }
-
-    return resolveInitialLanguage();
-  });
+export default function LanguageProvider({
+  children,
+  initialLanguage = FALLBACK_LANGUAGE,
+  initialLanguageSource = LANGUAGE_SOURCE_AUTO,
+}) {
+  const [language, setLanguage] = useState(() => sanitizeLanguage(initialLanguage));
+  const [languageSource, setLanguageSource] = useState(() => sanitizeLanguageSource(initialLanguageSource));
 
   useEffect(() => {
     if (typeof window === "undefined") {
       return;
     }
 
-    const resolved = resolveInitialLanguage();
-    setLanguage((prev) => (prev === resolved ? prev : resolved));
+    const resolved = resolveStoredPreference();
+    setLanguage((prev) => (prev === resolved.language ? prev : resolved.language));
+    setLanguageSource((prev) => (prev === resolved.source ? prev : resolved.source));
   }, []);
 
   useEffect(() => {
@@ -84,9 +153,12 @@ export default function LanguageProvider({ children }) {
       return;
     }
 
-    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+    writeLocalStorage(LANGUAGE_STORAGE_KEY, language);
+    writeLocalStorage(LANGUAGE_SOURCE_STORAGE_KEY, languageSource);
+    writeCookie(LANGUAGE_COOKIE_KEY, language);
+    writeCookie(LANGUAGE_SOURCE_COOKIE_KEY, languageSource);
     document.documentElement.lang = language;
-  }, [language]);
+  }, [language, languageSource]);
 
   const contextValue = useMemo(() => ({
     language,
@@ -95,6 +167,7 @@ export default function LanguageProvider({ children }) {
         const next = sanitizeLanguage(nextLanguage);
         return prev === next ? prev : next;
       });
+      setLanguageSource(LANGUAGE_SOURCE_MANUAL);
     },
   }), [language]);
 

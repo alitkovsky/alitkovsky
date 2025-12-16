@@ -9,11 +9,21 @@ import "./styles/cursor.css";
 import { Comfortaa, Satisfy } from "next/font/google";
 import Script from "next/script";
 import { GoogleTagManager } from "@next/third-parties/google";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 import Clarity from "@/components/Clarity";
 import AppWrapper from "@/components/AppWrapper";
 import CookieBanner from "@/components/CookieBanner";
+import {
+  FALLBACK_LANGUAGE,
+  LANGUAGE_COOKIE_KEY,
+  LANGUAGE_SOURCE_COOKIE_KEY,
+  LANGUAGE_SOURCE_AUTO,
+  LANGUAGE_SOURCE_MANUAL,
+  getCountryFromHeaders,
+  resolveLanguageFromCountry,
+  sanitizeLanguage,
+} from "@/lib/language";
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
@@ -85,6 +95,31 @@ export default async function RootLayout({ children }) {
   const themeCookie = cookieStore.get("nav-theme")?.value;
   const initialTheme = themeCookie === "light" ? "light" : "dark";
   const consentCookie = cookieStore.get("cookie_consent_v1")?.value;
+  const languageCookie = cookieStore.get(LANGUAGE_COOKIE_KEY)?.value;
+  const languageSourceCookie = cookieStore.get(LANGUAGE_SOURCE_COOKIE_KEY)?.value;
+  const headerStore = await headers();
+  const detectedCountry = getCountryFromHeaders(headerStore);
+
+  let initialLanguage = FALLBACK_LANGUAGE;
+  let initialLanguageSource = LANGUAGE_SOURCE_AUTO;
+
+  if (languageCookie) {
+    if (!languageSourceCookie || languageSourceCookie === LANGUAGE_SOURCE_MANUAL) {
+      initialLanguage = sanitizeLanguage(languageCookie);
+      initialLanguageSource = LANGUAGE_SOURCE_MANUAL;
+    } else {
+      initialLanguage = sanitizeLanguage(languageCookie);
+      initialLanguageSource = LANGUAGE_SOURCE_AUTO;
+    }
+  }
+
+  if (initialLanguageSource !== LANGUAGE_SOURCE_MANUAL) {
+    if (detectedCountry) {
+      initialLanguage = resolveLanguageFromCountry(detectedCountry);
+    } else if (!languageCookie) {
+      initialLanguage = FALLBACK_LANGUAGE;
+    }
+  }
 
   let serverConsent = null;
   if (consentCookie) {
@@ -95,7 +130,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html
-      lang="en"
+      lang={initialLanguage}
       suppressHydrationWarning
       className={`${comfortaa.variable} ${satisfy.variable}`}
       data-theme={initialTheme}
@@ -155,7 +190,11 @@ export default async function RootLayout({ children }) {
         <link rel="dns-prefetch" href="https://assets.calendly.com" />
       </head>
       <body className={`cover--is--visible is--loading theme-${initialTheme}`}>
-          <AppWrapper initialTheme={initialTheme}>
+          <AppWrapper
+            initialTheme={initialTheme}
+            initialLanguage={initialLanguage}
+            initialLanguageSource={initialLanguageSource}
+          >
             {children}
           </AppWrapper>
 
