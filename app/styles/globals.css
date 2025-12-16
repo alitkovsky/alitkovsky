@@ -1231,7 +1231,7 @@ body.theme-transition * {
   color: var(--color--foreground--100);
   text-decoration: none;
   font-weight: 700;
-  font-size: clamp(1rem, 1.6vw, 1.125rem);
+  font-size: var(--font--size-regular);
   cursor: pointer;
 }
 .cta-link:hover .cta-icon {
@@ -1986,7 +1986,7 @@ body.theme-transition * {
   color: var(--color--foreground--50);
   font-size: var(--font--size-small);
   text-transform: lowercase;
-  margin-top: 1em;
+  margin-top: 2em;
 }
 .section.contact .hook .book-cta {
   max-width: 360px;
