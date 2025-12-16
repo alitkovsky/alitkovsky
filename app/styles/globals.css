@@ -973,7 +973,7 @@ body.theme-transition * {
   min-height: 100dvh;
 }
 .section.intro > .content {
-  min-height: 100vh;
+  min-height: 100dvh;
   padding: var(--intro-gradient-offset) 0 40px 0;
   grid-template-rows: auto 1fr auto;
   align-content: stretch;
