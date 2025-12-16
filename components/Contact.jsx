@@ -6,10 +6,88 @@ import TiltedCard from "@/components/TiltedCard";
 import Footer from "@/components/Footer";
 import TextEffect from "@/components/TextEffect";
 import BookCTA from "@/components/BookCTA";
-import CalendlyInline from "@/components/CalendlyInline";
-import WiggleSvg from "@/components/WiggleSvg";
+
+import useLanguage from "@/hooks/useLanguage";
+
+const CONTACT_COPY = {
+  de: {
+    hook: {
+      prefix: "lass uns quatschen —",
+      underlineThin: "unverbindlich",
+      underlineZigzag: "kostenlos",
+      joiner: "und",
+      subtitle: "in 20 minuten klären wir, ob und wie ich dir helfen kann. kein verkaufsgespräch, kein druck — versprochen.",
+    },
+    card: {
+      caption: "meld dich einfach",
+    },
+    labels: {
+      phone: "handy",
+      email: "email",
+      location: "standort",
+      workingHours: "arbeitszeiten",
+      localTime: "lokalzeit",
+      legal: "rechtliches",
+    },
+    values: {
+      location: "mindener straße 87, 32479 hille",
+      workingHoursWeek: "mo - fr: 9:00 — 18:00",
+      workingHoursSat: "sa: 9:00 — 15:00",
+    },
+    links: {
+      imprint: "impressum",
+      privacy: "datenschutz",
+    },
+    cta: {
+      label: "... oder buch dir direkt einen slot",
+    },
+  },
+  en: {
+    hook: {
+      prefix: "let's chat —",
+      underlineThin: "no strings",
+      underlineZigzag: "free",
+      joiner: "and",
+      subtitle: "in 20 minutes we'll figure out if and how i can help. no sales pitch, no pressure — promised.",
+    },
+    card: {
+      caption: "just reach out",
+    },
+    labels: {
+      phone: "phone",
+      email: "email",
+      location: "location",
+      workingHours: "hours",
+      localTime: "local time",
+      legal: "legal",
+    },
+    values: {
+      location: "mindener straße 87, 32479 hille, germany",
+      workingHoursWeek: "mon - fri: 9:00 — 18:00",
+      workingHoursSat: "sat: 9:00 — 15:00",
+    },
+    links: {
+      imprint: "imprint",
+      privacy: "privacy",
+    },
+    cta: {
+      label: "... or just grab a slot",
+    },
+  },
+};
 
 export default function Contact() {
+  const { language } = useLanguage();
+  const copy = CONTACT_COPY[language] ?? CONTACT_COPY.en;
+  const fallbackCopy = CONTACT_COPY.en;
+
+  const hook = copy.hook ?? fallbackCopy.hook;
+  const cardCaption = copy.card?.caption ?? fallbackCopy.card?.caption ?? "";
+  const labels = copy.labels ?? fallbackCopy.labels;
+  const values = copy.values ?? fallbackCopy.values;
+  const links = copy.links ?? fallbackCopy.links;
+  const ctaLabel = copy.cta?.label ?? fallbackCopy.cta?.label ?? "... or just book a call";
+
   const [shouldRenderCalendly, setShouldRenderCalendly] = useState(false);
   const calendlyRef = useRef(null);
 
@@ -51,7 +129,17 @@ export default function Contact() {
       <div className="content">
         <div className="hook">
           <h2>
-            Lassen Sie uns sprechen —<br />unverbindlich und&nbsp;
+            {hook.prefix}<br />
+            <TextEffect
+              as="span"
+              variant="underlineThin"
+              trigger="visible"
+              visibilityRootMargin="0px 0px -33%"
+              className="inline-block"
+            >
+              {hook.underlineThin}
+            </TextEffect>
+            &nbsp;{hook.joiner}&nbsp;
             <TextEffect
               as="span"
               variant="underlineZigzag"
@@ -59,20 +147,12 @@ export default function Contact() {
               visibilityRootMargin="0px 0px -33%"
               className="inline-block"
             >
-              kostenlos
+              {hook.underlineZigzag}
             </TextEffect>
           </h2>
           <p className="hook__subtitle">
-            In 20 Minuten klären wir, ob und wie ich Ihnen helfen kann. Keine Verkaufsgespräche, kein Druck — versprochen.
+            {hook.subtitle}
           </p>
-          {/* <p className="hook__subtitle">
-            30-Minuten-Video-Call via Google Meet · Vorbereitung inklusive Audit-Checkliste.
-          </p>
-          <BookCTA
-            label="Jetzt Termin buchen"
-            subline="Antwort binnen 24h – Slots Mo–Fr"
-            size="lg"
-          /> */}
         </div>
 
         <div className="image">
@@ -80,7 +160,7 @@ export default function Contact() {
             <TiltedCard
               imageSrc="og-image.png"
               altText=""
-              captionText="Feel free to get in touch"
+              captionText={cardCaption}
               containerWidth="100%"
               containerHeight="100%"
               imageWidth="100%"
@@ -95,27 +175,12 @@ export default function Contact() {
         </div>
 
         <div className="text">
-          {/* <div className="text__cta">
-            <p className="eyebrow">ready to grow your leads?</p>
-            <h3>Termin vereinbaren & Klarheit gewinnen</h3>
-            <p>
-              Wir schauen gemeinsam auf Pipeline, Paid Media & Analytics und definieren konkrete
-              Schritte für die nächsten 90 Tage.
-            </p>
-            <BookCTA
-              label="Termin vereinbaren"
-              subline="30 Min · Google Meet"
-              size="lg"
-              variant="secondary"
-            />
-          </div> */}
-
           <div>
-            <p>phone</p>
+            <p>{labels.phone}</p>
             <p>+49 176 58238236</p>
           </div>
           <div>
-            <p>email</p>
+            <p>{labels.email}</p>
             <p>
               <TextEffect
                 as="a"
@@ -130,21 +195,21 @@ export default function Contact() {
             </p>
           </div>
           <div>
-            <p>location</p>
-            <p>mindener straße 87, 32479 hille germany</p>
+            <p>{labels.location}</p>
+            <p>{values.location}</p>
           </div>
           <div>
-            <p>working hours</p>
-            <p>mon - fri: 9:00 — 18:00</p>
-            <p>saturday: 9:00 — 15:00</p>
+            <p>{labels.workingHours}</p>
+            <p>{values.workingHoursWeek}</p>
+            <p>{values.workingHoursSat}</p>
           </div>
           <div />
           <div>
-            <p>local time</p>
+            <p>{labels.localTime}</p>
             <Time />
           </div>
           <div className="actions">
-            <p>rechtliches</p>
+            <p>{labels.legal}</p>
             <div>
               <TextEffect
                 as="a"
@@ -154,7 +219,7 @@ export default function Contact() {
                 className="inline-block"
                 autoActive
               >
-                impressum
+                {links.imprint}
               </TextEffect>
             </div>
             <div>
@@ -166,27 +231,47 @@ export default function Contact() {
                 className="inline-block"
                 autoActive
               >
-                datenschutz
+                {links.privacy}
               </TextEffect>
             </div>
           </div>
+          <div className="actions">
+            {/* <p>{labels.legal}</p> */}
+            <TextEffect
+              as="a"
+              variant="ellipseAuto"
+              href="https://www.linkedin.com/in/andrii-litkovskyi/"
+              trigger="hover"
+              openInNewTab
+              className="inline-block"
+            >
+              Li
+            </TextEffect>
+            <TextEffect
+              as="a"
+              variant="ellipseAuto"
+              href="https://www.instagram.com/litkovskyi/"
+              trigger="hover"
+              openInNewTab
+              className="inline-block ml-4"
+            >
+              In
+            </TextEffect>
+            <TextEffect
+              as="a"
+              variant="ellipseAuto"
+              href="https://www.upwork.com/freelancers/~01fc21565de40bab50"
+              trigger="hover"
+              openInNewTab
+              className="inline-block ml-4"
+            >
+              Up
+            </TextEffect>
+          </div>
           <div className="cta">
-            <BookCTA label="... or just book a call" ctaLocation="contact" />
+            <BookCTA label={ctaLabel} ctaLocation="contact" />
           </div>
         </div>
-
-        {/* <div className="contact__calendly" ref={calendlyRef}>
-          {shouldRenderCalendly ? (
-            <CalendlyInline className="contact__calendly-widget" height={720} />
-          ) : (
-            <div className="calendly-inline-shell is-placeholder">
-              <div className="calendly-inline-placeholder">
-                <p>Kalender wird geladen …</p>
-                <p>Slots und Zeitzonen werden vorbereitet.</p>
-              </div>
-            </div>
-          )}
-        </div> */}
       </div>
       <Footer />
     </section>

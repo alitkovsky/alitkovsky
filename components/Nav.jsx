@@ -16,6 +16,17 @@ const THEME_COOKIE_KEY = "nav-theme";
 const THEME_TRANSITION_DURATION = 450;
 const LINE_EFFECT_DELAY = 300;
 
+const NAV_COPY = {
+  de: {
+    dayMode: "tag",
+    nightMode: "nacht",
+  },
+  en: {
+    dayMode: "day",
+    nightMode: "night",
+  },
+};
+
 const readStoredTheme = () => {
   if (typeof window === "undefined") {
     return null;
@@ -179,6 +190,7 @@ export default function Nav({ initialTheme = "dark" }) {
   ];
 
   const languages = supportedLanguages ?? ["en", "de"];
+  const navCopy = NAV_COPY[language] ?? NAV_COPY.en;
 
   function NavItem({ id, label, isActive, onActivate }) {
     const lineEffect = useRef(null)
@@ -391,13 +403,13 @@ export default function Nav({ initialTheme = "dark" }) {
             onClick={toggleTheme}
             onKeyDown={handleModeKeyDown}
             data-mode={theme}
-            aria-label={theme === "dark" ? "Switch to day mode" : "Switch to night mode"}
+            aria-label={theme === "dark" ? `Switch to ${navCopy.dayMode} mode` : `Switch to ${navCopy.nightMode} mode`}
           >
             <span className="mode-label mode-label--light">
-              day mode
+              {navCopy.dayMode}
             </span>
             <span className="mode-label mode-label--dark">
-              night mode
+              {navCopy.nightMode}
             </span>
           </div>
           <div className="language" role="group" aria-label="Language">

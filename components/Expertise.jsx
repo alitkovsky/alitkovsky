@@ -3,6 +3,53 @@
 import Link from "next/link";
 import TextEffect from "@/components/TextEffect";
 
+import useLanguage from "@/hooks/useLanguage";
+
+const EXPERTISE_COPY = {
+  de: {
+    biography: [
+      "ich bin andrii — online-marketing-berater aus hille, kreis minden-lübbecke. seit über 15 jahren helfe ich unternehmen dabei, online sichtbar zu werden und planbar kunden zu gewinnen.",
+      "mein ansatz: persönliche beratung auf augenhöhe, hands-on umsetzung und ein tiefes verständnis für lokale märkte. ich arbeite nicht mit standardpaketen — jede strategie wird individuell auf deine ziele zugeschnitten.",
+      "ob google ads, meta-kampagnen, seo oder marketing-automatisierung mit hubspot — ich bring die erfahrung und die zertifizierungen mit, um dein marketing aufs nächste level zu heben.",
+    ],
+    headings: {
+      certifications: "zertifizierungen",
+      education: "bildung",
+      colophon: "kolophon",
+    },
+    links: {
+      viewCertificate: "zertifikat ansehen",
+    },
+    colophon: {
+      designAndCodePrefix: "design und code von",
+      typesetInPrefix: "typeset in",
+      typesetByJoiner: "von",
+      copyrightSuffix: "andrii litkovskyi marketing — made in germany",
+    },
+  },
+  en: {
+    biography: [
+      "i'm andrii — an online marketing consultant based in hille (minden-lübbecke), germany. for 15+ years i've helped businesses get found online and win customers predictably.",
+      "my approach: personal consulting on equal footing, hands-on execution, and a deep understanding of local markets. no cookie-cutter packages — every strategy is tailored to your goals.",
+      "whether it's google ads, meta campaigns, seo, or hubspot marketing automation — i bring the experience and certifications to take your marketing to the next level.",
+    ],
+    headings: {
+      certifications: "certifications",
+      education: "education",
+      colophon: "colophon",
+    },
+    links: {
+      viewCertificate: "view certificate",
+    },
+    colophon: {
+      designAndCodePrefix: "design and code by",
+      typesetInPrefix: "typeset in",
+      typesetByJoiner: "by",
+      copyrightSuffix: "andrii litkovskyi marketing — made in germany",
+    },
+  },
+};
+
 const education = {
   title: "Education",
   items: [
@@ -66,23 +113,27 @@ const certification = {
 };
 
 export default function Expertise() {
+  const { language } = useLanguage();
+
+  const copy = EXPERTISE_COPY[language] ?? EXPERTISE_COPY.en;
+  const fallbackCopy = EXPERTISE_COPY.en;
+
+  const biography = copy.biography ?? fallbackCopy.biography ?? [];
+  const headings = copy.headings ?? fallbackCopy.headings ?? {};
+  const viewCertificate = copy.links?.viewCertificate ?? fallbackCopy.links?.viewCertificate ?? "view certificate";
+  const colophon = copy.colophon ?? fallbackCopy.colophon ?? {};
+
   return (
     <section className="section expertise" id="expertise">
       <div className="content">
         <div className="biography">
-          <p>
-            Ich bin Andrii Litkovskyi — Online-Marketing-Berater mit Sitz in Hille, Kreis Minden-Lübbecke. Seit über 15 Jahren helfe ich Unternehmen dabei, online sichtbar zu werden und planbar Kunden zu gewinnen.
-          </p>
-          <p>
-            Mein Ansatz: persönliche Beratung auf Augenhöhe, hands-on Umsetzung und ein tiefes Verständnis für lokale Märkte. Ich arbeite nicht mit Standardpaketen — jede Strategie wird individuell auf Ihre Ziele zugeschnitten.
-          </p>
-          <p>
-            Ob Google Ads, Meta-Kampagnen, SEO oder Marketing-Automatisierung mit HubSpot — ich bringe die Erfahrung und die Zertifizierungen mit, um Ihr Marketing auf das nächste Level zu heben.
-          </p>
+          {biography.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
         </div>
 
         <div className="certification">
-          <h2>Certifications</h2>
+          <h2>{headings.certifications ?? "Certifications"}</h2>
           {certification.items.map((item, index) => {
             return (
               <p key={index}>
@@ -99,7 +150,7 @@ export default function Expertise() {
                       className="inline-block"
                       autoActive
                     >
-                      view certificate
+                      {viewCertificate}
                     </TextEffect>
                   ) : null}
                 </span>
@@ -109,7 +160,7 @@ export default function Expertise() {
         </div>
 
         <div className="education">
-          <h2>Education</h2>
+          <h2>{headings.education ?? "Education"}</h2>
           {education.items.map((item, index) => {
             return (
               <p key={index}>
@@ -127,11 +178,11 @@ export default function Expertise() {
           visibilityRootMargin="0px 0px -33%"
           className="colophon inline-block"
         >
-          <h2>Colophon</h2>
+          <h2>{headings.colophon ?? "Colophon"}</h2>
           <p>
-            <span className="description">Design and code by <Link href="/">Andrii Litkovskyi</Link><br /></span>
-            <span className="description">Typeset in <Link href="https://fonts.google.com/specimen/Comfortaa" target="_blank">Comfortaa</Link> by <Link href="https://fonts.google.com/?query=Johan%20Aakerlund" target="_blank">Johan Aakerlund</Link><br /><br /></span>
-            <span className="copyright">©&nbsp;<span className="year">{new Date().getFullYear()}</span> Andrii Litkovskyi Marketing — made in Germany</span>
+            <span className="description">{colophon.designAndCodePrefix ?? "Design and code by"} <Link href="/">Andrii Litkovskyi</Link><br /></span>
+            <span className="description">{colophon.typesetInPrefix ?? "Typeset in"} <Link href="https://fonts.google.com/specimen/Comfortaa" target="_blank">Comfortaa</Link> {colophon.typesetByJoiner ?? "by"} <Link href="https://fonts.google.com/?query=Johan%20Aakerlund" target="_blank">Johan Aakerlund</Link><br /><br /></span>
+            <span className="copyright">©&nbsp;<span className="year">{new Date().getFullYear()}</span> {colophon.copyrightSuffix ?? "Andrii Litkovskyi Marketing — made in Germany"}</span>
             {/* <TextEffect
               as="a"
               variant="ellipseAuto"

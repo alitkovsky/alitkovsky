@@ -6,6 +6,8 @@ import BookCTA from "@/components/BookCTA";
 import ToolList from "@/components/ToolList";
 import WiggleSvg from "@/components/WiggleSvg";
 
+import useLanguage from "@/hooks/useLanguage";
+
 import { SiCanva, SiAdobe, SiAdobecreativecloud, SiGoogleadsense, SiGoogleanalytics, SiGoogletagmanager, SiLooker, SiHubspot, SiLinkedin, SiMeta, SiMailchimp, SiSemrush } from "react-icons/si";
 
 const techLogos = [
@@ -23,13 +25,65 @@ const techLogos = [
   { node: <SiSemrush />, title: "Semrush", href: "/" }
 ];
 
+const VALUES_COPY = {
+  de: {
+    title: {
+      transparent: "transparent",
+      handsOn: "hands-on",
+      eyeLevel: "auf augenhöhe",
+      local: "lokal verankert",
+    },
+    description: "marketing ohne buzzwords und leere versprechen. ich mach das seit über 15 jahren — von paid social über seo bis crm-automatisierung. was mich antreibt: echte ergebnisse für echte unternehmen. keine langzeitverträge, keine versteckten kosten. nur klare strategien, die funktionieren.",
+    results: {
+      label: "was ich bisher für kunden erreicht habe:",
+      metrics: "+48% sichtbarkeit · +35% conversions · +25% qualifizierte leads · —22% werbekosten",
+    },
+    toolsTitle: "meine werkzeuge",
+    logosLabel: "marketing tools",
+    cta: {
+      label: "mehr erfahren? lass uns reden",
+    },
+  },
+  en: {
+    title: {
+      transparent: "transparent",
+      handsOn: "hands-on",
+      eyeLevel: "down-to-earth",
+      local: "locally rooted",
+    },
+    description: "marketing without buzzwords or empty promises. i've been doing this for 15+ years — from paid social and seo to crm automation. what drives me: real results for real businesses. no long-term contracts, no hidden costs. just clear strategies that work.",
+    results: {
+      label: "results i've delivered for clients:",
+      metrics: "+48% visibility · +35% conversions · +25% qualified leads · —22% ad costs",
+    },
+    toolsTitle: "my toolkit",
+    logosLabel: "marketing tools",
+    cta: {
+      label: "want to know more? let's talk",
+    },
+  },
+};
+
 export default function Values() {
+  const { language } = useLanguage();
+
+  const copy = VALUES_COPY[language] ?? VALUES_COPY.en;
+  const fallbackCopy = VALUES_COPY.en;
+
+  const titleCopy = copy.title ?? fallbackCopy.title;
+  const description = copy.description ?? fallbackCopy.description ?? "";
+  const resultsLabel = copy.results?.label ?? fallbackCopy.results?.label ?? "";
+  const resultsMetrics = copy.results?.metrics ?? fallbackCopy.results?.metrics ?? "";
+  const toolsTitle = copy.toolsTitle ?? fallbackCopy.toolsTitle ?? "core tools";
+  const logosLabel = copy.logosLabel ?? fallbackCopy.logosLabel ?? "Marketing tools";
+  const ctaLabel = copy.cta?.label ?? fallbackCopy.cta?.label ?? "book a free call to find out more";
+
   return (
     <section className="section values" id="values">
       <div className="content">
         <div className="title">
-          <h1>transparent</h1>
-          <h1>hands-on</h1>
+          <h1>{titleCopy.transparent}</h1>
+          <h1>{titleCopy.handsOn}</h1>
           <TextEffect
             as="h1"
             variant="ellipseBold"
@@ -37,22 +91,22 @@ export default function Values() {
             visibilityRootMargin="0px 0px -33%"
             className="inline-block"
           >
-            auf augenhöhe
+            {titleCopy.eyeLevel}
           </TextEffect>
-          <h1>lokal verankert</h1>
+          <h1>{titleCopy.local}</h1>
         </div>
         <div className="main">
           <p className="description">
-            Marketing ohne Buzzwords und leere Versprechen. Ich arbeite seit über 15 Jahren im Online-Marketing — von Paid Social über SEO bis CRM-Automatisierung. Was mich antreibt: echte Ergebnisse für echte Unternehmen. Keine Langzeitverträge, keine versteckten Kosten. Nur klare Strategien, die funktionieren.
+            {description}
           </p>
           <p className="description results">
-            <strong>Meine bisherigen Ergebnisse für Kunden:</strong><br />
-            +48% Sichtbarkeit / +35% Conversions / +25% qualifizierte Leads / −22% Werbekosten
+            <strong>{resultsLabel}</strong><br />
+            {resultsMetrics}
           </p>
         </div>
         <div className="tools">
           <h3 className="title">
-            core tools
+            {toolsTitle}
           </h3>
           <ToolList />
         </div>
@@ -73,7 +127,7 @@ export default function Values() {
             scaleOnHover
             fadeOut
             fadeOutColor="var(--color--background--100)"
-            ariaLabel="Marketing tools"
+            ariaLabel={logosLabel}
             renderItem={(item, itemIndex) => {
               const rotationClass = itemIndex % 2 === 0 ? "r1" : "r2";
               return (
@@ -101,7 +155,7 @@ export default function Values() {
         </div>
 
         <div className="cta">
-          <BookCTA label="book a free call to find out more" ctaLocation="values" />
+          <BookCTA label={ctaLabel} ctaLocation="values" />
         </div>
       </div>
     </section>

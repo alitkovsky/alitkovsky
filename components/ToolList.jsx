@@ -5,52 +5,74 @@ import { motion } from "framer-motion";
 import ToolIcon3D from "@/components/ToolIcon3D";
 import useToolList from "@/hooks/useToolList";
 
-const tools = [
-  {
-    title: "google ads & analytics",
-    href: "",
-    iconId: "analytics",
-    svg: "/assets/svg/analytics.svg",
-    bullets: [
-      "google ads, GA4 and GTM",
-      "performance conversion tracking",
-      "hyper-targeted campaigns"
-    ],
+import useLanguage from "@/hooks/useLanguage";
+
+const TOOLS_COPY = {
+  de: {
+    tools: [
+      {
+        title: "paid social",
+        href: "",
+        iconId: "paid-social",
+        svg: "/assets/svg/paid-social.svg",
+        description: "ich schalte und optimiere anzeigen auf meta und linkedin — damit du die richtigen leute erreichst und nicht dein budget verbrennst.",
+      },
+      {
+        title: "seo & local seo",
+        href: "",
+        iconId: "seo",
+        svg: "/assets/svg/seo.svg",
+        description: "ich sorge dafür, dass deine website bei google gefunden wird — technisch sauber, inhaltlich relevant, lokal sichtbar.",
+      },
+      {
+        title: "web analytics",
+        href: "",
+        iconId: "analytics",
+        svg: "/assets/svg/analytics.svg",
+        description: "ga4, tag manager, dashboards — ich zeige dir, was funktioniert und was nicht. keine bauchgefühle, sondern zahlen.",
+      },
+      {
+        title: "crm & automatisierung",
+        href: "",
+        iconId: "crm-email-marketing",
+        svg: "/assets/svg/crm-email-marketing.svg",
+        description: "hubspot, mailchimp, automatisierte workflows — damit aus leads kunden werden, ohne dass du jeden manuell nachfassen musst.",
+      }
+    ]
   },
-  {
-    title: "seo & geo",
-    href: "",
-    iconId: "seo",
-    svg: "/assets/svg/seo.svg",
-    bullets: [
-      "on-page, tech, and content SEO",
-      "comprehensive ongoing analysis",
-      "long-term organic visibility"
-    ],
+  en: {
+    tools: [
+      {
+        title: "paid social",
+        href: "",
+        iconId: "paid-social",
+        svg: "/assets/svg/paid-social.svg",
+        description: "i run and optimize ads on meta and linkedin — so you reach the right people without burning your budget.",
+      },
+      {
+        title: "seo & local seo",
+        href: "",
+        iconId: "seo",
+        svg: "/assets/svg/seo.svg",
+        description: "i make sure your website gets found on google — technically sound, content-relevant, locally visible.",
+      },
+      {
+        title: "web analytics",
+        href: "",
+        iconId: "analytics",
+        svg: "/assets/svg/analytics.svg",
+        description: "ga4, tag manager, dashboards — i show you what works and what doesn't. no gut feelings, just data.",
+      },
+      {
+        title: "crm & automatisierung",
+        href: "",
+        iconId: "crm-email-marketing",
+        svg: "/assets/svg/crm-email-marketing.svg",
+        description: "hubspot, mailchimp, automated workflows — turning leads into customers without manual follow-ups.",
+      }
+    ]
   },
-  {
-    title: "paid social",
-    href: "",
-    iconId: "paid-social",
-    svg: "/assets/svg/paid-social.svg",
-    bullets: [
-      "meta ads manager",
-      "linkedIn campaign manager",
-      "funnel stage and creative testing"
-    ],
-  },
-  {
-    title: "crm & email marketing",
-    href: "",
-    iconId: "crm-email-marketing",
-    svg: "/assets/svg/crm-email-marketing.svg",
-    bullets: [
-      "hubspot, mailchimp, klaviyo",
-      "nurture flows",
-      "onboarding journeys"
-    ],
-  }
-];
+};
 
 const containerVariants = {
   initial: {},
@@ -69,6 +91,11 @@ const itemVariants = {
 };
 
 export default function ToolList() {
+  const { language } = useLanguage();
+  const copy = TOOLS_COPY[language] ?? TOOLS_COPY.en;
+  const fallbackCopy = TOOLS_COPY.en;
+  const tools = copy.tools ?? fallbackCopy.tools ?? {};
+
   const { active, setActive, containerRef, itemRefs } = useToolList(tools, { initialActive: 0 });
   const [iconColor, setIconColor] = useState("#131313");
 
@@ -184,14 +211,12 @@ export default function ToolList() {
               </div>
               <div className="description">
                 <h3>{tool.title}</h3>
-                <motion.ul
+                <motion.p
                   layout
                   transition={{ duration: 0.3 }}
                 >
-                  {tool.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
-                  ))}
-                </motion.ul>
+                  {tool.description}
+                </motion.p>
               </div>
           </motion.div>
         ))}

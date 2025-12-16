@@ -8,7 +8,6 @@ import TextEffect from "@/components/TextEffect";
 import HandwritingEffect from "@/components/HandwritingEffect";
 import BookCTA from "@/components/BookCTA";
 
-// Add new copy for each language here; keep keys in sync across locales.
 const INTRO_COPY = {
   de: {
     options: {
@@ -19,24 +18,24 @@ const INTRO_COPY = {
       agenturen: "agenturen",
     },
     cta: {
-      label: "kostenloses erstgespräch buchen",
+      label: "lass uns quatschen",
     },
-    scroll: ["muss ich dich wirklich daran", "erinnern weiter zu scrollen"],
+    scroll: ["muss ich dich wirklich", "ans scrollen erinnern?"],
     texts: {
       anyone: [
-        "Hi! Ich bin Andrii — Online-Marketing-Berater aus OWL. Ich helfe lokalen Unternehmen, online sichtbar zu werden und planbar neue Kunden zu gewinnen.",
+        "tach! ich bin andrii — dein marketing-berater aus owl. ich helfe dir, online sichtbar zu werden und planbar neue kunden zu gewinnen.",
       ],
       praxen: [
-        "Sie wollen mehr Privatpatienten oder Neupatienten gewinnen? Ich sorge dafür, dass Ihre Praxis bei Google gefunden wird — mit SEO, lokalen Anzeigen und einer Website, die Vertrauen schafft.",
+        "du willst mehr privatpatienten oder neupatienten gewinnen? ich sorge dafür, dass deine praxis bei google gefunden wird — mit seo, lokalen anzeigen und einer website, die vertrauen schafft.",
       ],
       handwerker: [
-        "Keine Zeit für Marketing? Ich übernehme das. Von Google-Anzeigen bis zur Webseite — Sie bekommen qualifizierte Anfragen, ich kümmere mich um den Rest.",
+        "keine zeit für marketing? ich übernehm das. von google-anzeigen bis zur webseite — du bekommst qualifizierte anfragen, ich kümmere mich um den rest.",
       ],
       dienstleister: [
-        "Ob Steuerberater, Immobilienmakler oder Fitnessstudio — ich entwickle Marketing-Strategien, die zu Ihrem Budget passen und messbare Ergebnisse liefern.",
+        "ob steuerberater, immobilienmakler oder fitnessstudio — ich entwickle marketing-strategien, die zu deinem budget passen und messbare ergebnisse liefern.",
       ],
       agenturen: [
-        "Kapazitätsengpass? Ich unterstütze als externer Spezialist bei Paid Social, Analytics und CRO — zuverlässig, erfahren, hands-on.",
+        "kapazitätsengpass? ich spring ein als externer spezialist für paid social, analytics und cro — zuverlässig, erfahren, hands-on.",
       ],
     },
   },
@@ -49,24 +48,24 @@ const INTRO_COPY = {
       agenturen: "agencies",
     },
     cta: {
-      label: "book a free call",
+      label: "let's chat",
     },
-    scroll: ["do i really need to", "remind you to scroll"],
+    scroll: ["do i really need to", "remind you to scroll?"],
     texts: {
       anyone: [
-        "Hi! I'm Andrii — an online marketing consultant based in OWL, Germany. I help local businesses become visible online and win new customers predictably.",
+        "hey! i'm andrii — your marketing consultant from owl, germany. i help you get visible online and win new customers predictably.",
       ],
       praxen: [
-        "Want to attract more private or new patients? I make sure your practice gets found on Google — with SEO, local ads, and a website that builds trust.",
+        "want more private or new patients? i'll make sure your practice gets found on google — with seo, local ads, and a website that builds trust.",
       ],
       handwerker: [
-        "No time for marketing? I've got you covered. From Google Ads to your website — you get qualified leads, I handle the rest.",
+        "no time for marketing? i've got you. from google ads to your website — you get qualified leads, i handle the rest.",
       ],
       dienstleister: [
-        "Whether you're a tax advisor, real estate agent, or gym owner — I develop marketing strategies that fit your budget and deliver measurable results.",
+        "whether you're a tax advisor, real estate agent, or gym owner — i develop marketing strategies that fit your budget and deliver real results.",
       ],
       agenturen: [
-        "Capacity bottleneck? I support as an external specialist for Paid Social, Analytics, and CRO — reliable, experienced, hands-on.",
+        "capacity crunch? i step in as an external specialist for paid social, analytics, and cro — reliable, experienced, hands-on.",
       ],
     },
   },
