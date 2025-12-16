@@ -210,6 +210,10 @@ export default function Intro() {
               </p>
             );
           })}
+
+          <div className="cta">
+            <BookCTA label="book a free call" ctaLocation="intro" />
+        </div>
         </div>
 
         {/* <div className="intro-cta">
