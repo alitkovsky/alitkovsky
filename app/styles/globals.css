@@ -732,7 +732,7 @@ body.mobile-nav--is--visible .app-header .navigation .line:nth-child(2) .content
   color: var(--color--foreground--100);
 }
 .app-nav .sub-item {
-  font-size: var(--font--size-medium);
+  font-size: var(--font--size-regular);
   font-weight: 700;
   padding: 1px 0;
   color: var(--color--foreground--33);
