@@ -37,7 +37,14 @@ const TOOLS_COPY = {
         iconId: "crm-email-marketing",
         svg: "/assets/svg/crm-email-marketing.svg",
         description: "hubspot, mailchimp, automatisierte workflows — damit aus leads kunden werden, ohne dass du jeden manuell nachfassen musst.",
-      }
+      },
+      // {
+      //   title: "landing pages & cro",
+      //   href: "",
+      //   iconId: "landing-pages",
+      //   svg: "/assets/svg/landing-pages.svg",
+      //   description: "ich baue landing pages, die konvertieren — klare struktur, überzeugende texte, optimiert für mehr anfragen und weniger absprünge.",
+      // }
     ]
   },
   en: {
@@ -69,7 +76,14 @@ const TOOLS_COPY = {
         iconId: "crm-email-marketing",
         svg: "/assets/svg/crm-email-marketing.svg",
         description: "hubspot, mailchimp, automated workflows — turning leads into customers without manual follow-ups.",
-      }
+      },
+      // {
+      //   title: "landing pages & cro",
+      //   href: "",
+      //   iconId: "landing-pages",
+      //   svg: "/assets/svg/landing-pages.svg",
+      //   description: "i build landing pages that convert — clear structure, compelling copy, optimized for more leads and fewer bounces.",
+      // }
     ]
   },
 };
