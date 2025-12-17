@@ -8,11 +8,7 @@ export const metadata = {
 export default function DatenschutzPage() {
   return (
     <main className="app-main">
-      <div className="section">
-        <div className="content">
-          <Datenschutz />
-        </div>
-      </div>
+        <Datenschutz />
     </main>
   );
 };
