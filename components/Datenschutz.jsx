@@ -1,15 +1,16 @@
 "use client";
 
 import useLanguage from "@/hooks/useLanguage";
+import Link from "next/link";
 
 const DATENSCHUTZ_COPY = {
   de: {
     title: "datenschutzerklärung & cookie-richtlinie",
     intro: {
       controller: "verantwortlicher:",
-      name: "Andrii Litkovskyi",
-      address: "Mindener Str. 87",
-      city: "32479 Hille, Deutschland",
+      name: "andrii litkovskyi",
+      address: "mindener str. 87",
+      city: "32479 hille, deutschland",
       email: "andrii@litkovskyi.de",
       phone: "+49 176 58238236",
       description: "der schutz deiner personenbezogenen daten ist mir ein wichtiges anliegen. diese datenschutzerklärung informiert dich darüber, welche daten bei deinem besuch auf meiner website erhoben werden und zu welchen zwecken diese verwendet werden.",
@@ -192,9 +193,9 @@ const DATENSCHUTZ_COPY = {
     title: "privacy policy & cookie policy",
     intro: {
       controller: "controller:",
-      name: "Andrii Litkovskyi",
-      address: "Mindener Str. 87",
-      city: "32479 Hille, Germany",
+      name: "andrii litkovskyi",
+      address: "mindener str. 87",
+      city: "32479 hille, germany",
       email: "andrii@litkovskyi.de",
       phone: "+49 176 58238236",
       description: "protecting your personal data is important to me. this privacy policy informs you about what data is collected when you visit my website and for what purposes it is used.",
@@ -392,672 +393,539 @@ export default function Datenschutz() {
   };
 
   return (
-    <div className="datenschutz-content">
-      <h1 className="datenschutz-title">
-        {copy.title}
-      </h1>
-
-      {/* Introduction */}
-      <section className="datenschutz-section">
-        <p className="datenschutz-text">
-          <strong>{copy.intro.controller}</strong>
-          <br />
-          {copy.intro.name}
-          <br />
-          {copy.intro.address}
-          <br />
-          {copy.intro.city}
-          <br />
-          e-mail: {copy.intro.email}
-          <br />
-          {language === "de" ? "telefon" : "phone"}: {copy.intro.phone}
-        </p>
-        <p className="datenschutz-text">
-          {copy.intro.description}
-        </p>
-      </section>
-
-      {/* Cookie Usage */}
-      <section className="datenschutz-section">
-        <h2 className="datenschutz-heading">{copy.cookies.heading}</h2>
-
-        <div className="datenschutz-subsection">
-          <h3 className="datenschutz-subheading">{copy.cookies.whatAreCookies.heading}</h3>
-          <p className="datenschutz-text">
-            {copy.cookies.whatAreCookies.text}
-          </p>
+    <section className="section datenschutz" id="datenschutz">
+      <div className="content">
+        <div className="title">
+          <h1>{copy.title}</h1>
         </div>
 
-        <div className="datenschutz-subsection">
-          <h3 className="datenschutz-subheading">
-            {copy.cookies.whichCookies.heading}
-          </h3>
-
-          {/* Necessary Cookies Table */}
-          <h4 className="datenschutz-table-title">{copy.cookies.necessary.title}</h4>
-          <div className="datenschutz-table-wrapper">
-            <table className="datenschutz-table">
-              <thead>
-                <tr>
-                  {copy.cookies.necessary.tableHeaders.map((header, idx) => (
-                    <th key={idx}>{header}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {copy.cookies.necessary.cookies.map((cookie, idx) => (
-                  <tr key={idx}>
-                    <td><code>{cookie.name}</code></td>
-                    <td>{cookie.purpose}</td>
-                    <td>{cookie.duration}</td>
-                    <td>{cookie.type}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Analytics Cookies Table */}
-          <h4 className="datenschutz-table-title">{copy.cookies.analytics.title}</h4>
-          <p className="datenschutz-notice">
-            {copy.cookies.analytics.notice}
-          </p>
-          <div className="datenschutz-table-wrapper">
-            <table className="datenschutz-table">
-              <thead>
-                <tr>
-                  {copy.cookies.analytics.tableHeaders.map((header, idx) => (
-                    <th key={idx}>{header}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {copy.cookies.analytics.cookies.map((cookie, idx) => (
-                  <tr key={idx}>
-                    <td><code>{cookie.name}</code></td>
-                    <td>{cookie.provider}</td>
-                    <td>{cookie.purpose}</td>
-                    <td>{cookie.duration}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Marketing Cookies Table */}
-          <h4 className="datenschutz-table-title">{copy.cookies.marketing.title}</h4>
-          <p className="datenschutz-notice">
-            {copy.cookies.marketing.notice}
-          </p>
-          <div className="datenschutz-table-wrapper">
-            <table className="datenschutz-table">
-              <thead>
-                <tr>
-                  {copy.cookies.marketing.tableHeaders.map((header, idx) => (
-                    <th key={idx}>{header}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {copy.cookies.marketing.cookies.map((cookie, idx) => (
-                  <tr key={idx}>
-                    <td><code>{cookie.name}</code></td>
-                    <td>{cookie.provider}</td>
-                    <td>{cookie.purpose}</td>
-                    <td>{cookie.duration}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div className="datenschutz-info-box">
+        {/* Introduction */}
+        <div className="left">
+          <h3>{copy.intro.controller}</h3>
           <p>
-            <strong>{copy.cookies.legalBasis.label}</strong> {copy.cookies.legalBasis.text}
-          </p>
-        </div>
-      </section>
-
-      {/* Google Analytics */}
-      <section className="datenschutz-section">
-        <h2 className="datenschutz-heading">{copy.googleAnalytics.heading}</h2>
-        <p className="datenschutz-text">
-          {copy.googleAnalytics.intro}
-        </p>
-        <h3 className="datenschutz-subheading">
-          {copy.googleAnalytics.scope.heading}
-        </h3>
-        <ul className="datenschutz-list">
-          {copy.googleAnalytics.scope.items.map((item, idx) => (
-            <li key={idx}>{item}</li>
-          ))}
-        </ul>
-        <h3 className="datenschutz-subheading">{copy.googleAnalytics.ipAnonymization.heading}</h3>
-        <p className="datenschutz-text">
-          {copy.googleAnalytics.ipAnonymization.text}
-        </p>
-        <h3 className="datenschutz-subheading">
-          {copy.googleAnalytics.usTransfer.heading}
-        </h3>
-        <p className="datenschutz-text">
-          {copy.googleAnalytics.usTransfer.text}
-        </p>
-        <div className="datenschutz-link-box">
-          <p>
-            <strong>{copy.googleAnalytics.moreInfo}</strong>
-            <br />
-            {copy.googleAnalytics.privacyPolicy}{" "}
-            <a
-              href="https://policies.google.com/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="datenschutz-link"
-            >
-              https://policies.google.com/privacy
-            </a>
-          </p>
-        </div>
-      </section>
-
-      {/* Microsoft Clarity */}
-      <section className="datenschutz-section">
-        <h2 className="datenschutz-heading">{copy.clarity.heading}</h2>
-        <p className="datenschutz-text">
-          {copy.clarity.intro}
-        </p>
-        <h3 className="datenschutz-subheading">{copy.clarity.scope.heading}</h3>
-        <ul className="datenschutz-list">
-          {copy.clarity.scope.items.map((item, idx) => (
-            <li key={idx}>{item}</li>
-          ))}
-        </ul>
-        <p className="datenschutz-text">
-          {copy.clarity.masking}
-        </p>
-        <div className="datenschutz-link-box">
-          <p>
-            <strong>{copy.clarity.moreInfo}</strong>
-            <br />
-            {copy.clarity.privacyStatement}{" "}
-            <a
-              href="https://privacy.microsoft.com/privacystatement"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="datenschutz-link"
-            >
-              https://privacy.microsoft.com/privacystatement
-            </a>
-          </p>
-        </div>
-      </section>
-
-      {/* Calendly */}
-      <section className="datenschutz-section">
-        <h2 className="datenschutz-heading">{copy.calendly.heading}</h2>
-        <p className="datenschutz-text">
-          {copy.calendly.intro}
-        </p>
-        <ul className="datenschutz-list">
-          {copy.calendly.items.map((item, idx) => (
-            <li key={idx}>{item}</li>
-          ))}
-        </ul>
-        <p className="datenschutz-text">
-          {copy.calendly.transfer}
-        </p>
-        <div className="datenschutz-link-box">
-          <p>
-            <strong>{copy.calendly.moreInfo}</strong>
-            <br />
-            {copy.calendly.privacyPolicy}{" "}
-            <a
-              href="https://calendly.com/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="datenschutz-link"
-            >
-              https://calendly.com/privacy
-            </a>
-          </p>
-        </div>
-      </section>
-
-      {/* Hosting & Technical Infrastructure */}
-      <section className="datenschutz-section">
-        <h2 className="datenschutz-heading">{copy.hosting.heading}</h2>
-
-        <h3 className="datenschutz-subheading">{copy.hosting.vercel.heading}</h3>
-        <p className="datenschutz-text">
-          {copy.hosting.vercel.text}
-        </p>
-        <ul className="datenschutz-list">
-          {copy.hosting.vercel.items.map((item, idx) => (
-            <li key={idx}>{item}</li>
-          ))}
-        </ul>
-        <p className="datenschutz-text">
-          {copy.hosting.vercel.legal}
-        </p>
-        <div className="datenschutz-link-box">
-          <p>
-            <strong>{copy.hosting.vercel.moreInfo}</strong>{" "}
-            <a
-              href="https://vercel.com/legal/privacy-policy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="datenschutz-link"
-            >
-              https://vercel.com/legal/privacy-policy
-            </a>
-          </p>
-        </div>
-
-        <h3 className="datenschutz-subheading">{copy.hosting.ssl.heading}</h3>
-        <p className="datenschutz-text">
-          {copy.hosting.ssl.text}
-        </p>
-
-        <h3 className="datenschutz-subheading">{copy.hosting.domains.heading}</h3>
-        <p className="datenschutz-text">
-          {copy.hosting.domains.text}
-        </p>
-
-        <h3 className="datenschutz-subheading">{copy.hosting.fonts.heading}</h3>
-        <p className="datenschutz-text">
-          {copy.hosting.fonts.text}
-        </p>
-      </section>
-
-      {/* Social Media Links */}
-      <section className="datenschutz-section">
-        <h2 className="datenschutz-heading">{copy.socialMedia.heading}</h2>
-        <p className="datenschutz-text">
-          {copy.socialMedia.intro}
-        </p>
-        <ul className="datenschutz-list">
-          {copy.socialMedia.items.map((item, idx) => (
-            <li key={idx}>
-              <strong>{item.name}</strong> ({item.url}) — {item.provider}
-            </li>
-          ))}
-        </ul>
-        <p className="datenschutz-text">
-          {copy.socialMedia.note}
-        </p>
-      </section>
-
-      {/* User Rights */}
-      <section className="datenschutz-section">
-        <h2 className="datenschutz-heading">{copy.rights.heading}</h2>
-        <p className="datenschutz-text">
-          {copy.rights.intro}
-        </p>
-        <ul className="datenschutz-list">
-          {copy.rights.items.map((item, idx) => (
-            <li key={idx}>
-              <strong>{item.right}</strong> {item.description}
-            </li>
-          ))}
-        </ul>
-
-        <div className="datenschutz-action-box">
-          <h3 className="datenschutz-subheading">
-            {copy.rights.cookieSettings.heading}
-          </h3>
-          <p className="datenschutz-text">
-            {copy.rights.cookieSettings.text}
-          </p>
-          <button
-            onClick={handleOpenCookieSettings}
-            className="datenschutz-button"
-          >
-            🍪 {copy.rights.cookieSettings.button}
-          </button>
-        </div>
-
-        <h3 className="datenschutz-subheading">
-          {copy.rights.contact.heading}
-        </h3>
-        <p className="datenschutz-text">
-          {copy.rights.contact.text}
-        </p>
-        <div className="datenschutz-contact-box">
-          <p>
-            <strong>{copy.intro.name}</strong>
+            {copy.intro.name}
             <br />
             {copy.intro.address}
             <br />
-            {copy.intro.city.split(",")[0]}
+            {copy.intro.city}
+          </p>
+          <p>
+            {copy.intro.email}
             <br />
-            e-mail:{" "}
-            <a
-              href={`mailto:${copy.intro.email}`}
-              className="datenschutz-link"
-            >
-              {copy.intro.email}
-            </a>
-            <br />
-            {language === "de" ? "telefon" : "phone"}: {copy.intro.phone}
+            {copy.intro.phone}
+          </p>
+          <p>{copy.intro.description}</p>
+        </div>
+
+        {/* Cookie Usage */}
+        <div className="left">
+          <h3>{copy.cookies.heading}</h3>
+          <p className="title">{copy.cookies.whatAreCookies.heading}</p>
+          <p>{copy.cookies.whatAreCookies.text}</p>
+          <p className="title">
+            {copy.cookies.whichCookies.heading}
           </p>
         </div>
 
-        <h3 className="datenschutz-subheading">{copy.rights.complaint.heading}</h3>
-        <p className="datenschutz-text">
-          {copy.rights.complaint.text}
-        </p>
-        <div className="datenschutz-contact-box">
+        {/* Necessary Cookies Table */}
+        <div className="wide">
+          <p className="title">{copy.cookies.necessary.title}</p>
+          <table className="datenschutz-table">
+            <thead>
+              <tr>
+                {copy.cookies.necessary.tableHeaders.map((header, idx) => (
+                  <th key={idx}>{header}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {copy.cookies.necessary.cookies.map((cookie, idx) => (
+                <tr key={idx}>
+                  <td><code>{cookie.name}</code></td>
+                  <td>{cookie.purpose}</td>
+                  <td>{cookie.duration}</td>
+                  <td>{cookie.type}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Analytics Cookies Table */}
+        <div className="wide">
+          <p className="title">{copy.cookies.analytics.title}</p>
+          <p>{copy.cookies.analytics.notice}</p>
+          <table className="datenschutz-table">
+            <thead>
+              <tr>
+                {copy.cookies.analytics.tableHeaders.map((header, idx) => (
+                  <th key={idx}>{header}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {copy.cookies.analytics.cookies.map((cookie, idx) => (
+                <tr key={idx}>
+                  <td><code>{cookie.name}</code></td>
+                  <td>{cookie.provider}</td>
+                  <td>{cookie.purpose}</td>
+                  <td>{cookie.duration}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Marketing Cookies Table */}
+        <div className="wide">
+          <p className="title">{copy.cookies.marketing.title}</p>
+          <p>{copy.cookies.marketing.notice}</p>
+          <table className="datenschutz-table">
+            <thead>
+              <tr>
+                {copy.cookies.marketing.tableHeaders.map((header, idx) => (
+                  <th key={idx}>{header}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {copy.cookies.marketing.cookies.map((cookie, idx) => (
+                <tr key={idx}>
+                  <td><code>{cookie.name}</code></td>
+                  <td>{cookie.provider}</td>
+                  <td>{cookie.purpose}</td>
+                  <td>{cookie.duration}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+          <div className="right">
+            <p>{copy.cookies.legalBasis.label}{" "}{copy.cookies.legalBasis.text}
+            </p>
+          </div>
+
+        {/* Google Analytics */}
+        <div className="left">
+          <h3>{copy.googleAnalytics.heading}</h3>
+          <p>{copy.googleAnalytics.intro}</p>
+          <p className="title">{copy.googleAnalytics.scope.heading}</p>
+          <ul>
+            {copy.googleAnalytics.scope.items.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+          <p className="title">{copy.googleAnalytics.ipAnonymization.heading}</p>
+          <p>{copy.googleAnalytics.ipAnonymization.text}</p>
+          <p className="title">{copy.googleAnalytics.usTransfer.heading}</p>
+          <p>{copy.googleAnalytics.usTransfer.text}</p>
+
+          <p className="title">{copy.googleAnalytics.moreInfo}</p>
           <p>
-            <strong>
-              {copy.rights.complaint.authority}
-            </strong>
+            {copy.googleAnalytics.privacyPolicy}{" "}
+            <Link
+              href="https://policies.google.com/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://policies.google.com/privacy
+            </Link>
+          </p>
+        </div>
+
+        {/* Microsoft Clarity */}
+        <div className="right">
+          <h3>{copy.clarity.heading}</h3>
+          <p>{copy.clarity.intro}</p>
+          <p className="title">{copy.clarity.scope.heading}</p>
+          <ul>
+            {copy.clarity.scope.items.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+          <p className="datenschutz-text">
+            {copy.clarity.masking}
+          </p>
+
+          <p>{copy.clarity.moreInfo}</p>
+          <p>
+            {copy.clarity.privacyStatement}{" "}
+            <Link
+              href="https://privacy.microsoft.com/privacystatement"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://privacy.microsoft.com/privacystatement
+            </Link>
+          </p>
+        </div>
+
+        <div></div>
+
+        {/* Calendly */}
+        <div className="right">
+          <h3>{copy.calendly.heading}</h3>
+          <p className="datenschutz-text">{copy.calendly.intro}</p>
+          <ul>
+            {copy.calendly.items.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+          <p>{copy.calendly.transfer}</p>
+            <p>{copy.calendly.moreInfo}</p>
+            <p>
+              {copy.calendly.privacyPolicy}{" "}
+              <Link
+                href="https://calendly.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://calendly.com/privacy
+              </Link>
+            </p>
+        </div>
+
+        {/* Hosting & Technical Infrastructure */}
+        <div className="left">
+          <h3>{copy.hosting.heading}</h3>
+          <p className="title">{copy.hosting.vercel.heading}</p>
+          <p>{copy.hosting.vercel.text}</p>
+          <ul>
+            {copy.hosting.vercel.items.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+          <p>{copy.hosting.vercel.legal}</p>
+            <p>{copy.hosting.vercel.moreInfo}</p>
+            <p>
+              <Link
+                href="https://vercel.com/legal/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://vercel.com/legal/privacy-policy
+              </Link>
+            </p>
+          <p className="title">{copy.hosting.ssl.heading}</p>
+          <p>{copy.hosting.ssl.text}</p>
+          <p className="title">{copy.hosting.domains.heading}</p>
+          <p>{copy.hosting.domains.text}</p>
+          <p className="title">{copy.hosting.fonts.heading}</p>
+          <p>{copy.hosting.fonts.text}</p>
+        </div>
+
+        {/* Social Media Links */}
+        <div className="right">
+          <h3>{copy.socialMedia.heading}</h3>
+          <p>{copy.socialMedia.intro}</p>
+          <ul>
+            {copy.socialMedia.items.map((item, idx) => (
+              <li key={idx}>
+                {item.name} ({item.url}){" — "}{item.provider}
+              </li>
+            ))}
+          </ul>
+          <p>{copy.socialMedia.note}</p>
+        </div>
+
+        {/* User Rights */}
+        <div className="left">
+          <h3>{copy.rights.heading}</h3>
+          <p>{copy.rights.intro}</p>
+          <ul>
+            {copy.rights.items.map((item, idx) => (
+              <li key={idx}>
+                {item.right}{" "}{item.description}
+              </li>
+            ))}
+          </ul>
+          <p className="title">{copy.rights.cookieSettings.heading}</p>
+          <p>{copy.rights.cookieSettings.text}</p>
+          <p></p>
+          <button
+            onClick={handleOpenCookieSettings}
+            className="cookie-banner__btn cookie-banner__btn--ghost"
+          >
+            {copy.rights.cookieSettings.button}
+          </button>
+          <p className="title">{copy.rights.contact.heading}</p>
+          <p>{copy.rights.contact.text}</p>
+          <p>
+            {copy.intro.name}<br />
+            {copy.intro.address}<br />
+            {copy.intro.city.split(",")[0]}
+          </p>
+          <p>
+              <Link
+                href={`mailto:${copy.intro.email}`}
+              >
+                {copy.intro.email}
+              </Link>
+              <br />
+              {copy.intro.phone}
+          </p>
+          <p className="title">{copy.rights.complaint.heading}</p>
+          <p>{copy.rights.complaint.text}</p>
+          <p>
+            {copy.rights.complaint.authority}
             <br />
             {copy.rights.complaint.address}
             <br />
             {copy.rights.complaint.city}
             <br />
             {copy.rights.complaint.website}{" "}
-            <a
+            <Link
               href="https://www.ldi.nrw.de"
               target="_blank"
               rel="noopener noreferrer"
-              className="datenschutz-link"
             >
               https://www.ldi.nrw.de
-            </a>
+            </Link>
           </p>
         </div>
-      </section>
 
-      {/* Updates */}
-      <section className="datenschutz-section">
-        <h2 className="datenschutz-heading">
-          {copy.updates.heading}
-        </h2>
-        <p className="datenschutz-text">
-          {copy.updates.text}
-        </p>
-        <p className="datenschutz-text">
-          <strong>{copy.updates.lastUpdated}</strong>{" "}
-          {formatDate(language)}
-        </p>
-      </section>
+        <div></div>
 
-      {/* Back Button */}
-      <div className="datenschutz-back">
-        <a href="/" className="datenschutz-back-link">
-          {copy.back}
-        </a>
-      </div>
+        {/* Updates */}
+        <div className="right">
+          <h3>{copy.updates.heading}</h3>
+          <p className="title">{copy.updates.text}</p>
+          <p>{copy.updates.lastUpdated}{" "}
+            {formatDate(language)}
+          </p>
+        </div>
 
-      <style jsx>{`
-        .datenschutz-content {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 2rem 1rem;
-          line-height: 1.8;
-        }
 
-        .datenschutz-title {
-          font-size: 2.5rem;
-          font-weight: 700;
-          margin-bottom: 2rem;
-          color: var(--color-text-primary, #111827);
-        }
+        {/* Back Button */}
+        <div className="left">
+          <Link href="/">
+            {copy.back}
+          </Link>
+        </div>
 
-        .datenschutz-section {
-          margin-bottom: 3rem;
-        }
-
-        .datenschutz-heading {
-          font-size: 1.875rem;
-          font-weight: 700;
-          margin-bottom: 1.5rem;
-          color: var(--color-text-primary, #111827);
-        }
-
-        .datenschutz-subheading {
-          font-size: 1.5rem;
-          font-weight: 600;
-          margin-top: 2rem;
-          margin-bottom: 1rem;
-          color: var(--color-text-primary, #111827);
-        }
-
-        .datenschutz-table-title {
-          font-size: 1.25rem;
-          font-weight: 600;
-          margin-top: 2rem;
-          margin-bottom: 1rem;
-          color: var(--color-text-primary, #111827);
-        }
-
-        .datenschutz-subsection {
-          margin-bottom: 2rem;
-        }
-
-        .datenschutz-text {
-          font-size: 1rem;
-          color: var(--color-text-secondary, #4b5563);
-          margin-bottom: 1rem;
-        }
-
-        .datenschutz-notice {
-          font-size: 0.875rem;
-          color: var(--color-text-secondary, #6b7280);
-          margin-bottom: 0.75rem;
-        }
-
-        .datenschutz-list {
-          margin-left: 1.5rem;
-          margin-bottom: 1rem;
-          color: var(--color-text-secondary, #4b5563);
-        }
-
-        .datenschutz-list li {
-          margin-bottom: 0.5rem;
-        }
-
-        .datenschutz-table-wrapper {
-          overflow-x: auto;
-          margin-bottom: 1.5rem;
-        }
-
-        .datenschutz-table {
-          width: 100%;
-          border-collapse: collapse;
-          border: 1px solid #d1d5db;
-          font-size: 0.875rem;
-        }
-
-        .datenschutz-table thead {
-          background-color: #f3f4f6;
-        }
-
-        .datenschutz-table th,
-        .datenschutz-table td {
-          padding: 0.75rem;
-          text-align: left;
-          border: 1px solid #d1d5db;
-        }
-
-        .datenschutz-table th {
-          font-weight: 600;
-          color: var(--color-text-primary, #111827);
-        }
-
-        .datenschutz-table td {
-          color: var(--color-text-secondary, #4b5563);
-        }
-
-        .datenschutz-table code {
-          background-color: #f3f4f6;
-          padding: 0.125rem 0.5rem;
-          border-radius: 0.25rem;
-          font-size: 0.875rem;
-        }
-
-        .datenschutz-info-box,
-        .datenschutz-link-box,
-        .datenschutz-contact-box,
-        .datenschutz-action-box {
-          background-color: #eff6ff;
-          border-left: 4px solid #2563eb;
-          padding: 1rem;
-          margin: 1.5rem 0;
-          border-radius: 0.25rem;
-        }
-
-        .datenschutz-info-box p,
-        .datenschutz-link-box p,
-        .datenschutz-contact-box p {
-          margin: 0;
-          font-size: 0.875rem;
-          color: #1e3a8a;
-        }
-
-        .datenschutz-link {
-          color: #2563eb;
-          text-decoration: none;
-        }
-
-        .datenschutz-link:hover {
-          text-decoration: underline;
-        }
-
-        .datenschutz-button {
-          background-color: #2563eb;
-          color: white;
-          padding: 0.75rem 1.5rem;
-          border: none;
-          border-radius: 0.5rem;
-          font-weight: 500;
-          cursor: pointer;
-          transition: background-color 0.2s;
-          margin-top: 1rem;
-        }
-
-        .datenschutz-button:hover {
-          background-color: #1d4ed8;
-        }
-
-        .datenschutz-back {
-          margin-top: 3rem;
-          padding-top: 2rem;
-          border-top: 1px solid #e5e7eb;
-        }
-
-        .datenschutz-back-link {
-          color: #2563eb;
-          text-decoration: none;
-          display: inline-flex;
-          align-items: center;
-        }
-
-        .datenschutz-back-link:hover {
-          text-decoration: underline;
-        }
-
-        /* Dark mode support */
-        [data-theme="dark"] .datenschutz-title,
-        [data-theme="dark"] .datenschutz-heading,
-        [data-theme="dark"] .datenschutz-subheading,
-        [data-theme="dark"] .datenschutz-table-title {
-          color: #f9fafb;
-        }
-
-        [data-theme="dark"] .datenschutz-text,
-        [data-theme="dark"] .datenschutz-list {
-          color: #d1d5db;
-        }
-
-        [data-theme="dark"] .datenschutz-notice {
-          color: #9ca3af;
-        }
-
-        [data-theme="dark"] .datenschutz-table {
-          border-color: #374151;
-        }
-
-        [data-theme="dark"] .datenschutz-table thead {
-          background-color: #1f2937;
-        }
-
-        [data-theme="dark"] .datenschutz-table th {
-          color: #f9fafb;
-        }
-
-        [data-theme="dark"] .datenschutz-table td {
-          color: #d1d5db;
-          border-color: #374151;
-        }
-
-        [data-theme="dark"] .datenschutz-table th {
-          border-color: #374151;
-        }
-
-        [data-theme="dark"] .datenschutz-table code {
-          background-color: #374151;
-          color: #f9fafb;
-        }
-
-        [data-theme="dark"] .datenschutz-info-box,
-        [data-theme="dark"] .datenschutz-link-box,
-        [data-theme="dark"] .datenschutz-contact-box,
-        [data-theme="dark"] .datenschutz-action-box {
-          background-color: #1e3a5f;
-          border-left-color: #3b82f6;
-        }
-
-        [data-theme="dark"] .datenschutz-info-box p,
-        [data-theme="dark"] .datenschutz-link-box p,
-        [data-theme="dark"] .datenschutz-contact-box p {
-          color: #bfdbfe;
-        }
-
-        [data-theme="dark"] .datenschutz-link {
-          color: #60a5fa;
-        }
-
-        [data-theme="dark"] .datenschutz-button {
-          background-color: #3b82f6;
-        }
-
-        [data-theme="dark"] .datenschutz-button:hover {
-          background-color: #2563eb;
-        }
-
-        [data-theme="dark"] .datenschutz-back {
-          border-top-color: #374151;
-        }
-
-        [data-theme="dark"] .datenschutz-back-link {
-          color: #60a5fa;
-        }
-
-        @media (max-width: 768px) {
+        <style jsx>{`
+          .datenschutz-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            line-height: 1.8;
+          }
           .datenschutz-title {
-            font-size: 2rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--color-text-primary, #111827);
           }
-
+          .datenschutz-section {
+            margin-bottom: 3rem;
+          }
           .datenschutz-heading {
-            font-size: 1.5rem;
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--color-text-primary, #111827);
           }
-
           .datenschutz-subheading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--color-text-primary, #111827);
+          }
+          .datenschutz-table-title {
             font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--color-text-primary, #111827);
           }
-
+          .datenschutz-subsection {
+            margin-bottom: 2rem;
+          }
+          .datenschutz-text {
+            font-size: 1rem;
+            color: var(--color-text-secondary, #4b5563);
+            margin-bottom: 1rem;
+          }
+          .datenschutz-notice {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary, #6b7280);
+            margin-bottom: 0.75rem;
+          }
+          .datenschutz-list {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-text-secondary, #4b5563);
+          }
+          .datenschutz-list li {
+            margin-bottom: 0.5rem;
+          }
+          .datenschutz-table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+          }
           .datenschutz-table {
-            font-size: 0.75rem;
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #d1d5db;
+            font-size: 0.875rem;
           }
-
+          .datenschutz-table thead {
+            background-color: #f3f4f6;
+          }
           .datenschutz-table th,
           .datenschutz-table td {
-            padding: 0.5rem;
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #d1d5db;
           }
-        }
-      `}</style>
-    </div>
+          .datenschutz-table th {
+            font-weight: 600;
+            color: var(--color-text-primary, #111827);
+          }
+          .datenschutz-table td {
+            color: var(--color-text-secondary, #4b5563);
+          }
+          .datenschutz-table code {
+            background-color: #f3f4f6;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+          }
+          .datenschutz-info-box,
+          .datenschutz-link-box,
+          .datenschutz-contact-box,
+          .datenschutz-action-box {
+            background-color: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.25rem;
+          }
+          .datenschutz-info-box p,
+          .datenschutz-link-box p,
+          .datenschutz-contact-box p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: #1e3a8a;
+          }
+          .datenschutz-link {
+            color: #2563eb;
+            text-decoration: none;
+          }
+          .datenschutz-link:hover {
+            text-decoration: underline;
+          }
+          .datenschutz-button {
+            background-color: #2563eb;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+          }
+          .datenschutz-button:hover {
+            background-color: #1d4ed8;
+          }
+          .datenschutz-back {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+          }
+          .datenschutz-back-link {
+            color: #2563eb;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+          }
+          .datenschutz-back-link:hover {
+            text-decoration: underline;
+          }
+          /* Dark mode support */
+          [data-theme="dark"] .datenschutz-title,
+          [data-theme="dark"] .datenschutz-heading,
+          [data-theme="dark"] .datenschutz-subheading,
+          [data-theme="dark"] .datenschutz-table-title {
+            color: #f9fafb;
+          }
+          [data-theme="dark"] .datenschutz-text,
+          [data-theme="dark"] .datenschutz-list {
+            color: #d1d5db;
+          }
+          [data-theme="dark"] .datenschutz-notice {
+            color: #9ca3af;
+          }
+          [data-theme="dark"] .datenschutz-table {
+            border-color: #374151;
+          }
+          [data-theme="dark"] .datenschutz-table thead {
+            background-color: #1f2937;
+          }
+          [data-theme="dark"] .datenschutz-table th {
+            color: #f9fafb;
+          }
+          [data-theme="dark"] .datenschutz-table td {
+            color: #d1d5db;
+            border-color: #374151;
+          }
+          [data-theme="dark"] .datenschutz-table th {
+            border-color: #374151;
+          }
+          [data-theme="dark"] .datenschutz-table code {
+            background-color: #374151;
+            color: #f9fafb;
+          }
+          [data-theme="dark"] .datenschutz-info-box,
+          [data-theme="dark"] .datenschutz-link-box,
+          [data-theme="dark"] .datenschutz-contact-box,
+          [data-theme="dark"] .datenschutz-action-box {
+            background-color: #1e3a5f;
+            border-left-color: #3b82f6;
+          }
+          [data-theme="dark"] .datenschutz-info-box p,
+          [data-theme="dark"] .datenschutz-link-box p,
+          [data-theme="dark"] .datenschutz-contact-box p {
+            color: #bfdbfe;
+          }
+          [data-theme="dark"] .datenschutz-link {
+            color: #60a5fa;
+          }
+          [data-theme="dark"] .datenschutz-button {
+            background-color: #3b82f6;
+          }
+          [data-theme="dark"] .datenschutz-button:hover {
+            background-color: #2563eb;
+          }
+          [data-theme="dark"] .datenschutz-back {
+            border-top-color: #374151;
+          }
+          [data-theme="dark"] .datenschutz-back-link {
+            color: #60a5fa;
+          }
+          @media (max-width: 768px) {
+            .datenschutz-title {
+              font-size: 2rem;
+            }
+            .datenschutz-heading {
+              font-size: 1.5rem;
+            }
+            .datenschutz-subheading {
+              font-size: 1.25rem;
+            }
+            .datenschutz-table {
+              font-size: 0.75rem;
+            }
+            .datenschutz-table th,
+            .datenschutz-table td {
+              padding: 0.5rem;
+            }
+          }
+        `}</style>
+      </div>
+    </section>
   );
-}
+};
