@@ -29,8 +29,8 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 export const metadata = {
   metadataBase: new URL('https://litkovskyi.de'),
-  title: "Hi! I'm Andrii Litkovskyi",
-  description: "A digital marketing expert",
+  title: "hi! i'm andrii litkovskyi",
+  description: "a digital marketing expert",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -52,16 +52,16 @@ export const metadata = {
     statusBarStyle: "default",
   },
   openGraph: {
-    title: "Hi! I'm Andrii Litkovskyi",
-    description: "A digital marketing expert",
+    title: "hi! i'm andrii litkovskyi",
+    description: "a digital marketing expert",
     type: "website",
     url: "https://litkovskyi.de/",
     images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hi! I'm Andrii Litkovskyi",
-    description: "A digital marketing expert",
+    title: "hi! i'm andrii litkovskyi",
+    description: "a digital marketing expert",
     images: ["/og-image.png"],
   },
 };
