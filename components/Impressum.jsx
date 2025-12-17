@@ -1,16 +1,19 @@
 "use client";
 
 import useLanguage from "@/hooks/useLanguage";
+import Link from "next/link";
+
+import Footer from "@/components/Footer";
 
 const IMPRESSUM_COPY = {
   de: {
     title: "impressum",
     provider: {
       heading: "angaben gemäß § 5 DDG",
-      name: "Andrii Litkovskyi",
-      address: "Mindener Str. 87",
-      city: "32479 Hille",
-      country: "Deutschland",
+      name: "andrii litkovskyi",
+      address: "mindener str. 87",
+      city: "32479 hille",
+      country: "deutschland",
     },
     contact: {
       heading: "kontakt",
@@ -26,9 +29,9 @@ const IMPRESSUM_COPY = {
     },
     responsible: {
       heading: "verantwortlich für den inhalt nach § 18 abs. 2 MStV",
-      name: "Andrii Litkovskyi",
-      address: "Mindener Str. 87",
-      city: "32479 Hille",
+      name: "andrii litkovskyi",
+      address: "mindener str. 87",
+      city: "32479 hille",
     },
     dispute: {
       heading: "eu-streitschlichtung",
@@ -65,10 +68,10 @@ const IMPRESSUM_COPY = {
     title: "legal notice",
     provider: {
       heading: "information pursuant to § 5 DDG",
-      name: "Andrii Litkovskyi",
-      address: "Mindener Str. 87",
-      city: "32479 Hille",
-      country: "Germany",
+      name: "andrii litkovskyi",
+      address: "mindener str. 87",
+      city: "32479 hille",
+      country: "germany",
     },
     contact: {
       heading: "contact",
@@ -79,14 +82,14 @@ const IMPRESSUM_COPY = {
     },
     vatId: {
       heading: "vat id",
-      text: "VAT identification number pursuant to § 27a of the German VAT Act:",
+      text: "vat identification number pursuant to § 27a of the german vat act:",
       value: "DE458131768",
     },
     responsible: {
       heading: "responsible for content pursuant to § 18 para. 2 MStV",
-      name: "Andrii Litkovskyi",
-      address: "Mindener Str. 87",
-      city: "32479 Hille",
+      name: "andrii litkovskyi",
+      address: "mindener str. 87",
+      city: "32479 hille",
     },
     dispute: {
       heading: "eu dispute resolution",
@@ -126,277 +129,112 @@ export default function Impressum() {
   const copy = IMPRESSUM_COPY[language] ?? IMPRESSUM_COPY.de;
 
   return (
-    <div className="impressum-content">
-      <h1 className="impressum-title">{copy.title}</h1>
+    <section className="section impressum" id="impressum">
+      <div className="content">
+        <div className="title">
+          <h1>{copy.title}</h1>
+        </div>
+        <div className="left">
 
-      {/* Provider Information */}
-      <section className="impressum-section">
-        <h2 className="impressum-heading">{copy.provider.heading}</h2>
-        <div className="impressum-info-box">
+          {/* Provider Information */}
+          <p className="title">{copy.provider.heading}</p>
           <p>
-            {copy.provider.name}
-            <br />
-            {copy.provider.address}
-            <br />
-            {copy.provider.city}
-            <br />
+            {copy.provider.name}<br/>
+            {copy.provider.address}<br/>
+            {copy.provider.city}<br/>
             {copy.provider.country}
           </p>
-        </div>
-      </section>
 
-      {/* Contact */}
-      <section className="impressum-section">
-        <h2 className="impressum-heading">{copy.contact.heading}</h2>
-        <div className="impressum-info-box">
-          <p>
-            {copy.contact.phone} {copy.contact.phoneValue}
-            <br />
+          {/* Contact */}
+          <p className="title">{copy.contact.heading}</p>
+          <p>{copy.contact.phone} {copy.contact.phoneValue}<br/>
             {copy.contact.email}{" "}
-            <a
-              href={`mailto:${copy.contact.emailValue}`}
-              className="impressum-link"
-            >
-              {copy.contact.emailValue}
-            </a>
+              <Link
+                href={`mailto:${copy.contact.emailValue}`}
+              >
+                {copy.contact.emailValue}
+              </Link>
           </p>
-        </div>
-      </section>
+          </div>
 
-      {/* VAT ID */}
-      <section className="impressum-section">
-        <h2 className="impressum-heading">{copy.vatId.heading}</h2>
-        <p className="impressum-text">{copy.vatId.text}</p>
-        <div className="impressum-info-box">
-          <p>
-            <strong>{copy.vatId.value}</strong>
-          </p>
-        </div>
-      </section>
+          <div className="right">
+            {/* VAT ID */}
+            <p className="title">{copy.vatId.heading}</p>
+            <p>
+              {copy.vatId.text}{" "}{copy.vatId.value}
+            </p>
 
-      {/* Responsible for Content */}
-      <section className="impressum-section">
-        <h2 className="impressum-heading">{copy.responsible.heading}</h2>
-        <div className="impressum-info-box">
-          <p>
-            {copy.responsible.name}
-            <br />
-            {copy.responsible.address}
-            <br />
-            {copy.responsible.city}
-          </p>
-        </div>
-      </section>
+            {/* Responsible for Content */}
+            <p className="title">{copy.responsible.heading}</p>
+            <p>
+              {copy.responsible.name}<br/>
+              {copy.responsible.address}<br/>
+              {copy.responsible.city}
+            </p>
+          </div>
 
-      {/* EU Dispute Resolution */}
-      <section className="impressum-section">
-        <h2 className="impressum-heading">{copy.dispute.heading}</h2>
-        <p className="impressum-text">
-          {copy.dispute.text}
-          <br />
-          <a
-            href="https://ec.europa.eu/consumers/odr/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="impressum-link"
-          >
-            {copy.dispute.linkText}
-          </a>
-        </p>
-        <p className="impressum-text">{copy.dispute.afterLink}</p>
 
-        <h3 className="impressum-subheading">{copy.dispute.consumer.heading}</h3>
-        <p className="impressum-text">{copy.dispute.consumer.text}</p>
-      </section>
+          {/* EU Dispute Resolution */}
+          <div className="left">
+            <h2>{copy.dispute.heading}</h2>
+            <p>
+              {copy.dispute.text}{" "}
+              <Link
+                href="https://ec.europa.eu/consumers/odr/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {copy.dispute.linkText}
+              </Link>
+            </p>
+            <p>{copy.dispute.afterLink}</p>
+            <p className="title">{copy.dispute.consumer.heading}</p>
+            <p>{copy.dispute.consumer.text}</p>
+          </div>
 
-      {/* Liability for Content */}
-      <section className="impressum-section">
-        <h2 className="impressum-heading">{copy.liability.heading}</h2>
-        <p className="impressum-text">{copy.liability.text}</p>
-        <p className="impressum-text">{copy.liability.text2}</p>
-      </section>
+          {/* Liability for Content */}
+          <div className="right">
+            <h2>{copy.liability.heading}</h2>
+            <p>{copy.liability.text}</p>
+            <p>{copy.liability.text2}</p>
+          </div>
 
-      {/* Liability for Links */}
-      <section className="impressum-section">
-        <h2 className="impressum-heading">{copy.links.heading}</h2>
-        <p className="impressum-text">{copy.links.text}</p>
-        <p className="impressum-text">{copy.links.text2}</p>
-      </section>
+          {/* Liability for Links */}
+          <div className="left">
+            <h2>{copy.links.heading}</h2>
+            <p>{copy.links.text}</p>
+            <p>{copy.links.text2}</p>
+          </div>
 
-      {/* Copyright */}
-      <section className="impressum-section">
-        <h2 className="impressum-heading">{copy.copyright.heading}</h2>
-        <p className="impressum-text">{copy.copyright.text}</p>
-        <p className="impressum-text">{copy.copyright.text2}</p>
-      </section>
+          <div></div>
 
-      {/* Source */}
-      <section className="impressum-section impressum-source">
-        <p className="impressum-text">
-          {copy.source.text}{" "}
-          <a
-            href="https://www.e-recht24.de"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="impressum-link"
-          >
-            {copy.source.linkText}
-          </a>
-        </p>
-      </section>
+          {/* Copyright */}
+          <div className="right">
+            <h2>{copy.copyright.heading}</h2>
+            <p>{copy.copyright.text}</p>
+            <p>{copy.copyright.text2}</p>
 
-      {/* Back Button */}
-      <div className="impressum-back">
-        <a href="/" className="impressum-back-link">
-          {copy.back}
-        </a>
+            {/* Source */}
+            <p>
+              {copy.source.text}{" "}
+              <Link
+                href="https://www.e-recht24.de"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {copy.source.linkText}
+              </Link>
+            </p>
+          </div>
+
+          {/* Back Button */}
+          <div className="left">
+            <Link href="/">
+              {copy.back}
+            </Link>
+          </div>
       </div>
-
-      <style jsx>{`
-        .impressum-content {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 2rem 1rem;
-          line-height: 1.8;
-        }
-
-        .impressum-title {
-          font-size: 2.5rem;
-          font-weight: 700;
-          margin-bottom: 2rem;
-          color: var(--color-text-primary, #111827);
-        }
-
-        .impressum-section {
-          margin-bottom: 2.5rem;
-        }
-
-        .impressum-heading {
-          font-size: 1.5rem;
-          font-weight: 600;
-          margin-bottom: 1rem;
-          color: var(--color-text-primary, #111827);
-        }
-
-        .impressum-subheading {
-          font-size: 1.25rem;
-          font-weight: 600;
-          margin-top: 1.5rem;
-          margin-bottom: 0.75rem;
-          color: var(--color-text-primary, #111827);
-        }
-
-        .impressum-text {
-          font-size: 1rem;
-          color: var(--color-text-secondary, #4b5563);
-          margin-bottom: 1rem;
-        }
-
-        .impressum-info-box {
-          background-color: #f3f4f6;
-          border-left: 4px solid #2563eb;
-          padding: 1rem 1.25rem;
-          margin: 1rem 0;
-          border-radius: 0.25rem;
-        }
-
-        .impressum-info-box p {
-          margin: 0;
-          font-size: 1rem;
-          color: var(--color-text-primary, #111827);
-        }
-
-        .impressum-link {
-          color: #2563eb;
-          text-decoration: none;
-        }
-
-        .impressum-link:hover {
-          text-decoration: underline;
-        }
-
-        .impressum-source {
-          margin-top: 3rem;
-          padding-top: 1.5rem;
-          border-top: 1px solid #e5e7eb;
-        }
-
-        .impressum-source .impressum-text {
-          font-size: 0.875rem;
-          color: #6b7280;
-        }
-
-        .impressum-back {
-          margin-top: 2rem;
-          padding-top: 2rem;
-          border-top: 1px solid #e5e7eb;
-        }
-
-        .impressum-back-link {
-          color: #2563eb;
-          text-decoration: none;
-          display: inline-flex;
-          align-items: center;
-        }
-
-        .impressum-back-link:hover {
-          text-decoration: underline;
-        }
-
-        /* Dark mode support */
-        [data-theme="dark"] .impressum-title,
-        [data-theme="dark"] .impressum-heading,
-        [data-theme="dark"] .impressum-subheading {
-          color: #f9fafb;
-        }
-
-        [data-theme="dark"] .impressum-text {
-          color: #d1d5db;
-        }
-
-        [data-theme="dark"] .impressum-info-box {
-          background-color: #1f2937;
-          border-left-color: #3b82f6;
-        }
-
-        [data-theme="dark"] .impressum-info-box p {
-          color: #f9fafb;
-        }
-
-        [data-theme="dark"] .impressum-link {
-          color: #60a5fa;
-        }
-
-        [data-theme="dark"] .impressum-source {
-          border-top-color: #374151;
-        }
-
-        [data-theme="dark"] .impressum-source .impressum-text {
-          color: #9ca3af;
-        }
-
-        [data-theme="dark"] .impressum-back {
-          border-top-color: #374151;
-        }
-
-        [data-theme="dark"] .impressum-back-link {
-          color: #60a5fa;
-        }
-
-        @media (max-width: 768px) {
-          .impressum-title {
-            font-size: 2rem;
-          }
-
-          .impressum-heading {
-            font-size: 1.25rem;
-          }
-
-          .impressum-subheading {
-            font-size: 1.125rem;
-          }
-        }
-      `}</style>
-    </div>
+      <Footer />
+    </section>
   );
-}
+};

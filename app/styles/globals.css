@@ -966,6 +966,70 @@ body.theme-transition * {
   text-underline-offset: 4px;
 }
 
+/* Section Impressum
+----------------------------------------------------------- */
+.section.impressum > .content {
+  padding: var(--grid--app-xheight) 0 20px 0;
+}
+.section.impressum > .content .left .title,
+.section.impressum > .content .right .title {
+  font-size: var(--font--size-medium);
+  font-weight: 700;
+}
+.section.impressum > .content .left p,
+.section.impressum > .content .right p,
+.section.impressum > .content .right p {
+  color: var(--color--foreground--50);
+}
+.section.impressum > .content .right,
+.section.impressum > .content .right,
+.section.impressum > .content .right {
+  grid-column: 5 / -1;
+}
+.section.impressum > .content .left,
+.section.impressum > .content .title {
+  grid-column: 1 / 5;
+}
+.section.impressum h2 {
+  padding-top: 40px;
+  padding-bottom: 0.14em;
+}
+.section.impressum p {
+  padding-top: 20px;
+}
+
+/* Section Datenschutz
+----------------------------------------------------------- */
+.section.datenschutz > .content {
+  padding: var(--grid--app-xheight) 0 20px 0;
+}
+.section.datenschutz > .content .left .title,
+.section.datenschutz > .content .right .title {
+  font-size: var(--font--size-medium);
+  font-weight: 700;
+}
+.section.datenschutz > .content .left p,
+.section.datenschutz > .content .right p,
+.section.datenschutz > .content .right p {
+  color: var(--color--foreground--50);
+}
+.section.datenschutz > .content .right,
+.section.datenschutz > .content .right,
+.section.datenschutz > .content .right {
+  grid-column: 5 / -1;
+}
+.section.datenschutz > .content .left,
+.section.datenschutz > .content .title {
+  grid-column: 1 / 5;
+}
+.section.datenschutz h2 {
+  padding-top: 40px;
+  padding-bottom: 0.14em;
+}
+.section.datenschutz p {
+  padding-top: 20px;
+}
+
 /* Section Intro
 ------------------------------------------------------------ */
 
