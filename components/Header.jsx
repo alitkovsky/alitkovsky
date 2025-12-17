@@ -1,10 +1,23 @@
 "use client";
 
+import useLanguage from "@/hooks/useLanguage";
 import useMobileNav from "@/hooks/useMobileNav";
 import Link from "next/link";
 import BookCTA from "@/components/BookCTA";
 
+const HEADER_COPY = {
+  de: {
+    bookingLabel: "termin buchen",
+  },
+  en: {
+    bookingLabel: "book a call",
+  },
+};
+
 export default function Header() {
+  const { language } = useLanguage();
+  const copy = HEADER_COPY[language] ?? HEADER_COPY.en;
+
   useMobileNav();
 
   return (
@@ -18,7 +31,7 @@ export default function Header() {
         <div className="actions">
           <div className="option booking">
             <BookCTA
-              label="termin buchen"
+              label={copy.bookingLabel}
               className="inline-flex"
               ctaLocation="header"
             />
