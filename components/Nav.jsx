@@ -185,8 +185,8 @@ export default function Nav({ initialTheme = "dark" }) {
   ];
 
   const subItems = [
-    { id: "cases", label: "cases", route: "/cases" },
-    { id: "about", label: "about", route: "/about" }
+    { id: "impressum", label: "impressum", route: "/impressum" },
+    { id: "datenschutz", label: "datenschutz", route: "/datenschutz" }
   ];
 
   const languages = supportedLanguages ?? ["en", "de"];
@@ -339,7 +339,7 @@ export default function Nav({ initialTheme = "dark" }) {
 
     return (
       <div
-        className={cn("item", id, { "is--active": isActive })}
+        className={cn("sub-item", id, { "is--active": isActive })}
         role="button"
         tabIndex={0}
         onClick={handleActivate}
@@ -375,14 +375,7 @@ export default function Nav({ initialTheme = "dark" }) {
               onActivate={() => handleSectionRequest(id)}
             />
           ))}
-
-          {/* <TextEffect
-          as="div"
-          variant="linethrough"
-          trigger="visible"
-          className="inline-block w-[40%] my-6"
-        ></TextEffect>
-
+          <div className="mt-[6em]"></div>
           {subItems.map(({ id, label, route }) => (
             <SubNavItem
               key={id}
@@ -392,8 +385,9 @@ export default function Nav({ initialTheme = "dark" }) {
               isActive={activeId === id}
               onActivate={() => handleSectionRequest(id)}
             />
-          ))} */}
+          ))}
         </div>
+
         <div className="toggles">
           <div
             className="mode"
