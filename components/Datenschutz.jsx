@@ -1,5 +1,7 @@
 "use client";
 
+import BackToStart from "@/components/BackToStart";
+import Footer from "@/components/Footer";
 import useLanguage from "@/hooks/useLanguage";
 import Link from "next/link";
 
@@ -187,7 +189,7 @@ const DATENSCHUTZ_COPY = {
       text: "wir behalten uns vor, diese datenschutzerklärung anzupassen, um sie an geänderte rechtsverhältnisse oder bei änderungen der website sowie der datenverarbeitung anzupassen. dies gilt jedoch nur für erklärungen zur datenverarbeitung. sofern einwilligungen erforderlich sind oder bestandteile der datenschutzerklärung regelungen des vertragsverhältnisses enthalten, erfolgen die änderungen nur mit zustimmung der nutzer.",
       lastUpdated: "stand dieser datenschutzerklärung:",
     },
-    back: "← zurück zur startseite",
+    back: "zurück zur startseite",
   },
   en: {
     title: "privacy policy & cookie policy",
@@ -372,7 +374,7 @@ const DATENSCHUTZ_COPY = {
       text: "we reserve the right to adapt this privacy policy to changed legal circumstances or changes to the website and data processing. however, this only applies to statements on data processing. if consent is required or if components of the privacy policy contain provisions of the contractual relationship, changes will only be made with user consent.",
       lastUpdated: "last updated:",
     },
-    back: "← back to homepage",
+    back: "back to homepage",
   },
 };
 
@@ -418,7 +420,7 @@ export default function Datenschutz() {
         </div>
 
         {/* Cookie Usage */}
-        <div className="left">
+        <div className="right">
           <h3>{copy.cookies.heading}</h3>
           <p className="title">{copy.cookies.whatAreCookies.heading}</p>
           <p>{copy.cookies.whatAreCookies.text}</p>
@@ -699,9 +701,11 @@ export default function Datenschutz() {
 
         {/* Back Button */}
         <div className="left">
-          <Link href="/">
-            {copy.back}
-          </Link>
+          <BackToStart
+          label={copy.back}
+          ctaLocation="datenschutz"
+          url={"/"}
+          />
         </div>
 
         <style jsx>{`
@@ -926,6 +930,7 @@ export default function Datenschutz() {
           }
         `}</style>
       </div>
+      <Footer />
     </section>
   );
 };

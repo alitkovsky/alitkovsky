@@ -4,6 +4,7 @@ import useLanguage from "@/hooks/useLanguage";
 import Link from "next/link";
 
 import Footer from "@/components/Footer";
+import BackToStart from "@/components/BackToStart";
 
 const IMPRESSUM_COPY = {
   de: {
@@ -62,7 +63,7 @@ const IMPRESSUM_COPY = {
       text: "quelle:",
       linkText: "e-recht24.de",
     },
-    back: "← zurück zur startseite",
+    back: "zurück zur startseite",
   },
   en: {
     title: "legal notice",
@@ -120,7 +121,7 @@ const IMPRESSUM_COPY = {
       text: "source:",
       linkText: "e-recht24.de",
     },
-    back: "← back to homepage",
+    back: "back to homepage",
   },
 };
 
@@ -131,7 +132,7 @@ export default function Impressum() {
   return (
     <section className="section impressum" id="impressum">
       <div className="content">
-        <div className="title">
+        <div className="left">
           <h1>{copy.title}</h1>
         </div>
         <div className="left">
@@ -155,84 +156,85 @@ export default function Impressum() {
                 {copy.contact.emailValue}
               </Link>
           </p>
-          </div>
+        </div>
 
-          <div className="right">
-            {/* VAT ID */}
-            <p className="title">{copy.vatId.heading}</p>
-            <p>
-              {copy.vatId.text}{" "}{copy.vatId.value}
-            </p>
+        <div className="right">
+          {/* VAT ID */}
+          <p className="title">{copy.vatId.heading}</p>
+          <p>
+            {copy.vatId.text}{" "}{copy.vatId.value}
+          </p>
 
-            {/* Responsible for Content */}
-            <p className="title">{copy.responsible.heading}</p>
-            <p>
-              {copy.responsible.name}<br/>
-              {copy.responsible.address}<br/>
-              {copy.responsible.city}
-            </p>
-          </div>
+          {/* Responsible for Content */}
+          <p className="title">{copy.responsible.heading}</p>
+          <p>
+            {copy.responsible.name}<br/>
+            {copy.responsible.address}<br/>
+            {copy.responsible.city}
+          </p>
+        </div>
 
-
-          {/* EU Dispute Resolution */}
-          <div className="left">
-            <h2>{copy.dispute.heading}</h2>
-            <p>
-              {copy.dispute.text}{" "}
-              <Link
-                href="https://ec.europa.eu/consumers/odr/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {copy.dispute.linkText}
-              </Link>
-            </p>
-            <p>{copy.dispute.afterLink}</p>
-            <p className="title">{copy.dispute.consumer.heading}</p>
-            <p>{copy.dispute.consumer.text}</p>
-          </div>
-
-          {/* Liability for Content */}
-          <div className="right">
-            <h2>{copy.liability.heading}</h2>
-            <p>{copy.liability.text}</p>
-            <p>{copy.liability.text2}</p>
-          </div>
-
-          {/* Liability for Links */}
-          <div className="left">
-            <h2>{copy.links.heading}</h2>
-            <p>{copy.links.text}</p>
-            <p>{copy.links.text2}</p>
-          </div>
-
-          <div></div>
-
-          {/* Copyright */}
-          <div className="right">
-            <h2>{copy.copyright.heading}</h2>
-            <p>{copy.copyright.text}</p>
-            <p>{copy.copyright.text2}</p>
-
-            {/* Source */}
-            <p>
-              {copy.source.text}{" "}
-              <Link
-                href="https://www.e-recht24.de"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {copy.source.linkText}
-              </Link>
-            </p>
-          </div>
-
-          {/* Back Button */}
-          <div className="left">
-            <Link href="/">
-              {copy.back}
+        {/* EU Dispute Resolution */}
+        <div className="left">
+          <h2>{copy.dispute.heading}</h2>
+          <p>
+            {copy.dispute.text}{" "}
+            <Link
+              href="https://ec.europa.eu/consumers/odr/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {copy.dispute.linkText}
             </Link>
-          </div>
+          </p>
+          <p>{copy.dispute.afterLink}</p>
+          <p className="title">{copy.dispute.consumer.heading}</p>
+          <p>{copy.dispute.consumer.text}</p>
+        </div>
+
+        {/* Liability for Content */}
+        <div className="right">
+          <h2>{copy.liability.heading}</h2>
+          <p>{copy.liability.text}</p>
+          <p>{copy.liability.text2}</p>
+        </div>
+
+        {/* Liability for Links */}
+        <div className="left">
+          <h2>{copy.links.heading}</h2>
+          <p>{copy.links.text}</p>
+          <p>{copy.links.text2}</p>
+        </div>
+
+        <div></div>
+
+        {/* Copyright */}
+        <div className="right">
+          <h2>{copy.copyright.heading}</h2>
+          <p>{copy.copyright.text}</p>
+          <p>{copy.copyright.text2}</p>
+
+          {/* Source */}
+          <p>
+            {copy.source.text}{" "}
+            <Link
+              href="https://www.e-recht24.de"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {copy.source.linkText}
+            </Link>
+          </p>
+        </div>
+
+        {/* Back Button */}
+        <div className="left">
+          <BackToStart
+            label={copy.back}
+            ctaLocation="impressum"
+            url={"/"}
+          />
+        </div>
       </div>
       <Footer />
     </section>
