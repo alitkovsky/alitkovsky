@@ -4,10 +4,37 @@ import { useState, useEffect } from "react";
 import { setConsent, getConsent } from "@/lib/consent";
 import CookieSettings from "@/components/CookieSettings";
 import TextEffect from "@/components/TextEffect";
+import useLanguage from "@/hooks/useLanguage";
 
 import Link from "next/link";
 
+const COPY = {
+  de: {
+    description: "ich verwende cookies, um diese seite funktionsfähig zu halten und marketingmaßnahmen zu unterstützen. unter",
+    manageCookies: "cookies verwalten",
+    descriptionMiddle: "kannst du deine einstellungen jederzeit ändern. mehr infos in meiner",
+    cookiePolicy: "cookie-richtlinie",
+    descriptionEnd: ".",
+    manage: "cookies verwalten",
+    reject: "nicht notwendige ablehnen",
+    accept: "alle akzeptieren",
+  },
+  en: {
+    description: "i use cookies to help this site function and support marketing efforts. visit",
+    manageCookies: "manage cookies",
+    descriptionMiddle: "to change preferences anytime. view my",
+    cookiePolicy: "cookie policy",
+    descriptionEnd: " for more info.",
+    manage: "manage cookies",
+    reject: "reject non-essential",
+    accept: "accept all",
+  },
+};
+
 export default function CookieBanner() {
+  const { language } = useLanguage();
+  const copy = COPY[language] ?? COPY.de;
+
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -102,7 +129,7 @@ export default function CookieBanner() {
               id="cookieConsentDesc"
               className="cookie-banner__description"
             >
-              i use cookies to help this site function and support marketing efforts. Visit{" "}
+              {copy.description}{" "}
               <TextEffect
                 as="a"
                 variant="ellipseAuto"
@@ -111,9 +138,9 @@ export default function CookieBanner() {
                 onClick={handleOpenSettings}
                 autoActive
               >
-                Manage Cookies
+                {copy.manageCookies}
               </TextEffect>{" "}
-              to change preferences anytime. View my{" "}
+              {copy.descriptionMiddle}{" "}
               <TextEffect
                 as="a"
                 variant="ellipseAuto"
@@ -122,9 +149,9 @@ export default function CookieBanner() {
                 className="cookie-banner__link inline-block"
                 autoActive
               >
-                Cookie Policy
-              </TextEffect>{" "}
-              for more info.
+                {copy.cookiePolicy}
+              </TextEffect>
+              {copy.descriptionEnd}
             </p>
           </div>
 
@@ -136,21 +163,21 @@ export default function CookieBanner() {
               aria-haspopup="dialog"
               aria-expanded={showSettings}
             >
-              manage cookies
+              {copy.manage}
             </button>
             <button
               type="button"
               onClick={handleDecline}
               className="cookie-banner__btn cookie-banner__btn--ghost"
             >
-              reject non-essential
+              {copy.reject}
             </button>
             <button
               type="button"
               onClick={handleAccept}
               className="cookie-banner__btn cookie-banner__btn--ghost"
             >
-              accept all
+              {copy.accept}
             </button>
           </div>
         </div>

@@ -3,10 +3,75 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { getConsent } from "@/lib/consent";
+import useLanguage from "@/hooks/useLanguage";
 
 import TextEffect from "@/components/TextEffect";
 
+const COPY = {
+  de: {
+    title: "cookie-einstellungen",
+    lede: "die nutzung dieser seite erfordert das speichern und abrufen von informationen auf deinem gerät. du kannst deine einwilligung jederzeit ändern.",
+    learnMore: "mehr erfahren",
+    necessary: {
+      title: "notwendige cookies",
+      alwaysActive: "immer aktiv",
+      description: "essentiell für die grundfunktionen der website. können nicht deaktiviert werden.",
+      includes: "umfasst",
+    },
+    functional: {
+      title: "funktionale cookies",
+      description: "ermöglichen erweiterte funktionen wie terminbuchung und personalisierte inhalte.",
+      includes: "umfasst calendly-cookies für die buchungsfunktion.",
+    },
+    analytics: {
+      title: "analytische cookies",
+      description: "helfen mir zu verstehen, wie besucher mit meiner website interagieren, um die nutzererfahrung zu verbessern.",
+      includes: "umfasst",
+    },
+    marketing: {
+      title: "marketing cookies",
+      description: "werden verwendet, um dir relevante werbung zu zeigen und die wirksamkeit von kampagnen zu messen.",
+      includes: "umfasst",
+    },
+    reject: "nicht notwendige ablehnen",
+    save: "einstellungen speichern",
+    accept: "alle akzeptieren",
+  },
+  en: {
+    title: "cookie preferences center",
+    lede: "using this site involves storing and retrieving information from your device for various activities. you can change your consent at any time.",
+    learnMore: "learn more",
+    necessary: {
+      title: "necessary cookies",
+      alwaysActive: "always active",
+      description: "essential for the website to function properly. cannot be disabled.",
+      includes: "includes",
+    },
+    functional: {
+      title: "functional cookies",
+      description: "enable enhanced features like appointment booking and personalized content.",
+      includes: "includes calendly cookies for booking functionality.",
+    },
+    analytics: {
+      title: "analytics cookies",
+      description: "help me understand how visitors interact with my website to improve user experience.",
+      includes: "includes",
+    },
+    marketing: {
+      title: "marketing cookies",
+      description: "used to show you relevant advertising and measure campaign effectiveness.",
+      includes: "includes",
+    },
+    reject: "reject non-essential",
+    save: "save preferences",
+    accept: "accept all",
+  },
+};
+
 export default function CookieSettings({ onClose, onSave }) {
+  const { language } = useLanguage();
+  const copy = COPY[language] ?? COPY.de;
+
   const [preferences, setPreferences] = useState({
     necessary: true,
     functional: true,
@@ -141,13 +206,13 @@ export default function CookieSettings({ onClose, onSave }) {
           <div className="cookie-settings__header">
             <div>
               <h2 id={headingId} className="cookie-settings__title">
-                cookie preferences center
+                {copy.title}
               </h2>
               <p
                 id={descriptionId}
                 className="cookie-settings__lede"
               >
-                using this site involves storing and retrieving information from your device for various activities. You can change your consent at any time.{" "}
+                {copy.lede}{" "}
                 <TextEffect
                   as="a"
                   variant="ellipseAuto"
@@ -156,7 +221,7 @@ export default function CookieSettings({ onClose, onSave }) {
                   className="cookie-banner__link inline-block"
                   autoActive
                 >
-                  Learn more
+                  {copy.learnMore}
                 </TextEffect>
                 .
               </p>
@@ -170,16 +235,16 @@ export default function CookieSettings({ onClose, onSave }) {
               <div className="cookie-settings__card-row">
                 <div className="space-y-1">
                   <div className="cookie-settings__card-head">
-                    <h3 className="cookie-settings__card-title">necessary cookies</h3>
+                    <h3 className="cookie-settings__card-title">{copy.necessary.title}</h3>
                     <span className="cookie-settings__pill">
-                      always active
+                      {copy.necessary.alwaysActive}
                     </span>
                   </div>
                   <p className="cookie-settings__text">
-                    essential for the website to function properly. Cannot be disabled.
+                    {copy.necessary.description}
                   </p>
                   <p className="cookie-settings__subtext">
-                    includes <strong>cookie_consent_v1</strong>, <strong>cookie_consent_timestamp</strong>, and <strong>nav-theme</strong>.
+                    {copy.necessary.includes} <strong>cookie_consent_v1</strong>, <strong>cookie_consent_timestamp</strong>, <strong>nav-theme</strong>.
                   </p>
                 </div>
                 <div className="cookie-settings__toggle cookie-settings__toggle--disabled">
@@ -192,12 +257,12 @@ export default function CookieSettings({ onClose, onSave }) {
             <div className="cookie-settings__card">
               <div className="cookie-settings__card-row">
                 <div className="space-y-1">
-                  <h3 className="cookie-settings__card-title">functional cookies</h3>
+                  <h3 className="cookie-settings__card-title">{copy.functional.title}</h3>
                   <p className="cookie-settings__text">
-                    enable enhanced features like appointment booking and personalized content.
+                    {copy.functional.description}
                   </p>
                   <p className="cookie-settings__subtext">
-                    includes Calendly cookies for booking functionality.
+                    {copy.functional.includes}
                   </p>
                 </div>
                 <div className="cookie-settings__toggle">
@@ -220,12 +285,12 @@ export default function CookieSettings({ onClose, onSave }) {
             <div className="cookie-settings__card">
               <div className="cookie-settings__card-row">
                 <div className="space-y-1">
-                  <h3 className="cookie-settings__card-title">analytics cookies</h3>
+                  <h3 className="cookie-settings__card-title">{copy.analytics.title}</h3>
                   <p className="cookie-settings__text">
-                    help me understand how visitors interact with my website to improve user experience.
+                    {copy.analytics.description}
                   </p>
                   <p className="cookie-settings__subtext">
-                    includes <strong>_ga</strong>, <strong>_gid</strong>, <strong>_clck</strong>, <strong>_clsk</strong>.
+                    {copy.analytics.includes} <strong>_ga</strong>, <strong>_gid</strong>, <strong>_clck</strong>, <strong>_clsk</strong>.
                   </p>
                 </div>
                 <div className="cookie-settings__toggle">
@@ -248,12 +313,12 @@ export default function CookieSettings({ onClose, onSave }) {
             <div className="cookie-settings__card">
               <div className="cookie-settings__card-row">
                 <div className="space-y-1">
-                  <h3 className="cookie-settings__card-title">marketing cookies</h3>
+                  <h3 className="cookie-settings__card-title">{copy.marketing.title}</h3>
                   <p className="cookie-settings__text">
-                    used to show you relevant advertising and measure campaign effectiveness.
+                    {copy.marketing.description}
                   </p>
                   <p className="cookie-settings__subtext">
-                    includes <strong>_gcl_*</strong>, <strong>IDE</strong>, <strong>test_cookie</strong>.
+                    {copy.marketing.includes} <strong>_gcl_*</strong>, <strong>IDE</strong>, <strong>test_cookie</strong>.
                   </p>
                 </div>
                 <div className="cookie-settings__toggle">
@@ -280,19 +345,19 @@ export default function CookieSettings({ onClose, onSave }) {
                 onClick={handleDeclineAll}
                 className="cookie-settings__btn cookie-settings__btn--ghost"
               >
-                reject non-essential
+                {copy.reject}
               </button>
               <button
                 onClick={handleSave}
                 className="cookie-settings__btn cookie-settings__btn--primary"
               >
-                save preferences
+                {copy.save}
               </button>
               <button
                 onClick={handleAcceptAll}
                 className="cookie-settings__btn cookie-settings__btn--ghost"
               >
-                accept all
+                {copy.accept}
               </button>
             </div>
           </div>
