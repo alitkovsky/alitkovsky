@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const SECTION_IDS = ["intro", "values", "background", "about", "contact"];
+const SECTION_IDS = ["intro", "values", "background", "expertise", "contact"];
 
 export default function useActiveSection({ enabled = true } = {}) {
   const [activeId, setActiveId] = useState(() => (enabled ? SECTION_IDS[0] : null));

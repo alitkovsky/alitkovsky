@@ -176,9 +176,6 @@ export default function Nav({ initialTheme = "dark" }) {
   const items = [
     { id: "intro", label: "intro" },
     { id: "values", label: "values" },
-    // { id: "process", label: "process" },
-    // { id: "services", label: "services" },
-    // { id: "cases", label: "cases" },
     { id: "background", label: "background" },
     { id: "expertise", label: "expertise" },
     { id: "contact", label: "contact" }
@@ -188,6 +185,12 @@ export default function Nav({ initialTheme = "dark" }) {
     { id: "impressum", label: "impressum", route: "/impressum" },
     { id: "datenschutz", label: "datenschutz", route: "/datenschutz" }
   ];
+
+  const handleSubItemRequest = (route) => {
+    closeMobileNavIfNeeded(() => {
+      router.push(route);
+    });
+  };
 
   const languages = supportedLanguages ?? ["en", "de"];
   const navCopy = NAV_COPY[language] ?? NAV_COPY.en;
@@ -382,8 +385,8 @@ export default function Nav({ initialTheme = "dark" }) {
               id={id}
               label={label}
               route={route}
-              isActive={activeId === id}
-              onActivate={() => handleSectionRequest(id)}
+              isActive={pathname === route}
+              onActivate={() => handleSubItemRequest(route)}
             />
           ))}
         </div>
