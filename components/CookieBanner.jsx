@@ -102,7 +102,7 @@ export default function CookieBanner() {
               id="cookieConsentDesc"
               className="cookie-banner__description"
             >
-              We use cookies to help this site function and support marketing efforts. Visit{" "}
+              i use cookies to help this site function and support marketing efforts. Visit{" "}
               <TextEffect
                 as="a"
                 variant="ellipseAuto"
@@ -113,7 +113,7 @@ export default function CookieBanner() {
               >
                 Manage Cookies
               </TextEffect>{" "}
-              to change preferences anytime. View our{" "}
+              to change preferences anytime. View my{" "}
               <TextEffect
                 as="a"
                 variant="ellipseAuto"
@@ -136,21 +136,21 @@ export default function CookieBanner() {
               aria-haspopup="dialog"
               aria-expanded={showSettings}
             >
-              Manage Cookies
+              manage cookies
             </button>
             <button
               type="button"
               onClick={handleDecline}
               className="cookie-banner__btn cookie-banner__btn--ghost"
             >
-              Reject non-essential
+              reject non-essential
             </button>
             <button
               type="button"
               onClick={handleAccept}
               className="cookie-banner__btn cookie-banner__btn--ghost"
             >
-              Accept all
+              accept all
             </button>
           </div>
         </div>

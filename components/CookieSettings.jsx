@@ -141,13 +141,13 @@ export default function CookieSettings({ onClose, onSave }) {
           <div className="cookie-settings__header">
             <div>
               <h2 id={headingId} className="cookie-settings__title">
-                Cookie Preferences Center
+                cookie preferences center
               </h2>
               <p
                 id={descriptionId}
                 className="cookie-settings__lede"
               >
-                Using this site involves storing and retrieving information from your device for various activities. You can change your consent at any time.{" "}
+                using this site involves storing and retrieving information from your device for various activities. You can change your consent at any time.{" "}
                 <TextEffect
                   as="a"
                   variant="ellipseAuto"
@@ -170,16 +170,16 @@ export default function CookieSettings({ onClose, onSave }) {
               <div className="cookie-settings__card-row">
                 <div className="space-y-1">
                   <div className="cookie-settings__card-head">
-                    <h3 className="cookie-settings__card-title">Necessary Cookies</h3>
+                    <h3 className="cookie-settings__card-title">necessary cookies</h3>
                     <span className="cookie-settings__pill">
-                      Always Active
+                      always active
                     </span>
                   </div>
                   <p className="cookie-settings__text">
-                    Essential for the website to function properly. Cannot be disabled.
+                    essential for the website to function properly. Cannot be disabled.
                   </p>
                   <p className="cookie-settings__subtext">
-                    Includes <strong>cookie_consent_v1</strong>, <strong>cookie_consent_timestamp</strong>, and <strong>nav-theme</strong>.
+                    includes <strong>cookie_consent_v1</strong>, <strong>cookie_consent_timestamp</strong>, and <strong>nav-theme</strong>.
                   </p>
                 </div>
                 <div className="cookie-settings__toggle cookie-settings__toggle--disabled">
@@ -192,12 +192,12 @@ export default function CookieSettings({ onClose, onSave }) {
             <div className="cookie-settings__card">
               <div className="cookie-settings__card-row">
                 <div className="space-y-1">
-                  <h3 className="cookie-settings__card-title">Functional Cookies</h3>
+                  <h3 className="cookie-settings__card-title">functional cookies</h3>
                   <p className="cookie-settings__text">
-                    Enable enhanced features like appointment booking and personalized content.
+                    enable enhanced features like appointment booking and personalized content.
                   </p>
                   <p className="cookie-settings__subtext">
-                    Includes Calendly cookies for booking functionality.
+                    includes Calendly cookies for booking functionality.
                   </p>
                 </div>
                 <div className="cookie-settings__toggle">
@@ -220,12 +220,12 @@ export default function CookieSettings({ onClose, onSave }) {
             <div className="cookie-settings__card">
               <div className="cookie-settings__card-row">
                 <div className="space-y-1">
-                  <h3 className="cookie-settings__card-title">Analytics Cookies</h3>
+                  <h3 className="cookie-settings__card-title">analytics cookies</h3>
                   <p className="cookie-settings__text">
-                    Help us understand how visitors interact with our website to improve user experience.
+                    help me understand how visitors interact with my website to improve user experience.
                   </p>
                   <p className="cookie-settings__subtext">
-                    Includes <strong>_ga</strong>, <strong>_gid</strong>, <strong>_clck</strong>, <strong>_clsk</strong>.
+                    includes <strong>_ga</strong>, <strong>_gid</strong>, <strong>_clck</strong>, <strong>_clsk</strong>.
                   </p>
                 </div>
                 <div className="cookie-settings__toggle">
@@ -248,12 +248,12 @@ export default function CookieSettings({ onClose, onSave }) {
             <div className="cookie-settings__card">
               <div className="cookie-settings__card-row">
                 <div className="space-y-1">
-                  <h3 className="cookie-settings__card-title">Marketing Cookies</h3>
+                  <h3 className="cookie-settings__card-title">marketing cookies</h3>
                   <p className="cookie-settings__text">
-                    Used to show you relevant advertising and measure campaign effectiveness.
+                    used to show you relevant advertising and measure campaign effectiveness.
                   </p>
                   <p className="cookie-settings__subtext">
-                    Includes <strong>_gcl_*</strong>, <strong>IDE</strong>, <strong>test_cookie</strong>.
+                    includes <strong>_gcl_*</strong>, <strong>IDE</strong>, <strong>test_cookie</strong>.
                   </p>
                 </div>
                 <div className="cookie-settings__toggle">
@@ -280,19 +280,19 @@ export default function CookieSettings({ onClose, onSave }) {
                 onClick={handleDeclineAll}
                 className="cookie-settings__btn cookie-settings__btn--ghost"
               >
-                Reject non-essential
+                reject non-essential
               </button>
               <button
                 onClick={handleSave}
                 className="cookie-settings__btn cookie-settings__btn--primary"
               >
-                Save preferences
+                save preferences
               </button>
               <button
                 onClick={handleAcceptAll}
                 className="cookie-settings__btn cookie-settings__btn--ghost"
               >
-                Accept all
+                accept all
               </button>
             </div>
           </div>
@@ -300,4 +300,4 @@ export default function CookieSettings({ onClose, onSave }) {
       </div>
     </>
   );
-}
+};
