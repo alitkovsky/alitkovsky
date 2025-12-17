@@ -7,22 +7,22 @@ import useLanguage from "@/hooks/useLanguage";
 const COPY = {
   en: {
     eyebrow: "404 // off the grid",
-    title: "This page does not exist (anymore).",
+    title: "this page does not exist (anymore).",
     description:
-      "The link you followed is probably outdated or the address was typed incorrectly. No worries — everything important is still within a click.",
-    primaryAction: "Back to homepage",
-    secondaryAction: "Jump to contact",
-    hintPrefix: "Need something specific? Write me at",
-    hintSuffix: "and I will point you in the right direction.",
+      "the link you followed is probably outdated or the address was typed incorrectly. no worries — everything important is still within a click.",
+    primaryAction: "← back to homepage",
+    secondaryAction: "jump to contact",
+    hintPrefix: "need something specific? write me at",
+    hintSuffix: "and i will point you in the right direction.",
   },
   de: {
     eyebrow: "404 // wohin denn?",
-    title: "Diese Seite existiert nicht (mehr).",
+    title: "diese seite existiert nicht (mehr).",
     description:
-      "Der aufgerufene Link ist veraltet oder wurde falsch eingegeben. Alles Wichtige findest du weiterhin mit einem Klick.",
-    primaryAction: "Zur Startseite",
-    secondaryAction: "Zum Kontaktbereich",
-    hintPrefix: "Du brauchst etwas Bestimmtes? Schreib mir an",
+      "der aufgerufene link ist veraltet oder wurde falsch eingegeben. alles wichtige findest du weiterhin mit einem klick.",
+    primaryAction: "← zur startseite",
+    secondaryAction: "zum kontaktbereich",
+    hintPrefix: "du brauchst etwas bestimmtes? schreib mir an",
     hintSuffix: "und ich melde mich schnellstmöglich.",
   },
 };
@@ -60,4 +60,4 @@ export default function NotFound() {
       </section>
     </main>
   );
-}
+};

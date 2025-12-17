@@ -1,42 +1,73 @@
-import Link from "next/link";
+"use client";
 
-export const metadata = {
-  title: "Danke – Termin bestätigt",
-  description: "Dein Termin mit Andrii Litkovskyi ist bestätigt. Erfahre hier die nächsten Schritte.",
-  robots: {
-    index: false,
-    follow: false,
+import Link from "next/link";
+import useLanguage from "@/hooks/useLanguage";
+
+const COPY = {
+  de: {
+    eyebrow: "termin bestätigt",
+    title: "danke, dein termin ist bestätigt!",
+    lede: "ich schicke dir gleich eine bestätigung mit agenda, zugangsdaten und optionalen fragen, damit wir in den 30 minuten maximal vorankommen.",
+    nextSteps: {
+      heading: "was jetzt passiert",
+      items: [
+        "die einladung landet in deinem postfach – check gern auch den spam-ordner.",
+        "ich bereite ein micro-audit zu ads, tracking oder seo vor.",
+        "du bekommst nach dem call ein kurzes recap mit den wichtigsten to-dos.",
+      ],
+    },
+    backLink: "← zurück zur startseite",
+    questionLink: "frage vorab senden",
+  },
+  en: {
+    eyebrow: "appointment confirmed",
+    title: "thanks, your appointment is confirmed!",
+    lede: "i'll send you a confirmation shortly with the agenda, access details, and optional questions so we can make the most of our 30 minutes.",
+    nextSteps: {
+      heading: "what happens now",
+      items: [
+        "the invitation will land in your inbox – check your spam folder just in case.",
+        "i'll prepare a micro-audit on ads, tracking, or seo.",
+        "after the call, you'll receive a short recap with the key to-dos.",
+      ],
+    },
+    backLink: "← back to homepage",
+    questionLink: "send a question ahead",
   },
 };
 
 export default function ThanxPage() {
+  const { language } = useLanguage();
+  const copy = COPY[language] ?? COPY.de;
+
   return (
     <main className="app-main thank-you">
       <section className="section thank-you">
         <div className="content">
-          <p className="eyebrow">termin bestätigt</p>
-          <h1>Danke, dein Termin ist bestätigt!</h1>
-          <p className="lede">
-            Ich schicke dir gleich eine Bestätigung mit Agenda, Zugangsdaten und optionalen Fragen, damit wir in den 30 Minuten maximal vorankommen.
-          </p>
+          <p className="eyebrow">{copy.eyebrow}</p>
+          <h1>{copy.title}</h1>
+          <p className="lede">{copy.lede}</p>
           <div className="thank-you__next">
-            <h2>Was jetzt passiert</h2>
+            <h2>{copy.nextSteps.heading}</h2>
             <ul>
-              <li>Die Einladung landet in deinem Postfach – check gern auch den Spam-Ordner.</li>
-              <li>Ich bereite ein Micro-Audit zu Ads, Tracking oder SEO vor.</li>
-              <li>Du bekommst nach dem Call ein kurzes Recap mit den wichtigsten To-Dos.</li>
+              {copy.nextSteps.items.map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
             </ul>
           </div>
           <div className="thank-you__actions">
             <Link href="/" className="thank-you__link">
-              zurück zur Startseite
+              {copy.backLink}
             </Link>
-            <Link href="mailto:andrii@litkovskyi.de" className="thank-you__link thank-you__link--ghost">
-              Frage vorab senden
+            <Link
+              href="mailto:andrii@litkovskyi.de"
+              className="thank-you__link thank-you__link--ghost"
+            >
+              {copy.questionLink}
             </Link>
           </div>
         </div>
       </section>
     </main>
   );
-}
+};
