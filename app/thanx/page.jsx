@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import useLanguage from "@/hooks/useLanguage";
+import BackToStart from "@/components/BackToStart";
+import Footer from "@/components/Footer";
 
 const COPY = {
   de: {
@@ -11,12 +13,12 @@ const COPY = {
     nextSteps: {
       heading: "was jetzt passiert",
       items: [
-        "die einladung landet in deinem postfach – check gern auch den spam-ordner.",
+        "die einladung landet in deinem postfach — check gern auch den spam-ordner.",
         "ich bereite ein micro-audit zu ads, tracking oder seo vor.",
         "du bekommst nach dem call ein kurzes recap mit den wichtigsten to-dos.",
       ],
     },
-    backLink: "← zurück zur startseite",
+    backLink: "zurück zur startseite",
     questionLink: "frage vorab senden",
   },
   en: {
@@ -26,12 +28,12 @@ const COPY = {
     nextSteps: {
       heading: "what happens now",
       items: [
-        "the invitation will land in your inbox – check your spam folder just in case.",
+        "the invitation will land in your inbox — check your spam folder just in case.",
         "i'll prepare a micro-audit on ads, tracking, or seo.",
         "after the call, you'll receive a short recap with the key to-dos.",
       ],
     },
-    backLink: "← back to homepage",
+    backLink: "back to homepage",
     questionLink: "send a question ahead",
   },
 };
@@ -41,13 +43,15 @@ export default function ThanxPage() {
   const copy = COPY[language] ?? COPY.de;
 
   return (
-    <main className="app-main thank-you">
+    <main className="app-main">
       <section className="section thank-you">
         <div className="content">
-          <p className="eyebrow">{copy.eyebrow}</p>
-          <h1>{copy.title}</h1>
-          <p className="lede">{copy.lede}</p>
-          <div className="thank-you__next">
+          <div className="left">
+            <p className="title mb-[1em]">{copy.eyebrow}</p>
+            <h1>{copy.title}</h1>
+            <p className="mt-[1em]">{copy.lede}</p>
+          </div>
+          <div className="left">
             <h2>{copy.nextSteps.heading}</h2>
             <ul>
               {copy.nextSteps.items.map((item, idx) => (
@@ -55,18 +59,21 @@ export default function ThanxPage() {
               ))}
             </ul>
           </div>
-          <div className="thank-you__actions">
-            <Link href="/" className="thank-you__link">
-              {copy.backLink}
-            </Link>
-            <Link
+          <div className="left mt-[3em]">
+            <BackToStart
+              label={copy.backLink}
+              ctaLocation="thank-you"
+              url={"/"}
+            />
+            {/* <Link
               href="mailto:andrii@litkovskyi.de"
               className="thank-you__link thank-you__link--ghost"
             >
               {copy.questionLink}
-            </Link>
+            </Link> */}
           </div>
         </div>
+        <Footer />
       </section>
     </main>
   );
