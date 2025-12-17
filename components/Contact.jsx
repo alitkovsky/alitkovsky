@@ -236,7 +236,6 @@ export default function Contact() {
             </div>
           </div>
           <div className="actions">
-            {/* <p>{labels.legal}</p> */}
             <TextEffect
               as="a"
               variant="ellipseAuto"
