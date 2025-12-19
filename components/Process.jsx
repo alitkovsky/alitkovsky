@@ -1,27 +1,28 @@
-
-
-import Link from "next/link";
-
-const services = [
+const cards = [
   {
-    title: "Enterprise Software Development",
+    title: "Anfrage & Kontakt",
     href: "",
+    description: "",
   },
   {
-    title: "Mobile Applications",
+    title: "Persönliches Gespräch",
     href: "",
+    description: "",
   },
   {
-    title: "SaaS Solutions",
+    title: "Analyse",
     href: "",
+    description: "",
   },
   {
-    title: "Application Modernization",
+    title: "Angebot Erstellung",
     href: "",
+    description: "",
   },
   {
-    title: "API Integration",
+    title: "Umsetzung, Wartung und Reporting",
     href: "",
+    description: "",
   },
 ];
 
@@ -29,33 +30,27 @@ export default function Process() {
   return (
     <section className="section process" id="process">
       <div className="content">
-        <div className="">
+        <div className="title">
           <p>
-            Technology that adapts to you, not the other way around. Because we believe every business is unique, just like its technological challenges. From strategy to optimization, I craft effective SEO solutions that boost your website's visibility.
+            technology that adapts to you, not the other way around. Because we believe every business is unique, just like its technological challenges. From strategy to optimization, I craft effective SEO solutions that boost your website's visibility.
           </p>
         </div>
 
-        <ul className="service-grid">
-          {services.map((service, index) => (
-            <li key={service.title} className="service-item">
-              <Link
-                href={service.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="service-card"
-              >
-                <span className="index">{String(index + 1).padStart(2, "0")}</span>
-                <p className="service-title">{service.title}</p>
-                <span className="plus-button" aria-hidden="true">
-                  <svg viewBox="0 0 14 14" className="plus-icon" role="presentation">
-                    <path d="M7 1v12M1 7h12" />
-                  </svg>
-                </span>
-              </Link>
-            </li>
+        <div className="cards">
+
+          {cards.map((card, index) => (
+            <div key={card.title} className="card">
+              <div className="index">
+                <p className="title">{String(index + 1).padStart(2, "0")}</p>
+                <i aria-hidden className="plus-icon">+</i>
+              </div>
+
+              <p className="stage">{card.title}</p>
+            </div>
           ))}
-        </ul>
+
+        </div>
       </div>
     </section>
   );
-}
+};

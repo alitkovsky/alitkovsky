@@ -9,6 +9,7 @@ import LanguageProvider from "@/components/LanguageProvider";
 import PwaRegister from "@/components/PwaRegister";
 import CustomCursor from "@/components/CustomCursor";
 import { CalendlyProvider } from "@/components/CalendlyProvider";
+import { LiveRegionProvider } from "@/components/LiveRegion";
 
 import GridOverlay from "@/components/GridOverlay";
 
@@ -51,27 +52,29 @@ export default function AppWrapper({
       initialLanguage={initialLanguage}
       initialLanguageSource={initialLanguageSource}
     >
-      <CalendlyProvider>
-        <PwaRegister />
-        {/* OPTIMIZATION: Only render cursor on devices with trackpad/mouse */}
-        {showCursorEffects && <CustomCursor />}
-        {/* OPTIMIZATION: ClickSpark wraps children but handles its own device detection
-            We still render it because it provides the container, but it's internally optimized
-            to not run RAF loops when not needed */}
-        {showCursorEffects ? (
-          <ClickSpark
-            sparkColor="var(--color--foreground--100)"
-            sparkSize={10}
-            sparkRadius={15}
-            sparkCount={8}
-            duration={400}
-          >
-            {appContent}
-          </ClickSpark>
-        ) : (
-          appContent
-        )}
-      </CalendlyProvider>
+      <LiveRegionProvider>
+        <CalendlyProvider>
+          <PwaRegister />
+          {/* OPTIMIZATION: Only render cursor on devices with trackpad/mouse */}
+          {showCursorEffects && <CustomCursor />}
+          {/* OPTIMIZATION: ClickSpark wraps children but handles its own device detection
+              We still render it because it provides the container, but it's internally optimized
+              to not run RAF loops when not needed */}
+          {showCursorEffects ? (
+            <ClickSpark
+              sparkColor="var(--color--foreground--100)"
+              sparkSize={10}
+              sparkRadius={15}
+              sparkCount={8}
+              duration={400}
+            >
+              {appContent}
+            </ClickSpark>
+          ) : (
+            appContent
+          )}
+        </CalendlyProvider>
+      </LiveRegionProvider>
     </LanguageProvider>
   );
 }

@@ -175,7 +175,7 @@ export default function Expertise() {
           as="div"
           variant="sidelineBold"
           trigger="visible"
-          visibilityRootMargin="0px 0px -33%"
+          visibilityRootMargin="0px 0px -25%"
           className="colophon inline-block"
         >
           <h2>{headings.colophon ?? "Colophon"}</h2>

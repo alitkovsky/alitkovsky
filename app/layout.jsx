@@ -14,6 +14,7 @@ import { cookies, headers } from "next/headers";
 import Clarity from "@/components/Clarity";
 import AppWrapper from "@/components/AppWrapper";
 import CookieBanner from "@/components/CookieBanner";
+import StructuredData from "@/components/StructuredData";
 import {
   FALLBACK_LANGUAGE,
   LANGUAGE_COOKIE_KEY,
@@ -31,6 +32,14 @@ export const metadata = {
   metadataBase: new URL('https://litkovskyi.de'),
   title: "hi! i'm andrii litkovskyi",
   description: "a digital marketing expert",
+  alternates: {
+    canonical: '/',
+    languages: {
+      'de': '/',
+      'en': '/',
+      'x-default': '/',
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -188,6 +197,9 @@ export default async function RootLayout({ children }) {
         <link rel="preconnect" href="https://www.clarity.ms" />
         <link rel="preconnect" href="https://assets.calendly.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://assets.calendly.com" />
+
+        {/* Structured Data (JSON-LD) for SEO and GEO */}
+        <StructuredData />
       </head>
       <body className={`cover--is--visible is--loading theme-${initialTheme}`}>
           <AppWrapper

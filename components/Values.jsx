@@ -38,6 +38,7 @@ const VALUES_COPY = {
       label: "was ich bisher für kunden erreicht habe:",
       metrics: "+48% sichtbarkeit · +35% conversions · +25% qualifizierte leads · —22% werbekosten",
     },
+    expertiseTitle: "meine expertise",
     toolsTitle: "meine werkzeuge",
     logosLabel: "marketing tools",
     cta: {
@@ -56,6 +57,7 @@ const VALUES_COPY = {
       label: "results i've delivered for clients:",
       metrics: "+48% visibility · +35% conversions · +25% qualified leads · —22% ad costs",
     },
+    expertiseTitle: "my expertise",
     toolsTitle: "my toolkit",
     logosLabel: "marketing tools",
     cta: {
@@ -74,6 +76,7 @@ export default function Values() {
   const description = copy.description ?? fallbackCopy.description ?? "";
   const resultsLabel = copy.results?.label ?? fallbackCopy.results?.label ?? "";
   const resultsMetrics = copy.results?.metrics ?? fallbackCopy.results?.metrics ?? "";
+  const expertiseTitle = copy.expertiseTitle ?? fallbackCopy.expertiseTitle ?? "my expertise";
   const toolsTitle = copy.toolsTitle ?? fallbackCopy.toolsTitle ?? "core tools";
   const logosLabel = copy.logosLabel ?? fallbackCopy.logosLabel ?? "Marketing tools";
   const ctaLabel = copy.cta?.label ?? fallbackCopy.cta?.label ?? "book a free call to find out more";
@@ -82,18 +85,18 @@ export default function Values() {
     <section className="section values" id="values">
       <div className="content">
         <div className="title">
-          <h1>{titleCopy.transparent}</h1>
-          <h1>{titleCopy.handsOn}</h1>
+          <h2>{titleCopy.transparent}</h2>
+          <h2>{titleCopy.handsOn}</h2>
           <TextEffect
-            as="h1"
+            as="h2"
             variant="ellipseBold"
             trigger="visible"
-            visibilityRootMargin="0px 0px -33%"
+            visibilityRootMargin="0px 0px -25%"
             className="inline-block"
           >
             {titleCopy.eyeLevel}
           </TextEffect>
-          <h1>{titleCopy.local}</h1>
+          <h2>{titleCopy.local}</h2>
         </div>
         <div className="main">
           <p className="description">
@@ -110,9 +113,9 @@ export default function Values() {
           </h3>
           <ToolList />
         </div>
-        {/* <h3 className="subtitle">
-          working with
-        </h3> */}
+        <h3 className="subtitle">
+          {expertiseTitle}
+        </h3>
         <div className="logos clients-cards-groups">
           <div className="gradient-mask left is--visible"></div>
           <div className="gradient-mask right is--visible"></div>
@@ -139,7 +142,7 @@ export default function Values() {
                     <WiggleSvg
                       as="div"
                       trigger="visible"
-                      rootMargin="0px 0px -33% 0px"
+                      rootMargin="0px 0px 0% 0px"
                       selector="self"
                       distance={0.75}
                       duration={0.9}

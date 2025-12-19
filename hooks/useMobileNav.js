@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { MOBILE_NAV_TRANSITION_DURATION } from "./useScrollToSection";
 
 export default function useMobileNav() {
   useEffect(() => {
@@ -7,7 +8,15 @@ export default function useMobileNav() {
 
     if (!navButton || !body) return;
 
+    let closeTimeoutId = null;
+
     const openMobileNav = () => {
+      // Cancel any pending close cleanup
+      if (closeTimeoutId) {
+        clearTimeout(closeTimeoutId);
+        closeTimeoutId = null;
+      }
+
       // Step 1: Show nav with .mobile-nav--is--transitioning
       body.classList.add("mobile-nav--is--transitioning");
 
@@ -21,7 +30,12 @@ export default function useMobileNav() {
 
     const closeMobileNav = () => {
       body.classList.remove("mobile-nav--is--visible");
-      // Optionally keep .mobile-nav--is--transitioning during fade out
+
+      // Remove transitioning class after animation completes to restore scrolling
+      closeTimeoutId = setTimeout(() => {
+        body.classList.remove("mobile-nav--is--transitioning");
+        closeTimeoutId = null;
+      }, MOBILE_NAV_TRANSITION_DURATION);
     };
 
     const toggleNav = () => {
@@ -32,7 +46,36 @@ export default function useMobileNav() {
       }
     };
 
+    // Keyboard support for toggle button (Enter/Space)
+    const handleKeyDown = (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        toggleNav();
+      }
+    };
+
+    // Close nav on Escape key
+    const handleEscape = (event) => {
+      if (event.key === "Escape" && body.classList.contains("mobile-nav--is--visible")) {
+        closeMobileNav();
+        navButton.focus(); // Return focus to toggle button
+      }
+    };
+
     navButton.addEventListener("click", toggleNav);
-    return () => navButton.removeEventListener("click", toggleNav);
+    navButton.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      navButton.removeEventListener("click", toggleNav);
+      navButton.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleEscape);
+      if (closeTimeoutId) {
+        clearTimeout(closeTimeoutId);
+      }
+      // Clean up classes on unmount to prevent stale state
+      body.classList.remove("mobile-nav--is--transitioning");
+      body.classList.remove("mobile-nav--is--visible");
+    };
   }, []);
-};
+}

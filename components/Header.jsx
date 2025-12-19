@@ -8,9 +8,13 @@ import BookCTA from "@/components/BookCTA";
 const HEADER_COPY = {
   de: {
     bookingLabel: "termin buchen",
+    brandLabel: "Andrii Litkovskyi - Startseite",
+    menuLabel: "Menü öffnen",
   },
   en: {
     bookingLabel: "book a call",
+    brandLabel: "Andrii Litkovskyi - Home",
+    menuLabel: "Open menu",
   },
 };
 
@@ -24,8 +28,8 @@ export default function Header() {
     <header className="app-header">
       <div className="content">
         <div className="brand">
-          <Link href="/" className="flex">
-              <h3><span>a</span><span>n</span><span>d</span><span>r</span><span>ı</span><span>ı</span><span>&nbsp;</span><span>l</span><span>ı</span><span>t</span><span>k</span><span>o</span><span>v</span><span>s</span><span>k</span><span>y</span><span>ı</span></h3>
+          <Link href="/" className="flex" aria-label={copy.brandLabel}>
+              <h3 aria-hidden="true"><span>a</span><span>n</span><span>d</span><span>r</span><span>ı</span><span>ı</span><span>&nbsp;</span><span>l</span><span>ı</span><span>t</span><span>k</span><span>o</span><span>v</span><span>s</span><span>k</span><span>y</span><span>ı</span></h3>
           </Link>
       </div>
         <div className="actions">
@@ -36,9 +40,16 @@ export default function Header() {
               ctaLocation="header"
             />
           </div>
-          <div className="option navigation">
+          <div
+            className="option navigation"
+            role="button"
+            tabIndex={0}
+            aria-label={copy.menuLabel}
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+          >
             <div className="content">
-            <div className="icon">
+            <div className="icon" aria-hidden="true">
               <div className="line"><div className="content"></div></div>
               <div className="line"><div className="content"></div></div>
             </div>

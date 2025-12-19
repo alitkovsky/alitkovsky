@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "check-unused": "npx depcheck --ignores next,react,react-dom",
@@ -16,7 +17,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
-    "@next/third-parties": "^16.0.10",
+    "@next/third-parties": "^16.1.0",
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/typography": "^0.5.19",
@@ -24,10 +25,10 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
     "gsap": "^3.14.2",
-    "lucide-react": "^0.561.0",
+    "lucide-react": "^0.562.0",
     "mathjs": "^15.1.0",
     "motion": "^12.23.26",
-    "next": "^16.0.10",
+    "next": "^16.1.0",
     "postcss": "^8.5.6",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
@@ -40,9 +41,10 @@
     "vara": "^1.4.1"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^16.1.0",
     "@types/react": "^19.2.7",
-    "baseline-browser-mapping": "^2.9.9",
+    "baseline-browser-mapping": "^2.9.10",
     "eslint": "^9.39.2",
-    "eslint-config-next": "^16.0.10"
+    "eslint-config-next": "^16.1.0"
   }
 }

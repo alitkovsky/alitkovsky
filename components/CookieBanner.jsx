@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { setConsent, getConsent } from "@/lib/consent";
 import CookieSettings from "@/components/CookieSettings";
 import TextEffect from "@/components/TextEffect";
@@ -10,6 +10,7 @@ import Link from "next/link";
 
 const COPY = {
   de: {
+    title: "Cookie-Einstellungen",
     description: "ich verwende cookies, um diese seite funktionsfähig zu halten und marketingmaßnahmen zu unterstützen. unter",
     manageCookies: "cookies verwalten",
     descriptionMiddle: "kannst du deine einstellungen jederzeit ändern. mehr infos in meiner",
@@ -20,6 +21,7 @@ const COPY = {
     accept: "alle akzeptieren",
   },
   en: {
+    title: "Cookie Settings",
     description: "i use cookies to help this site function and support marketing efforts. visit",
     manageCookies: "manage cookies",
     descriptionMiddle: "to change preferences anytime. view my",
@@ -38,6 +40,8 @@ export default function CookieBanner() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const bannerRef = useRef(null);
+  const previousFocusRef = useRef(null);
 
   useEffect(() => {
     // Check if consent already given
@@ -70,6 +74,27 @@ export default function CookieBanner() {
       return () => cancelAnimationFrame(frame);
     } else {
       setIsVisible(false);
+    }
+  }, [isOpen]);
+
+  // Focus management - move focus to banner when it appears
+  useEffect(() => {
+    if (isOpen && isVisible && bannerRef.current) {
+      // Store current focus to restore later
+      previousFocusRef.current = document.activeElement;
+      // Focus the banner after transition
+      const timer = setTimeout(() => {
+        bannerRef.current?.focus();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, isVisible]);
+
+  // Restore focus when banner closes
+  useEffect(() => {
+    if (!isOpen && previousFocusRef.current) {
+      previousFocusRef.current.focus?.();
+      previousFocusRef.current = null;
     }
   }, [isOpen]);
 
@@ -119,11 +144,17 @@ export default function CookieBanner() {
     <>
       {isOpen && (
         <div
+          ref={bannerRef}
           role="dialog"
           aria-labelledby="cookieConsentTitle"
           aria-describedby="cookieConsentDesc"
+          aria-modal="false"
+          tabIndex={-1}
           className={`cookie-banner ${isVisible ? "cookie-banner--visible" : "cookie-banner--hidden"}`}
         >
+          <h2 id="cookieConsentTitle" className="sr-only">
+            {copy.title}
+          </h2>
           <div className="cookie-banner__content">
             <p
               id="cookieConsentDesc"

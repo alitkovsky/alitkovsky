@@ -4,27 +4,32 @@ import CountUp from "@/components/CountUp";
 
 export default function CaseStudy() {
   return (
-    <section className="section cases">
+    <section className="section cases" id="cases">
       <div className="content">
         <div className="title">
-          <h1>
+          <h2>
             i can help you
-          </h1>
-          <h1>
+          </h2>
+          <h2>
             boost efficiency
-          </h1>
+          </h2>
         </div>
-        <div className="main">
-          <h3>case study</h3>
-          <h3 className="description">Virtu Legal entered into an agreement with MediGen Pharma in June 2023 to provide legal services, including the drafting of an exclusive distribution agreement for the new pain reliever.</h3>
-        </div>
-        <div className="bio">
-          <div className="title">
-            <div><p>industry</p><h3>hotel</h3></div>
-            <div><p>client</p><h3>sport resort</h3></div>
-            <div><p>location</p><h3>ukraine</h3></div>
+        <article
+          className="case-study-article"
+          itemScope
+          itemType="https://schema.org/Article"
+        >
+          <div className="main">
+            <h3 itemProp="headline">case study</h3>
+            <p className="description" itemProp="description">Virtu Legal entered into an agreement with MediGen Pharma in June 2023 to provide legal services, including the drafting of an exclusive distribution agreement for the new pain reliever.</p>
           </div>
-          <div className="text">
+          <div className="bio">
+            <dl className="title">
+              <div><dt>industry</dt><dd>hotel</dd></div>
+              <div><dt>client</dt><dd>sport resort</dd></div>
+              <div><dt>location</dt><dd>ukraine</dd></div>
+            </dl>
+          <div className="text" itemProp="articleBody">
             <div>
               <p>Through extensive consultation and research, Virtu Legal's legal team tailored the agreement to the chent's specific product and industry needs, providing maximum legal protection against counterfeiters and unauthonzed distributors. The agreement resulted in a seamiess distribution process, ensuring the client's product was distributed ethically and only through legitmate channels.
               </p>
@@ -39,7 +44,8 @@ export default function CaseStudy() {
               <p>Additionally, Virtu Legal's collaborative approach ensured seamless integration of the warranty terms, fostering a robust legal framework for the MediGen Pharma With a keen focus on intellectual property law, our team fortified the clent's product, ensuring a secure foundation for the partnership. This exemplifies Virtu Legal's dedication to delivering customized legal solutions that align with the distinctive requrements of every cient</p>
             </div>
           </div>
-        </div>
+          </div>
+        </article>
         <div className="metrics">
           <div className="item">
             <div>

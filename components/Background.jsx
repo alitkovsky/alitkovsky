@@ -115,6 +115,7 @@ export default function Background() {
                     width={80}
                     height={item.pathHeight}
                     className="background-arrow"
+                    visibilityRootMargin="0px 0px -25% 0px"
                   />
                 </WiggleSvg>
               </div>

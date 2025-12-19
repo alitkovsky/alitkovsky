@@ -378,6 +378,41 @@ const DATENSCHUTZ_COPY = {
   },
 };
 
+function DatenschutzDivTable({ headers, rows }) {
+  if (!headers?.length) return null;
+
+  return (
+    <div className="datenschutz-table" role="table">
+      <div className="datenschutz-table__row datenschutz-table__row--header" role="row">
+        {headers.map((header, headerIdx) => (
+          <div
+            key={headerIdx}
+            className="datenschutz-table__cell datenschutz-table__cell--header"
+            role="columnheader"
+          >
+            {header}
+          </div>
+        ))}
+      </div>
+
+      {rows.map((row) => (
+        <div key={row.key} className="datenschutz-table__row" role="row">
+          {row.cells.map((cell, cellIdx) => (
+            <div
+              key={cellIdx}
+              className="datenschutz-table__cell"
+              role="cell"
+              data-label={headers[cellIdx]}
+            >
+              {cell}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function Datenschutz() {
   const { language } = useLanguage();
   const copy = DATENSCHUTZ_COPY[language] ?? DATENSCHUTZ_COPY.de;
@@ -432,75 +467,60 @@ export default function Datenschutz() {
         {/* Necessary Cookies Table */}
         <div className="wide">
           <p className="title">{copy.cookies.necessary.title}</p>
-          <table className="datenschutz-table">
-            <thead>
-              <tr>
-                {copy.cookies.necessary.tableHeaders.map((header, idx) => (
-                  <th key={idx}>{header}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {copy.cookies.necessary.cookies.map((cookie, idx) => (
-                <tr key={idx}>
-                  <td><code>{cookie.name}</code></td>
-                  <td>{cookie.purpose}</td>
-                  <td>{cookie.duration}</td>
-                  <td>{cookie.type}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="datenschutz-table-wrapper">
+            <DatenschutzDivTable
+              headers={copy.cookies.necessary.tableHeaders}
+              rows={copy.cookies.necessary.cookies.map((cookie) => ({
+                key: cookie.name,
+                cells: [
+                  <code key="name">{cookie.name}</code>,
+                  cookie.purpose,
+                  cookie.duration,
+                  cookie.type,
+                ],
+              }))}
+            />
+          </div>
         </div>
 
         {/* Analytics Cookies Table */}
         <div className="wide">
           <p className="title">{copy.cookies.analytics.title}</p>
           <p>{copy.cookies.analytics.notice}</p>
-          <table className="datenschutz-table">
-            <thead>
-              <tr>
-                {copy.cookies.analytics.tableHeaders.map((header, idx) => (
-                  <th key={idx}>{header}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {copy.cookies.analytics.cookies.map((cookie, idx) => (
-                <tr key={idx}>
-                  <td><code>{cookie.name}</code></td>
-                  <td>{cookie.provider}</td>
-                  <td>{cookie.purpose}</td>
-                  <td>{cookie.duration}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="datenschutz-table-wrapper">
+            <DatenschutzDivTable
+              headers={copy.cookies.analytics.tableHeaders}
+              rows={copy.cookies.analytics.cookies.map((cookie) => ({
+                key: cookie.name,
+                cells: [
+                  <code key="name">{cookie.name}</code>,
+                  cookie.provider,
+                  cookie.purpose,
+                  cookie.duration,
+                ],
+              }))}
+            />
+          </div>
         </div>
 
         {/* Marketing Cookies Table */}
         <div className="wide">
           <p className="title">{copy.cookies.marketing.title}</p>
           <p>{copy.cookies.marketing.notice}</p>
-          <table className="datenschutz-table">
-            <thead>
-              <tr>
-                {copy.cookies.marketing.tableHeaders.map((header, idx) => (
-                  <th key={idx}>{header}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {copy.cookies.marketing.cookies.map((cookie, idx) => (
-                <tr key={idx}>
-                  <td><code>{cookie.name}</code></td>
-                  <td>{cookie.provider}</td>
-                  <td>{cookie.purpose}</td>
-                  <td>{cookie.duration}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="datenschutz-table-wrapper">
+            <DatenschutzDivTable
+              headers={copy.cookies.marketing.tableHeaders}
+              rows={copy.cookies.marketing.cookies.map((cookie) => ({
+                key: cookie.name,
+                cells: [
+                  <code key="name">{cookie.name}</code>,
+                  cookie.provider,
+                  cookie.purpose,
+                  cookie.duration,
+                ],
+              }))}
+            />
+          </div>
         </div>
 
           <div className="right">
@@ -766,36 +786,52 @@ export default function Datenschutz() {
             margin-bottom: 0.5rem;
           }
           .datenschutz-table-wrapper {
+            -webkit-overflow-scrolling: touch;
             overflow-x: auto;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
             margin-bottom: 1.5rem;
           }
-          .datenschutz-table {
+          :global(.datenschutz-table) {
             width: 100%;
-            border-collapse: collapse;
-            border: 1px solid #d1d5db;
             font-size: 0.875rem;
+            min-width: 42rem;
           }
-          .datenschutz-table thead {
+          :global(.datenschutz-table__row) {
+            display: grid;
+            grid-template-columns:
+              minmax(12ch, 1.2fr)
+              minmax(20ch, 2.8fr)
+              minmax(10ch, 1fr)
+              minmax(10ch, 1fr);
+          }
+          :global(.datenschutz-table__row + .datenschutz-table__row) {
+            border-top: 1px solid #d1d5db;
+          }
+          :global(.datenschutz-table__row--header) {
             background-color: #f3f4f6;
           }
-          .datenschutz-table th,
-          .datenschutz-table td {
+          :global(.datenschutz-table__cell) {
             padding: 0.75rem;
             text-align: left;
-            border: 1px solid #d1d5db;
+            border-right: 1px solid #d1d5db;
+            overflow-wrap: anywhere;
+            min-width: 0;
+            color: var(--color-text-secondary, #4b5563);
           }
-          .datenschutz-table th {
+          :global(.datenschutz-table__cell:last-child) {
+            border-right: none;
+          }
+          :global(.datenschutz-table__cell--header) {
             font-weight: 600;
             color: var(--color-text-primary, #111827);
           }
-          .datenschutz-table td {
-            color: var(--color-text-secondary, #4b5563);
-          }
-          .datenschutz-table code {
+          :global(.datenschutz-table code) {
             background-color: #f3f4f6;
             padding: 0.125rem 0.5rem;
             border-radius: 0.25rem;
             font-size: 0.875rem;
+            overflow-wrap: anywhere;
           }
           .datenschutz-info-box,
           .datenschutz-link-box,
@@ -863,23 +899,25 @@ export default function Datenschutz() {
           [data-theme="dark"] .datenschutz-notice {
             color: #9ca3af;
           }
-          [data-theme="dark"] .datenschutz-table {
+          [data-theme="dark"] .datenschutz-table-wrapper {
             border-color: #374151;
           }
-          [data-theme="dark"] .datenschutz-table thead {
+          :global([data-theme="dark"] .datenschutz-table__row + .datenschutz-table__row) {
+            border-top-color: #374151;
+          }
+          :global([data-theme="dark"] .datenschutz-table__row--header) {
             background-color: #1f2937;
           }
-          [data-theme="dark"] .datenschutz-table th {
+          :global([data-theme="dark"] .datenschutz-table__cell) {
+            border-right-color: #374151;
+          }
+          :global([data-theme="dark"] .datenschutz-table__cell--header) {
             color: #f9fafb;
           }
-          [data-theme="dark"] .datenschutz-table td {
+          :global([data-theme="dark"] .datenschutz-table__cell) {
             color: #d1d5db;
-            border-color: #374151;
           }
-          [data-theme="dark"] .datenschutz-table th {
-            border-color: #374151;
-          }
-          [data-theme="dark"] .datenschutz-table code {
+          :global([data-theme="dark"] .datenschutz-table code) {
             background-color: #374151;
             color: #f9fafb;
           }
@@ -920,12 +958,12 @@ export default function Datenschutz() {
             .datenschutz-subheading {
               font-size: 1.25rem;
             }
-            .datenschutz-table {
-              font-size: 0.75rem;
+            :global(.datenschutz-table) {
+              font-size: 0.8125rem;
+              min-width: 36rem;
             }
-            .datenschutz-table th,
-            .datenschutz-table td {
-              padding: 0.5rem;
+            :global(.datenschutz-table__cell) {
+              padding: 0.5rem 0.6rem;
             }
           }
         `}</style>

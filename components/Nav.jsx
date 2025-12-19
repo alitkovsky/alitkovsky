@@ -258,10 +258,12 @@ export default function Nav({ initialTheme = "dark" }) {
     return (
       <div
         className={cn("item", id, { "is--active": isActive })}
-        role="button"
+        role="menuitem"
         tabIndex={0}
         onClick={handleActivate}
         onKeyDown={handleKeyDown}
+        aria-label={`Navigate to ${label} section`}
+        aria-current={isActive ? "true" : undefined}
       >
         <TextEffect
           as="span"
@@ -343,10 +345,12 @@ export default function Nav({ initialTheme = "dark" }) {
     return (
       <div
         className={cn("sub-item", id, { "is--active": isActive })}
-        role="button"
+        role="menuitem"
         tabIndex={0}
         onClick={handleActivate}
         onKeyDown={handleKeyDown}
+        aria-label={`Go to ${label} page`}
+        aria-current={isActive ? "page" : undefined}
       >
         <TextEffect
           as="span"
@@ -365,10 +369,49 @@ export default function Nav({ initialTheme = "dark" }) {
     )
   }
 
+  // Arrow key navigation handler for nav items
+  const handleNavKeyDown = (event) => {
+    if (!["ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
+      return;
+    }
+
+    const navItems = Array.from(
+      event.currentTarget.querySelectorAll('[role="menuitem"][tabindex="0"]')
+    );
+
+    if (navItems.length === 0) return;
+
+    const currentIndex = navItems.indexOf(document.activeElement);
+    let nextIndex;
+
+    switch (event.key) {
+      case "ArrowDown":
+        event.preventDefault();
+        nextIndex = currentIndex < navItems.length - 1 ? currentIndex + 1 : 0;
+        break;
+      case "ArrowUp":
+        event.preventDefault();
+        nextIndex = currentIndex > 0 ? currentIndex - 1 : navItems.length - 1;
+        break;
+      case "Home":
+        event.preventDefault();
+        nextIndex = 0;
+        break;
+      case "End":
+        event.preventDefault();
+        nextIndex = navItems.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    navItems[nextIndex]?.focus();
+  };
+
   return (
-    <nav className="app-nav">
+    <nav className="app-nav" role="navigation" aria-label="Main navigation">
       <div className="content">
-        <div className="flex flex-col">
+        <div className="flex flex-col" role="menu" onKeyDown={handleNavKeyDown}>
           {items.map(({ id, label }) => (
             <NavItem
               key={id}

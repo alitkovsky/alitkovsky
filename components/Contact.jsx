@@ -134,7 +134,7 @@ export default function Contact() {
               as="span"
               variant="underlineThin"
               trigger="visible"
-              visibilityRootMargin="0px 0px -33%"
+              visibilityRootMargin="0px 0px -25%"
               className="inline-block"
             >
               {hook.underlineThin}
@@ -144,7 +144,7 @@ export default function Contact() {
               as="span"
               variant="underlineZigzag"
               trigger="visible"
-              visibilityRootMargin="0px 0px -33%"
+              visibilityRootMargin="0px 0px -25%"
               className="inline-block"
             >
               {hook.underlineZigzag}
@@ -158,8 +158,8 @@ export default function Contact() {
         <div className="image">
           <figure>
             <TiltedCard
-              imageSrc="og-image.png"
-              altText=""
+              imageSrc="og-image.webp"
+              altText="Andrii Litkovskyi - Marketing Expert"
               captionText={cardCaption}
               containerWidth="100%"
               containerHeight="100%"
@@ -235,7 +235,7 @@ export default function Contact() {
               </TextEffect>
             </div>
           </div>
-          <div className="actions">
+          <div className="actions" role="group" aria-label="Social media links">
             <TextEffect
               as="a"
               variant="ellipseAuto"
@@ -243,6 +243,7 @@ export default function Contact() {
               trigger="hover"
               openInNewTab
               className="inline-block"
+              aria-label="LinkedIn profile"
             >
               Li
             </TextEffect>
@@ -253,6 +254,7 @@ export default function Contact() {
               trigger="hover"
               openInNewTab
               className="inline-block ml-4"
+              aria-label="Instagram profile"
             >
               In
             </TextEffect>
@@ -263,6 +265,7 @@ export default function Contact() {
               trigger="hover"
               openInNewTab
               className="inline-block ml-4"
+              aria-label="Upwork profile"
             >
               Up
             </TextEffect>

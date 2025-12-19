@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from "react";
+"use client";
+
+import { useState, useEffect } from "react";
 
 function Time() {
   const [digits, setDigits] = useState(["0", "0", ":", "0", "0", ":", "0", "0"]);
+  const [isoTime, setIsoTime] = useState("");
 
   useEffect(() => {
     const updateTime = () => {
-      const now = new Date().toLocaleTimeString("de-DE", {
+      const now = new Date();
+
+      // Format for display
+      const displayTime = now.toLocaleTimeString("de-DE", {
         timeZone: "Europe/Berlin",
         hour: "2-digit",
         minute: "2-digit",
@@ -13,8 +19,18 @@ function Time() {
         hour12: false,
       });
 
-      const newDigits = now.split("").map((char) => char);
+      // ISO format for datetime attribute
+      const berlinTime = now.toLocaleString("sv-SE", {
+        timeZone: "Europe/Berlin",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      });
+
+      const newDigits = displayTime.split("").map((char) => char);
       setDigits(newDigits);
+      setIsoTime(berlinTime);
     };
 
     updateTime();
@@ -22,20 +38,27 @@ function Time() {
     return () => clearInterval(intervalId);
   }, []);
 
+  const displayString = digits.join("");
+
   return (
-    <div className="time">
+    <time
+      className="time"
+      dateTime={isoTime}
+      aria-label={`Current time in Berlin: ${displayString}`}
+    >
       {digits.map((char, index) =>
         char === ":" ? (
-          <span key={index} className="colon">
+          <span key={index} className="colon" aria-hidden="true">
             {char}
           </span>
         ) : (
-          <span key={index} className="digit">
+          <span key={index} className="digit" aria-hidden="true">
             <span>{char}</span>
           </span>
         )
-      )}&nbsp;—&nbsp;berlin
-    </div>
+      )}
+      <span aria-hidden="true">&nbsp;—&nbsp;berlin</span>
+    </time>
   );
 }
 

@@ -2,11 +2,18 @@
 
 /* Color
 ----------------------------------------------------------------------------- */
+/*
+ * WCAG Accessibility Notes:
+ * - foreground--100: Full contrast for primary text (passes AAA)
+ * - foreground--50: Secondary text, increased to 70% for WCAG AA compliance
+ * - foreground--33: Tertiary/muted text, increased to 58% for WCAG AA compliance
+ * - Lower opacity values (25, 20, 15, 10, 5) used for decorative elements only
+ */
 
 body {
   --color--foreground--100: rgb(255 251 245);
-  --color--foreground--50:  rgb(255 251 245 / 0.6);
-  --color--foreground--33:  rgb(255 251 245 / 0.45);
+  --color--foreground--50:  rgb(255 251 245 / 0.7);
+  --color--foreground--33:  rgb(255 251 245 / 0.58);
   --color--foreground--25:  rgb(255 251 245 / 0.4);
   --color--foreground--20:  rgb(255 251 245 / 0.27);
   --color--foreground--15:  rgb(255 251 245 / 0.22);
@@ -24,8 +31,8 @@ body {
 
 body.theme-dark {
   --color--foreground--100: rgb(255 251 245);
-  --color--foreground--50:  rgb(255 251 245 / 0.6);
-  --color--foreground--33:  rgb(255 251 245 / 0.45);
+  --color--foreground--50:  rgb(255 251 245 / 0.7);
+  --color--foreground--33:  rgb(255 251 245 / 0.58);
   --color--foreground--25:  rgb(255 251 245 / 0.4);
   --color--foreground--20:  rgb(255 251 245 / 0.27);
   --color--foreground--15:  rgb(255 251 245 / 0.22);
@@ -43,8 +50,8 @@ body.theme-dark {
 
 body.theme-light {
   --color--foreground--100: rgb(9 41 41);
-  --color--foreground--50:  rgb(9 41 41 / 0.5);
-  --color--foreground--33:  rgb(9 41 41 / 0.333);
+  --color--foreground--50:  rgb(9 41 41 / 0.65);
+  --color--foreground--33:  rgb(9 41 41 / 0.55);
   --color--foreground--25:  rgb(9 41 41 / 0.25);
   --color--foreground--20:  rgb(9 41 41 / 0.2);
   --color--foreground--15:  rgb(9 41 41 / 0.15);
@@ -63,8 +70,8 @@ body.theme-light {
 @media (prefers-color-scheme: light) {
   body {
     --color--foreground--100: rgb(9 41 41);
-    --color--foreground--50:  rgb(9 41 41 / 0.5);
-    --color--foreground--33:  rgb(9 41 41 / 0.333);
+    --color--foreground--50:  rgb(9 41 41 / 0.65);
+    --color--foreground--33:  rgb(9 41 41 / 0.55);
     --color--foreground--25:  rgb(9 41 41 / 0.25);
     --color--foreground--20:  rgb(9 41 41 / 0.2);
     --color--foreground--15:  rgb(9 41 41 / 0.15);

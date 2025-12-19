@@ -8,12 +8,15 @@ import Process from "@/components/Process";
 import Background from "@/components/Background";
 import References from "@/components/References";
 import QRTracker from "@/components/QRTracker";
+import SkipLink from "@/components/SkipLink";
 
 export default async function Home({ searchParams }) {
   const params = await searchParams;
 
   return (
-    <main className="app-main">
+    <>
+      <SkipLink />
+      <main className="app-main" id="main-content">
       {/* Track business card QR scans */}
       <QRTracker searchParams={params} />
 
@@ -21,11 +24,12 @@ export default async function Home({ searchParams }) {
       <Intro />
       {/* <Strategy /> */}
       <Values />
-      {/* <Process /> */}
+      <Process />
       <Background />
       {/* <References /> */}
       <Expertise />
       <Contact />
     </main>
+    </>
   );
-};
+}
