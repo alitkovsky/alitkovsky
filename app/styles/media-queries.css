@@ -409,6 +409,7 @@
   }
   .section.background > .content .brief,
   .section.background .item .metadata .time,
+  .section.faq > .content .title,
   .section.expertise > .content .education,
   .section.impressum > .content .right,
   .section.datenschutz > .content .right {
@@ -555,6 +556,7 @@
   .section.values > .content .description,
   .section.values .main .results,
   .section.process > .content .title,
+  .section.faq > .content .title,
   .section.background .item .description,
   .section.background > .content .brief {
     grid-column: 1 / -1;
