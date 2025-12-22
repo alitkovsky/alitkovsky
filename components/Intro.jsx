@@ -225,6 +225,19 @@ export default function Intro() {
                 {line}
                 {index < scrollLines.length - 1 && <br />}
               </span>
+              // <HandwritingEffect
+              //   as="span"
+              //   key={`scroll-${index}`}
+              //   trigger="visible"
+              //   visibilityRootMargin="0px 0px 0%"
+              //   duration={2000}
+              //   className="inline-block scroll"
+              //   letterSpacing={2}
+              //   fontSize={16}
+              // >
+              //   {line}
+              //   {index < scrollLines.length - 1 && <br />}
+              // </HandwritingEffect>
             ))}
           </p>
         </div>

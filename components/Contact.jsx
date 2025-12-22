@@ -269,6 +269,17 @@ export default function Contact() {
             >
               Up
             </TextEffect>
+            <TextEffect
+              as="a"
+              variant="ellipseAuto"
+              href="https://github.com/alitkovsky"
+              trigger="hover"
+              openInNewTab
+              className="inline-block ml-4"
+              aria-label="GitHub profile"
+            >
+              Gh
+            </TextEffect>
           </div>
           <div className="cta">
             <BookCTA label={ctaLabel} ctaLocation="contact" />

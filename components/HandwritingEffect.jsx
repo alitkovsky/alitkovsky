@@ -14,7 +14,7 @@ import {
 import { cn } from "@/lib/utils"
 
 const isBrowser = typeof window !== "undefined"
-const DEFAULT_FONT_URL = "/fonts/Satisfy/SatisfySL.json"
+const DEFAULT_FONT_URL = "/fonts/Shadows-Into-Light/shadows-into-light.json"
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max)
 
 const waitForFonts = async () => {

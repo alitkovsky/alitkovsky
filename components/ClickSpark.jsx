@@ -5,10 +5,16 @@ import { useRef, useEffect, useCallback, useState } from "react";
 /**
  * ClickSpark - Creates spark effects on click.
  *
- * PERFORMANCE OPTIMIZED:
+ * PERFORMANCE OPTIMIZED v2:
+ * - Uses small movable canvas (~100x100px) instead of full-page canvas
+ * - Canvas moves to click position, dramatically reducing clearRect cost
  * - RAF loop only runs when sparks exist (0 CPU when idle)
- * - Automatically starts/stops animation based on spark count
  */
+
+// Small canvas size - just enough for the spark effect
+const CANVAS_SIZE = 120;
+const HALF_SIZE = CANVAS_SIZE / 2;
+
 export default function ClickSpark({
   sparkColor = "var(--color--foreground--100)",
   sparkSize = 15,
@@ -20,10 +26,12 @@ export default function ClickSpark({
   children
 }) {
   const canvasRef = useRef(null);
+  const containerRef = useRef(null);
   const sparksRef = useRef([]);
   const animationIdRef = useRef(null);
   const isRunningRef = useRef(false);
   const [resolvedColor, setResolvedColor] = useState(sparkColor);
+  const [canvasPos, setCanvasPos] = useState({ x: -CANVAS_SIZE, y: -CANVAS_SIZE, visible: false });
 
   const resolveColor = useCallback(() => {
     if (typeof sparkColor !== "string") {
@@ -65,56 +73,20 @@ export default function ClickSpark({
     return () => observer.disconnect();
   }, [resolveColor, sparkColor]);
 
+  // Initialize small canvas once
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const parent = canvas.parentElement;
-    if (!parent) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = CANVAS_SIZE * dpr;
+    canvas.height = CANVAS_SIZE * dpr;
 
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let resizeTimeout;
-
-    const resizeCanvas = () => {
-      const { width, height } = parent.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      const adjustedWidth = Math.round(width * dpr);
-      const adjustedHeight = Math.round(height * dpr);
-
-      if (canvas.width !== adjustedWidth || canvas.height !== adjustedHeight) {
-        canvas.width = adjustedWidth;
-        canvas.height = adjustedHeight;
-        canvas.style.width = `${width}px`;
-        canvas.style.height = `${height}px`;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
-    };
-
-    const handleResize = () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(resizeCanvas, 100);
-    };
-
-    let ro;
-    if (typeof ResizeObserver !== "undefined") {
-      ro = new ResizeObserver(handleResize);
-      ro.observe(parent);
-    } else {
-      window.addEventListener("resize", handleResize);
+    if (ctx) {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.lineCap = "round";
     }
-
-    resizeCanvas();
-
-    return () => {
-      if (ro) {
-        ro.disconnect();
-      } else {
-        window.removeEventListener("resize", handleResize);
-      }
-      clearTimeout(resizeTimeout);
-    };
   }, []);
 
   const easeFunc = useCallback(t => {
@@ -130,7 +102,7 @@ export default function ClickSpark({
     }
   }, [easing]);
 
-  // Memoize draw configuration to avoid recreating in RAF
+  // Memoize draw configuration
   const drawConfigRef = useRef({
     resolvedColor,
     sparkSize,
@@ -151,7 +123,7 @@ export default function ClickSpark({
     };
   }, [resolvedColor, sparkSize, sparkRadius, extraScale, duration, easeFunc]);
 
-  // Animation loop - only runs when sparks exist
+  // Animation loop - runs on small canvas only
   const startAnimationLoop = useCallback(() => {
     if (isRunningRef.current) return;
 
@@ -163,17 +135,19 @@ export default function ClickSpark({
     isRunningRef.current = true;
 
     const dpr = window.devicePixelRatio || 1;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.lineCap = "round";
 
     const draw = (timestamp) => {
       const config = drawConfigRef.current;
 
-      // Clear canvas
+      // Clear small canvas only (~100x100px vs full page)
       ctx.save();
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.restore();
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.strokeStyle = config.resolvedColor;
+      ctx.lineWidth = 2;
 
       // Filter and draw remaining sparks
       sparksRef.current = sparksRef.current.filter(spark => {
@@ -188,13 +162,12 @@ export default function ClickSpark({
         const distance = eased * config.sparkRadius * config.extraScale;
         const lineLength = config.sparkSize * (1 - eased);
 
-        const x1 = spark.x + distance * Math.cos(spark.angle);
-        const y1 = spark.y + distance * Math.sin(spark.angle);
-        const x2 = spark.x + (distance + lineLength) * Math.cos(spark.angle);
-        const y2 = spark.y + (distance + lineLength) * Math.sin(spark.angle);
+        // Draw relative to canvas center (HALF_SIZE)
+        const x1 = HALF_SIZE + distance * Math.cos(spark.angle);
+        const y1 = HALF_SIZE + distance * Math.sin(spark.angle);
+        const x2 = HALF_SIZE + (distance + lineLength) * Math.cos(spark.angle);
+        const y2 = HALF_SIZE + (distance + lineLength) * Math.sin(spark.angle);
 
-        ctx.strokeStyle = config.resolvedColor;
-        ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
@@ -203,14 +176,15 @@ export default function ClickSpark({
         return true;
       });
 
-      // OPTIMIZATION: Stop loop when no sparks remain
+      // Stop loop when no sparks remain
       if (sparksRef.current.length === 0) {
         isRunningRef.current = false;
         animationIdRef.current = null;
+        // Hide canvas when done
+        setCanvasPos(prev => ({ ...prev, visible: false }));
         return;
       }
 
-      // Continue animation
       animationIdRef.current = requestAnimationFrame(draw);
     };
 
@@ -229,47 +203,55 @@ export default function ClickSpark({
   }, []);
 
   const handleClick = useCallback((e) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const container = containerRef.current;
+    if (!container) return;
+
+    const rect = container.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+
+    // Position small canvas centered on click
+    setCanvasPos({
+      x: clickX - HALF_SIZE,
+      y: clickY - HALF_SIZE,
+      visible: true
+    });
 
     const now = performance.now();
     const newSparks = Array.from({ length: sparkCount }, (_, i) => ({
-      x,
-      y,
       angle: (2 * Math.PI * i) / sparkCount,
       startTime: now
     }));
 
-    sparksRef.current.push(...newSparks);
-
-    // OPTIMIZATION: Start animation loop only when sparks are added
+    sparksRef.current = newSparks;
     startAnimationLoop();
   }, [sparkCount, startAnimationLoop]);
 
   return (
     <div
+      ref={containerRef}
       style={{
         position: "relative",
         width: "100%",
         height: "100%"
       }}
-      onClick={handleClick}>
+      onClick={handleClick}
+    >
       <canvas
         ref={canvasRef}
         style={{
-          width: "100%",
-          height: "100%",
-          display: "block",
-          userSelect: "none",
+          width: CANVAS_SIZE,
+          height: CANVAS_SIZE,
           position: "absolute",
           top: 0,
           left: 0,
+          transform: `translate(${canvasPos.x}px, ${canvasPos.y}px)`,
           pointerEvents: "none",
-          zIndex: 10
-        }} />
+          zIndex: 9999,
+          opacity: canvasPos.visible ? 1 : 0,
+          willChange: "transform"
+        }}
+      />
       {children}
     </div>
   );

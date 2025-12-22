@@ -12,17 +12,9 @@ import { SiCanva, SiAdobe, SiAdobecreativecloud, SiGoogleadsense, SiGoogleanalyt
 
 const techLogos = [
   { node: <SiAdobe />, title: "Adobe", href: "/" },
-  { node: <SiAdobecreativecloud />, title: "Adobe Creative Cloude", href: "/" },
-  { node: <SiCanva />, title: "Canva", href: "/" },
   { node: <SiGoogleanalytics />, title: "Google Analytics", href: "/" },
-  { node: <SiGoogleadsense />, title: "Google Adsense", href: "/" },
-  { node: <SiGoogletagmanager />, title: "Google Tagmanager", href: "/" },
-  { node: <SiLooker />, title: "Google Looker Studio", href: "/" },
   { node: <SiHubspot />, title: "Hubspot", href: "/" },
   { node: <SiLinkedin />, title: "Linkedin Campaign Manager", href: "/" },
-  { node: <SiMeta />, title: "Meta Ads Manager", href: "/" },
-  { node: <SiMailchimp />, title: "Mailchimp", href: "/" },
-  { node: <SiSemrush />, title: "Semrush", href: "/" }
 ];
 
 const VALUES_COPY = {
@@ -34,10 +26,26 @@ const VALUES_COPY = {
       local: "lokal verankert",
     },
     description: "marketing ohne buzzwords und leere versprechen. ich mach das seit über 15 jahren — von paid social über seo bis crm-automatisierung. was mich antreibt: echte ergebnisse für echte unternehmen. keine langzeitverträge, keine versteckten kosten. nur klare strategien, die funktionieren.",
-    results: {
-      label: "was ich bisher für kunden erreicht habe:",
-      metrics: "+48% sichtbarkeit · +35% conversions · +25% qualifizierte leads · —22% werbekosten",
-    },
+    label: "was ich bisher für kunden erreicht habe:",
+    results: [
+      {
+        counter: "+48%",
+        title: "sichtbarkeit",
+      },
+      {
+        counter: "+35%",
+        title: "conversions",
+      },
+      {
+        counter: "+25%",
+        title: "qualifizierte leads",
+      },
+      {
+        counter: "-22%",
+        title: "werbekosten",
+      },
+    ],
+    // results: "+48% sichtbarkeit · +35% conversions · +25% qualifizierte leads · —22% werbekosten",
     expertiseTitle: "meine expertise",
     toolsTitle: "meine werkzeuge",
     logosLabel: "marketing tools",
@@ -53,10 +61,26 @@ const VALUES_COPY = {
       local: "locally rooted",
     },
     description: "marketing without buzzwords or empty promises. i've been doing this for 15+ years — from paid social and seo to crm automation. what drives me: real results for real businesses. no long-term contracts, no hidden costs. just clear strategies that work.",
-    results: {
-      label: "results i've delivered for clients:",
-      metrics: "+48% visibility · +35% conversions · +25% qualified leads · —22% ad costs",
-    },
+    label: "results i've delivered for clients:",
+    results: [
+      {
+        counter: "+48%",
+        title: "sichtbarkeit",
+      },
+      {
+        counter: "+35%",
+        title: "conversions",
+      },
+      {
+        counter: "+25%",
+        title: "qualifizierte leads",
+      },
+      {
+        counter: "—22%",
+        title: "werbekosten",
+      },
+    ],
+    // results: "+48% visibility · +35% conversions · +25% qualified leads · —22% ad costs",
     expertiseTitle: "my expertise",
     toolsTitle: "my toolkit",
     logosLabel: "marketing tools",
@@ -74,8 +98,8 @@ export default function Values() {
 
   const titleCopy = copy.title ?? fallbackCopy.title;
   const description = copy.description ?? fallbackCopy.description ?? "";
-  const resultsLabel = copy.results?.label ?? fallbackCopy.results?.label ?? "";
-  const resultsMetrics = copy.results?.metrics ?? fallbackCopy.results?.metrics ?? "";
+  const resultsLabel = copy.label ?? fallbackCopy.label ?? "";
+  const results = copy.results ?? fallbackCopy.results ?? [];
   const expertiseTitle = copy.expertiseTitle ?? fallbackCopy.expertiseTitle ?? "my expertise";
   const toolsTitle = copy.toolsTitle ?? fallbackCopy.toolsTitle ?? "core tools";
   const logosLabel = copy.logosLabel ?? fallbackCopy.logosLabel ?? "Marketing tools";
@@ -102,10 +126,26 @@ export default function Values() {
           <p className="description">
             {description}
           </p>
-          <p className="description results">
-            <strong>{resultsLabel}</strong><br />
-            {resultsMetrics}
+          <p className="description">
+            <strong>{resultsLabel}</strong>
           </p>
+          <div className="results">
+            {results.map((result, index) => (
+              <TextEffect
+                key={index}
+                as="div"
+                variant="sidelineBold"
+                trigger="visible"
+                visibilityRootMargin="0px 0px -25%"
+                className="inline-block result-effect result"
+              >
+                <p className="counter">
+                  {result.counter}
+                </p>
+                <p className="title">{result.title}</p>
+              </TextEffect>
+            ))}
+          </div>
         </div>
         <div className="tools">
           <h3 className="title">
