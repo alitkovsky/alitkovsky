@@ -5,7 +5,6 @@
   --font--style: normal;
   --font--weight: 500;
   --font--margin-left: -0.07em;
-  --font--margin-left-opening-quote-mark: -0.406em;
   --font--feature-settings: "liga", "ss02", "ss03", "ss04", "ss06";
   --font--feature-settings-no-stylized-numeral-8: "ss06" 0;
   --font--size-monster: clamp(2.625rem, 1.5rem + 5vw, 5rem);

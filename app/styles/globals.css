@@ -1172,10 +1172,10 @@ body.theme-transition * {
 /* Section values
 ----------------------------------------------------------- */
 .section.values > .content {
-  padding: 220px 0 20px 0;
+  padding: var(--grid--app-xheight) 0 20px 0;
 }
 .section.values .content > .title {
-  padding-bottom: 80px;
+  padding-bottom: 0px;
   grid-column: 1 / -1;
 }
 .section.values .content > .title h2 {
@@ -1187,6 +1187,28 @@ body.theme-transition * {
   display: grid;
   grid-template-columns: subgrid;
   gap: var(--grid--app-gutter);
+}
+.section.values .main .results {
+  grid-column: 5 / -1;
+  display: grid;
+  grid-template-columns: var(--grid--app-columns-2);
+  gap: var(--grid--app-gutter);
+}
+.section.values .results .result {
+  padding-left: 2em;
+}
+.section.values .results .result .counter {
+  font-size: var(--font--size-medium);
+  font-weight: 700;
+}
+.section.values .results .result .title {
+  margin-top: 0.5em;
+  font-size: var(--font--size-small);
+}
+.section.values .results .result-effect > svg {
+  top: 0em !important;
+  left: 0em !important;
+  height: 100% !important;
 }
 .section.values .values-cta {
   grid-column: 1 / -1;
@@ -1413,11 +1435,6 @@ body.theme-transition * {
 }
 .section.values .tools .tool-list .item .description ul li {
   font-size: var(--font--size-small);
-}
-.section.values .metrics {
-  display: none;
-  font-size: var(--font--size-small);
-  color: var(--color--foreground--50);
 }
 .section.values .logos {
   grid-column: 1 / -1;
@@ -1721,8 +1738,7 @@ body.theme-transition * {
   border-radius: 1.6vw;
   padding: .7em .7em;
   justify-content: space-between;
-  width: 100%;
-  min-height: 18vw;
+  aspect-ratio: 3 / 4;
   display: flex;
   text-decoration: none;
   font-weight: 700;
@@ -1870,7 +1886,7 @@ body.theme-transition * {
 ------------------------------------------------------------ */
 
 .section.cases > .content {
-  padding: 220px 0 20px 0;
+  padding: var(--grid--app-xheight) 0 20px 0;
 }
 .section.cases .content > .title {
   padding-bottom: 80px;
@@ -1956,7 +1972,7 @@ body.theme-transition * {
 ------------------------------------------------------------ */
 
 .section.background > .content {
-  padding: 220px 0 20px 0;
+  padding: var(--grid--app-xheight) 0 20px 0;
 }
 .section.background > .content .brief {
   grid-column: 5 / -1;
@@ -2050,17 +2066,41 @@ body.theme-transition * {
 ------------------------------------------------------------ */
 
 .section.references > .content {
-  padding: 220px 0 20px 0;
-  /* grid-template-columns: var(--grid--app-columns-2); */
+  padding: var(--grid--app-xheight) 0 20px 0;
+}
+.section.references .item {
+  grid-column: span 4;
 }
 .section.references .item:nth-child(n+3) {
-  padding-top: 40px;
+  padding-top: 4em;
 }
 .section.references .quote {
   padding-right: 20px;
 }
+.section.references .quote::before {
+  content: "“";
+  font-size: var(--font--size-large);
+  font-weight: 300;
+  position: absolute;
+  opacity: 1;
+  margin-top: -0.2em;
+  margin-left: -0.4em;
+}
+.section.references .quote::after {
+  content: "”";
+  font-size: var(--font--size-large);
+  font-weight: 300;
+  position: absolute;
+  opacity: 1;
+  margin-top: -0.16em;
+  margin-left: 0em;
+}
 .section.references .item p {
-  padding-top: 10px;
+  padding-top: .6em;
+}
+.section.references .item h2 {
+  font-weight: 300;
+  font-size: var(--font--size-medium);
 }
 .section.references .person {
   padding-right: 0.3em;
@@ -2068,16 +2108,95 @@ body.theme-transition * {
 .section.references .role {
   color: var(--color--foreground--50);
 }
-.section.references .promo {
-  padding-top: 160px;
-  grid-column: 1 / -1;
+
+/* Section Faq
+------------------------------------------------------------ */
+
+.section.faq > .content {
+  padding: var(--grid--app-xheight) 0 20px 0;
+}
+.section.faq > .content .title {
+  grid-column: 5 / -1;
+}
+.section.faq > .content .accordion {
+    grid-column: 1 / -1;
+    margin-top: 1.5rem;
+}
+.section.faq > .content .accordion .item:not(:last-child) {
+  border-bottom: 1px solid var(--color--foreground--20);
+}
+.section.faq > .content .accordion .item .btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.2rem 1.4rem;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.1s;
+}
+.section.faq > .content .accordion .item .btn:hover {
+  background: var(--color--foreground--20);
+}
+/* Hidden checkbox for pure CSS toggle */
+.section.faq > .content .accordion .item__toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+/* Active state via :checked sibling selector */
+.section.faq > .content .accordion .item__toggle:checked ~ .btn {
+  color: var(--color-purple);
+  border-bottom: 2px solid var(--color-purple);
+  background: var(--color--foreground--20);
+}
+.section.faq > .content .accordion .item .icon {
+  display: inline-block;
+  border-radius: 50%;
+  transform: rotate(0deg);
+  transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  opacity: 0.9;
+}
+.section.faq > .content .accordion .item__toggle:checked ~ .btn .icon {
+  transform: rotate(135deg);
+}
+.section.faq > .content .accordion .item .item-content {
+  /* GPU-accelerated height animation using CSS Grid */
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+}
+.section.faq > .content .accordion .item .item-content__inner {
+  overflow: hidden;
+  font-weight: 300;
+  color: var(--color--foreground--50);
+  /* GPU-accelerated content animation */
+  opacity: 0;
+  transform: translateX(16px);
+  transition: opacity 0.35s ease-out 0.05s, transform 0.35s ease-out 0.05s;
+}
+.section.faq > .content .accordion .item .item-content__inner ul {
+  padding: 1rem 1.8rem;
+  list-style: circle;
+}
+.section.faq > .content .accordion .item .item-content__inner p {
+  padding: 1rem 1.8rem;
+}
+.section.faq > .content .accordion .item__toggle:checked ~ .item-content {
+  grid-template-rows: 1fr;
+}
+.section.faq > .content .accordion .item__toggle:checked ~ .item-content .item-content__inner {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Section expertise
 ------------------------------------------------------------ */
 
 .section.expertise > .content {
-  padding: 220px 0 20px 0;
+  padding: var(--grid--app-xheight) 0 20px 0;
 }
 .section.expertise > .content .certification .title,
 .section.expertise > .content .education .title {
@@ -2119,16 +2238,18 @@ body.theme-transition * {
   grid-template-rows: auto auto;
 }
 .section.contact > .content {
-  /* grid-column: 1 / -1; */
   grid-row: 1;
-  padding: 220px 0 var(--grid--app-margin) 0;
+  padding: calc(var(--grid--app-xheight) + 100px) 0 var(--grid--app-margin) 0;
 }
 .section.contact > .content .hook {
-  grid-column: 1 / -1;
+  grid-column: 1 / 5;
   margin-bottom: 2em;
   /* display: flex;
   flex-direction: column;
   gap: 1rem; */
+}
+.section.contact > .content .hook h2 {
+  font-weight: 700;
 }
 .section.contact .hook__subtitle {
   color: var(--color--foreground--50);

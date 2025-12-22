@@ -196,7 +196,6 @@
     flex-direction: column;
     align-items: stretch;
   }
-  .section.values > .content .title,
   .section.values > .content .tools .title,
   .section.values > .content .tools .content,
   .section.background .item .company,
@@ -204,6 +203,7 @@
   .section.background .item .metadata .location,
   .section.background > .content .items .item .left,
   .section.expertise > .content .certification,
+  .section.contact > .content .hook,
   .section.impressum > .content .left,
   .section.datenschutz > .content .left {
     grid-column: 1 / 4;
@@ -213,7 +213,11 @@
     padding-left: 0.5rem;
     padding-right: 3.5rem;
   }
+  .section.background > .content .items .item .background-arrow {
+    left: 1.5rem;
+  }
   .section.values > .content .description,
+  .section.values .main .results,
   .section.process > .content .title,
   .section.background > .content .brief,
   .section.background .item .metadata .time,
@@ -225,16 +229,12 @@
   .section.datenschutz > .content .right {
     grid-column: 4 / -1;
   }
-  .section.contact > .content .hook,
   .section.datenschutz > .content .wide,
   .section.datenschutz > .content .title {
     grid-column: 1 / -1;
   }
   .section.contact > .content .image {
     grid-column: 1 / 3;
-  }
-  .section.process > .content .cards .card {
-    min-height: 20vw;
   }
   /* Row 1 */
   .section.process > .content .cards > div:nth-child(1) { grid-column: 1 / span 2; grid-row: 1; } /* cols 1-2 */
@@ -258,9 +258,11 @@
     grid-column: 1 / -1;
     grid-template-columns: var(--grid--app-columns-6);
   }
-
   .section.process > .content .intro {
     grid-column: 1 / -1;
+  }
+  .section.references .item {
+    grid-column: span 3;
   }
 }
 
@@ -299,11 +301,14 @@
     grid-column: 3 / -1;
     font-size: var(--font--size-regular);
   }
+  .section.values .main .results {
+    grid-column: 3 / -1;
+  }
   .section.values > .content .tools {
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: subgrid;
-    margin-top: 1.25rem;
+    margin-top: 1.5rem;
   }
   .section.values .tools .title,
   .section.values .subtitle {
@@ -328,6 +333,7 @@
     grid-template-rows: auto;
     grid-template-columns: subgrid;
     gap: var(--grid--app-gutter);
+    margin-top: 1.5rem;
   }
   .section.values .tools .tool-list .item {
     grid-column: 1 / -1;
@@ -364,9 +370,6 @@
   .section.values .tools p {
     font-size: var(--font--size-regular);
   }
-  .section.references .item {
-    grid-column: 1 / 3;
-  }
   .section.background .items,
   .section.background .items .item {
     grid-column: 1 / -1;
@@ -395,11 +398,14 @@
     grid-column: 1 / -1;
     font-weight: 700;
   }
-  .section.references .item:nth-child(2) {
+  /* .section.references .item:nth-child(2) {
     padding-top: 2.5rem;
-  }
-  .section.references .quote {
+  } */
+  /* .section.references .quote {
     padding-right: 0;
+  } */
+  .section.references .item {
+    grid-column: span 2;
   }
   .section.background > .content .brief,
   .section.background .item .metadata .time,
@@ -441,9 +447,6 @@
   }
   .section.contact > .content .text {
     /* text-align: end; */
-  }
-  .section.process > .content .cards .card {
-    min-height: 24vw;
   }
   .section.thank-you > .content {
     padding: calc(var(--grid--app-xheight) + 1.25rem) 0 var(--grid--app-margin);
@@ -550,11 +553,17 @@
     padding: var(--intro-gradient-offset) 0 1.25rem 0;
   }
   .section.values > .content .description,
+  .section.values .main .results,
   .section.process > .content .title,
   .section.background .item .description,
-  .section.background > .content .brief,
-  .section.references .item {
+  .section.background > .content .brief {
     grid-column: 1 / -1;
+  }
+  .section.references .item {
+    grid-column: span 4;
+  }
+.section.references .item:nth-child(2) {
+    padding-top: 2.5rem;
   }
   .section.values .tools .tool-list .item .icon {
     grid-column: 1 / 2;
@@ -640,9 +649,6 @@
     grid-column: 2;
     grid-row: 1;
   } */
-  .section.process > .content .cards .card {
-    min-height: 30vw;
-  }
      /* Row 1 */
   .section.process > .content .cards > div:nth-child(1) { grid-column: 1 / span 2; grid-row: 1; } /* cols 1-2 */
   .section.process > .content .cards > div:nth-child(2) { grid-column: 3 / span 2; grid-row: 1; } /* cols 3-4 */

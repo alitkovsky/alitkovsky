@@ -18,11 +18,6 @@ body {
   line-height: var(--font--size-regular-line-height);
 }
 
-.opening-quote-mark {
-  margin-left: var(--font--margin-left-opening-quote-mark);
-}
-
-
 /* Options */
 /* font-feature-settings: "liga", "dlig", "tnum", "frac", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06"; */
 
