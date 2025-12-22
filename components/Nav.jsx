@@ -176,7 +176,10 @@ export default function Nav({ initialTheme = "dark" }) {
   const items = [
     { id: "intro", label: "intro" },
     { id: "values", label: "values" },
+    { id: "process", label: "process" },
     { id: "background", label: "background" },
+    { id: "references", label: "references" },
+    { id: "faq", label: "faq" },
     { id: "expertise", label: "expertise" },
     { id: "contact", label: "contact" }
   ];
