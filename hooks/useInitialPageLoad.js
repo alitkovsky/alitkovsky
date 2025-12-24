@@ -17,12 +17,12 @@ export default function useInitialPageLoad() {
     // Hide cover after 1750ms
     const coverTimeout = setTimeout(() => {
       document.body.classList.remove("cover--is--visible");
-    }, 1750);
+    }, 250);
 
     // Remove loading class after cover transition completes (3250ms total)
     const loadingTimeout = setTimeout(() => {
       document.body.classList.remove("is--loading");
-    }, 3250);
+    }, 2250);
 
     return () => {
       clearTimeout(coverTimeout);

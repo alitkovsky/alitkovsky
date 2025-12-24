@@ -390,7 +390,7 @@ textarea:focus-visible {
   text-align: left;
 }
 .section.cover h1 {
-  animation: welcome 1.5s ease-in-out;
+  /* animation: welcome 1.5s ease-in-out backwards; */
   font-weight: 700;
 }
 .cover__headline {
@@ -1810,6 +1810,7 @@ body.theme-transition * {
 }
 
 .process-dialog {
+  position: relative;
   width: 50%;
   height: 96dvh;
   overflow: hidden;
@@ -1830,15 +1831,44 @@ body.theme-transition * {
   }
 }
 
+@keyframes process-dialog-out {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+}
+
+@keyframes process-dialog-backdrop-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.process-dialog--closing {
+  animation: process-dialog-out 0.3s ease-out forwards;
+}
+
+.process-dialog__backdrop--closing {
+  animation: process-dialog-backdrop-out 0.3s ease-out forwards;
+}
+
+.process-dialog__close--closing {
+  animation: process-dialog-backdrop-out 0.3s ease-out forwards;
+}
+
 .process-dialog__close {
-  position: fixed;
-  left: 2rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-self: flex-start;
+  place-self: start;
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid var(--color--foreground--15);
   border-radius: 50%;
   background: transparent;
   color: var(--color--foreground--60);

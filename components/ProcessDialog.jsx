@@ -1,10 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ProcessDialog({ step, onClose }) {
   const modalRef = useRef(null);
   const headingId = "process-dialog-title";
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleClose = () => {
+    if (isClosing) return;
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 300); // Match animation duration
+  };
 
   useEffect(() => {
     const dialog = modalRef.current;
@@ -29,7 +38,7 @@ export default function ProcessDialog({ step, onClose }) {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        onClose();
+        handleClose();
         return;
       }
 
@@ -57,7 +66,7 @@ export default function ProcessDialog({ step, onClose }) {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [onClose]);
+  }, [isClosing]);
 
   const { title, description } = step;
 
@@ -65,17 +74,17 @@ export default function ProcessDialog({ step, onClose }) {
     <>
       {/* Backdrop */}
       <div
-        className="process-dialog__backdrop"
-        onClick={onClose}
+        className={`process-dialog__backdrop${isClosing ? " process-dialog__backdrop--closing" : ""}`}
+        onClick={handleClose}
       />
 
       {/* Modal */}
       <div
-        className="process-dialog__wrapper"
-        onClick={onClose}
+        className={`process-dialog__wrapper${isClosing ? " process-dialog__wrapper--closing" : ""}`}
+        onClick={handleClose}
       >
         <div
-          className="process-dialog"
+          className={`process-dialog${isClosing ? " process-dialog--closing" : ""}`}
           ref={modalRef}
           role="dialog"
           aria-modal="true"
@@ -99,8 +108,8 @@ export default function ProcessDialog({ step, onClose }) {
 
         </div>
         {/* <button
-            className="process-dialog__close"
-            onClick={onClose}
+            className={`process-dialog__close${isClosing ? " process-dialog__close--closing" : ""}`}
+            onClick={handleClose}
             aria-label="Close dialog"
           >
             <i aria-hidden className="plus-icon">+</i>
