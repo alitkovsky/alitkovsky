@@ -1,280 +1,96 @@
 "use client";
 
+import { useState } from "react";
 import useLanguage from "@/hooks/useLanguage";
+import ProcessDialog from "@/components/ProcessDialog";
 
 const COPY = {
   de: {
     intro: "kein geheimnis, kein hexenwerk — so läuft's ab, wenn wir zusammenarbeiten. schritt für schritt, transparent und ohne überraschungen.",
-    labels: {
-      actions: "was passiert",
-      fromMe: "von mir",
-      fromYou: "von dir",
-      result: "ergebnis",
-    },
     steps: [
       {
         title: "kontakt",
         description: {
-          summary: "du meldest dich — per telefon, whatsapp, formular oder mail. keine förmliche anfrage nötig, einfach schreiben was du brauchst oder dass du quatschen willst.",
-          actions: [
-            "du schreibst mir eine nachricht oder rufst an",
-            "ich melde mich innerhalb von 24h zurück",
-            "wir klären kurz, ob ich dir helfen kann",
-            "terminvereinbarung für ein erstgespräch",
-          ],
-          fromMe: [
-            "schnelle rückmeldung",
-            "erste einschätzung ob's passt",
-            "terminvorschläge",
-          ],
-          fromYou: [
-            "kurze info was du suchst",
-            "kontaktdaten",
-            "optional: link zu deiner aktuellen website",
-          ],
-          result: "termin für ein kostenloses erstgespräch steht",
+          summary: "du meldest dich — per telefon, whatsapp, kontaktformular oder mail. keine förmliche anfrage nötig, schreib einfach was du brauchst oder dass du quatschen willst. ich melde mich innerhalb von 24 stunden zurück. wir klären kurz, ob und wie ich dir helfen kann, und finden einen termin. von dir brauche ich nur eine grobe idee, was du suchst — und idealerweise einen link zu deiner aktuellen website, damit ich mich vorbereiten kann.",
+          metrics: "< 24h",
+          result: "termin für ein kostenloses erstgespräch — ohne verpflichtungen, ohne haken",
         },
       },
       {
         title: "erstgespräch",
         description: {
-          summary: "20 minuten, kostenlos, unverbindlich. wir lernen uns kennen, du erzählst was dich beschäftigt, ich höre zu und stelle fragen. kein verkaufsgespräch, versprochen.",
-          actions: [
-            "videocall oder telefonat (deine wahl)",
-            "du erzählst von deinem business und deinen zielen",
-            "ich stelle fragen zu zielgruppe, wettbewerb, budget",
-            "wir checken ob die chemie stimmt",
-            "erste ideen und mögliche ansätze",
-          ],
-          fromMe: [
-            "aktives zuhören",
-            "ehrliche einschätzung",
-            "erste strategische impulse",
-            "keine bullshit-versprechen",
-          ],
-          fromYou: [
-            "20 minuten zeit",
-            "offenheit über deine situation",
-            "infos zu bisherigen marketing-maßnahmen",
-            "vorstellung von budget-rahmen (grob reicht)",
-          ],
-          result: "klarheit ob wir zusammenpassen + ich hab genug info für die analyse",
+          summary: "20 minuten, kostenlos, unverbindlich — kein verkaufsgespräch, versprochen. videocall oder telefon, deine wahl. du erzählst von deinem business, deinen zielen und was dich gerade beschäftigt. ich höre zu, stelle fragen zu zielgruppe, wettbewerb und budget. wir checken, ob die chemie stimmt, und tauschen erste ideen aus. von dir brauche ich offenheit, infos zu bisherigen marketing-versuchen und eine grobe vorstellung vom budget. am ende weißt du, ob es passt — und ich hab genug info für die analyse.",
+          metrics: "20 min",
+          result: "klarheit, ob wir zusammenpassen — plus erste strategische impulse gratis obendrauf",
         },
       },
       {
         title: "analyse & angebot",
         description: {
-          summary: "ich tauche ab in deine branche, deinen wettbewerb, deine online-präsenz. danach bekommst du ein angebot mit festpreis — kein stundenzählen, keine überraschungen.",
-          actions: [
-            "analyse deiner aktuellen website (technisch + inhaltlich)",
-            "wettbewerbsanalyse (was machen andere in deiner branche)",
-            "keyword-recherche und suchvolumen-check",
-            "identifikation von quick wins und langfristigen potenzialen",
-            "erstellung eines individuellen angebots",
-          ],
-          fromMe: [
-            "gründliche analyse (2-3 tage)",
-            "dokumentierte erkenntnisse",
-            "klares angebot mit festpreis",
-            "timeline und meilensteine",
-          ],
-          fromYou: [
-            "zugang zu google analytics (falls vorhanden)",
-            "zugang zu google search console (falls vorhanden)",
-            "info über bisherige marketing-aktivitäten",
-            "geduld (analyse braucht zeit)",
-          ],
-          result: "transparentes angebot mit festpreis + analyse-dokument mit allen erkenntnissen",
+          summary: "jetzt wird's ernst: ich tauche ab in deine branche, deinen wettbewerb und deine online-präsenz. website-check (technisch + inhaltlich), keyword-recherche, wettbewerbsanalyse — ich finde die quick wins und die langfristigen potenziale. das dauert 2-3 tage, also etwas geduld. falls vorhanden, brauche ich zugang zu google analytics und search console. danach bekommst du ein dokumentiertes analyse-ergebnis und ein angebot mit festpreis, timeline und meilensteinen. kein stundenzählen, keine bösen überraschungen.",
+          metrics: "2-3 tage",
+          result: "transparentes festpreis-angebot + analyse-dokument mit allen erkenntnissen und potenzialen",
         },
       },
       {
         title: "strategie & umsetzung",
         description: {
-          summary: "hier passiert die magie. von der landingpage über google ads bis zum tracking-setup — ich setze um, du lehnst dich zurück. natürlich mit regelmäßigen updates.",
-          actions: [
-            "entwicklung der marketing-strategie",
-            "setup von tracking und analytics",
-            "erstellung/optimierung von landingpages",
-            "einrichtung von werbekampagnen (google, meta)",
-            "seo-optimierung (technisch + inhaltlich)",
-            "regelmäßige abstimmung und updates",
-          ],
-          fromMe: [
-            "komplette umsetzung",
-            "wöchentliche status-updates",
-            "transparente dokumentation",
-            "schnelle reaktion bei fragen",
-          ],
-          fromYou: [
-            "feedback zu entwürfen",
-            "freigaben (zeitnah, bitte)",
-            "inhalte/texte/bilder (falls nicht im paket)",
-            "zugänge zu relevanten accounts",
-          ],
-          result: "fertige, funktionierende marketing-infrastruktur + erste kampagnen laufen",
+          summary: "hier passiert die magie. ich entwickle die strategie und setze sie um — von tracking-setup über landingpages bis zu google- und meta-kampagnen. seo-optimierung technisch und inhaltlich inklusive. du bekommst wöchentliche updates und kannst dich zurücklehnen. von dir brauche ich feedback zu entwürfen, zeitnahe freigaben, zugänge zu relevanten accounts und ggf. inhalte wie texte oder bilder. je nach projektumfang rechne mit 4-8 wochen bis zum launch.",
+          metrics: "4-8 wochen",
+          result: "fertige marketing-infrastruktur, die funktioniert — erste kampagnen laufen, tracking steht",
         },
       },
       {
         title: "optimierung & reporting",
         description: {
-          summary: "launch ist erst der anfang. ich behalte die zahlen im blick, optimiere kontinuierlich und halte dich mit reports auf dem laufenden. optional, aber empfohlen.",
-          actions: [
-            "kontinuierliches monitoring aller kampagnen",
-            "a/b-tests und performance-optimierung",
-            "monatliche reports mit allen kpis",
-            "regelmäßige strategie-reviews",
-            "anpassung an marktveränderungen",
-          ],
-          fromMe: [
-            "monatliche reports (verständlich, nicht nur zahlen)",
-            "proaktive optimierungsvorschläge",
-            "schnelle reaktion bei problemen",
-            "transparenz über ergebnisse",
-          ],
-          fromYou: [
-            "feedback zur performance",
-            "info über geschäftliche veränderungen",
-            "budget-updates falls nötig",
-          ],
-          result: "stetig bessere ergebnisse + volle transparenz über dein marketing-investment",
+          summary: "launch ist erst der anfang. ich behalte die zahlen im blick, teste varianten, optimiere kontinuierlich und halte dich mit monatlichen reports auf dem laufenden — verständlich erklärt, nicht nur zahlenkolonnen. du bekommst proaktive vorschläge zur verbesserung und schnelle reaktion bei problemen. von dir brauche ich feedback zur performance und info über geschäftliche veränderungen. dieser schritt ist optional, aber empfohlen — denn hier entsteht der echte roi.",
+          metrics: "Ø +35%",
+          result: "stetig bessere ergebnisse monat für monat — volle transparenz über dein marketing-investment",
         },
       },
     ],
   },
   en: {
     intro: "no secrets, no magic tricks — here's how it works when we team up. step by step, transparent, no surprises.",
-    labels: {
-      actions: "what happens",
-      fromMe: "from me",
-      fromYou: "from you",
-      result: "result",
-    },
     steps: [
       {
         title: "contact",
         description: {
-          summary: "you reach out — via phone, whatsapp, form, or email. no formal request needed, just tell me what you need or that you'd like to chat.",
-          actions: [
-            "you send me a message or give me a call",
-            "i get back to you within 24h",
-            "we quickly figure out if i can help",
-            "schedule a first call",
-          ],
-          fromMe: [
-            "fast response",
-            "first assessment if it's a fit",
-            "appointment options",
-          ],
-          fromYou: [
-            "brief info on what you're looking for",
-            "contact details",
-            "optional: link to your current website",
-          ],
-          result: "free intro call is scheduled",
+          summary: "you reach out — via phone, whatsapp, contact form, or email. no formal request needed, just tell me what you're looking for or that you'd like to chat. i'll get back to you within 24 hours. we'll quickly figure out if and how i can help, and find a time to talk. all i need from you is a rough idea of what you're after — and ideally a link to your current website so i can prepare.",
+          metrics: "< 24h",
+          result: "free intro call scheduled — no obligations, no strings attached",
         },
       },
       {
         title: "intro call",
         description: {
-          summary: "20 minutes, free, no strings. we get to know each other, you tell me what's on your mind, i listen and ask questions. no sales pitch, promise.",
-          actions: [
-            "video call or phone (your choice)",
-            "you share about your business and goals",
-            "i ask about target audience, competition, budget",
-            "we check if there's chemistry",
-            "first ideas and possible approaches",
-          ],
-          fromMe: [
-            "active listening",
-            "honest assessment",
-            "first strategic impulses",
-            "no bullshit promises",
-          ],
-          fromYou: [
-            "20 minutes of your time",
-            "openness about your situation",
-            "info on previous marketing efforts",
-            "rough idea of budget range (ballpark is fine)",
-          ],
-          result: "clarity on whether we're a good fit + i have enough info for the analysis",
+          summary: "20 minutes, free, no strings — no sales pitch, promise. video call or phone, your choice. you tell me about your business, your goals, and what's on your mind. i listen, ask questions about target audience, competition, and budget. we check if there's chemistry and exchange first ideas. from you, i need openness, info on past marketing attempts, and a rough budget range. by the end, you'll know if it's a fit — and i'll have enough info for the analysis.",
+          metrics: "20 min",
+          result: "clarity on whether we're a match — plus first strategic impulses free on top",
         },
       },
       {
         title: "analysis & proposal",
         description: {
-          summary: "i dive deep into your industry, competition, and online presence. then you get a fixed-price proposal — no hourly tracking, no surprises.",
-          actions: [
-            "analysis of your current website (technical + content)",
-            "competitor analysis (what others in your industry do)",
-            "keyword research and search volume check",
-            "identification of quick wins and long-term potential",
-            "creation of a tailored proposal",
-          ],
-          fromMe: [
-            "thorough analysis (2-3 days)",
-            "documented findings",
-            "clear fixed-price proposal",
-            "timeline and milestones",
-          ],
-          fromYou: [
-            "access to google analytics (if available)",
-            "access to google search console (if available)",
-            "info on past marketing activities",
-            "patience (analysis takes time)",
-          ],
-          result: "transparent fixed-price proposal + analysis document with all findings",
+          summary: "now it gets real: i dive deep into your industry, competition, and online presence. website check (technical + content), keyword research, competitor analysis — i find the quick wins and long-term potential. this takes 2-3 days, so a bit of patience. if available, i'll need access to google analytics and search console. then you get a documented analysis and a fixed-price proposal with timeline and milestones. no hourly tracking, no nasty surprises.",
+          metrics: "2-3 days",
+          result: "transparent fixed-price proposal + analysis document with all findings and opportunities",
         },
       },
       {
         title: "strategy & execution",
         description: {
-          summary: "this is where the magic happens. from landing pages to google ads to tracking setup — i execute, you sit back. with regular updates, of course.",
-          actions: [
-            "development of marketing strategy",
-            "tracking and analytics setup",
-            "creation/optimization of landing pages",
-            "setup of ad campaigns (google, meta)",
-            "seo optimization (technical + content)",
-            "regular check-ins and updates",
-          ],
-          fromMe: [
-            "complete execution",
-            "weekly status updates",
-            "transparent documentation",
-            "quick response to questions",
-          ],
-          fromYou: [
-            "feedback on drafts",
-            "approvals (timely, please)",
-            "content/copy/images (if not in package)",
-            "access to relevant accounts",
-          ],
-          result: "finished, working marketing infrastructure + first campaigns running",
+          summary: "this is where the magic happens. i develop the strategy and execute it — from tracking setup to landing pages to google and meta campaigns. seo optimization (technical and content) included. you get weekly updates and can sit back. from you, i need feedback on drafts, timely approvals, access to relevant accounts, and possibly content like copy or images. depending on scope, expect 4-8 weeks until launch.",
+          metrics: "4-8 weeks",
+          result: "finished marketing infrastructure that works — first campaigns running, tracking in place",
         },
       },
       {
         title: "optimization & reporting",
         description: {
-          summary: "launch is just the beginning. i keep an eye on the numbers, optimize continuously, and keep you in the loop with reports. optional, but recommended.",
-          actions: [
-            "continuous monitoring of all campaigns",
-            "a/b tests and performance optimization",
-            "monthly reports with all kpis",
-            "regular strategy reviews",
-            "adaptation to market changes",
-          ],
-          fromMe: [
-            "monthly reports (understandable, not just numbers)",
-            "proactive optimization suggestions",
-            "quick response to issues",
-            "transparency about results",
-          ],
-          fromYou: [
-            "feedback on performance",
-            "info on business changes",
-            "budget updates if needed",
-          ],
-          result: "continuously improving results + full transparency on your marketing investment",
+          summary: "launch is just the beginning. i keep an eye on the numbers, test variants, optimize continuously, and keep you in the loop with monthly reports — explained clearly, not just spreadsheets. you get proactive suggestions for improvement and quick response to issues. from you, i need feedback on performance and info on business changes. this step is optional but recommended — because this is where the real roi happens.",
+          metrics: "Ø +35%",
+          result: "continuously improving results month over month — full transparency on your marketing investment",
         },
       },
     ],
@@ -284,6 +100,15 @@ const COPY = {
 export default function Process() {
   const { language } = useLanguage();
   const copy = COPY[language] ?? COPY.de;
+  const [selectedStep, setSelectedStep] = useState(null);
+
+  const handleCardClick = (step) => {
+    setSelectedStep(step);
+  };
+
+  const handleDialogClose = () => {
+    setSelectedStep(null);
+  };
 
   return (
     <section className="section process" id="process">
@@ -294,7 +119,20 @@ export default function Process() {
 
         <div className="cards">
           {copy.steps.map((step, index) => (
-            <div key={step.title} className="card" data-cursor="link">
+            <div
+              key={step.title}
+              className="card"
+              data-cursor="link"
+              onClick={() => handleCardClick(step)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleCardClick(step);
+                }
+              }}
+              role="button"
+              tabIndex={0}
+            >
               <div className="index">
                 <p className="title">{String(index + 1).padStart(2, "0")}</p>
                 <i aria-hidden className="plus-icon">+</i>
@@ -305,6 +143,13 @@ export default function Process() {
           ))}
         </div>
       </div>
+
+      {selectedStep && (
+        <ProcessDialog
+          step={selectedStep}
+          onClose={handleDialogClose}
+        />
+      )}
     </section>
   );
 }
