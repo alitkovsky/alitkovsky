@@ -264,6 +264,9 @@
   .section.references .item {
     grid-column: span 3;
   }
+  .process-dialog {
+    width: 70%;
+  }
 }
 
 /* 4 columns */
@@ -468,13 +471,14 @@
   .cookie-settings__wrapper {
     align-items: center;
   }
-
   .cookie-settings {
     max-width: 60rem;
   }
-
   .cookie-settings__footer-actions {
     flex-direction: row;
+  }
+  .process-dialog {
+    width: 70%;
   }
 }
 
@@ -661,6 +665,9 @@
   .section.process > .content .cards > div:nth-child(5) { grid-column: 1 / span 2; grid-row: 3; } /* cols 1-2 */
   .tilted-card-mobile-alert {
     display: block;
+  }
+  .process-dialog {
+    width: 70%;
   }
   .tilted-card-caption {
     display: none;
