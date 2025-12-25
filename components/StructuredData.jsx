@@ -79,6 +79,43 @@ export default function StructuredData() {
     ],
     priceRange: '$$',
     founder: { '@id': `${baseUrl}/#person` },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5.0',
+      bestRating: '5',
+      worstRating: '1',
+      ratingCount: '3',
+      reviewCount: '3',
+    },
+  };
+
+  // Organization Schema - Business entity
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${baseUrl}/#organization`,
+    name: 'Andrii Litkovskyi - Marketing Services',
+    alternateName: 'litkovskyi.de',
+    url: baseUrl,
+    logo: `${baseUrl}/og-image.png`,
+    image: `${baseUrl}/og-image.png`,
+    description: 'Online-Marketing-Beratung in Minden-Lübbecke. SEO, Google Ads & Meta Ads für lokale Unternehmen in OWL.',
+    email: 'andrii@litkovskyi.de',
+    telephone: '+49 176 58238236',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Mindener Straße 87',
+      addressLocality: 'Hille',
+      postalCode: '32479',
+      addressRegion: 'Nordrhein-Westfalen',
+      addressCountry: 'DE',
+    },
+    founder: { '@id': `${baseUrl}/#person` },
+    sameAs: [
+      'https://www.linkedin.com/in/andrii-litkovskyi/',
+      'https://www.instagram.com/litkovskyi/',
+      'https://github.com/alitkovsky',
+    ],
   };
 
   // WebSite Schema
@@ -182,6 +219,12 @@ export default function StructuredData() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(localBusinessSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema),
         }}
       />
       <script

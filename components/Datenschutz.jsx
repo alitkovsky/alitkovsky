@@ -1,6 +1,7 @@
 "use client";
 
 import BackToStart from "@/components/BackToStart";
+import Breadcrumb from "@/components/Breadcrumb";
 import Footer from "@/components/Footer";
 import useLanguage from "@/hooks/useLanguage";
 import Link from "next/link";
@@ -431,6 +432,7 @@ export default function Datenschutz() {
 
   return (
     <section className="section datenschutz" id="datenschutz">
+      <Breadcrumb pageName={copy.title} pageUrl="/datenschutz" />
       <div className="content">
         <div className="title">
           <h1>{copy.title}</h1>

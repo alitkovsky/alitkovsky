@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import Footer from "@/components/Footer";
 import BackToStart from "@/components/BackToStart";
+import Breadcrumb from "@/components/Breadcrumb";
 
 const IMPRESSUM_COPY = {
   de: {
@@ -131,6 +132,7 @@ export default function Impressum() {
 
   return (
     <section className="section impressum" id="impressum">
+      <Breadcrumb pageName={copy.title} pageUrl="/impressum" />
       <div className="content">
         <div className="left">
           <h1>{copy.title}</h1>

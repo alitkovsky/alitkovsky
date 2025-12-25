@@ -19,6 +19,9 @@ export default function CaseStudy() {
           itemScope
           itemType="https://schema.org/Article"
         >
+          <meta itemProp="datePublished" content="2024-06-15" />
+          <meta itemProp="dateModified" content="2024-12-25" />
+          <meta itemProp="author" content="Andrii Litkovskyi" />
           <div className="main">
             <h3 itemProp="headline">case study</h3>
             <p className="description" itemProp="description">Virtu Legal entered into an agreement with MediGen Pharma in June 2023 to provide legal services, including the drafting of an exclusive distribution agreement for the new pain reliever.</p>

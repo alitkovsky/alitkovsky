@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useId } from "react";
 import useLanguage from "@/hooks/useLanguage";
+import Script from "next/script";
 
 const COPY = {
   de: {
@@ -81,6 +82,7 @@ const COPY = {
 export default function Faq() {
   const { language } = useLanguage();
   const copy = COPY[language] ?? COPY.de;
+  const baseId = useId();
 
   // Allow clicking active radio to deselect it (radios don't support this natively)
   const handleLabelClick = useCallback((e) => {
@@ -93,37 +95,74 @@ export default function Faq() {
     }
   }, []);
 
+  // Generate FAQPage structured data
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: copy.items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
-    <section className="section faq" id="faq">
+    <section className="section faq" id="faq" aria-labelledby={`${baseId}-title`}>
+      {/* FAQPage Schema for rich snippets */}
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <div className="content">
         <div className="title">
+          <h2 id={`${baseId}-title`} className="sr-only">
+            {language === "de" ? "Häufig gestellte Fragen" : "Frequently Asked Questions"}
+          </h2>
           <p>{copy.intro}</p>
         </div>
-        <div className="accordion">
-          {copy.items.map((item, index) => (
-            <div className="item" key={index}>
-              <input
-                type="radio"
-                name="faq-accordion"
-                id={`faq-toggle-${index}`}
-                className="item__toggle"
-              />
-              <label
-                htmlFor={`faq-toggle-${index}`}
-                className="btn"
-                data-cursor="link"
-                onClick={handleLabelClick}
-              >
-                <span className="caption">{item.question}</span>
-                <span className="icon" aria-hidden="true">+</span>
-              </label>
-              <div className="item-content">
-                <div className="item-content__inner">
-                  <p>{item.answer}</p>
+        <div className="accordion" role="region" aria-label={language === "de" ? "FAQ Akkordeon" : "FAQ Accordion"}>
+          {copy.items.map((item, index) => {
+            const toggleId = `${baseId}-toggle-${index}`;
+            const contentId = `${baseId}-content-${index}`;
+
+            return (
+              <div className="item" key={index}>
+                <input
+                  type="radio"
+                  name="faq-accordion"
+                  id={toggleId}
+                  className="item__toggle"
+                  aria-controls={contentId}
+                />
+                <label
+                  htmlFor={toggleId}
+                  className="btn"
+                  data-cursor="link"
+                  onClick={handleLabelClick}
+                  role="button"
+                  aria-expanded="false"
+                >
+                  <span className="caption">{item.question}</span>
+                  <span className="icon" aria-hidden="true">+</span>
+                </label>
+                <div
+                  id={contentId}
+                  className="item-content"
+                  role="region"
+                  aria-labelledby={toggleId}
+                >
+                  <div className="item-content__inner">
+                    <p>{item.answer}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

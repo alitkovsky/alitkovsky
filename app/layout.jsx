@@ -30,8 +30,8 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 export const metadata = {
   metadataBase: new URL('https://litkovskyi.de'),
-  title: "hi! i'm andrii litkovskyi",
-  description: "a digital marketing expert",
+  title: "Andrii Litkovskyi | Marketing Berater Hille | SEO & Paid Ads OWL",
+  description: "Online-Marketing-Beratung in Minden-Lübbecke. SEO, Google Ads & Meta Ads für Praxen, Handwerker und lokale Unternehmen in OWL. 15+ Jahre Erfahrung.",
   alternates: {
     canonical: '/',
     languages: {
@@ -61,16 +61,16 @@ export const metadata = {
     statusBarStyle: "default",
   },
   openGraph: {
-    title: "hi! i'm andrii litkovskyi",
-    description: "a digital marketing expert",
+    title: "Andrii Litkovskyi | Marketing Berater Hille",
+    description: "Online-Marketing-Beratung in Minden-Lübbecke. SEO, Google Ads & Meta Ads für Praxen, Handwerker und lokale Unternehmen in OWL.",
     type: "website",
     url: "https://litkovskyi.de/",
     images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "hi! i'm andrii litkovskyi",
-    description: "a digital marketing expert",
+    title: "Andrii Litkovskyi | Marketing Berater Hille",
+    description: "Online-Marketing-Beratung in Minden-Lübbecke. SEO, Google Ads & Meta Ads für Praxen, Handwerker und lokale Unternehmen in OWL.",
     images: ["/og-image.png"],
   },
 };

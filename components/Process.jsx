@@ -111,34 +111,37 @@ export default function Process() {
   };
 
   return (
-    <section className="section process" id="process">
+    <section
+      className="section process"
+      id="process"
+      aria-label={language === "de" ? "Arbeitsprozess" : "Work Process"}
+    >
       <div className="content">
         <div className="title">
           <p>{copy.intro}</p>
         </div>
 
-        <div className="cards">
+        <div className="cards" role="list">
           {copy.steps.map((step, index) => (
-            <div
-              key={step.title}
-              className="card"
-              data-cursor="link"
-              onClick={() => handleCardClick(step)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  handleCardClick(step);
+            <div key={step.title} className="card" role="listitem">
+              <button
+                type="button"
+                className="card__trigger"
+                data-cursor="link"
+                onClick={() => handleCardClick(step)}
+                aria-haspopup="dialog"
+                aria-label={
+                  language === "de"
+                    ? `Schritt ${index + 1}: ${step.title} – Details anzeigen`
+                    : `Step ${index + 1}: ${step.title} – View details`
                 }
-              }}
-              role="button"
-              tabIndex={0}
-            >
-              <div className="index">
-                <p className="title">{String(index + 1).padStart(2, "0")}</p>
-                <i aria-hidden className="plus-icon">+</i>
-              </div>
-
-              <p className="stage">{step.title}</p>
+              >
+                <div className="index">
+                  <p className="title">{String(index + 1).padStart(2, "0")}</p>
+                  <i aria-hidden="true" className="plus-icon">+</i>
+                </div>
+                <p className="stage">{step.title}</p>
+              </button>
             </div>
           ))}
         </div>
