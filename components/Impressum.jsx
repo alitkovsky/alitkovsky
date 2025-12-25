@@ -13,7 +13,7 @@ const IMPRESSUM_COPY = {
     provider: {
       heading: "angaben gemäß § 5 DDG",
       name: "andrii litkovskyi",
-      address: "mindener str. 87",
+      address: "mindener straße 87",
       city: "32479 hille",
       country: "deutschland",
     },
@@ -32,7 +32,7 @@ const IMPRESSUM_COPY = {
     responsible: {
       heading: "verantwortlich für den inhalt nach § 18 abs. 2 MStV",
       name: "andrii litkovskyi",
-      address: "mindener str. 87",
+      address: "mindener straße 87",
       city: "32479 hille",
     },
     dispute: {
@@ -71,7 +71,7 @@ const IMPRESSUM_COPY = {
     provider: {
       heading: "information pursuant to § 5 DDG",
       name: "andrii litkovskyi",
-      address: "mindener str. 87",
+      address: "mindener straße 87",
       city: "32479 hille",
       country: "germany",
     },
@@ -90,7 +90,7 @@ const IMPRESSUM_COPY = {
     responsible: {
       heading: "responsible for content pursuant to § 18 para. 2 MStV",
       name: "andrii litkovskyi",
-      address: "mindener str. 87",
+      address: "mindener straße 87",
       city: "32479 hille",
     },
     dispute: {

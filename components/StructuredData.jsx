@@ -33,6 +33,90 @@ export default function StructuredData() {
       'https://www.upwork.com/freelancers/~01fc21565de40bab50',
     ],
     knowsLanguage: ['de', 'en', 'uk'],
+    // E-E-A-T: Education credentials
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: 'Taurida V.I. Vernadsky National University',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Simferopol',
+        addressCountry: 'UA',
+      },
+    },
+    // E-E-A-T: Professional certifications
+    hasCredential: [
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'Digital Marketing Professional Certificate',
+        credentialCategory: 'certificate',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'Content Marketing Institute',
+        },
+        dateCreated: '2025-03',
+        url: 'https://www.linkedin.com/learning/certificates/dd2e4956921f69e82c024361171b6a4364a3b12bf7a8d298f7f8b4d974c69785',
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'HubSpot Marketing Hub Software',
+        credentialCategory: 'certificate',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'HubSpot Academy',
+          url: 'https://academy.hubspot.com',
+        },
+        dateCreated: '2025-03',
+        url: 'https://app.hubspot.com/academy/achievements/41jh50tc/en/1/andrii-litkovskyi/hubspot-marketing-hub-software',
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'LinkedIn Certified Marketing Insider',
+        credentialCategory: 'certificate',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'LinkedIn',
+          url: 'https://www.linkedin.com',
+        },
+        dateCreated: '2025-03',
+        url: 'https://verify.skilljar.com/c/ompyyiw62qyi',
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'Google Analytics Certification',
+        credentialCategory: 'certificate',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'Google',
+          url: 'https://skillshop.google.com',
+        },
+        dateCreated: '2025-01',
+        url: 'https://skillshop.credential.net/8f0ae8dd-61e4-436b-8def-22f710dc4802',
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'German B2 Certificate',
+        credentialCategory: 'certificate',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'telc GmbH',
+          url: 'https://www.telc.net',
+        },
+        dateCreated: '2024-09',
+        url: 'https://results.telc.net/qr/4DfpYIMoQ3u1skjqxfDgxU3uv472s0sDmrqtjq5D10_SKNDXlANETac3r5mTpnxe',
+      },
+      {
+        '@type': 'EducationalOccupationalCredential',
+        name: 'English C1 Certificate',
+        credentialCategory: 'certificate',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'EF Education First',
+          url: 'https://www.efset.org',
+        },
+        dateCreated: '2023-07',
+        url: 'https://cert.efset.org/227RcM',
+      },
+    ],
   };
 
   // LocalBusiness Schema - Freelance Services

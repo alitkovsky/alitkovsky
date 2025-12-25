@@ -12,7 +12,7 @@ const DATENSCHUTZ_COPY = {
     intro: {
       controller: "verantwortlicher:",
       name: "andrii litkovskyi",
-      address: "mindener str. 87",
+      address: "mindener straße 87",
       city: "32479 hille, deutschland",
       email: "andrii@litkovskyi.de",
       phone: "+49 176 58238236",
@@ -197,7 +197,7 @@ const DATENSCHUTZ_COPY = {
     intro: {
       controller: "controller:",
       name: "andrii litkovskyi",
-      address: "mindener str. 87",
+      address: "mindener straße 87",
       city: "32479 hille, germany",
       email: "andrii@litkovskyi.de",
       phone: "+49 176 58238236",

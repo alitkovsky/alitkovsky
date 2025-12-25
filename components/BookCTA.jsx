@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import TextEffect from "@/components/TextEffect";
 import Magnet from "@/components/Magnet";
 import useCalendly from "@/hooks/useCalendly";
@@ -40,10 +40,12 @@ export default function BookCTA({
   ctaLocation,
   autoActive = true,
 }) {
-  const { openCalendly, isLoading, eventUrl, lastError } = useCalendly();
+  const { openCalendly, isLoading, isOpen, eventUrl, lastError } = useCalendly();
   const { language } = useLanguage();
   const copy = COPY[language] ?? COPY.en;
   const noteId = useId();
+  const ctaRef = useRef(null);
+  const openedFromThisRef = useRef(false);
   const targetUrl = useMemo(
     () => normalizeUrl(url, eventUrl),
     [url, eventUrl],
@@ -56,6 +58,17 @@ export default function BookCTA({
     window.addEventListener("storage", syncConsent);
     return () => window.removeEventListener("storage", syncConsent);
   }, []);
+
+  // Restore focus to CTA when popup closes (if opened from this CTA)
+  useEffect(() => {
+    if (!isOpen && openedFromThisRef.current) {
+      openedFromThisRef.current = false;
+      // Small delay to ensure popup is fully closed
+      requestAnimationFrame(() => {
+        ctaRef.current?.focus();
+      });
+    }
+  }, [isOpen]);
 
   const consentBlocked = !hasConsent || Boolean(lastError && /consent/i.test(lastError.message));
 
@@ -76,6 +89,7 @@ export default function BookCTA({
     }
 
     trackCTAClick("book_call", ctaLocation || "unspecified");
+    openedFromThisRef.current = true;
     openCalendly({ url: targetUrl, prefill });
   };
 
@@ -109,6 +123,7 @@ export default function BookCTA({
         padding={72}
       >
         <TextEffect
+          ref={ctaRef}
           as="a"
           href={targetUrl}
           variant="ellipseAuto"
@@ -118,6 +133,7 @@ export default function BookCTA({
           onClick={handleClick}
           aria-busy={isLoading}
           aria-disabled={isLoading}
+          aria-haspopup="dialog"
           data-loading={isLoading ? "true" : undefined}
           aria-describedby={consentBlocked ? noteId : undefined}
         >
