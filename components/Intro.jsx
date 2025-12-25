@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import useLanguage from "@/hooks/useLanguage";
+import { useLiveRegion } from "@/components/LiveRegion";
 
 import TextEffect from "@/components/TextEffect";
 import HandwritingEffect from "@/components/HandwritingEffect";
@@ -81,6 +82,7 @@ const OPTION_KEYS = [
 
 export default function Intro() {
   const { language } = useLanguage();
+  const { announce } = useLiveRegion();
 
   const copy = INTRO_COPY[language] ?? INTRO_COPY.en;
   const fallbackCopy = INTRO_COPY.en;
@@ -103,6 +105,7 @@ export default function Intro() {
   }, [availableKeys]);
 
   const optionsRef = useRef(null);
+  const optionRefs = useRef({});
   const [maskVisibility, setMaskVisibility] = useState({ left: false, right: false });
 
   const updateMaskVisibility = useCallback((node) => {
@@ -145,15 +148,55 @@ export default function Intro() {
 
   const handleOptionSelect = useCallback((key) => {
     if (!availableKeys.includes(key)) return;
-    setActiveKey((prev) => (prev === key ? prev : key));
-  }, [availableKeys]);
+    setActiveKey((prev) => {
+      if (prev === key) return prev;
+      // Announce the content change to screen readers
+      const lines = copy.texts[key] ?? fallbackCopy.texts[key];
+      if (lines?.length) {
+        announce(lines.join(" "), { priority: "polite" });
+      }
+      return key;
+    });
+  }, [availableKeys, copy.texts, fallbackCopy.texts, announce]);
 
-  const handleOptionKeyDown = useCallback((event, key) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      handleOptionSelect(key);
+  // Arrow key navigation for radiogroup
+  const handleOptionKeyDown = useCallback((event, key, index) => {
+    const keys = availableKeys;
+    let newIndex = index;
+
+    switch (event.key) {
+      case "ArrowRight":
+      case "ArrowDown":
+        event.preventDefault();
+        newIndex = (index + 1) % keys.length;
+        break;
+      case "ArrowLeft":
+      case "ArrowUp":
+        event.preventDefault();
+        newIndex = (index - 1 + keys.length) % keys.length;
+        break;
+      case "Home":
+        event.preventDefault();
+        newIndex = 0;
+        break;
+      case "End":
+        event.preventDefault();
+        newIndex = keys.length - 1;
+        break;
+      case "Enter":
+      case " ":
+        event.preventDefault();
+        handleOptionSelect(key);
+        return;
+      default:
+        return;
     }
-  }, [handleOptionSelect]);
+
+    const newKey = keys[newIndex];
+    handleOptionSelect(newKey);
+    // Focus the new option
+    optionRefs.current[newKey]?.focus();
+  }, [availableKeys, handleOptionSelect]);
 
   return (
     <section className="section intro" id="intro">
@@ -165,6 +208,8 @@ export default function Intro() {
           className="options"
           ref={optionsRef}
           onScroll={handleOptionsScroll}
+          role="radiogroup"
+          aria-label={language === "de" ? "Zielgruppe auswählen" : "Select audience"}
         >
           {OPTION_KEYS.map((key, index) => {
             const label = copy.options[key] ?? fallbackCopy.options[key];
@@ -176,12 +221,14 @@ export default function Intro() {
                 variant="underlineAuto"
                 trigger="hover"
                 key={key}
+                ref={(el) => { optionRefs.current[key] = el; }}
                 className={`option ${key} ${isActive ? "is--active" : ""}`}
                 data-key={key}
-                role="button"
-                tabIndex={0}
+                role="radio"
+                aria-checked={isActive}
+                tabIndex={isActive ? 0 : -1}
                 onClick={() => handleOptionSelect(key)}
-                onKeyDown={(event) => handleOptionKeyDown(event, key)}
+                onKeyDown={(event) => handleOptionKeyDown(event, key, index)}
               >
                 {label}
               </TextEffect>

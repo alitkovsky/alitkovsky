@@ -75,6 +75,7 @@ function ToolIcon3D({
       />
       <SkillIcon3DCanvas
         svgSrc={svgSrc}
+        title={title}
         color={color}
         thickness={thickness}
         mode={mode}

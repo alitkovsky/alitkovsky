@@ -17,6 +17,9 @@ export default function useMobileNav() {
         closeTimeoutId = null;
       }
 
+      // Update aria-expanded for accessibility
+      navButton.setAttribute("aria-expanded", "true");
+
       // Step 1: Show nav with .mobile-nav--is--transitioning
       body.classList.add("mobile-nav--is--transitioning");
 
@@ -29,6 +32,9 @@ export default function useMobileNav() {
     };
 
     const closeMobileNav = () => {
+      // Update aria-expanded for accessibility
+      navButton.setAttribute("aria-expanded", "false");
+
       body.classList.remove("mobile-nav--is--visible");
 
       // Remove transitioning class after animation completes to restore scrolling

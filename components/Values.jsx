@@ -65,7 +65,7 @@ const VALUES_COPY = {
     results: [
       {
         counter: "+48%",
-        title: "sichtbarkeit",
+        title: "visibility",
       },
       {
         counter: "+35%",
@@ -73,14 +73,13 @@ const VALUES_COPY = {
       },
       {
         counter: "+25%",
-        title: "qualifizierte leads",
+        title: "qualified leads",
       },
       {
         counter: "—22%",
-        title: "werbekosten",
+        title: "ad costs",
       },
     ],
-    // results: "+48% visibility · +35% conversions · +25% qualified leads · —22% ad costs",
     expertiseTitle: "my expertise",
     toolsTitle: "my toolkit",
     logosLabel: "marketing tools",

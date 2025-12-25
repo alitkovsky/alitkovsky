@@ -15,6 +15,7 @@ import Image from "next/image";
  */
 function ToolIcon3DCanvas({
   svgSrc, // SVG file path (e.g., "/assets/svg/icon.svg")
+  title = "", // Tool name for accessibility
   color = "#131313",
   thickness = 1.5,
   mode = "contain",
@@ -188,7 +189,7 @@ function ToolIcon3DCanvas({
       {showFallback && svgSrc ? (
         <Image
           src={svgSrc}
-          alt="Tool icon"
+          alt={title || "Tool icon"}
           width={150}
           height={60}
           className="tool-icon-3d-canvas__fallback"

@@ -292,6 +292,8 @@ export const LogoLoop = memo(({
       );
     }
     const isNodeItem = "node" in item;
+    // Use title as fallback for alt to ensure images are not incorrectly marked as decorative
+    const imageAlt = item.alt ?? item.title ?? "";
     const content = isNodeItem ? (
       <span className="logoloop__node" aria-hidden={!!item.href && !item.ariaLabel}>
         {item.node}
@@ -303,13 +305,13 @@ export const LogoLoop = memo(({
         sizes={item.sizes}
         width={item.width}
         height={item.height}
-        alt={item.alt ?? ""}
+        alt={imageAlt}
         title={item.title}
         loading="lazy"
         decoding="async"
         draggable={false} />
     );
-    const itemAriaLabel = isNodeItem ? (item.ariaLabel ?? item.title) : (item.alt ?? item.title);
+    const itemAriaLabel = isNodeItem ? (item.ariaLabel ?? item.title) : (imageAlt || item.title);
     const itemContent = item.href ? (
       <a
         className="logoloop__link"

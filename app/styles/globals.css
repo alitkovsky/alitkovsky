@@ -676,7 +676,9 @@ body.cover--is--visible .app-nav {
 .app-header .navigation {
   display: none;
   padding: 12px 0;
-  width: 32px;
+  min-width: 44px;
+  min-height: 44px;
+  /* WCAG touch target: 44x44px minimum */
 }
 .app-header .navigation:hover {
   cursor: pointer;
@@ -2243,13 +2245,21 @@ body.theme-transition * {
   width: 100%;
   padding: 1.2rem 1.4rem;
   border: none;
-  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
   text-align: left;
   cursor: pointer;
-  transition: 0.1s;
+  transition: background 0.1s ease;
 }
 .section.faq > .content .accordion .item .btn:hover {
   background: var(--color--foreground--20);
+}
+.section.faq > .content .accordion .item .btn:focus-visible {
+  outline: 2px solid var(--color--foreground--100);
+  outline-offset: -2px;
 }
 /* Hidden checkbox for pure CSS toggle */
 .section.faq > .content .accordion .item__toggle {
@@ -3269,5 +3279,94 @@ body.custom-cursor-active select {
   /* Disable custom cursor (too much movement) */
   .custom-cursor {
     display: none !important;
+  }
+}
+
+/**
+ * Print styles
+ * Ensure readable layout and hide decorative/interactive elements
+ */
+@media print {
+  /* Reset colors for print */
+  body {
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  /* Hide decorative and interactive elements */
+  .custom-cursor,
+  .app-header .navigation,
+  .app-nav,
+  .cookie-banner,
+  .cookie-settings,
+  .cookie-settings__backdrop,
+  .cookie-settings__wrapper,
+  .page-transition-overlay,
+  .background,
+  .logoloop,
+  .wiggle,
+  .cta-link,
+  .book-cta,
+  .gradient-mask,
+  .image-overlay-01,
+  .image-overlay-02 {
+    display: none !important;
+  }
+
+  /* Ensure content is visible and readable */
+  .app-main,
+  .section,
+  .content {
+    background: transparent !important;
+    color: #000 !important;
+  }
+
+  /* Show full content without overflow hidden */
+  .section {
+    overflow: visible !important;
+    page-break-inside: avoid;
+  }
+
+  /* Ensure links show their URLs */
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  /* Don't show URL for internal anchor links */
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  /* Ensure text is readable */
+  h1, h2, h3, h4, h5, h6,
+  p, li, blockquote, cite {
+    color: #000 !important;
+  }
+
+  /* Ensure images print properly */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Show header brand for identification */
+  .app-header {
+    position: static !important;
+    background: transparent !important;
+  }
+
+  .app-header .brand {
+    color: #000 !important;
+  }
+
+  /* Footer adjustments */
+  footer[role="contentinfo"] {
+    color: #000 !important;
+    border-top: 1px solid #ccc;
+    margin-top: 2rem;
+    padding-top: 1rem;
   }
 }

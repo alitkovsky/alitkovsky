@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useId } from "react";
+import { useCallback, useId, useState } from "react";
 import useLanguage from "@/hooks/useLanguage";
 import Script from "next/script";
 
@@ -83,17 +83,20 @@ export default function Faq() {
   const { language } = useLanguage();
   const copy = COPY[language] ?? COPY.de;
   const baseId = useId();
+  const [expandedIndex, setExpandedIndex] = useState(null);
 
-  // Allow clicking active radio to deselect it (radios don't support this natively)
-  const handleLabelClick = useCallback((e) => {
-    const label = e.currentTarget;
-    const radioId = label.getAttribute("for");
-    const radio = document.getElementById(radioId);
-    if (radio?.checked) {
-      e.preventDefault();
-      radio.checked = false;
-    }
+  // Toggle FAQ item - clicking same item closes it
+  const handleToggle = useCallback((index) => {
+    setExpandedIndex((prev) => (prev === index ? null : index));
   }, []);
+
+  // Handle keyboard navigation
+  const handleKeyDown = useCallback((e, index) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleToggle(index);
+    }
+  }, [handleToggle]);
 
   // Generate FAQPage structured data
   const faqSchema = {
@@ -129,6 +132,7 @@ export default function Faq() {
           {copy.items.map((item, index) => {
             const toggleId = `${baseId}-toggle-${index}`;
             const contentId = `${baseId}-content-${index}`;
+            const isExpanded = expandedIndex === index;
 
             return (
               <div className="item" key={index}>
@@ -137,24 +141,28 @@ export default function Faq() {
                   name="faq-accordion"
                   id={toggleId}
                   className="item__toggle"
-                  aria-controls={contentId}
+                  checked={isExpanded}
+                  onChange={() => handleToggle(index)}
+                  aria-hidden="true"
+                  tabIndex={-1}
                 />
-                <label
-                  htmlFor={toggleId}
+                <button
+                  type="button"
                   className="btn"
                   data-cursor="link"
-                  onClick={handleLabelClick}
-                  role="button"
-                  aria-expanded="false"
+                  onClick={() => handleToggle(index)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                  aria-expanded={isExpanded}
+                  aria-controls={contentId}
                 >
                   <span className="caption">{item.question}</span>
                   <span className="icon" aria-hidden="true">+</span>
-                </label>
+                </button>
                 <div
                   id={contentId}
                   className="item-content"
                   role="region"
-                  aria-labelledby={toggleId}
+                  aria-hidden={!isExpanded}
                 >
                   <div className="item-content__inner">
                     <p>{item.answer}</p>
