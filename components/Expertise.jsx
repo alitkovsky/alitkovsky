@@ -139,7 +139,6 @@ export default function Expertise() {
               <p key={index}>
                 <span className="title">{item.direction}<br /></span>
                 <span className="description">by&nbsp;{item.platform}&nbsp;|&nbsp;{item.date}<br /></span>
-                {/* <span className="skills">Skills: {item.skills}<br /></span> */}
                 <span className="description">
                   {item.link ? (
                     <TextEffect
