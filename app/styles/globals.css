@@ -1508,7 +1508,7 @@ body.theme-transition * {
 }
 .section.values .logos .client-card:hover {
   transform: scale(1.08);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); */
   /* Compensate for scale growth: 8vw * 0.08 / 2 = 0.32vw per side */
   margin-left: 0.32vw;
   margin-right: 0.32vw;
@@ -1522,6 +1522,8 @@ body.theme-transition * {
 }
 .section.values .logos .client-card.r1:hover {
   transform: rotate(2.26deg) scale(1.08);
+  margin-left: 0.32vw;
+  margin-right: 0.32vw;
 }
 .section.values .logos .client-card.r2 {
   margin-left: 0vw;
@@ -1529,10 +1531,12 @@ body.theme-transition * {
 }
 .section.values .logos .client-card.r2:hover {
   transform: rotate(-3.3deg) scale(1.08);
+  margin-left: 0.32vw;
+  margin-right: 0.32vw;
 }
 .section.values .logos .client-logo {
-  width: 4vw;
-  height: 4vw;
+  width: 3vw;
+  height: 3vw;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1571,6 +1575,9 @@ body.theme-transition * {
   max-width: 100%;
   position: relative;
   z-index: 1;
+  /* Add vertical padding to accommodate card scale on hover: 8vw * 0.08 / 2 = 0.32vw */
+  padding-top: 0.46vw;
+  padding-bottom: 0.46vw;
 }
 .section.values .logos .gradient-mask {
   position: absolute;
@@ -2065,10 +2072,10 @@ body.theme-transition * {
 
 .certificate-dialog {
   position: relative;
-  width: 70vw;
-  max-width: 1000px;
-  height: auto;
-  max-height: 85vh;
+  /* Width derived from height + aspect-ratio, not fixed */
+  width: auto;
+  max-width: calc(100vw - 4rem); /* viewport minus wrapper padding */
+  height: 80vh;
   /* aspect-ratio applied via inline style for dynamic values */
   overflow: hidden;
   border-radius: 1.6vw;
@@ -2076,11 +2083,6 @@ body.theme-transition * {
   animation: certificate-dialog-in 0.3s ease-out forwards;
   will-change: transform, opacity;
   padding: 1rem 0;
-}
-.certificate-dialog--portrait {
-  width: auto;
-  height: 85vh;
-  max-width: 85vw;
 }
 
 @keyframes certificate-dialog-in {
@@ -2163,8 +2165,8 @@ body.theme-transition * {
   }
 
   .certificate-dialog {
-    width: 95vw;
-    max-height: 85vh;
+    max-width: calc(100vw - 2rem); /* viewport minus wrapper padding */
+    height: 85vh;
   }
 
   .certificate-dialog__close {

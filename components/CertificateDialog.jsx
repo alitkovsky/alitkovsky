@@ -71,20 +71,6 @@ export default function CertificateDialog({ certificate, onClose }) {
 
   const { title, imageSrc, aspectRatio = "4 / 3" } = certificate;
 
-  // Determine if portrait orientation (height > width)
-  const isPortrait = (() => {
-    const parts = aspectRatio.split("/").map((p) => parseFloat(p.trim()));
-    return parts.length === 2 && parts[0] < parts[1];
-  })();
-
-  const dialogClasses = [
-    "certificate-dialog",
-    isClosing && "certificate-dialog--closing",
-    isPortrait && "certificate-dialog--portrait",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
     <>
       {/* Backdrop */}
@@ -100,7 +86,7 @@ export default function CertificateDialog({ certificate, onClose }) {
         onClick={handleClose}
       >
         <div
-          className={dialogClasses}
+          className={`certificate-dialog${isClosing ? " certificate-dialog--closing" : ""}`}
           ref={modalRef}
           role="dialog"
           aria-modal="true"
