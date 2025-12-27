@@ -2075,7 +2075,8 @@ body.theme-transition * {
   /* Width derived from height + aspect-ratio, not fixed */
   width: auto;
   max-width: calc(100vw - 4rem); /* viewport minus wrapper padding */
-  height: 80vh;
+  height: 70%;
+  max-height: 90%;
   /* aspect-ratio applied via inline style for dynamic values */
   overflow: hidden;
   border-radius: 1.6vw;

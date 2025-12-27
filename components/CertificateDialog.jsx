@@ -103,9 +103,9 @@ export default function CertificateDialog({ certificate, onClose }) {
               src={imageSrc}
               alt={title}
               fill
-              sizes="(max-width: 768px) 90vw, 70vw"
+              sizes="(max-width: 768px) 70vw, 70vw"
               style={{ objectFit: "contain" }}
-              priority
+              loading="lazy"
             />
           </div>
           {/* <button
