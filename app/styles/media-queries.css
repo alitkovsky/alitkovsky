@@ -678,6 +678,17 @@
     width: 80%;
     height: 90dvh;
   }
+  .process-dialog h3,
+  .process-dialog__result-metrics {
+    font-size: var(--font--size-medium);
+  }
+  .process-dialog__section--main p {
+    font-size: var(--font--size-small);
+  }
+  .process-dialog__result-text {
+    font-size: var(--font--size-small);
+    width: 100%;
+  }
   .tilted-card-caption {
     display: none;
   }
@@ -713,7 +724,7 @@
   }
   .cookie-settings {
     width: 95%;
-    max-height: 95vh;
+    max-height: 90vh;
   }
   .cookie-settings__title {
     font-size: var(--font--size-regular);
