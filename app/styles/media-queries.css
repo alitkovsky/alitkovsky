@@ -522,7 +522,7 @@
   }
   .process-dialog h3,
   .process-dialog__result-metrics {
-    font-size: var(--font--size-large);
+    font-size: var(--font--size-medium);
   }
   .process-dialog__section--main p {
     font-size: var(--font--size-small);
@@ -732,6 +732,9 @@
   .process-dialog h3,
   .process-dialog__result-metrics {
     font-size: var(--font--size-medium);
+  }
+  .process-dialog__section--main h3 {
+    width: 70%;
   }
   .process-dialog__section--main p {
     font-size: var(--font--size-small);
