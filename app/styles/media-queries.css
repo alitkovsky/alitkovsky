@@ -678,6 +678,12 @@
     width: 80%;
     height: 90dvh;
   }
+  .process-dialog__section--main {
+    flex: 0 0 68%;
+  }
+  .process-dialog__section--result {
+    flex: 0 0 25%;
+  }
   .process-dialog h3,
   .process-dialog__result-metrics {
     font-size: var(--font--size-medium);
