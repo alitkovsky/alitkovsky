@@ -302,6 +302,10 @@
   .cookie-settings {
     width: 80%;
   }
+  /* .section.process > .content .cards .card i.plus-icon,
+  .cookie-settings__close {
+    border-radius: .6vw;
+  } */
 }
 
 /* 4 columns */
@@ -508,6 +512,24 @@
   }
   .process-dialog {
     width: 70%;
+    height: 70dvh;
+  }
+  .process-dialog__section--main {
+    flex: 0 0 58%;
+  }
+  .process-dialog__section--result {
+    flex: 0 0 30%;
+  }
+  .process-dialog h3,
+  .process-dialog__result-metrics {
+    font-size: var(--font--size-large);
+  }
+  .process-dialog__section--main p {
+    font-size: var(--font--size-small);
+  }
+  .process-dialog__result-text {
+    font-size: var(--font--size-small);
+    width: 50%;
   }
   .datenschutz-table {
     font-size: 0.8125rem;
@@ -515,6 +537,29 @@
   }
   .datenschutz-table__cell {
     padding: 0.5rem 0.6rem;
+  }
+  /* .section.process > .content .cards .card i.plus-icon,
+  .cookie-settings__close {
+    border-radius: 1vw;
+  } */
+  .certificate-dialog__wrapper {
+    padding: 0.5rem;
+  }
+
+  .certificate-dialog {
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+
+  /* On mobile, both orientations use more screen space */
+  .certificate-dialog__image {
+    max-width: calc(90vw - 2rem);
+    max-height: calc(80vh - 2rem);
+  }
+
+  .certificate-dialog--portrait .certificate-dialog__image {
+    max-width: calc(90vw - 2rem);
+    max-height: calc(70vh - 2rem);
   }
 }
 
@@ -676,7 +721,7 @@
   }
   .process-dialog {
     width: 80%;
-    height: 90dvh;
+    height: 70dvh;
   }
   .process-dialog__section--main {
     flex: 0 0 68%;

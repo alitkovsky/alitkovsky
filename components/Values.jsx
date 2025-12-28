@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import TextEffect from "@/components/TextEffect";
 import LogoLoop from "@/components/LogoLoop";
@@ -155,6 +155,25 @@ const VALUES_COPY = {
 export default function Values() {
   const { language } = useLanguage();
   const [selectedCertificate, setSelectedCertificate] = useState(null);
+
+  // Preload certificate images in background after page load
+  useEffect(() => {
+    const preloadImages = () => {
+      certificationLogos.forEach((cert) => {
+        const img = new window.Image();
+        img.src = cert.imageSrc;
+      });
+    };
+
+    // Wait for browser idle time to preload, avoiding impact on initial page load
+    if ("requestIdleCallback" in window) {
+      const idleId = requestIdleCallback(preloadImages, { timeout: 3000 });
+      return () => cancelIdleCallback(idleId);
+    }
+    // Fallback for browsers without requestIdleCallback
+    const timeoutId = setTimeout(preloadImages, 1500);
+    return () => clearTimeout(timeoutId);
+  }, []);
 
   const copy = VALUES_COPY[language] ?? VALUES_COPY.en;
   const fallbackCopy = VALUES_COPY.en;

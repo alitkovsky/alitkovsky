@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 
 export default function CertificateDialog({ certificate, onClose }) {
   const modalRef = useRef(null);
@@ -71,6 +70,20 @@ export default function CertificateDialog({ certificate, onClose }) {
 
   const { title, imageSrc, aspectRatio = "4 / 3" } = certificate;
 
+  // Determine if portrait orientation (height > width)
+  const isPortrait = (() => {
+    const parts = aspectRatio.split("/").map((p) => parseFloat(p.trim()));
+    return parts.length === 2 && parts[0] < parts[1];
+  })();
+
+  const dialogClasses = [
+    "certificate-dialog",
+    isClosing && "certificate-dialog--closing",
+    isPortrait && "certificate-dialog--portrait",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <>
       {/* Backdrop */}
@@ -86,35 +99,25 @@ export default function CertificateDialog({ certificate, onClose }) {
         onClick={handleClose}
       >
         <div
-          className={`certificate-dialog${isClosing ? " certificate-dialog--closing" : ""}`}
+          className={dialogClasses}
           ref={modalRef}
           role="dialog"
           aria-modal="true"
           aria-labelledby={headingId}
           tabIndex={-1}
           onClick={(e) => e.stopPropagation()}
-          style={{ aspectRatio }}
         >
           <h3 id={headingId} className="sr-only">
             {title}
           </h3>
-          <div className="certificate-dialog__image-container">
-            <Image
-              src={imageSrc}
-              alt={title}
-              fill
-              sizes="(max-width: 768px) 70vw, 70vw"
-              style={{ objectFit: "contain" }}
-              loading="lazy"
-            />
-          </div>
-          {/* <button
-            className={`certificate-dialog__close${isClosing ? " certificate-dialog__close--closing" : ""}`}
-            onClick={handleClose}
-            aria-label="Close dialog"
-          >
-            <i aria-hidden className="plus-icon">+</i>
-          </button> */}
+          {/* Using native img for natural sizing - dialog wraps to fit */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="certificate-dialog__image"
+            src={imageSrc}
+            alt={title}
+            loading="lazy"
+          />
         </div>
       </div>
     </>

@@ -94,9 +94,16 @@ export default function ProcessDialog({ step, onClose }) {
         >
           {/* Section 1: Summary */}
           <div className="process-dialog__section process-dialog__section--main">
-            <h3 id={headingId}>
-              {title}
-            </h3>
+            <div className="flex justify-between">
+              <h3 id={headingId}>{title}</h3>
+              <button
+                className={`process-dialog__close${isClosing ? " process-dialog__close--closing" : ""}`}
+                onClick={handleClose}
+                aria-label="Close dialog"
+              >
+                <i aria-hidden className="plus-icon">+</i>
+              </button>
+            </div>
             <p>{description.summary}</p>
           </div>
 

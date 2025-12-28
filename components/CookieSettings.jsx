@@ -205,9 +205,18 @@ export default function CookieSettings({ onClose, onSave }) {
           {/* Header */}
           <div className="cookie-settings__header">
             <div>
-              <h2 id={headingId} className="cookie-settings__title">
-                {copy.title}
-              </h2>
+              <div className="flex justify-between">
+                <h2 id={headingId} className="cookie-settings__title">
+                  {copy.title}
+                </h2>
+                <button
+                  className="cookie-settings__close"
+                  onClick={onClose}
+                  aria-label="Close settings"
+                >
+                  <i aria-hidden className="plus-icon">+</i>
+                </button>
+              </div>
               <p
                 id={descriptionId}
                 className="cookie-settings__lede"

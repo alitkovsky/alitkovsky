@@ -21,7 +21,13 @@ body {
   --color--foreground--5:   rgb(255 251 245 / 0.05);
   --color--foreground--0:   rgb(255 251 245 / 0);
   --color--background--100: rgb(9 41 41);
-  --color--background--60: rgb(9 41 41 / 0.6);
+  --color--background--50:  rgb(9 41 41 / 0.7);
+  --color--background--33:  rgb(9 41 41 / 0.58);
+  --color--background--25:  rgb(9 41 41 / 0.4);
+  --color--background--20:  rgb(9 41 41 / 0.27);
+  --color--background--15:  rgb(9 41 41 / 0.22);
+  --color--background--10:  rgb(9 41 41 / 0.17);
+  --color--background--5:   rgb(9 41 41 / 0.05);
   --color--background--0:   rgb(9 41 41 / 0);
 
   color: var(--color--foreground--100);
@@ -40,7 +46,13 @@ body.theme-dark {
   --color--foreground--5:   rgb(255 251 245 / 0.05);
   --color--foreground--0:   rgb(255 251 245 / 0);
   --color--background--100: rgb(9 41 41);
-  --color--background--60: rgb(9 41 41 / 0.6);
+  --color--background--50:  rgb(9 41 41 / 0.7);
+  --color--background--33:  rgb(9 41 41 / 0.58);
+  --color--background--25:  rgb(9 41 41 / 0.4);
+  --color--background--20:  rgb(9 41 41 / 0.27);
+  --color--background--15:  rgb(9 41 41 / 0.22);
+  --color--background--10:  rgb(9 41 41 / 0.17);
+  --color--background--5:   rgb(9 41 41 / 0.05);
   --color--background--0:   rgb(9 41 41 / 0);
 
   color: var(--color--foreground--100);
@@ -59,7 +71,13 @@ body.theme-light {
   --color--foreground--5:   rgb(9 41 41 / 0.05);
   --color--foreground--0:   rgb(9 41 41 / 0);
   --color--background--100: rgb(255 251 245);
-  --color--background--60: rgb(255 251 245 / 0.6);
+  --color--background--50:  rgb(255 251 245 / 0.7);
+  --color--background--33:  rgb(255 251 245 / 0.58);
+  --color--background--25:  rgb(255 251 245 / 0.4);
+  --color--background--20:  rgb(255 251 245 / 0.27);
+  --color--background--15:  rgb(255 251 245 / 0.22);
+  --color--background--10:  rgb(255 251 245 / 0.17);
+  --color--background--5:   rgb(255 251 245 / 0.05);
   --color--background--0:   rgb(255 251 245 / 0);
 
   color: var(--color--foreground--100);
@@ -79,7 +97,13 @@ body.theme-light {
     --color--foreground--5:   rgb(9 41 41 / 0.05);
     --color--foreground--0:   rgb(9 41 41 / 0);
     --color--background--100: rgb(255 251 245);
-    --color--background--60: rgb(255 251 245 / 0.6);
+    --color--background--50:  rgb(255 251 245 / 0.7);
+    --color--background--33:  rgb(255 251 245 / 0.58);
+    --color--background--25:  rgb(255 251 245 / 0.4);
+    --color--background--20:  rgb(255 251 245 / 0.27);
+    --color--background--15:  rgb(255 251 245 / 0.22);
+    --color--background--10:  rgb(255 251 245 / 0.17);
+    --color--background--5:   rgb(255 251 245 / 0.05);
     --color--background--0:   rgb(255 251 245 / 0);
   }
 }
