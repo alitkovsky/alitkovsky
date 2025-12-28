@@ -3,6 +3,7 @@
 import Script from "next/script";
 import Link from "next/link";
 import useLanguage from "@/hooks/useLanguage";
+import TextEffect from "@/components/TextEffect";
 
 /**
  * Breadcrumb component with Schema.org BreadcrumbList structured data
@@ -10,7 +11,7 @@ import useLanguage from "@/hooks/useLanguage";
  */
 export default function Breadcrumb({ pageName, pageUrl }) {
   const { language } = useLanguage();
-  const homeLabel = language === "de" ? "Startseite" : "Home";
+  const homeLabel = language === "de" ? "index" : "index";
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -41,9 +42,17 @@ export default function Breadcrumb({ pageName, pageUrl }) {
       <nav aria-label="Breadcrumb" className="breadcrumb">
         <ol>
           <li>
-            <Link href="/">{homeLabel}</Link>
+            <TextEffect
+              as="a"
+              variant="ellipseAuto"
+              href="/"
+              trigger="hover"
+              className="inline-block"
+            >
+              {homeLabel}
+            </TextEffect>
           </li>
-          <li aria-current="page">{pageName}</li>
+          <li aria-current="page" className="bold">{pageName}</li>
         </ol>
       </nav>
     </>

@@ -132,8 +132,8 @@ export default function Impressum() {
 
   return (
     <section className="section impressum" id="impressum">
-      <Breadcrumb pageName={copy.title} pageUrl="/impressum" />
       <div className="content">
+      <Breadcrumb pageName={copy.title} pageUrl="/impressum" />
         <div className="left">
           <h1>{copy.title}</h1>
         </div>
