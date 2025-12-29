@@ -485,30 +485,30 @@ body.cover--is--visible .app-nav {
 .app-header .brand:hover {
   cursor: default;
 }
-.app-header .brand h3 {
+.app-header .brand .brand__name {
   margin-left: var(--font--margin-left);
   line-height: 0.975;
   font-size: var(--font--size-large);
   font-weight: 700;
   line-height: 1;
 }
-.app-header .brand h3 span:nth-child(n+2) {
+.app-header .brand .brand__name span:nth-child(n+2) {
   margin-left: var(--font--margin-left);
   margin-left: -0.035em;
   opacity: 0;
   transition: margin-left 0.3s ease-in, opacity 0.3s ease-in;
 }
-.app-header .brand:hover h3 span:nth-child(n+2) {
+.app-header .brand:hover .brand__name span:nth-child(n+2) {
   margin-left: 0;
   opacity: 1;
   transition: margin-left 0.3s ease-out, opacity 0.3s ease-out;
 }
 /* first name - four dots for four "ı" letters */
 /* All dots start on first two spans, stacked above "a" */
-.app-header .brand h3 span:nth-child(1)::before,
-.app-header .brand h3 span:nth-child(1)::after,
-.app-header .brand h3 span:nth-child(2)::before,
-.app-header .brand h3 span:nth-child(2)::after {
+.app-header .brand .brand__name span:nth-child(1)::before,
+.app-header .brand .brand__name span:nth-child(1)::after,
+.app-header .brand .brand__name span:nth-child(2)::before,
+.app-header .brand .brand__name span:nth-child(2)::after {
   content: ".";
   position: absolute;
   opacity: 1;
@@ -518,92 +518,92 @@ body.cover--is--visible .app-nav {
 
 /* Default state: all dots stacked at the beginning */
 /* Dot 1: stays on span 1, will move to first ı (position 5) */
-.app-header .brand h3 span:nth-child(1)::before {
+.app-header .brand .brand__name span:nth-child(1)::before {
   margin-left: 0.71em;
   transition-delay: 0.12s;
 }
 
 /* Dot 2: on span 1, will move to second ı (position 6) */
-.app-header .brand h3 span:nth-child(1)::after {
+.app-header .brand .brand__name span:nth-child(1)::after {
   margin-left: 0.28em;
   transition-delay: 0.11s;
 }
 
 /* Dot 3: on span 2, appears stacked with others, will move to third ı (position 9) */
-.app-header .brand h3 span:nth-child(2)::before {
+.app-header .brand .brand__name span:nth-child(2)::before {
   margin-left: 0.037em;
   transition-delay: 0.08s;
 }
 
 /* Dot 4: on span 2, appears stacked with others, will move to fourth ı (position 17) */
-.app-header .brand h3 span:nth-child(2)::after {
+.app-header .brand .brand__name span:nth-child(2)::after {
   margin-left: -0.4em;
   transition-delay: 0.00s;
 }
 
 /* Hover state: each dot travels forward to its corresponding letter */
 /* Dot 1: travels to first ı (4 positions forward from "a") */
-.app-header .brand:hover h3 span:nth-child(1)::before {
+.app-header .brand:hover .brand__name span:nth-child(1)::before {
   margin-left: 2.57em;
   transition: margin-left 0.3s ease-out, opacity 0.3s ease-out;
   transition-delay: 0.04s;
 }
 
 /* Dot 2: travels to second ı (5 positions forward) */
-.app-header .brand:hover h3 span:nth-child(1)::after {
+.app-header .brand:hover .brand__name span:nth-child(1)::after {
   margin-left: 2.2165em;
   transition: margin-left 0.3s ease-out, opacity 0.3s ease-out;
   transition-delay: 0.05s;
 }
 
 /* Dot 3: travels to third ı (8 positions forward, accounting for space) */
-.app-header .brand:hover h3 span:nth-child(2)::before {
+.app-header .brand:hover .brand__name span:nth-child(2)::before {
   margin-left: 3.11em;
   transition: margin-left 0.3s ease-out, opacity 0.3s ease-out;
   transition-delay: 0.08s;
 }
 
 /* Dot 4: travels to fourth ı (16 positions forward to the end) */
-.app-header .brand:hover h3 span:nth-child(2)::after {
+.app-header .brand:hover .brand__name span:nth-child(2)::after {
   margin-left: 6.57em;
   transition: margin-left 0.3s ease-out, opacity 0.3s ease-out;
   transition-delay: 0.15s;
 }
 
-.app-header .brand:hover h3 span:nth-child(1)  { transition-delay: 0.00s;}
-.app-header .brand:hover h3 span:nth-child(2)  { transition-delay: 0.01s; }
-.app-header .brand:hover h3 span:nth-child(3)  { transition-delay: 0.02s; }
-.app-header .brand:hover h3 span:nth-child(4)  { transition-delay: 0.03s; }
-.app-header .brand:hover h3 span:nth-child(5)  { transition-delay: 0.04s; }
-.app-header .brand:hover h3 span:nth-child(6)  { transition-delay: 0.05s; }
-.app-header .brand:hover h3 span:nth-child(7)  { transition-delay: 0.06s; }
-.app-header .brand:hover h3 span:nth-child(8)  { transition-delay: 0.07s; }
-.app-header .brand:hover h3 span:nth-child(9)  { transition-delay: 0.08s; }
-.app-header .brand:hover h3 span:nth-child(11) { transition-delay: 0.09s; }
-.app-header .brand:hover h3 span:nth-child(12) { transition-delay: 0.10s; }
-.app-header .brand:hover h3 span:nth-child(13) { transition-delay: 0.11s; }
-.app-header .brand:hover h3 span:nth-child(14) { transition-delay: 0.12s; }
-.app-header .brand:hover h3 span:nth-child(15) { transition-delay: 0.13s; }
-.app-header .brand:hover h3 span:nth-child(16) { transition-delay: 0.14s; }
-.app-header .brand:hover h3 span:nth-child(17) { transition-delay: 0.15s; }
+.app-header .brand:hover .brand__name span:nth-child(1)  { transition-delay: 0.00s;}
+.app-header .brand:hover .brand__name span:nth-child(2)  { transition-delay: 0.01s; }
+.app-header .brand:hover .brand__name span:nth-child(3)  { transition-delay: 0.02s; }
+.app-header .brand:hover .brand__name span:nth-child(4)  { transition-delay: 0.03s; }
+.app-header .brand:hover .brand__name span:nth-child(5)  { transition-delay: 0.04s; }
+.app-header .brand:hover .brand__name span:nth-child(6)  { transition-delay: 0.05s; }
+.app-header .brand:hover .brand__name span:nth-child(7)  { transition-delay: 0.06s; }
+.app-header .brand:hover .brand__name span:nth-child(8)  { transition-delay: 0.07s; }
+.app-header .brand:hover .brand__name span:nth-child(9)  { transition-delay: 0.08s; }
+.app-header .brand:hover .brand__name span:nth-child(11) { transition-delay: 0.09s; }
+.app-header .brand:hover .brand__name span:nth-child(12) { transition-delay: 0.10s; }
+.app-header .brand:hover .brand__name span:nth-child(13) { transition-delay: 0.11s; }
+.app-header .brand:hover .brand__name span:nth-child(14) { transition-delay: 0.12s; }
+.app-header .brand:hover .brand__name span:nth-child(15) { transition-delay: 0.13s; }
+.app-header .brand:hover .brand__name span:nth-child(16) { transition-delay: 0.14s; }
+.app-header .brand:hover .brand__name span:nth-child(17) { transition-delay: 0.15s; }
 
-.app-header .brand h3 span:nth-child(1)  { transition-delay: 0.16s; }
-.app-header .brand h3 span:nth-child(2)  { transition-delay: 0.15s; }
-.app-header .brand h3 span:nth-child(3)  { transition-delay: 0.14s; }
-.app-header .brand h3 span:nth-child(4)  { transition-delay: 0.13s; }
-.app-header .brand h3 span:nth-child(5)  { transition-delay: 0.12s; }
-.app-header .brand h3 span:nth-child(6)  { transition-delay: 0.11s; }
-.app-header .brand h3 span:nth-child(7)  { transition-delay: 0.10s; }
-.app-header .brand h3 span:nth-child(8)  { transition-delay: 0.09s; }
-.app-header .brand h3 span:nth-child(9)  { transition-delay: 0.08s; }
-.app-header .brand h3 span:nth-child(10) { transition-delay: 0.07s; }
-.app-header .brand h3 span:nth-child(11) { transition-delay: 0.06s; }
-.app-header .brand h3 span:nth-child(12) { transition-delay: 0.05s; }
-.app-header .brand h3 span:nth-child(13) { transition-delay: 0.04s; }
-.app-header .brand h3 span:nth-child(14) { transition-delay: 0.03s; }
-.app-header .brand h3 span:nth-child(15) { transition-delay: 0.02s; }
-.app-header .brand h3 span:nth-child(16) { transition-delay: 0.01s; }
-.app-header .brand h3 span:nth-child(17) { transition-delay: 0.00s; }
+.app-header .brand .brand__name span:nth-child(1)  { transition-delay: 0.16s; }
+.app-header .brand .brand__name span:nth-child(2)  { transition-delay: 0.15s; }
+.app-header .brand .brand__name span:nth-child(3)  { transition-delay: 0.14s; }
+.app-header .brand .brand__name span:nth-child(4)  { transition-delay: 0.13s; }
+.app-header .brand .brand__name span:nth-child(5)  { transition-delay: 0.12s; }
+.app-header .brand .brand__name span:nth-child(6)  { transition-delay: 0.11s; }
+.app-header .brand .brand__name span:nth-child(7)  { transition-delay: 0.10s; }
+.app-header .brand .brand__name span:nth-child(8)  { transition-delay: 0.09s; }
+.app-header .brand .brand__name span:nth-child(9)  { transition-delay: 0.08s; }
+.app-header .brand .brand__name span:nth-child(10) { transition-delay: 0.07s; }
+.app-header .brand .brand__name span:nth-child(11) { transition-delay: 0.06s; }
+.app-header .brand .brand__name span:nth-child(12) { transition-delay: 0.05s; }
+.app-header .brand .brand__name span:nth-child(13) { transition-delay: 0.04s; }
+.app-header .brand .brand__name span:nth-child(14) { transition-delay: 0.03s; }
+.app-header .brand .brand__name span:nth-child(15) { transition-delay: 0.02s; }
+.app-header .brand .brand__name span:nth-child(16) { transition-delay: 0.01s; }
+.app-header .brand .brand__name span:nth-child(17) { transition-delay: 0.00s; }
 
 /* Menu */
 .app-header .actions {

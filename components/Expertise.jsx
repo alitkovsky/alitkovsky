@@ -180,7 +180,7 @@ export default function Expertise() {
           <h2>{headings.colophon ?? "Colophon"}</h2>
           <p>
             <span className="description">{colophon.designAndCodePrefix ?? "Design and code by"} <Link href="/">Andrii Litkovskyi</Link><br /></span>
-            <span className="description">{colophon.typesetInPrefix ?? "Typeset in"} <Link href="https://fonts.google.com/specimen/Comfortaa" target="_blank">Comfortaa</Link> {colophon.typesetByJoiner ?? "by"} <Link href="https://fonts.google.com/?query=Johan%20Aakerlund" target="_blank">Johan Aakerlund</Link><br /><br /></span>
+            <span className="description">{colophon.typesetInPrefix ?? "Typeset in"} <Link href="https://fonts.google.com/specimen/Comfortaa" target="_blank" rel="noopener noreferrer">Comfortaa</Link> {colophon.typesetByJoiner ?? "by"} <Link href="https://fonts.google.com/?query=Johan%20Aakerlund" target="_blank" rel="noopener noreferrer">Johan Aakerlund</Link><br /><br /></span>
             <span className="copyright">©&nbsp;<span className="year">{new Date().getFullYear()}</span> {colophon.copyrightSuffix ?? "Andrii Litkovskyi Marketing — made in Germany"}</span>
             {/* <TextEffect
               as="a"

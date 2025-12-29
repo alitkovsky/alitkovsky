@@ -2,7 +2,7 @@ import CaseStudy from "@/components/CaseStudy";
 
 export const metadata = {
   title: "Case Studies – Andrii Litkovskyi",
-  description: "A few words about my projects.",
+  description: "Case studies showcasing SEO, Google Ads, and marketing automation projects with measurable results for local businesses.",
   alternates: {
     canonical: '/cases',
     languages: {

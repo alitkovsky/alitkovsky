@@ -108,6 +108,8 @@ export default function TiltedCard({
         <motion.img
           src={imageSrc}
           alt={altText}
+          width={560}
+          height={560}
           className="tilted-card-img image-overlay-01"
           style={{
             width: imageWidth,

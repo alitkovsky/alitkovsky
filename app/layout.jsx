@@ -30,7 +30,7 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 export const metadata = {
   metadataBase: new URL('https://litkovskyi.de'),
-  title: "Andrii Litkovskyi | Marketing Berater Hille | SEO & Paid Ads OWL",
+  title: "Andrii Litkovskyi | Marketing Berater Hille | SEO & Ads",
   description: "Online-Marketing-Beratung in Minden-Lübbecke. SEO, Google Ads & Meta Ads für Praxen, Handwerker und lokale Unternehmen in OWL. 15+ Jahre Erfahrung.",
   alternates: {
     canonical: '/',

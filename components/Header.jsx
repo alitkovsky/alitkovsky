@@ -29,7 +29,7 @@ export default function Header() {
       <div className="content">
         <div className="brand">
           <Link href="/" className="flex" aria-label={copy.brandLabel}>
-              <h3 aria-hidden="true"><span>a</span><span>n</span><span>d</span><span>r</span><span>ı</span><span>ı</span><span>&nbsp;</span><span>l</span><span>ı</span><span>t</span><span>k</span><span>o</span><span>v</span><span>s</span><span>k</span><span>y</span><span>ı</span></h3>
+              <span className="brand__name" aria-hidden="true"><span>a</span><span>n</span><span>d</span><span>r</span><span>ı</span><span>ı</span><span>&nbsp;</span><span>l</span><span>ı</span><span>t</span><span>k</span><span>o</span><span>v</span><span>s</span><span>k</span><span>y</span><span>ı</span></span>
           </Link>
       </div>
         <div className="actions">

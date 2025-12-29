@@ -6,6 +6,7 @@ export default function CaseStudy() {
   return (
     <section className="section cases" id="cases">
       <div className="content">
+        <h1 className="sr-only">Case Studies</h1>
         <div className="title">
           <h2>
             i can help you
