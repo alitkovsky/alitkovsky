@@ -16,10 +16,11 @@ export default async function Home({ searchParams }) {
   return (
     <>
       <SkipLink />
-      <Cover />
       <main className="app-main" id="main-content">
       {/* Track business card QR scans */}
       <QRTracker searchParams={params} />
+
+      <Cover />
       <Intro />
       <Values />
       <Process />
