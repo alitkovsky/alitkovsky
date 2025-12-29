@@ -382,17 +382,14 @@
     display: grid;
     grid-template-columns: var(--grid--app-columns-4);
     gap: var(--grid--app-gutter);
-  }
-  .section.values .tools .tool-list .item .icon {
-    grid-column: 2 / 3;
-    justify-content: flex-end;
-    place-self: flex-start end;
+    cursor: default;
   }
   .section.values .tools .tool-list .item .description {
     grid-column: 3 / -1;
   }
   .section.values .tools .tool-list .item .description h3 {
     font-size: var(--font--size-medium);
+    padding-bottom: .2rem;
   }
   .section.values .tools .tool-list .item.mobile-inactive .tool-icon-3d-canvas {
     opacity: 0;
@@ -402,7 +399,8 @@
     opacity: 1 !important;
     pointer-events: auto !important;
   }
-  .tool-icon-3d-fallback {
+  .tool-icon-3d-fallback,
+  .tool-icon-3d-fallback--animated {
     opacity: 1 !important;
     pointer-events: auto !important;
   }

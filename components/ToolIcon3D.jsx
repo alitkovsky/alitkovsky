@@ -2,6 +2,8 @@
 
 import { memo, useCallback, useMemo, useState } from "react";
 import SkillIcon3DCanvas from "@/components/ToolIcon3DCanvas";
+import WiggleSvg from "@/components/WiggleSvg";
+import SvgStrokeEffect from "@/components/SvgStrokeEffect";
 
 function ToolIcon3D({
   icon,
@@ -35,20 +37,13 @@ function ToolIcon3D({
     );
   }, [renderState]);
 
-  const fallbackStyle = useMemo(
-    () => ({
-      maskImage: `url(${svgSrc})`,
-      WebkitMaskImage: `url(${svgSrc})`,
-      maskRepeat: "no-repeat",
-      WebkitMaskRepeat: "no-repeat",
-      maskSize: "contain",
-      WebkitMaskSize: "contain",
-      maskPosition: "center",
-      WebkitMaskPosition: "center",
-      backgroundColor: "var(--color--foreground--100)",
-    }),
-    [svgSrc]
-  );
+  // Extract filename from svgSrc for SvgStrokeEffect
+  // svgSrc is like "/assets/svg/paid-social.svg" -> "paid-social.svg"
+  const svgFile = useMemo(() => {
+    if (!svgSrc) return null;
+    const parts = svgSrc.split('/');
+    return parts[parts.length - 1];
+  }, [svgSrc]);
 
   const handleReady = useCallback(
     () => setRenderState((prev) => ({ ...prev, ready: true, failed: false })),
@@ -67,12 +62,26 @@ function ToolIcon3D({
 
   return (
     <span className={`tool-icon-3d-wrapper ${hideFallback ? "is-ready" : ""} ${className}`}>
-      <span
-        role="presentation"
-        aria-hidden="true"
-        className="tool-icon-3d-fallback"
-        style={fallbackStyle}
-      />
+      {!hideFallback && svgFile && (
+        <WiggleSvg
+          as="span"
+          selector="path"
+          distance={1.2}
+          steps={7}
+          duration={0.8}
+          trigger="visible"
+          className="tool-icon-3d-fallback tool-icon-3d-fallback--animated"
+        >
+          <SvgStrokeEffect
+            file={svgFile}
+            width="100%"
+            height="100%"
+            trigger="visible"
+            visibilityRootMargin={visibilityRootMargin}
+            className="tool-icon-3d-fallback__effect"
+          />
+        </WiggleSvg>
+      )}
       <SkillIcon3DCanvas
         svgSrc={svgSrc}
         title={title}

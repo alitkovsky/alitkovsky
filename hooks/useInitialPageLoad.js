@@ -14,15 +14,15 @@ export default function useInitialPageLoad() {
       return undefined;
     }
 
-    // Hide cover after 1750ms
+    // Hide cover after h1 animation completes (1.5s) + small buffer
     const coverTimeout = setTimeout(() => {
       document.body.classList.remove("cover--is--visible");
-    }, 250);
+    }, 1750);
 
-    // Remove loading class after cover transition completes (3250ms total)
+    // Remove loading class after cover slide-up transition completes (1750ms + 1500ms transition)
     const loadingTimeout = setTimeout(() => {
       document.body.classList.remove("is--loading");
-    }, 2250);
+    }, 3500);
 
     return () => {
       clearTimeout(coverTimeout);
