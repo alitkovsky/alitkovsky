@@ -5,6 +5,7 @@ import Intro from "@/components/Intro";
 import Values from "@/components/Values";
 import Process from "@/components/Process";
 import Background from "@/components/Background";
+import ProjectsPreview from "@/components/ProjectsPreview";
 import References from "@/components/References";
 import Faq from "@/components/Faq";
 import QRTracker from "@/components/QRTracker";
@@ -25,6 +26,7 @@ export default async function Home({ searchParams }) {
       <Values />
       <Process />
       <Background />
+      <ProjectsPreview />
       <References />
       <Faq />
       <Expertise />
