@@ -20,7 +20,7 @@ export default function sitemap() {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/cases`,
+      url: `${baseUrl}/projects`,
       lastModified: new Date('2024-12-25'),
       changeFrequency: 'monthly',
       priority: 0.8,

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Script from "next/script";
 import useLanguage from "@/hooks/useLanguage";
 
 const COPY = {
@@ -16,7 +15,7 @@ const COPY = {
       },
       {
         quote: "als andrii bei uns anfing, war er hungrig nach daten und ergebnissen. er hat unsere paid-social-strategie komplett umgekrempelt und zum ersten mal konnten wir genau sehen, welche kampagnen wirklich buchungen bringen. seine technische tiefe kombiniert mit einem gespür für kreative kampagnen ist selten. ich wusste früh, dass er mehr verantwortung übernehmen wird.",
-        name: "wladimir litkovskyi",
+        name: "alexandra paptsova",
         role: "marketingleiter",
         company: "stimul sport resort",
         linkedin: "",
@@ -41,7 +40,7 @@ const COPY = {
       },
       {
         quote: "when andrii started with us, he was hungry for data and results. he completely revamped our paid social strategy, and for the first time we could see exactly which campaigns actually drove bookings. his technical depth combined with a feel for creative campaigns is rare. i knew early on he would take on more responsibility.",
-        name: "wladimir litkovskyi",
+        name: "alexandra paptsova",
         role: "head of marketing",
         company: "stimul sport resort",
         linkedin: "",
@@ -61,45 +60,12 @@ export default function References() {
   const { language } = useLanguage();
   const copy = COPY[language] ?? COPY.de;
 
-  // Generate Review structured data for testimonials
-  const reviewSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": "https://litkovskyi.de/#business",
-    name: "andrii litkovskyi - marketing services",
-    review: copy.references.map((ref) => ({
-      "@type": "Review",
-      author: {
-        "@type": "Person",
-        name: ref.name,
-        jobTitle: ref.role,
-        worksFor: {
-          "@type": "Organization",
-          name: ref.company,
-        },
-      },
-      reviewBody: ref.quote,
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
-      },
-    })),
-  };
-
   return (
     <section
       className="section references"
       id="references"
       aria-label={language === "de" ? "Kundenstimmen" : "Customer Testimonials"}
     >
-      {/* Review Schema for rich snippets */}
-      <Script
-        id="reviews-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
-      />
-
       <div className="content">
         {copy.references.map((ref, index) => (
           <article className="item" key={index}>

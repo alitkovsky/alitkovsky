@@ -171,6 +171,47 @@ export default function StructuredData() {
       ratingCount: '3',
       reviewCount: '3',
     },
+    review: [
+      {
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: 'Helena Warlamova',
+          jobTitle: 'CEO',
+          worksFor: {
+            '@type': 'Organization',
+            name: 'Sunny Bay Hotel',
+          },
+        },
+        reviewBody: 'Andrii joined us when we were practically invisible online. He started from scratch — SEO, social media, the first real tracking setup. Two years later, we had 35% more website traffic and measurable revenue growth. But what impressed me most: he never stopped learning and questioned every process until it worked.',
+      },
+      {
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: 'Alexandra Paptsova',
+          jobTitle: 'Head of Marketing',
+          worksFor: {
+            '@type': 'Organization',
+            name: 'Stimul Sport Resort',
+          },
+        },
+        reviewBody: 'When Andrii started with us, he was hungry for data and results. He completely revamped our paid social strategy, and for the first time we could see exactly which campaigns actually drove bookings. His technical depth combined with a feel for creative campaigns is rare. I knew early on he would take on more responsibility.',
+      },
+      {
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: 'Uriyi Litkovskyi',
+          jobTitle: 'CEO',
+          worksFor: {
+            '@type': 'Organization',
+            name: 'Stimul Sport Resort',
+          },
+        },
+        reviewBody: 'Andrii turned our digital marketing from an afterthought into our main growth driver. +70% bookings in one year speaks for itself. But what really sets him apart: he thinks like an entrepreneur, not just in campaigns. He built a team, established processes, and always kept the big picture in mind. One of the best people I have ever worked with.',
+      },
+    ],
   };
 
   // Organization Schema - Business entity
