@@ -56,6 +56,32 @@ const nextConfig = {
         destination: '/?utm_source=visitenkarte&utm_medium=qr&utm_campaign=andrii_brand',
         permanent: false, // 302 redirect for flexibility
       },
+      // Legacy URL redirects (pages that were removed/renamed)
+      {
+        source: '/cases',
+        destination: '/projects',
+        permanent: true, // 301 redirect
+      },
+      {
+        source: '/work',
+        destination: '/projects',
+        permanent: true,
+      },
+      {
+        source: '/contact',
+        destination: '/#contact',
+        permanent: true,
+      },
+      {
+        source: '/resume',
+        destination: '/about',
+        permanent: true,
+      },
+      {
+        source: '/services',
+        destination: '/',
+        permanent: true,
+      },
     ];
   },
   async headers() {
