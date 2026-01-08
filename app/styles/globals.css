@@ -386,7 +386,7 @@ textarea:focus-visible {
   align-items: center;
 }
 .section.cover > .content {
-  grid-column: 1 / -1;
+  grid-column: 5 / -1;
   display: flex;
   flex-direction: column;
   justify-content: center;

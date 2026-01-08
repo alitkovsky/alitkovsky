@@ -191,7 +191,8 @@
     grid-column: 1 / -1;
     grid-template-columns: subgrid;
   }
-  .section.intro .intro-cta {
+  .section.intro .intro-cta,
+  .section.cover > .content {
     grid-column: 1 / -1;
   }
   .app-header .option.booking {
