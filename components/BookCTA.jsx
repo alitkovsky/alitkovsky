@@ -39,6 +39,7 @@ export default function BookCTA({
   className,
   ctaLocation,
   autoActive = true,
+  ariaLabel,
 }) {
   const { openCalendly, isLoading, isOpen, eventUrl, lastError } = useCalendly();
   const { language } = useLanguage();
@@ -136,6 +137,7 @@ export default function BookCTA({
           aria-haspopup="dialog"
           data-loading={isLoading ? "true" : undefined}
           aria-describedby={consentBlocked ? noteId : undefined}
+          aria-label={ariaLabel}
         >
           <span>{displayLabel}</span>
           <i aria-hidden className="cta-icon" data-loading={isLoading ? "true" : undefined}>↗</i>

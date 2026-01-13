@@ -20,6 +20,7 @@ const CONTACT_COPY = {
     },
     card: {
       caption: "meld dich einfach",
+      alt: "Portrait Andrii Litkovskyi - Marketing Berater für SEO & Google Ads aus Hille",
     },
     labels: {
       phone: "handy",
@@ -52,6 +53,7 @@ const CONTACT_COPY = {
     },
     card: {
       caption: "just reach out",
+      alt: "Portrait Andrii Litkovskyi - Marketing Consultant for SEO & Google Ads",
     },
     labels: {
       phone: "phone",
@@ -83,6 +85,7 @@ export default function Contact() {
 
   const hook = copy.hook ?? fallbackCopy.hook;
   const cardCaption = copy.card?.caption ?? fallbackCopy.card?.caption ?? "";
+  const cardAlt = copy.card?.alt ?? fallbackCopy.card?.alt ?? "";
   const labels = copy.labels ?? fallbackCopy.labels;
   const values = copy.values ?? fallbackCopy.values;
   const links = copy.links ?? fallbackCopy.links;
@@ -159,7 +162,7 @@ export default function Contact() {
           <figure>
             <TiltedCard
               imageSrc="og-image.webp"
-              altText="Andrii Litkovskyi - Marketing Expert"
+              altText={cardAlt}
               captionText={cardCaption}
               containerWidth="100%"
               containerHeight="100%"

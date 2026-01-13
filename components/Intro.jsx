@@ -11,6 +11,7 @@ import BookCTA from "@/components/BookCTA";
 
 const INTRO_COPY = {
   de: {
+    sectionTitle: "vorstellung & zielgruppen",
     options: {
       anyone: "für alle",
       praxen: "arztpraxen",
@@ -41,6 +42,7 @@ const INTRO_COPY = {
     },
   },
   en: {
+    sectionTitle: "introduction & target groups",
     options: {
       anyone: "for everyone",
       praxen: "medical practices",
@@ -87,6 +89,7 @@ export default function Intro() {
   const copy = INTRO_COPY[language] ?? INTRO_COPY.en;
   const fallbackCopy = INTRO_COPY.en;
   const ctaLabel = copy.cta?.label ?? fallbackCopy.cta?.label ?? "book a free call";
+  const sectionTitle = copy.sectionTitle ?? fallbackCopy.sectionTitle ?? "introduction";
   const scrollLines = copy.scroll ?? fallbackCopy.scroll ?? [];
 
   const availableKeys = useMemo(() => (
@@ -200,6 +203,7 @@ export default function Intro() {
 
   return (
     <section className="section intro" id="intro">
+      <h2 className="sr-only">{sectionTitle}</h2>
       <div className="content">
         <div className={`gradient-mask left ${maskVisibility.left ? "is--visible" : ""}`}></div>
         <div className={`gradient-mask right ${maskVisibility.right ? "is--visible" : ""}`}></div>
