@@ -6,11 +6,13 @@ import useLanguage from "@/hooks/useLanguage";
 const COVER_COPY = {
   de: {
     name: "andrii litkovskyi",
-    tagline: "– marketing berater hille",
+    tagline: "– mehr lokale kunden durch digitales marketing",
+    subline: "seo, google ads & marketing-automation für praxen, handwerker und dienstleister in owl",
   },
   en: {
     name: "andrii litkovskyi",
-    tagline: "– marketing consultant owl",
+    tagline: "– more local customers through digital marketing",
+    subline: "seo, google ads & marketing automation for practices, tradespeople and service providers in owl",
   },
 };
 
@@ -34,6 +36,9 @@ export default function Cover() {
           <br />
           <span className="cover__headline-line">{copy.tagline}</span>
         </h1>
+        {copy.subline && (
+          <p className="cover__subline">{copy.subline}</p>
+        )}
       </div>
     </section>
   );

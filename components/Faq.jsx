@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useId, useState } from "react";
+import { useId } from "react";
 import useLanguage from "@/hooks/useLanguage";
 import Script from "next/script";
+import Accordion from "@/components/Accordion";
 
 const COPY = {
   de: {
@@ -74,29 +75,13 @@ const COPY = {
 };
 
 /**
- * FAQ Accordion - CSS-only animation with minimal JS for toggle-close
- * Radio inputs ensure only one item open at a time
- * Small JS handler allows clicking active item to close it
- * GPU-accelerated with CSS Grid height animation
+ * FAQ Section - uses universal Accordion component
+ * Includes FAQPage schema for SEO rich snippets
  */
 export default function Faq() {
   const { language } = useLanguage();
   const copy = COPY[language] ?? COPY.de;
   const baseId = useId();
-  const [expandedIndex, setExpandedIndex] = useState(null);
-
-  // Toggle FAQ item - clicking same item closes it
-  const handleToggle = useCallback((index) => {
-    setExpandedIndex((prev) => (prev === index ? null : index));
-  }, []);
-
-  // Handle keyboard navigation
-  const handleKeyDown = useCallback((e, index) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      handleToggle(index);
-    }
-  }, [handleToggle]);
 
   // Generate FAQPage structured data
   const faqSchema = {
@@ -128,50 +113,11 @@ export default function Faq() {
           </h2>
           <p>{copy.intro}</p>
         </div>
-        <div className="accordion" role="region" aria-label={language === "de" ? "FAQ Akkordeon" : "FAQ Accordion"}>
-          {copy.items.map((item, index) => {
-            const toggleId = `${baseId}-toggle-${index}`;
-            const contentId = `${baseId}-content-${index}`;
-            const isExpanded = expandedIndex === index;
-
-            return (
-              <div className="item" key={index}>
-                <input
-                  type="radio"
-                  name="faq-accordion"
-                  id={toggleId}
-                  className="item__toggle"
-                  checked={isExpanded}
-                  onChange={() => handleToggle(index)}
-                  aria-hidden="true"
-                  tabIndex={-1}
-                />
-                <button
-                  type="button"
-                  className="btn"
-                  data-cursor="link"
-                  onClick={() => handleToggle(index)}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  aria-expanded={isExpanded}
-                  aria-controls={contentId}
-                >
-                  <span className="caption">{item.question}</span>
-                  <span className="icon" aria-hidden="true">+</span>
-                </button>
-                <div
-                  id={contentId}
-                  className="item-content"
-                  role="region"
-                  aria-hidden={!isExpanded}
-                >
-                  <div className="item-content__inner">
-                    <p>{item.answer}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <Accordion
+          items={copy.items}
+          ariaLabel={language === "de" ? "FAQ Akkordeon" : "FAQ Accordion"}
+          name="faq-accordion"
+        />
       </div>
     </section>
   );

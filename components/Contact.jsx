@@ -247,7 +247,7 @@ export default function Contact() {
             >
               Li
             </TextEffect>
-            <TextEffect
+            {/* <TextEffect
               as="a"
               variant="ellipseAuto"
               href="https://www.instagram.com/litkovskyi/"
@@ -257,7 +257,7 @@ export default function Contact() {
               aria-label="Instagram profile"
             >
               In
-            </TextEffect>
+            </TextEffect> */}
             <TextEffect
               as="a"
               variant="ellipseAuto"

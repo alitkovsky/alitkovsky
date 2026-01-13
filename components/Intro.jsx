@@ -24,19 +24,19 @@ const INTRO_COPY = {
     scroll: ["muss ich dich wirklich", "ans scrollen erinnern?"],
     texts: {
       anyone: [
-        "tach! ich bin andrii — dein marketing-berater aus owl. ich helfe dir, online sichtbar zu werden und planbar neue kunden zu gewinnen.",
+        "tach! ich bin andrii — online-marketing-berater aus minden-lübbecke. ich helfe lokalen unternehmen in owl, online gefunden zu werden und planbar neue kunden zu gewinnen. als ergebnis: +35% mehr anfragen.",
       ],
       praxen: [
-        "du willst mehr privatpatienten oder neupatienten gewinnen? ich sorge dafür, dass deine praxis bei google gefunden wird — mit seo, lokalen anzeigen und einer website, die vertrauen schafft.",
+        "du willst mehr privatpatienten oder neupatienten gewinnen? ich sorge dafür, dass deine praxis bei google ganz oben steht — mit local seo, google ads und einer website, die vertrauen schafft. als ergebnis: +40% mehr terminanfragen.",
       ],
       handwerker: [
-        "keine zeit für marketing? ich übernehm das. von google-anzeigen bis zur webseite — du bekommst qualifizierte anfragen, ich kümmere mich um den rest.",
+        "keine zeit für marketing? ich übernehm das. von google-anzeigen bis zur webseite — du wirst von neuen kunden gefunden, statt selbst zu suchen. als ergebnis: +30% mehr qualifizierte anfragen pro monat.",
       ],
       dienstleister: [
-        "ob steuerberater, immobilienmakler oder fitnessstudio — ich entwickle marketing-strategien, die zu deinem budget passen und messbare ergebnisse liefern.",
+        "ob steuerberater, makler oder fitnessstudio — ich entwickle marketing-strategien, die zu deinem budget passen. seo, google ads, social media — alles aus einer hand. als ergebnis: +25% mehr leads bei weniger werbekosten.",
       ],
       agenturen: [
-        "kapazitätsengpass? ich spring ein als externer spezialist für paid social, analytics und cro — zuverlässig, erfahren, hands-on.",
+        "kapazitätsengpass? ich spring ein als externer spezialist für paid social, analytics und cro. zuverlässig, erfahren, hands-on — ohne lange einarbeitung.",
       ],
     },
   },
@@ -54,19 +54,19 @@ const INTRO_COPY = {
     scroll: ["do i really need to", "remind you to scroll?"],
     texts: {
       anyone: [
-        "hey! i'm andrii — your marketing consultant from owl, germany. i help you get visible online and win new customers predictably.",
+        "hey! i'm andrii — online marketing consultant from minden-lübbecke. i help local businesses in owl get found online and win new customers predictably. as a result: +35% more inquiries.",
       ],
       praxen: [
-        "want more private or new patients? i'll make sure your practice gets found on google — with seo, local ads, and a website that builds trust.",
+        "want more private or new patients? i'll make sure your practice ranks at the top of google — with local seo, google ads, and a website that builds trust. as a result: +40% more appointment requests.",
       ],
       handwerker: [
-        "no time for marketing? i've got you. from google ads to your website — you get qualified leads, i handle the rest.",
+        "no time for marketing? i've got you. from google ads to your website — you get found by new customers instead of chasing them. as a result: +30% more qualified inquiries per month.",
       ],
       dienstleister: [
-        "whether you're a tax advisor, real estate agent, or gym owner — i develop marketing strategies that fit your budget and deliver real results.",
+        "whether you're a tax advisor, agent, or gym owner — i develop marketing strategies that fit your budget. seo, google ads, social media — all from one source. as a result: +25% more leads at lower ad costs.",
       ],
       agenturen: [
-        "capacity crunch? i step in as an external specialist for paid social, analytics, and cro — reliable, experienced, hands-on.",
+        "capacity crunch? i step in as an external specialist for paid social, analytics, and cro. reliable, experienced, hands-on — no long onboarding needed.",
       ],
     },
   },

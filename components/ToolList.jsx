@@ -16,6 +16,7 @@ const TOOLS_COPY = {
         iconId: "paid-social",
         svg: "/assets/svg/paid-social.svg",
         description: "ich schalte und optimiere anzeigen auf meta und linkedin — damit du die richtigen leute erreichst und nicht dein budget verbrennst.",
+        microResult: "als Ergebnis: 2-3x mehr anfragen bei gleichem budget",
       },
       {
         title: "seo & local seo",
@@ -23,6 +24,7 @@ const TOOLS_COPY = {
         iconId: "seo",
         svg: "/assets/svg/seo.svg",
         description: "ich sorge dafür, dass deine website bei google gefunden wird — technisch sauber, inhaltlich relevant, lokal sichtbar.",
+        microResult: "als Ergebnis: +50% organische sichtbarkeit in 6 monaten",
       },
       {
         title: "web analytics",
@@ -30,6 +32,7 @@ const TOOLS_COPY = {
         iconId: "analytics",
         svg: "/assets/svg/analytics.svg",
         description: "ga4, tag manager, dashboards — ich zeige dir, was funktioniert und was nicht. keine bauchgefühle, sondern zahlen.",
+        microResult: "als Ergebnis: klare datenbasis für bessere entscheidungen",
       },
       {
         title: "crm & automatisierung",
@@ -37,6 +40,7 @@ const TOOLS_COPY = {
         iconId: "crm-email-marketing",
         svg: "/assets/svg/crm-email-marketing.svg",
         description: "hubspot, mailchimp, automatisierte workflows — damit aus leads kunden werden, ohne dass du jeden manuell nachfassen musst.",
+        microResult: "als Ergebnis: 30% weniger manuelle arbeit, mehr abschlüsse",
       },
       // {
       //   title: "landing pages & cro",
@@ -44,6 +48,7 @@ const TOOLS_COPY = {
       //   iconId: "landing-pages",
       //   svg: "/assets/svg/landing-pages.svg",
       //   description: "ich baue landing pages, die konvertieren — klare struktur, überzeugende texte, optimiert für mehr anfragen und weniger absprünge.",
+      //   microResult: "als Ergebnis: +40% conversion rate",
       // }
     ]
   },
@@ -55,6 +60,7 @@ const TOOLS_COPY = {
         iconId: "paid-social",
         svg: "/assets/svg/paid-social.svg",
         description: "i run and optimize ads on meta and linkedin — so you reach the right people without burning your budget.",
+        microResult: "as a result: 2-3x more inquiries at the same budget",
       },
       {
         title: "seo & local seo",
@@ -62,6 +68,7 @@ const TOOLS_COPY = {
         iconId: "seo",
         svg: "/assets/svg/seo.svg",
         description: "i make sure your website gets found on google — technically sound, content-relevant, locally visible.",
+        microResult: "as a result: +50% organic visibility in 6 months",
       },
       {
         title: "web analytics",
@@ -69,6 +76,7 @@ const TOOLS_COPY = {
         iconId: "analytics",
         svg: "/assets/svg/analytics.svg",
         description: "ga4, tag manager, dashboards — i show you what works and what doesn't. no gut feelings, just data.",
+        microResult: "as a result: clear data foundation for better decisions",
       },
       {
         title: "crm & automatisierung",
@@ -76,6 +84,7 @@ const TOOLS_COPY = {
         iconId: "crm-email-marketing",
         svg: "/assets/svg/crm-email-marketing.svg",
         description: "hubspot, mailchimp, automated workflows — turning leads into customers without manual follow-ups.",
+        microResult: "as a result: 30% less manual work, more closes",
       },
       // {
       //   title: "landing pages & cro",
@@ -83,6 +92,7 @@ const TOOLS_COPY = {
       //   iconId: "landing-pages",
       //   svg: "/assets/svg/landing-pages.svg",
       //   description: "i build landing pages that convert — clear structure, compelling copy, optimized for more leads and fewer bounces.",
+      //   microResult: "as a result: +40% conversion rate",
       // }
     ]
   },
@@ -231,6 +241,15 @@ export default function ToolList() {
                 >
                   {tool.description}
                 </motion.p>
+                {tool.microResult && (
+                  <motion.p
+                    className="micro-result"
+                    layout
+                    transition={{ duration: 0.3 }}
+                  >
+                    {tool.microResult}
+                  </motion.p>
+                )}
               </div>
           </motion.div>
         ))}

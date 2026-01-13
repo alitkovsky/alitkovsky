@@ -178,10 +178,16 @@ export default function Nav({ initialTheme = "dark" }) {
     { id: "values", label: "values" },
     { id: "process", label: "process" },
     { id: "background", label: "background" },
+    { id: "projects", label: "projects" },
     { id: "references", label: "references" },
     { id: "faq", label: "faq" },
     { id: "expertise", label: "expertise" },
     { id: "contact", label: "contact" }
+  ];
+
+  const pageItems = [
+    { id: "leistungen", label: "leistungen", route: "/leistungen" },
+    { id: "projekte", label: "projekte", route: "/projects" }
   ];
 
   const subItems = [
@@ -424,7 +430,18 @@ export default function Nav({ initialTheme = "dark" }) {
               onActivate={() => handleSectionRequest(id)}
             />
           ))}
-          <div className="mt-[6em]"></div>
+          <div className="mt-[4em]"></div>
+          {pageItems.map(({ id, label, route }) => (
+            <SubNavItem
+              key={id}
+              id={id}
+              label={label}
+              route={route}
+              isActive={pathname === route || pathname.startsWith(route)}
+              onActivate={() => handleSubItemRequest(route)}
+            />
+          ))}
+          <div className="mt-[2em]"></div>
           {subItems.map(({ id, label, route }) => (
             <SubNavItem
               key={id}

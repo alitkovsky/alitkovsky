@@ -1,12 +1,24 @@
 "use client";
 
-import { forwardRef, useRef, useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import CountUp from "@/components/CountUp";
 import BookCTA from "@/components/BookCTA";
 import BackToStart from "@/components/BackToStart";
 import Breadcrumb from "@/components/Breadcrumb";
 import Footer from "@/components/Footer";
 import useLanguage from "@/hooks/useLanguage";
+
+// Inline SVG component for folder tab right edge
+const FolderTabEdge = ({ className }) => (
+  <svg
+    className={className}
+    viewBox="0 0 40 40"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path d="M0,40h40L6.5,2.7C5.1,1.1,3.1,0,0,0v40Z" />
+  </svg>
+);
 
 const PROJECTS_LIST_COPY = {
   de: {
@@ -163,12 +175,11 @@ const PROJECTS_LIST_COPY = {
   },
 };
 
-const ProjectListCard = forwardRef(function ProjectListCard({ project, labels, index }, ref) {
+function ProjectListCard({ project, labels, index }) {
   return (
     <article
       className="projects-list-card"
       id={project.slug}
-      ref={ref}
       itemScope
       itemType="https://schema.org/Article"
     >
@@ -258,10 +269,11 @@ const ProjectListCard = forwardRef(function ProjectListCard({ project, labels, i
       )}
     </article>
   );
-});
+}
 
 export default function ProjectsList() {
   const { language } = useLanguage();
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
 
   const copy = PROJECTS_LIST_COPY[language] ?? PROJECTS_LIST_COPY.en;
   const fallbackCopy = PROJECTS_LIST_COPY.en;
@@ -269,7 +281,7 @@ export default function ProjectsList() {
   const pageTitle = copy.pageTitle ?? fallbackCopy.pageTitle;
   const pageSubtitle = copy.pageSubtitle ?? fallbackCopy.pageSubtitle;
   const breadcrumb = copy.breadcrumb ?? fallbackCopy.breadcrumb;
-  const projects = copy.projects ?? fallbackCopy.projects;
+  const projects = (copy.projects ?? fallbackCopy.projects).slice().reverse();
   const ctaLabel = copy.cta?.label ?? fallbackCopy.cta?.label;
   const backLabel = copy.backLabel ?? fallbackCopy.backLabel;
 
@@ -283,119 +295,18 @@ export default function ProjectsList() {
     servicesLabel: copy.servicesLabel ?? fallbackCopy.servicesLabel,
   };
 
-  // Folder scroll refs and state
-  const folderRef = useRef(null);
-  const scrollContainerRef = useRef(null);
-  const projectRefs = useRef([]);
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
-  const [isScrolledEnd, setIsScrolledEnd] = useState(false);
+  // Handle tab click
+  const handleTabClick = (index) => {
+    setActiveProjectIndex(index);
+  };
 
-  // Check if folder is in "sticky" position (at top of viewport)
-  const isFolderActive = useCallback(() => {
-    const folder = folderRef.current;
-    if (!folder) return false;
-    const rect = folder.getBoundingClientRect();
-    return rect.top <= 0 && rect.bottom > window.innerHeight;
-  }, []);
-
-  // Check if scroll container has reached the end
-  const isAtScrollEnd = useCallback(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return false;
-    return container.scrollTop + container.clientHeight >= container.scrollHeight - 5;
-  }, []);
-
-  // Wheel event handler - hijack scroll when folder is active
-  useEffect(() => {
-    const handleWheel = (e) => {
-      if (!isFolderActive()) return;
-
-      const container = scrollContainerRef.current;
-      if (!container) return;
-
-      const atEnd = isAtScrollEnd();
-      const atStart = container.scrollTop <= 0;
-
-      // Scrolling down but not at end - capture scroll
-      if (e.deltaY > 0 && !atEnd) {
-        e.preventDefault();
-        container.scrollTop += e.deltaY;
-      }
-      // Scrolling up but not at start - capture scroll
-      else if (e.deltaY < 0 && !atStart) {
-        e.preventDefault();
-        container.scrollTop += e.deltaY;
-      }
-      // Otherwise, let page scroll normally
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    return () => window.removeEventListener('wheel', handleWheel);
-  }, [isFolderActive, isAtScrollEnd]);
-
-  // Touch scroll handling for mobile
-  useEffect(() => {
-    let touchStartY = 0;
-
-    const handleTouchStart = (e) => {
-      touchStartY = e.touches[0].clientY;
-    };
-
-    const handleTouchMove = (e) => {
-      if (!isFolderActive()) return;
-
-      const container = scrollContainerRef.current;
-      if (!container) return;
-
-      const touchY = e.touches[0].clientY;
-      const deltaY = touchStartY - touchY;
-      touchStartY = touchY;
-
-      const atEnd = isAtScrollEnd();
-      const atStart = container.scrollTop <= 0;
-
-      if ((deltaY > 0 && !atEnd) || (deltaY < 0 && !atStart)) {
-        e.preventDefault();
-        container.scrollTop += deltaY;
-      }
-    };
-
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    return () => {
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
-    };
-  }, [isFolderActive, isAtScrollEnd]);
-
-  // Update active project based on scroll position
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const handleScroll = () => {
-      // Update scroll end state
-      setIsScrolledEnd(isAtScrollEnd());
-
-      // Find active project (first one still visible)
-      for (let i = 0; i < projectRefs.current.length; i++) {
-        const projectEl = projectRefs.current[i];
-        if (!projectEl) continue;
-
-        const rect = projectEl.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-
-        // If project's bottom is below container top + tab height
-        if (rect.bottom > containerRect.top + 60) {
-          setActiveProjectIndex(i);
-          break;
-        }
-      }
-    };
-
-    container.addEventListener('scroll', handleScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, [isAtScrollEnd]);
+  // Get z-index for tab based on active state
+  // Active tab gets highest, tabs before it stack behind
+  const getTabZIndex = (index) => {
+    if (index === activeProjectIndex) return projects.length + 1;
+    // Inactive tabs: lower z-index, with tabs further from active getting lower values
+    return projects.length - Math.abs(index - activeProjectIndex);
+  };
 
   return (
     <section
@@ -410,37 +321,49 @@ export default function ProjectsList() {
           <p className="projects-list__subtitle">{pageSubtitle}</p>
         </header>
 
-        <div
-          className={`projects-list__folder ${isScrolledEnd ? 'is--scrolled-end' : ''}`}
-          ref={folderRef}
-        >
-          <div className="projects-list__folder-tab">
-            <span className="projects-list__folder-tab-index">
-              {String(activeProjectIndex + 1).padStart(2, '0')}
-            </span>
-            <span className="projects-list__folder-tab-name">
-              {projects[activeProjectIndex]?.title}
-            </span>
-            <svg
-              className="projects-list__folder-tab-edge"
-              viewBox="0 0 40 40"
-              preserveAspectRatio="none"
-              aria-hidden="true"
-            >
-              <path d="M0,40h40L6.5,2.7C5.1,1.1,3.1,0,0,0v40Z" />
-            </svg>
+        <div className="projects-list__folder">
+          {/* Folder tabs row */}
+          <div className="projects-list__folder-tabs">
+            {projects.map((project, index) => {
+              const isActive = index === activeProjectIndex;
+
+              return (
+                <button
+                  key={project.slug}
+                  type="button"
+                  className={`projects-list__folder-tab ${isActive ? 'is--active' : ''}`}
+                  style={{ zIndex: getTabZIndex(index) }}
+                  onClick={() => handleTabClick(index)}
+                  aria-pressed={isActive}
+                  aria-label={`${language === "de" ? "Projekt" : "Project"} ${index + 1}: ${project.title}`}
+                >
+                  <span className="projects-list__folder-tab-index">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <span className="projects-list__folder-tab-name">
+                    {project.title}
+                  </span>
+                  <FolderTabEdge className="projects-list__folder-tab-edge" />
+                </button>
+              );
+            })}
           </div>
+
+          {/* Folder content - shows active project */}
           <div className="projects-list__folder-content">
-            <div className="projects-list__folder-scroll" ref={scrollContainerRef}>
+            <div className="projects-list__folder-scroll">
               <div className="projects-list__list">
                 {projects.map((project, index) => (
-                  <ProjectListCard
+                  <div
                     key={project.slug}
-                    project={project}
-                    labels={labels}
-                    index={index}
-                    ref={(el) => { projectRefs.current[index] = el; }}
-                  />
+                    className={`projects-list__card-wrapper ${index === activeProjectIndex ? 'is--active' : ''}`}
+                  >
+                    <ProjectListCard
+                      project={project}
+                      labels={labels}
+                      index={index}
+                    />
+                  </div>
                 ))}
               </div>
             </div>

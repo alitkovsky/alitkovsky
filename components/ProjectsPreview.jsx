@@ -1,10 +1,23 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import CountUp from "@/components/CountUp";
 import BookCTA from "@/components/BookCTA";
 import TextEffect from "@/components/TextEffect";
 import useLanguage from "@/hooks/useLanguage";
+
+// Inline SVG component for folder tab right edge
+const FolderTabEdge = ({ className }) => (
+  <svg
+    className={className}
+    viewBox="0 0 40 40"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path d="M0,40h40L6.5,2.7C5.1,1.1,3.1,0,0,0v40Z" />
+  </svg>
+);
 
 const PROJECTS_PREVIEW_COPY = {
   de: {
@@ -26,10 +39,6 @@ const PROJECTS_PREVIEW_COPY = {
           suffix: "%",
           label: "mehr buchungen",
         },
-        teaser: "komplette neuausrichtung der paid-social-strategie mit erstmaligem end-to-end-tracking. hubspot-crm-implementierung und aufbau eines 3-köpfigen marketing-teams.",
-        quote: "+70% buchungen in einem jahr sprechen für sich. aber was ihn wirklich auszeichnet: er denkt unternehmerisch, nicht nur in kampagnen.",
-        quoteAuthor: "uriyi litkovskyi",
-        quoteRole: "geschäftsführer",
       },
       {
         slug: "sunny-bay-hotel",
@@ -43,10 +52,6 @@ const PROJECTS_PREVIEW_COPY = {
           suffix: "%",
           label: "mehr traffic",
         },
-        teaser: "aufbau der ersten digitalen marketing-infrastruktur von grund auf: seo-optimierung, social-media-kanäle, erstes conversion-tracking.",
-        quote: "andrii kam zu uns, als wir online praktisch unsichtbar waren. er hat von null angefangen — seo, social media, das erste richtige tracking.",
-        quoteAuthor: "helena warlamova",
-        quoteRole: "geschäftsführerin",
       },
       {
         slug: "lokale-kmu",
@@ -60,10 +65,6 @@ const PROJECTS_PREVIEW_COPY = {
           suffix: "%",
           label: "suchen online",
         },
-        teaser: "maßgeschneiderte strategien für lokale unternehmen: google ads mit präzisem geo-targeting, local seo und landing pages die konvertieren.",
-        quote: null,
-        quoteAuthor: null,
-        quoteRole: null,
       },
     ],
     cta: {
@@ -89,10 +90,6 @@ const PROJECTS_PREVIEW_COPY = {
           suffix: "%",
           label: "more bookings",
         },
-        teaser: "complete realignment of paid social strategy with first-ever end-to-end tracking. hubspot crm implementation and built a 3-person marketing team.",
-        quote: "+70% bookings in one year speaks for itself. but what really sets him apart: he thinks like an entrepreneur, not just in campaigns.",
-        quoteAuthor: "uriyi litkovskyi",
-        quoteRole: "ceo",
       },
       {
         slug: "sunny-bay-hotel",
@@ -106,10 +103,6 @@ const PROJECTS_PREVIEW_COPY = {
           suffix: "%",
           label: "more traffic",
         },
-        teaser: "built the first digital marketing infrastructure from scratch: seo optimization, social media channels, first conversion tracking.",
-        quote: "andrii joined us when we were practically invisible online. he started from scratch — seo, social media, the first real tracking setup.",
-        quoteAuthor: "helena warlamova",
-        quoteRole: "ceo",
       },
       {
         slug: "lokale-kmu",
@@ -123,10 +116,6 @@ const PROJECTS_PREVIEW_COPY = {
           suffix: "%",
           label: "search online",
         },
-        teaser: "tailored strategies for local businesses: google ads with precise geo-targeting, local seo, and landing pages that convert.",
-        quote: null,
-        quoteAuthor: null,
-        quoteRole: null,
       },
     ],
     cta: {
@@ -135,93 +124,77 @@ const PROJECTS_PREVIEW_COPY = {
   },
 };
 
-function ProjectCard({ projectData, labels, index }) {
+function ProjectPreviewCard({ project, labels, index }) {
   return (
     <article
-      className="project-card"
+      className="projects-preview-card"
+      id={project.slug}
       itemScope
       itemType="https://schema.org/Article"
     >
       <meta itemProp="author" content="Andrii Litkovskyi" />
 
-      <div className="project-card__header">
-        <div className="project-card__metric">
-          <span className="project-card__metric-value">
+      {/* Header with title and tags */}
+      <header className="projects-preview-card__header">
+        <div className="projects-preview-card__title-group">
+          <h3 className="projects-preview-card__title" itemProp="headline">
+            {project.title}
+          </h3>
+          <div className="projects-preview-card__tags">
+            {project.tags.map((tag) => (
+              <span key={tag} className="projects-preview-card__tag">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Metric */}
+        <div className="projects-preview-card__metric">
+          <span className="projects-preview-card__metric-value">
             <CountUp
               from={0}
-              to={projectData.metric.value}
+              to={project.metric.value}
               separator=","
               direction="up"
               duration={1.5}
-              delay={index * 0.2}
+              delay={index * 0.15}
             />
-            <span className="project-card__metric-suffix">{projectData.metric.suffix}</span>
+            <span className="projects-preview-card__metric-suffix">{project.metric.suffix}</span>
           </span>
-          <span className="project-card__metric-label">{projectData.metric.label}</span>
+          <span className="projects-preview-card__metric-label">{project.metric.label}</span>
         </div>
-      </div>
+      </header>
 
-      <div className="project-card__content">
-        <h3 className="project-card__title" itemProp="headline">
-          {projectData.title}
-        </h3>
-
-        <p className="project-card__teaser" itemProp="description">
-          {projectData.teaser}
-        </p>
-
-        <div className="project-card__tags" aria-label="Technologies used">
-          {projectData.tags.map((tag) => (
-            <span key={tag} className="project-card__tag">
-              {tag}
-            </span>
-          ))}
+      {/* Meta info */}
+      <dl className="projects-preview-card__meta">
+        <div className="projects-preview-card__meta-item">
+          <dt>{labels.clientLabel}</dt>
+          <dd>{project.client}</dd>
         </div>
-      </div>
-
-      <footer className="project-card__footer">
-        <dl className="project-card__meta">
-          <div className="project-card__meta-item">
-            <dt>{labels.clientLabel}</dt>
-            <dd>{projectData.client}</dd>
-          </div>
-          <div className="project-card__meta-item">
-            <dt>{labels.industryLabel}</dt>
-            <dd>{projectData.industry}</dd>
-          </div>
-          <div className="project-card__meta-item">
-            <dt>{labels.periodLabel}</dt>
-            <dd>{projectData.period}</dd>
-          </div>
-        </dl>
-
-        {projectData.quote && (
-          <blockquote className="project-card__quote">
-            <p>"{projectData.quote}"</p>
-            <footer>
-              <cite>
-                {projectData.quoteAuthor}
-                {projectData.quoteRole && (
-                  <span className="project-card__quote-role">, {projectData.quoteRole}</span>
-                )}
-              </cite>
-            </footer>
-          </blockquote>
-        )}
-      </footer>
+        <div className="projects-preview-card__meta-item">
+          <dt>{labels.industryLabel}</dt>
+          <dd>{project.industry}</dd>
+        </div>
+        <div className="projects-preview-card__meta-item">
+          <dt>{labels.periodLabel}</dt>
+          <dd>{project.period}</dd>
+        </div>
+      </dl>
     </article>
   );
 }
 
 export default function ProjectsPreview() {
   const { language } = useLanguage();
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
 
   const copy = PROJECTS_PREVIEW_COPY[language] ?? PROJECTS_PREVIEW_COPY.en;
   const fallbackCopy = PROJECTS_PREVIEW_COPY.en;
 
   const sectionTitle = copy.sectionTitle ?? fallbackCopy.sectionTitle;
   const viewAll = copy.viewAll ?? fallbackCopy.viewAll;
-  const projects = copy.projects ?? fallbackCopy.projects;
+  const projects = (copy.projects ?? fallbackCopy.projects).slice().reverse();
   const ctaLabel = copy.cta?.label ?? fallbackCopy.cta?.label;
 
   const labels = {
@@ -230,40 +203,89 @@ export default function ProjectsPreview() {
     periodLabel: copy.periodLabel ?? fallbackCopy.periodLabel,
   };
 
+  // Handle tab click
+  const handleTabClick = (index) => {
+    setActiveProjectIndex(index);
+  };
+
+  // Get z-index for tab based on active state
+  const getTabZIndex = (index) => {
+    if (index === activeProjectIndex) return projects.length + 1;
+    return projects.length - Math.abs(index - activeProjectIndex);
+  };
+
   return (
     <section
-      className="section projects"
+      className="section projects-preview"
       id="projects"
       aria-label={language === "de" ? "Ausgewählte Projekte" : "Selected Projects"}
     >
       <div className="content">
-        <header className="projects__header">
-          <h2 className="projects__title">{sectionTitle}</h2>
+        <header className="projects-preview__header">
+          <h2 className="projects-preview__title">{sectionTitle}</h2>
           <TextEffect
             as={Link}
             href="/projects"
             variant="ellipseAuto"
             trigger="hover"
-            className="projects__view-all"
+            className="projects-preview__view-all"
           >
             {viewAll}
-            <span aria-hidden="true"> →</span>
+            <span aria-hidden="true"></span>
           </TextEffect>
         </header>
 
-        <div className="projects__grid">
-          {projects.map((projectItem, index) => (
-            <ProjectCard
-              key={projectItem.slug}
-              projectData={projectItem}
-              labels={labels}
-              index={index}
-            />
-          ))}
+        <div className="projects-preview__folder">
+          {/* Folder tabs row */}
+          <div className="projects-preview__folder-tabs">
+            {projects.map((project, index) => {
+              const isActive = index === activeProjectIndex;
+
+              return (
+                <button
+                  key={project.slug}
+                  type="button"
+                  className={`projects-preview__folder-tab ${isActive ? 'is--active' : ''}`}
+                  style={{ zIndex: getTabZIndex(index) }}
+                  onClick={() => handleTabClick(index)}
+                  aria-pressed={isActive}
+                  aria-label={`${language === "de" ? "Projekt" : "Project"} ${index + 1}: ${project.title}`}
+                >
+                  <span className="projects-preview__folder-tab-index">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <span className="projects-preview__folder-tab-name">
+                    {project.title}
+                  </span>
+                  <FolderTabEdge className="projects-preview__folder-tab-edge" />
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Folder content - shows active project */}
+          <div className="projects-preview__folder-content">
+            <div className="projects-preview__folder-scroll">
+              <div className="projects-preview__list">
+                {projects.map((project, index) => (
+                  <div
+                    key={project.slug}
+                    className={`projects-preview__card-wrapper ${index === activeProjectIndex ? 'is--active' : ''}`}
+                  >
+                    <ProjectPreviewCard
+                      project={project}
+                      labels={labels}
+                      index={index}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="projects__cta">
-          <BookCTA label={ctaLabel} ctaLocation="projects" />
+        <div className="projects-preview__cta">
+          <BookCTA label={ctaLabel} ctaLocation="projects-preview" />
         </div>
       </div>
     </section>

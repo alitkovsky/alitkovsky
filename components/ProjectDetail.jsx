@@ -27,21 +27,22 @@ export default function ProjectDetail({ slug }) {
   return (
     <section className="section project-detail">
       <div className="content">
-        <Breadcrumb pageName={projectData.title} pageUrl={`/projects/${slug}`} />
-
-        {/* Back link */}
-        <nav className="project-detail__nav-top">
-          <TextEffect
-            as={Link}
-            href="/projects"
-            variant="ellipseAuto"
-            trigger="hover"
-            className="project-detail__back-link"
-          >
-            <span aria-hidden="true">← </span>
-            {data.backToProjects}
-          </TextEffect>
-        </nav>
+        <div className="project-detail__nav">
+          <Breadcrumb pageName={projectData.title} pageUrl={`/projects/${slug}`} />
+          {/* Back link */}
+          <nav>
+            <TextEffect
+              as={Link}
+              href="/projects"
+              variant="ellipseAuto"
+              trigger="hover"
+              className="project-detail__back-link"
+            >
+              <i aria-hidden className="cta-icon rotate-225">↗</i>
+              {data.backToProjects}
+            </TextEffect>
+          </nav>
+        </div>
 
         {/* Hero section */}
         <header className="project-detail__hero">
@@ -153,8 +154,9 @@ export default function ProjectDetail({ slug }) {
                 href={`/projects/${adjacent.prev}`}
                 variant="ellipseAuto"
                 trigger="hover"
+                className="cta-link inline-flex"
               >
-                <span aria-hidden="true">← </span>
+                <i aria-hidden className="cta-icon rotate-225">↗</i>
                 {data.prevProject}
               </TextEffect>
             )}
@@ -166,9 +168,10 @@ export default function ProjectDetail({ slug }) {
                 href={`/projects/${adjacent.next}`}
                 variant="ellipseAuto"
                 trigger="hover"
+                className="cta-link inline-flex"
               >
                 {data.nextProject}
-                <span aria-hidden="true"> →</span>
+                <i aria-hidden className="cta-icon rotate-45">↗</i>
               </TextEffect>
             )}
           </div>

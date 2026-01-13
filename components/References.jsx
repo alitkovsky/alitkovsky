@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import useLanguage from "@/hooks/useLanguage";
+import HandwritingEffect from "@/components/HandwritingEffect";
 
 const COPY = {
   de: {
@@ -76,7 +77,17 @@ export default function References() {
               <cite className="person">
                 {ref.linkedin ? (
                   <Link href={ref.linkedin} target="_blank" rel="noopener noreferrer">
-                    {ref.name}
+                    <HandwritingEffect
+                      as="span"
+                      trigger="visible"
+                      visibilityRootMargin="0px 0px -33%"
+                      duration={2000}
+                      className="inline-block"
+                      letterSpacing={0}
+                      fontSize={22}
+                    >
+                      {ref.name}
+                    </HandwritingEffect>
                   </Link>
                 ) : (
                   ref.name

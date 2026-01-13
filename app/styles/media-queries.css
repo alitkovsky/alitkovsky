@@ -295,6 +295,19 @@
   .section.projects .project-card__quote {
     display: none;
   }
+  /* Projects preview at 1020px */
+  .section.projects-preview > .content {
+    padding: calc(var(--grid--app-xheight) / 2) 0 20px 0;
+  }
+  .section.projects-preview .projects-preview__folder-content {
+    padding: 1.5rem;
+  }
+  .section.projects-preview .projects-preview-card__title-group {
+    grid-column: 1 / 4;
+  }
+  .section.projects-preview .projects-preview-card__metric {
+    grid-column: 4 / -1;
+  }
   /* Works section at 1020px */
   .section.projects-list > .content {
     padding: calc(var(--grid--app-xheight) / 2) 0 20px 0;
@@ -499,6 +512,23 @@
   .section.projects .project-card__metric-value {
     font-size: var(--font--size-large);
   }
+  /* Projects preview at 760px */
+  .section.projects-preview .projects-preview__folder-content {
+    padding: 1rem;
+  }
+  .section.projects-preview .projects-preview__folder-tab {
+    padding: 0 1rem;
+    gap: 0.35rem;
+  }
+  .section.projects-preview .projects-preview__folder-tab-name {
+    max-width: 8rem;
+  }
+  .section.projects-preview .projects-preview-card__title-group {
+    grid-column: 1 / 3;
+  }
+  .section.projects-preview .projects-preview-card__metric {
+    grid-column: 3 / -1;
+  }
   /* Works section at 760px */
   .section.projects-list .projects-list-card__section {
     grid-column: span 2;
@@ -516,7 +546,11 @@
     padding: 1rem;
   }
   .section.projects-list .projects-list__folder-tab {
-    padding: 0.5rem 1rem;
+    padding: 0 1rem;
+    gap: 0.35rem;
+  }
+  .section.projects-list .projects-list__folder-tab-name {
+    max-width: 8rem;
   }
   .section.projects-list .projects-list-card__content {
     grid-template-columns: subgrid;
@@ -740,6 +774,48 @@
   .section.projects .projects__cta {
     padding-top: 2rem;
   }
+  /* Projects preview at 500px */
+  .section.projects-preview .projects-preview__header {
+    padding-bottom: 1.5rem;
+  }
+  .section.projects-preview .projects-preview__folder-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .section.projects-preview .projects-preview__folder-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .section.projects-preview .projects-preview__folder-tab {
+    padding: 0 0.75rem;
+    height: 2rem;
+  }
+  .section.projects-preview .projects-preview__folder-tab-name {
+    display: none;
+  }
+  .section.projects-preview .projects-preview__folder-content {
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 1rem;
+  }
+  .section.projects-preview .projects-preview-card__header {
+    grid-template-columns: var(--grid--app-columns-1);
+  }
+  .section.projects-preview .projects-preview-card__title-group {
+    grid-column: 1 / -1;
+  }
+  .section.projects-preview .projects-preview-card__title {
+    font-size: var(--font--size-regular);
+  }
+  .section.projects-preview .projects-preview-card__metric {
+    grid-column: 1 / -1;
+    align-items: flex-start;
+    text-align: left;
+    padding-top: 1rem;
+  }
+  .section.projects-preview .projects-preview__cta {
+    padding-top: 2rem;
+  }
   /* Works section at 500px */
   .section.projects-list .projects-list__title {
     font-size: var(--font--size-large);
@@ -781,11 +857,24 @@
   .section.projects-list .projects-list__cta {
     padding-top: 2rem;
   }
+  .section.projects-list .projects-list__folder-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .section.projects-list .projects-list__folder-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .section.projects-list .projects-list__folder-tab {
+    padding: 0 0.75rem;
+    height: 2rem;
+  }
   .section.projects-list .projects-list__folder-tab-name {
-    max-width: 180px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: none;
+  }
+  .section.projects-list .projects-list__folder-content {
+    border-radius: 0 0 0.5rem 0.5rem;
   }
   /* Case detail at 500px */
   .section.project-detail .project-detail__nav-top {

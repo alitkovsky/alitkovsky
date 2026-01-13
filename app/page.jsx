@@ -26,7 +26,7 @@ export default async function Home({ searchParams }) {
       <Values />
       <Process />
       <Background />
-      {/* <ProjectsPreview /> */}
+      <ProjectsPreview />
       <References />
       <Faq />
       <Expertise />
