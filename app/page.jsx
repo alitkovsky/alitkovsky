@@ -10,6 +10,7 @@ import References from "@/components/References";
 import Faq from "@/components/Faq";
 import QRTracker from "@/components/QRTracker";
 import SkipLink from "@/components/SkipLink";
+import { LocalBusinessStructuredData } from "@/components/StructuredData";
 
 export default async function Home({ searchParams }) {
   const params = await searchParams;
@@ -17,6 +18,8 @@ export default async function Home({ searchParams }) {
   return (
     <>
       <SkipLink />
+      {/* LocalBusiness structured data with reviews - only on homepage */}
+      <LocalBusinessStructuredData />
       <main className="app-main" id="main-content">
       {/* Track business card QR scans */}
       <QRTracker searchParams={params} />

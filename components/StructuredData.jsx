@@ -1,3 +1,130 @@
+// LocalBusiness Schema with reviews - use only on homepage/service pages, NOT on legal pages
+export function LocalBusinessStructuredData() {
+  const baseUrl = 'https://litkovskyi.de';
+
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': `${baseUrl}/#business`,
+    name: 'Andrii Litkovskyi - Marketing Services',
+    alternateName: 'Andrii Litkovskyi - Marketing Dienstleistungen',
+    description: {
+      '@language': 'de',
+      '@value': 'Marketing ohne Buzzwords und leere Versprechen. Über 15 Jahre Erfahrung in Paid Social, SEO und CRM-Automatisierung.',
+    },
+    url: baseUrl,
+    image: `${baseUrl}/og-image.png`,
+    telephone: '+49 176 58238236',
+    email: 'andrii@litkovskyi.de',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Mindener Straße 87',
+      addressLocality: 'Hille',
+      postalCode: '32479',
+      addressRegion: 'Nordrhein-Westfalen',
+      addressCountry: 'DE',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 52.3333,
+      longitude: 8.7500,
+    },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '09:00',
+        closes: '18:00',
+      },
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: 'Saturday',
+        opens: '09:00',
+        closes: '15:00',
+      },
+    ],
+    priceRange: '$$',
+    founder: { '@id': `${baseUrl}/#person` },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5.0',
+      bestRating: '5',
+      worstRating: '1',
+      ratingCount: '3',
+      reviewCount: '3',
+    },
+    review: [
+      {
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: 'Helena Warlamova',
+          jobTitle: 'CEO',
+          worksFor: {
+            '@type': 'Organization',
+            name: 'Sunny Bay Hotel',
+          },
+        },
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: '5',
+          bestRating: '5',
+          worstRating: '1',
+        },
+        reviewBody: 'Andrii joined us when we were practically invisible online. He started from scratch — SEO, social media, the first real tracking setup. Two years later, we had 35% more website traffic and measurable revenue growth. But what impressed me most: he never stopped learning and questioned every process until it worked.',
+      },
+      {
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: 'Alexandra Paptsova',
+          jobTitle: 'Head of Marketing',
+          worksFor: {
+            '@type': 'Organization',
+            name: 'Stimul Sport Resort',
+          },
+        },
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: '5',
+          bestRating: '5',
+          worstRating: '1',
+        },
+        reviewBody: 'When Andrii started with us, he was hungry for data and results. He completely revamped our paid social strategy, and for the first time we could see exactly which campaigns actually drove bookings. His technical depth combined with a feel for creative campaigns is rare. I knew early on he would take on more responsibility.',
+      },
+      {
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: 'Uriyi Litkovskyi',
+          jobTitle: 'CEO',
+          worksFor: {
+            '@type': 'Organization',
+            name: 'Stimul Sport Resort',
+          },
+        },
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: '5',
+          bestRating: '5',
+          worstRating: '1',
+        },
+        reviewBody: 'Andrii turned our digital marketing from an afterthought into our main growth driver. +70% bookings in one year speaks for itself. But what really sets him apart: he thinks like an entrepreneur, not just in campaigns. He built a team, established processes, and always kept the big picture in mind. One of the best people I have ever worked with.',
+      },
+    ],
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(localBusinessSchema),
+      }}
+    />
+  );
+}
+
+// Global structured data - safe for all pages including legal pages
 export default function StructuredData() {
   const baseUrl = 'https://litkovskyi.de';
 
@@ -115,101 +242,6 @@ export default function StructuredData() {
         },
         dateCreated: '2023-07',
         url: 'https://cert.efset.org/227RcM',
-      },
-    ],
-  };
-
-  // LocalBusiness Schema - Freelance Services
-  const localBusinessSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    '@id': `${baseUrl}/#business`,
-    name: 'Andrii Litkovskyi - Marketing Services',
-    alternateName: 'Andrii Litkovskyi - Marketing Dienstleistungen',
-    description: {
-      '@language': 'de',
-      '@value': 'Marketing ohne Buzzwords und leere Versprechen. Über 15 Jahre Erfahrung in Paid Social, SEO und CRM-Automatisierung.',
-    },
-    url: baseUrl,
-    image: `${baseUrl}/og-image.png`,
-    telephone: '+49 176 58238236',
-    email: 'andrii@litkovskyi.de',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'Mindener Straße 87',
-      addressLocality: 'Hille',
-      postalCode: '32479',
-      addressRegion: 'Nordrhein-Westfalen',
-      addressCountry: 'DE',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 52.3333,
-      longitude: 8.7500,
-    },
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '09:00',
-        closes: '18:00',
-      },
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: 'Saturday',
-        opens: '09:00',
-        closes: '15:00',
-      },
-    ],
-    priceRange: '$$',
-    founder: { '@id': `${baseUrl}/#person` },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '5.0',
-      bestRating: '5',
-      worstRating: '1',
-      ratingCount: '3',
-      reviewCount: '3',
-    },
-    review: [
-      {
-        '@type': 'Review',
-        author: {
-          '@type': 'Person',
-          name: 'Helena Warlamova',
-          jobTitle: 'CEO',
-          worksFor: {
-            '@type': 'Organization',
-            name: 'Sunny Bay Hotel',
-          },
-        },
-        reviewBody: 'Andrii joined us when we were practically invisible online. He started from scratch — SEO, social media, the first real tracking setup. Two years later, we had 35% more website traffic and measurable revenue growth. But what impressed me most: he never stopped learning and questioned every process until it worked.',
-      },
-      {
-        '@type': 'Review',
-        author: {
-          '@type': 'Person',
-          name: 'Alexandra Paptsova',
-          jobTitle: 'Head of Marketing',
-          worksFor: {
-            '@type': 'Organization',
-            name: 'Stimul Sport Resort',
-          },
-        },
-        reviewBody: 'When Andrii started with us, he was hungry for data and results. He completely revamped our paid social strategy, and for the first time we could see exactly which campaigns actually drove bookings. His technical depth combined with a feel for creative campaigns is rare. I knew early on he would take on more responsibility.',
-      },
-      {
-        '@type': 'Review',
-        author: {
-          '@type': 'Person',
-          name: 'Uriyi Litkovskyi',
-          jobTitle: 'CEO',
-          worksFor: {
-            '@type': 'Organization',
-            name: 'Stimul Sport Resort',
-          },
-        },
-        reviewBody: 'Andrii turned our digital marketing from an afterthought into our main growth driver. +70% bookings in one year speaks for itself. But what really sets him apart: he thinks like an entrepreneur, not just in campaigns. He built a team, established processes, and always kept the big picture in mind. One of the best people I have ever worked with.',
       },
     ],
   };
@@ -338,12 +370,6 @@ export default function StructuredData() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(personSchema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(localBusinessSchema),
         }}
       />
       <script
