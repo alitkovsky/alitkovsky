@@ -407,7 +407,7 @@ textarea:focus-visible {
 }
 .cover__subline {
   margin-top: 1.5rem;
-  font-size: var(--font--size-small);
+  font-size: var(--font--size-regular);
   font-weight: 400;
   opacity: 0;
   animation: fadeIn 1s ease-in-out 0.5s forwards;

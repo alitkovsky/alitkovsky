@@ -1,7 +1,7 @@
 import ProjectsList from "@/components/ProjectsList";
 
 export const metadata = {
-  title: "Projekte – Andrii Litkovskyi",
+  title: "Marketing Projekte & Case Studies | Andrii Litkovskyi",
   description: "Marketing-Projekte mit messbaren Ergebnissen: +70% Buchungen, +35% Traffic. SEO, Google Ads, und Marketing-Automation für lokale Unternehmen.",
   alternates: {
     canonical: '/projects',
@@ -12,7 +12,7 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Projekte – Andrii Litkovskyi",
+    title: "Marketing Projekte & Case Studies | Andrii Litkovskyi",
     description: "Marketing-Projekte mit messbaren Ergebnissen: +70% Buchungen, +35% Traffic. SEO, Google Ads, und Marketing-Automation für lokale Unternehmen.",
     url: '/projects',
     type: 'website',

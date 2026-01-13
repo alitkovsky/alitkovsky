@@ -12,12 +12,12 @@ export async function generateStaticParams() {
 const SERVICE_META = {
   "seo": {
     title: "SEO & Local SEO Beratung in OWL | Andrii Litkovskyi",
-    description: "SEO-Optimierung für Praxen, Handwerker und Dienstleister in Minden-Lübbecke und OWL. Bei Google gefunden werden — technisch sauber, lokal sichtbar. +50% organische Sichtbarkeit.",
+    description: "SEO für Praxen, Handwerker und Dienstleister in Minden-Lübbecke. Bei Google gefunden werden — technisch sauber, lokal sichtbar.",
     keywords: "SEO Beratung OWL, Local SEO Minden, SEO Bielefeld, Suchmaschinenoptimierung Praxis, SEO Handwerker",
   },
   "google-ads": {
     title: "Google Ads Beratung in OWL | Andrii Litkovskyi",
-    description: "Google Ads für lokale Unternehmen in Minden-Lübbecke und OWL. Sofort sichtbar bei Google — präzises Geo-Targeting, messbare Ergebnisse. 2-3x mehr Anfragen.",
+    description: "Google Ads für lokale Unternehmen in Minden-Lübbecke. Sofort sichtbar bei Google — präzises Geo-Targeting, messbare Ergebnisse.",
     keywords: "Google Ads Beratung OWL, Google Ads Minden, AdWords Bielefeld, PPC Agentur, Google Werbung lokal",
   },
   "paid-social": {

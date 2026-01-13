@@ -458,7 +458,7 @@ export default function Datenschutz() {
 
         {/* Cookie Usage */}
         <div className="right">
-          <h3>{copy.cookies.heading}</h3>
+          <h2>{copy.cookies.heading}</h2>
           <p className="title">{copy.cookies.whatAreCookies.heading}</p>
           <p>{copy.cookies.whatAreCookies.text}</p>
           <p className="title">
@@ -532,7 +532,7 @@ export default function Datenschutz() {
 
         {/* Google Analytics */}
         <div className="left">
-          <h3>{copy.googleAnalytics.heading}</h3>
+          <h2>{copy.googleAnalytics.heading}</h2>
           <p>{copy.googleAnalytics.intro}</p>
           <p className="title">{copy.googleAnalytics.scope.heading}</p>
           <ul>
@@ -560,7 +560,7 @@ export default function Datenschutz() {
 
         {/* Microsoft Clarity */}
         <div className="right">
-          <h3>{copy.clarity.heading}</h3>
+          <h2>{copy.clarity.heading}</h2>
           <p>{copy.clarity.intro}</p>
           <p className="title">{copy.clarity.scope.heading}</p>
           <ul>
@@ -589,7 +589,7 @@ export default function Datenschutz() {
 
         {/* Calendly */}
         <div className="right">
-          <h3>{copy.calendly.heading}</h3>
+          <h2>{copy.calendly.heading}</h2>
           <p className="datenschutz-text">{copy.calendly.intro}</p>
           <ul>
             {copy.calendly.items.map((item, idx) => (
@@ -612,7 +612,7 @@ export default function Datenschutz() {
 
         {/* Hosting & Technical Infrastructure */}
         <div className="left">
-          <h3>{copy.hosting.heading}</h3>
+          <h2>{copy.hosting.heading}</h2>
           <p className="title">{copy.hosting.vercel.heading}</p>
           <p>{copy.hosting.vercel.text}</p>
           <ul>
@@ -641,7 +641,7 @@ export default function Datenschutz() {
 
         {/* Social Media Links */}
         <div className="right">
-          <h3>{copy.socialMedia.heading}</h3>
+          <h2>{copy.socialMedia.heading}</h2>
           <p>{copy.socialMedia.intro}</p>
           <ul>
             {copy.socialMedia.items.map((item, idx) => (
@@ -655,7 +655,7 @@ export default function Datenschutz() {
 
         {/* User Rights */}
         <div className="left">
-          <h3>{copy.rights.heading}</h3>
+          <h2>{copy.rights.heading}</h2>
           <p>{copy.rights.intro}</p>
           <ul>
             {copy.rights.items.map((item, idx) => (
@@ -713,7 +713,7 @@ export default function Datenschutz() {
 
         {/* Updates */}
         <div className="right">
-          <h3>{copy.updates.heading}</h3>
+          <h2>{copy.updates.heading}</h2>
           <p className="title">{copy.updates.text}</p>
           <p>{copy.updates.lastUpdated}{" "}
             {formatDate(language)}

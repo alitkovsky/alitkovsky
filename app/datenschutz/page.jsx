@@ -1,8 +1,8 @@
 import Datenschutz from "@/components/Datenschutz";
 
 export const metadata = {
-  title: "datenschutz – andrii litkovskyi",
-  description: "datenschutzerklärung & cookie-richtlinie für andrii litkovskyi.",
+  title: "Datenschutz – Andrii Litkovskyi",
+  description: "Datenschutzerklärung & Cookie-Richtlinie für litkovskyi.de. Informationen zu Cookies, Google Analytics, Microsoft Clarity und deinen Rechten.",
   alternates: {
     canonical: '/datenschutz',
     languages: {
