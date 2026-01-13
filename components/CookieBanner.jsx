@@ -162,7 +162,8 @@ export default function CookieBanner() {
             >
               {copy.description}{" "}
               <TextEffect
-                as="a"
+                as="button"
+                type="button"
                 variant="ellipseAuto"
                 trigger="hover"
                 className="cookie-banner__link inline-block"

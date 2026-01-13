@@ -27,6 +27,16 @@ const securityHeaders = [
     value: "strict-origin-when-cross-origin",
   },
   {
+    // HSTS: Force HTTPS connections for 1 year, include subdomains
+    key: "Strict-Transport-Security",
+    value: "max-age=31536000; includeSubDomains; preload",
+  },
+  {
+    // COOP: Isolate browsing context to prevent cross-origin attacks
+    key: "Cross-Origin-Opener-Policy",
+    value: "same-origin-allow-popups",
+  },
+  {
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
