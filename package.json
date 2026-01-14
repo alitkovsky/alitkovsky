@@ -5,10 +5,17 @@
     "node": "22.x",
     "npm": ">=10.x"
   },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Edge versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions"
+  ],
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/strip-polyfills.js",
     "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
