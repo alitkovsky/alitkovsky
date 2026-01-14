@@ -1,19 +1,18 @@
 import "./styles/globals.css";
-import "./styles/media-queries.css";
 import "./styles/color.css";
 import "./styles/font.css";
 import "./styles/variables.css";
 import "./styles/grid.css";
-import "./styles/cursor.css";
 
 import { Comfortaa, Satisfy } from "next/font/google";
 import Script from "next/script";
-import { GoogleTagManager } from "@next/third-parties/google";
 import { cookies, headers } from "next/headers";
 
 import Clarity from "@/components/Clarity";
 import AppWrapper from "@/components/AppWrapper";
 import CookieBanner from "@/components/CookieBanner";
+import DeferredStyles from "@/components/DeferredStyles";
+import Gtm from "@/components/Gtm";
 import StructuredData from "@/components/StructuredData";
 import {
   FALLBACK_LANGUAGE,
@@ -25,8 +24,6 @@ import {
   resolveLanguageFromCountry,
   sanitizeLanguage,
 } from "@/lib/language";
-
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 export const metadata = {
   metadataBase: new URL('https://litkovskyi.de'),
@@ -213,8 +210,11 @@ export default async function RootLayout({ children }) {
           {/* Cookie Consent Banner */}
           <CookieBanner />
 
-          {/* Google Tag Manager - Loaded via @next/third-parties */}
-          {GTM_ID && <GoogleTagManager gtmId={GTM_ID} />}
+          {/* Google Tag Manager - Loaded after consent/idle */}
+          <Gtm />
+
+          {/* Non-critical styles loaded after initial paint */}
+          <DeferredStyles />
       </body>
     </html>
   );

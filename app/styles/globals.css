@@ -355,12 +355,20 @@ textarea:focus-visible {
   text-align: left;
 }
 .section.cover h1 {
-  opacity: 0;
-  transition: opacity 1.5s ease-in-out;
   font-weight: 700;
+  opacity: 1;
+  transform: translateY(0);
 }
 .section.cover h1.is--animating {
-  opacity: 1;
+  animation: coverHeadlineIn 0.9s cubic-bezier(0.33, 0, 0.2, 1) both;
+}
+@keyframes coverHeadlineIn {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 .cover__headline {
   width: 100%;
@@ -3566,10 +3574,10 @@ footer {
   display: grid;
   grid-template-columns: subgrid;
   gap: var(--grid--app-gutter);
-  color: var(--color--foreground--100);
 }
 footer .footer__letter {
   padding-top: 10px;
+  color: var(--color--foreground--100);
 }
 footer > .footer__letter:nth-child(1) {
   grid-column-start: 2;
@@ -4007,64 +4015,6 @@ footer .footer__letter {
   contain: layout style;
 }
 
-/* Custom cursor - continuously transforms */
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  will-change: transform;
-  contain: layout style paint;
-  background-color: var(--custom-cursor-base-color, rgba(0, 0, 0, 0.85));
-  mix-blend-mode: difference;
-}
-
-/* Custom cursor CSS variables for theming */
-:root {
-  --custom-cursor-base-color: rgba(0, 0, 0, 0.85);
-  --custom-cursor-text-color: rgba(0, 0, 0, 0.9);
-}
-
-/* Hide native cursor when custom cursor is active */
-body.custom-cursor-active {
-  cursor: none;
-}
-
-body.custom-cursor-active a,
-body.custom-cursor-active button,
-body.custom-cursor-active [role="button"],
-body.custom-cursor-active input,
-body.custom-cursor-active textarea,
-body.custom-cursor-active select {
-  cursor: none;
-}
-
-/**
- * Touch device fallbacks
- * Hide cursor effects on touch-only devices (no trackpad)
- * Note: Primary control is via JS conditional rendering,
- * but CSS provides a fallback and immediate hiding
- */
-@media (pointer: coarse) and (hover: none) {
-  .custom-cursor {
-    display: none !important;
-  }
-
-  body.custom-cursor-active {
-    cursor: auto;
-  }
-
-  body.custom-cursor-active a,
-  body.custom-cursor-active button,
-  body.custom-cursor-active [role="button"],
-  body.custom-cursor-active input,
-  body.custom-cursor-active textarea,
-  body.custom-cursor-active select {
-    cursor: auto;
-  }
-}
-
 /**
  * Reduced motion preferences
  * Respect user's system settings for reduced motion
@@ -4090,11 +4040,10 @@ body.custom-cursor-active select {
   .app-main {
     transition-duration: 0.01ms !important;
   }
-
-  /* Disable custom cursor (too much movement) */
-  .custom-cursor {
-    display: none !important;
+  .section.cover h1.is--animating {
+    animation: none;
   }
+
 }
 
 /* Services list page

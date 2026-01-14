@@ -108,6 +108,7 @@ export default function CustomCursor() {
 
   const pointerDataRef = useRef(null);
   const rafRef = useRef(null);
+  const textMetricsCacheRef = useRef(new WeakMap());
 
   const xValue = useMotionValue(-100);
   const yValue = useMotionValue(-100);
@@ -130,6 +131,20 @@ export default function CustomCursor() {
 
   // Determine if cursor should be enabled
   const isEnabled = showCursorEffects && !prefersReducedMotion;
+
+  useEffect(() => {
+    textMetricsCacheRef.current = new WeakMap();
+    if (!isEnabled) {
+      return;
+    }
+
+    const handleResize = () => {
+      textMetricsCacheRef.current = new WeakMap();
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isEnabled]);
 
   useEffect(() => {
     if (!isEnabled) {
@@ -162,7 +177,11 @@ export default function CustomCursor() {
         } else {
           const textElement = resolveTextElement(target);
           if (textElement) {
-            const metrics = getTextMetrics(textElement);
+            let metrics = textMetricsCacheRef.current.get(textElement);
+            if (!metrics) {
+              metrics = getTextMetrics(textElement);
+              textMetricsCacheRef.current.set(textElement, metrics);
+            }
             nextVariant = "text";
             nextWidth = metrics.width;
             nextHeight = metrics.height;

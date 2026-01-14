@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import useDeviceCapabilities from '@/hooks/useDeviceCapabilities';
 
 /**
@@ -25,6 +25,8 @@ const Magnet = ({
   const [isActive, setIsActive] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const magnetRef = useRef(null);
+  const rectRef = useRef(null);
+  const rafRef = useRef(null);
 
   // OPTIMIZATION: Use centralized device detection
   const { showCursorEffects } = useDeviceCapabilities();
@@ -32,16 +34,33 @@ const Magnet = ({
   // Effective disabled state - disable on touch-only devices
   const isEffectivelyDisabled = disabled || !showCursorEffects;
 
+  const measureRect = useCallback(() => {
+    if (!magnetRef.current) return;
+    rectRef.current = magnetRef.current.getBoundingClientRect();
+  }, []);
+
+  const scheduleMeasure = useCallback(() => {
+    if (rafRef.current) return;
+    rafRef.current = window.requestAnimationFrame(() => {
+      rafRef.current = null;
+      measureRect();
+    });
+  }, [measureRect]);
+
   useEffect(() => {
     if (isEffectivelyDisabled) {
       setPosition({ x: 0, y: 0 });
+      rectRef.current = null;
       return;
     }
 
-    const handleMouseMove = e => {
-      if (!magnetRef.current) return;
+    measureRect();
 
-      const { left, top, width, height } = magnetRef.current.getBoundingClientRect();
+    const handleMouseMove = e => {
+      const rect = rectRef.current;
+      if (!rect) return;
+
+      const { left, top, width, height } = rect;
       const centerX = left + width / 2;
       const centerY = top + height / 2;
 
@@ -61,10 +80,18 @@ const Magnet = ({
     };
 
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('resize', scheduleMeasure);
+    window.addEventListener('scroll', scheduleMeasure, true);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('resize', scheduleMeasure);
+      window.removeEventListener('scroll', scheduleMeasure, true);
+      if (rafRef.current) {
+        window.cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
     };
-  }, [padding, isEffectivelyDisabled, magnetStrength]);
+  }, [padding, isEffectivelyDisabled, magnetStrength, measureRect, scheduleMeasure]);
 
   const transitionStyle = isActive ? activeTransition : inactiveTransition;
 

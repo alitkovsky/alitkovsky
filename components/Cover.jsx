@@ -1,6 +1,4 @@
 "use client";
-
-import { useEffect, useRef } from "react";
 import useLanguage from "@/hooks/useLanguage";
 
 const COVER_COPY = {
@@ -19,19 +17,11 @@ const COVER_COPY = {
 export default function Cover() {
   const { language } = useLanguage();
   const copy = COVER_COPY[language] ?? COVER_COPY.de;
-  const headlineRef = useRef(null);
-
-  useEffect(() => {
-    // Trigger animation after hydration is complete
-    if (headlineRef.current) {
-      headlineRef.current.classList.add("is--animating");
-    }
-  }, []);
 
   return (
     <section className="section cover">
       <div className="content">
-        <h1 ref={headlineRef} className="cover__headline">
+        <h1 className="cover__headline is--animating">
           <span className="cover__headline-line">{copy.name}</span>
           <br />
           <span className="cover__headline-line">{copy.tagline}</span>

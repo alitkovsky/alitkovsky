@@ -2,30 +2,27 @@
 
 import { useEffect } from "react";
 import { getConsent } from "@/lib/consent";
-import { loadClarity } from "@/lib/scriptLoaders";
+import { loadGtm } from "@/lib/scriptLoaders";
 
-export default function Clarity() {
+export default function Gtm() {
   useEffect(() => {
     const scheduleLoad = () => {
       if (typeof window === "undefined") return;
+
       if ("requestIdleCallback" in window) {
-        window.requestIdleCallback(() => loadClarity(), { timeout: 2000 });
+        window.requestIdleCallback(() => loadGtm(), { timeout: 2000 });
       } else {
-        window.setTimeout(loadClarity, 0);
+        window.setTimeout(loadGtm, 0);
       }
     };
 
-    // Check if consent already exists and load Clarity if needed
     const consent = getConsent();
-
-    if (consent && consent.analytics && process.env.NODE_ENV === "production") {
+    if (consent?.analytics && process.env.NODE_ENV === "production") {
       scheduleLoad();
     }
 
-    // Listen for consent updates
     const handleConsentUpdate = (event) => {
       const { consent: newConsent } = event.detail;
-
       if (newConsent.analytics && process.env.NODE_ENV === "production") {
         scheduleLoad();
       }
@@ -38,7 +35,5 @@ export default function Clarity() {
     };
   }, []);
 
-  // This component no longer renders anything - it's just for side effects
-  // Scripts are loaded dynamically via scriptLoaders.js
   return null;
 }

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import WiggleSvg from "@/components/WiggleSvg";
 
@@ -24,6 +24,8 @@ export default function TiltedCard({
   displayOverlayContent = false
 }) {
   const ref = useRef(null);
+  const rectRef = useRef(null);
+  const rafRef = useRef(null);
 
   const x = useMotionValue();
   const y = useMotionValue();
@@ -37,17 +39,53 @@ export default function TiltedCard({
     mass: 1
   });
 
-  const [lastY, setLastY] = useState(0);
+  const lastYRef = useRef(0);
   const overlayBadgeContent =
     overlayContent ??
     (
       <div className="tilted-card-overlay-default" aria-hidden="true" />
     );
 
-  function handleMouse(e) {
+  const measureRect = useCallback(() => {
     if (!ref.current) return;
+    rectRef.current = ref.current.getBoundingClientRect();
+  }, []);
 
-    const rect = ref.current.getBoundingClientRect();
+  const scheduleMeasure = useCallback(() => {
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      measureRect();
+    });
+  }, [measureRect]);
+
+  useEffect(() => {
+    measureRect();
+
+    const handleViewportChange = () => scheduleMeasure();
+    window.addEventListener("resize", handleViewportChange);
+    window.addEventListener("scroll", handleViewportChange, true);
+
+    let observer = null;
+    if (typeof ResizeObserver !== "undefined" && ref.current) {
+      observer = new ResizeObserver(() => scheduleMeasure());
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      window.removeEventListener("resize", handleViewportChange);
+      window.removeEventListener("scroll", handleViewportChange, true);
+      observer?.disconnect();
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+  }, [measureRect, scheduleMeasure]);
+
+  function handleMouse(e) {
+    const rect = rectRef.current;
+    if (!rect) return;
 
     if (!rect.width || !rect.height) {
       return;
@@ -64,12 +102,13 @@ export default function TiltedCard({
     x.set(e.clientX - rect.left);
     y.set(e.clientY - rect.top);
 
-    const velocityY = offsetY - lastY;
+    const velocityY = offsetY - lastYRef.current;
     rotateFigcaption.set(-velocityY * 0.6);
-    setLastY(offsetY);
+    lastYRef.current = offsetY;
   }
 
   function handleMouseEnter() {
+    scheduleMeasure();
     scale.set(scaleOnHover);
     opacity.set(1);
   }
