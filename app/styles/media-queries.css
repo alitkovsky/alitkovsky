@@ -191,22 +191,11 @@
     grid-column: 1 / -1;
     grid-template-columns: subgrid;
   }
-  .section.intro .intro-cta,
-  .section.cover > .content {
-    grid-column: 1 / -1;
-  }
   .app-header .option.booking {
     display: none;
   }
   .app-nav .nav-cta {
     margin: 2.5rem var(--grid--app-margin) 0;
-  }
-  .section.contact .contact__calendly {
-    grid-column: 1 / -1;
-    margin-top: 2.5rem;
-  }
-  .section.contact .text__cta {
-    padding: 1.25rem;
   }
   .section.thank-you > .content {
     grid-column: 1 / -1;
@@ -253,6 +242,8 @@
   .section.datenschutz > .content .right {
     grid-column: 4 / -1;
   }
+  .section.cover > .content,
+  .section.project-detail > .content,
   .section.datenschutz > .content .wide,
   .section.datenschutz > .content .title {
     grid-column: 1 / -1;
@@ -282,18 +273,8 @@
     grid-column: 1 / -1;
     grid-template-columns: var(--grid--app-columns-6);
   }
-  .section.process > .content .intro {
-    grid-column: 1 / -1;
-  }
   .section.references .item {
     grid-column: span 3;
-  }
-  /* Cases section - 2 columns at 1020px */
-  .section.projects .projects__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .section.projects .project-card__quote {
-    display: none;
   }
   /* Projects preview at 1020px */
   .section.projects-preview > .content {
@@ -329,9 +310,6 @@
     padding: 1.5rem;
   }
   /* Case detail at 1020px */
-  .section.project-detail > .content {
-    grid-column: 1 / -1;
-  }
   .section.project-detail .project-detail__title {
     font-size: var(--font--size-large);
   }
@@ -501,17 +479,6 @@
   .section.references .item {
     grid-column: span 2;
   }
-  /* Projects section - 2 columns at 760px */
-  .section.projects .projects__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--grid--app-gutter);
-  }
-  .section.projects .project-card {
-    padding: 1.25rem;
-  }
-  .section.projects .project-card__metric-value {
-    font-size: var(--font--size-large);
-  }
   /* Projects preview at 760px */
   .section.projects-preview .projects-preview__folder-content {
     padding: 1rem;
@@ -606,19 +573,6 @@
   .section.contact > .content .text {
     grid-column: 3 / -1;
     grid-template-columns: var(--grid--app-columns-1);
-  }
-  .section.values .values-cta {
-    grid-column: 1 / -1;
-    padding: 1.5rem 0;
-  }
-  .section.contact .text__cta {
-    padding: 1rem;
-  }
-  .section.contact .contact__calendly {
-    grid-column: 1 / -1;
-  }
-  .section.contact > .content .text {
-    /* text-align: end; */
   }
   .section.thank-you > .content {
     padding: calc(var(--grid--app-xheight) + 1.25rem) 0 var(--grid--app-margin);
@@ -752,27 +706,6 @@
   }
   .section.references .item:nth-child(2) {
     padding-top: 2.5rem;
-  }
-  /* Cases section - 1 column at 500px */
-  .section.projects .projects__grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  .section.projects .project-card {
-    padding: 1rem;
-    gap: 1rem;
-  }
-  .section.projects .project-card__metric-value {
-    font-size: var(--font--size-medium);
-  }
-  .section.projects .project-card__title {
-    font-size: var(--font--size-regular);
-  }
-  .section.projects .projects__header {
-    padding-bottom: 2rem;
-  }
-  .section.projects .projects__cta {
-    padding-top: 2rem;
   }
   /* Projects preview at 500px */
   .section.projects-preview .projects-preview__header {
@@ -969,9 +902,6 @@
   .section.background > .content .items .item .background-arrow {
     left: 0rem;
     top: 70%;
-  }
-  .section.contact .text__cta h3 {
-    font-size: var(--font--size-medium);
   }
   .section.expertise > .content .certification {
     grid-column: 1 / -1;

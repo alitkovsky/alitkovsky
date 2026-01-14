@@ -23,6 +23,28 @@
   }
 }
 
+/* Utility Classes
+------------------------------------------------------------ */
+@layer utilities {
+  /* Layout utilities */
+  .col-full { grid-column: 1 / -1; }
+  .gap-gutter { gap: var(--grid--app-gutter); }
+
+  /* Typography utilities using design system */
+  .text-muted { color: var(--color--foreground--50); }
+  .text-subtle { color: var(--color--foreground--33); }
+  .text-small { font-size: var(--font--size-small); }
+  .text-regular { font-size: var(--font--size-regular); }
+  .text-medium { font-size: var(--font--size-medium); }
+  .text-large { font-size: var(--font--size-large); }
+  .text-huge { font-size: var(--font--size-huge); }
+  .lowercase { text-transform: lowercase; }
+
+  /* Common interaction states */
+  .no-pointer-events { pointer-events: none; }
+  .cursor-pointer { cursor: pointer; }
+}
+
 /* Style
 ------------------------------------------------------------ */
 .bold {

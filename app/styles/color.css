@@ -140,10 +140,3 @@ body.theme-light .image-overlay-01 {
   mix-blend-mode: lighten;
 }
 
-body.theme-light .page-transition-overlay {
-  background-color: var(--color--background--100);
-}
-
-body.theme-light .page-transition-overlay__line {
-  background-color: var(--color--foreground--100);
-}
