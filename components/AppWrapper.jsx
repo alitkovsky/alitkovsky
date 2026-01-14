@@ -7,7 +7,6 @@ import useDeviceCapabilities from "@/hooks/useDeviceCapabilities";
 import ClickSpark from "@/components/ClickSpark";
 import LanguageProvider from "@/components/LanguageProvider";
 import PwaRegister from "@/components/PwaRegister";
-import CustomCursor from "@/components/CustomCursor";
 import { CalendlyProvider } from "@/components/CalendlyProvider";
 import { LiveRegionProvider } from "@/components/LiveRegion";
 
@@ -15,6 +14,10 @@ import GridOverlay from "@/components/GridOverlay";
 
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
+
+import dynamic from "next/dynamic";
+
+const LazyCustomCursor = dynamic(() => import("@/components/CustomCursor"), { ssr: false });
 
 /**
  * AppWrapper - Main application wrapper with performance optimizations.
@@ -56,7 +59,7 @@ export default function AppWrapper({
         <CalendlyProvider>
           <PwaRegister />
           {/* OPTIMIZATION: Only render cursor on devices with trackpad/mouse */}
-          {showCursorEffects && <CustomCursor />}
+          {showCursorEffects && <LazyCustomCursor />}
           {/* OPTIMIZATION: ClickSpark wraps children but handles its own device detection
               We still render it because it provides the container, but it's internally optimized
               to not run RAF loops when not needed */}

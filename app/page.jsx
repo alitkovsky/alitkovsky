@@ -1,16 +1,11 @@
+import dynamic from "next/dynamic";
 import Cover from "@/components/Cover";
-import Expertise from "@/components/Expertise";
-import Contact from "@/components/Contact";
 import Intro from "@/components/Intro";
-import Values from "@/components/Values";
-import Process from "@/components/Process";
-import Background from "@/components/Background";
-import ProjectsPreview from "@/components/ProjectsPreview";
-import References from "@/components/References";
-import Faq from "@/components/Faq";
 import QRTracker from "@/components/QRTracker";
 import SkipLink from "@/components/SkipLink";
 import { LocalBusinessStructuredData } from "@/components/StructuredData";
+
+const HomeLazySections = dynamic(() => import("@/components/HomeLazySections"));
 
 export default async function Home({ searchParams }) {
   const params = await searchParams;
@@ -21,19 +16,12 @@ export default async function Home({ searchParams }) {
       {/* LocalBusiness structured data with reviews - only on homepage */}
       <LocalBusinessStructuredData />
       <main className="app-main" id="main-content">
-      {/* Track business card QR scans */}
-      <QRTracker searchParams={params} />
+        {/* Track business card QR scans */}
+        <QRTracker searchParams={params} />
 
       <Cover />
       <Intro />
-      <Values />
-      <Process />
-      <Background />
-      <ProjectsPreview />
-      <References />
-      <Faq />
-      <Expertise />
-      <Contact />
+      <HomeLazySections />
     </main>
     </>
   );

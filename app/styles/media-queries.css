@@ -899,10 +899,6 @@
     grid-column: 4 / -1;
     padding-right: 0rem;
   }
-  .section.background > .content .items .item .background-arrow {
-    left: 0rem;
-    top: 70%;
-  }
   .section.expertise > .content .certification {
     grid-column: 1 / -1;
   }
