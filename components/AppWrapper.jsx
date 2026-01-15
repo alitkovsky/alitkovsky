@@ -63,8 +63,8 @@ export default function AppWrapper({
       <LiveRegionProvider>
         <CalendlyProvider>
           <PwaRegister />
-          {/* Render after hydration to keep SSR/CSR tree consistent */}
-          {isHydrated && showCursorEffects && <LazyCustomCursor />}
+          {/* OPTIMIZATION: Only render cursor on devices with trackpad/mouse */}
+          {showCursorEffects && <LazyCustomCursor />}
           {appContent}
         </CalendlyProvider>
       </LiveRegionProvider>
