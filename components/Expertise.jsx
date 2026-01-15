@@ -123,6 +123,15 @@ export default function Expertise() {
   const viewCertificate = copy.links?.viewCertificate ?? fallbackCopy.links?.viewCertificate ?? "view certificate";
   const colophon = copy.colophon ?? fallbackCopy.colophon ?? {};
 
+  // Pre-compute heading values to avoid Turbopack ?? minification bug
+  const headingCertifications = headings.certifications ?? "Certifications";
+  const headingEducation = headings.education ?? "Education";
+  const headingColophon = headings.colophon ?? "Colophon";
+  const colophonDesignAndCode = colophon.designAndCodePrefix ?? "Design and code by";
+  const colophonTypesetIn = colophon.typesetInPrefix ?? "Typeset in";
+  const colophonTypesetBy = colophon.typesetByJoiner ?? "by";
+  const colophonCopyright = colophon.copyrightSuffix ?? "Andrii Litkovskyi Marketing — made in Germany";
+
   return (
     <section className="section expertise" id="expertise">
       <div className="content">
@@ -133,7 +142,7 @@ export default function Expertise() {
         </div>
 
         <div className="certification">
-          <h2>{headings.certifications ?? "Certifications"}</h2>
+          <h2>{headingCertifications}</h2>
           {certification.items.map((item, index) => {
             return (
               <p key={index}>
@@ -159,7 +168,7 @@ export default function Expertise() {
         </div>
 
         <div className="education">
-          <h2>{headings.education ?? "Education"}</h2>
+          <h2>{headingEducation}</h2>
           {education.items.map((item, index) => {
             return (
               <p key={index}>
@@ -177,11 +186,11 @@ export default function Expertise() {
           visibilityRootMargin="0px 0px -25%"
           className="colophon inline-block"
         >
-          <h2>{headings.colophon ?? "Colophon"}</h2>
+          <h2>{headingColophon}</h2>
           <p>
-            <span className="description">{colophon.designAndCodePrefix ?? "Design and code by"} <Link href="/">Andrii Litkovskyi</Link><br /></span>
-            <span className="description">{colophon.typesetInPrefix ?? "Typeset in"} <Link href="https://fonts.google.com/specimen/Comfortaa" target="_blank" rel="noopener noreferrer">Comfortaa</Link> {colophon.typesetByJoiner ?? "by"} <Link href="https://fonts.google.com/?query=Johan%20Aakerlund" target="_blank" rel="noopener noreferrer">Johan Aakerlund</Link><br /><br /></span>
-            <span className="copyright">©&nbsp;<span className="year">{new Date().getFullYear()}</span> {colophon.copyrightSuffix ?? "Andrii Litkovskyi Marketing — made in Germany"}</span>
+            <span className="description">{colophonDesignAndCode} <Link href="/">Andrii Litkovskyi</Link><br /></span>
+            <span className="description">{colophonTypesetIn} <Link href="https://fonts.google.com/specimen/Comfortaa" target="_blank" rel="noopener noreferrer">Comfortaa</Link> {colophonTypesetBy} <Link href="https://fonts.google.com/?query=Johan%20Aakerlund" target="_blank" rel="noopener noreferrer">Johan Aakerlund</Link><br /><br /></span>
+            <span className="copyright">©&nbsp;<span className="year">{new Date().getFullYear()}</span> {colophonCopyright}</span>
             {/* <TextEffect
               as="a"
               variant="ellipseAuto"

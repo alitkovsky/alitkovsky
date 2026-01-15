@@ -44,9 +44,9 @@ export const SERVICES_DATA = {
           "nachhaltige präsenz bei google maps und lokaler suche",
         ],
         relatedProject: {
-          slug: "sunny-bay-hotel",
-          title: "sunny bay hotel: +35% traffic durch seo",
-          metric: "+35% website-traffic",
+          slug: "local-seo-dental",
+          title: "zahnarztpraxis: von unsichtbar zu top 3 im map pack",
+          metric: "+48% mehr anrufe",
         },
         cta: {
           label: "kostenlose seo-analyse anfragen",
@@ -100,9 +100,9 @@ export const SERVICES_DATA = {
           "volle kontrolle über budget und zielregion",
         ],
         relatedProject: {
-          slug: "lokale-kmu",
-          title: "lokale kmu: google ads für praxen & handwerker",
-          metric: "sofortige lokale sichtbarkeit",
+          slug: "google-ads-dach",
+          title: "b2b saas: von lost in translation zum top-kanal",
+          metric: "-52% cost per lead",
         },
         cta: {
           label: "google ads beratung anfragen",
@@ -156,9 +156,9 @@ export const SERVICES_DATA = {
           "effizientes retargeting von interessenten",
         ],
         relatedProject: {
-          slug: "stimul-sport-resort",
-          title: "stimul sport resort: +70% buchungen durch paid social",
-          metric: "+70% mehr buchungen",
+          slug: "google-ads-dach",
+          title: "b2b saas: kulturell angepasste ad-kampagnen",
+          metric: "+30% conversion rate",
         },
         cta: {
           label: "paid social beratung anfragen",
@@ -212,9 +212,9 @@ export const SERVICES_DATA = {
           "budget-optimierung basierend auf echten zahlen",
         ],
         relatedProject: {
-          slug: "stimul-sport-resort",
-          title: "stimul sport resort: von 0 auf 100% attribution",
-          metric: "100% conversion-attribution",
+          slug: "tracking-audit",
+          title: "e-commerce: consent mode v2 & tracking-rettung",
+          metric: "100% dsgvo-konform",
         },
         cta: {
           label: "analytics-audit anfragen",
@@ -268,9 +268,9 @@ export const SERVICES_DATA = {
           "kein lead geht mehr verloren",
         ],
         relatedProject: {
-          slug: "stimul-sport-resort",
-          title: "stimul sport resort: hubspot-implementierung",
-          metric: "+70% mehr buchungen",
+          slug: "tracking-audit",
+          title: "e-commerce: technische implementierung & automation",
+          metric: "-18% cpa durch bessere daten",
         },
         cta: {
           label: "crm-beratung anfragen",
@@ -337,9 +337,9 @@ export const SERVICES_DATA = {
           "sustainable presence on google maps and local search",
         ],
         relatedProject: {
-          slug: "sunny-bay-hotel",
-          title: "sunny bay hotel: +35% traffic through seo",
-          metric: "+35% website traffic",
+          slug: "local-seo-dental",
+          title: "dental practice: from invisible to top 3 map pack",
+          metric: "+48% more calls",
         },
         cta: {
           label: "request free seo analysis",
@@ -393,9 +393,9 @@ export const SERVICES_DATA = {
           "full control over budget and target region",
         ],
         relatedProject: {
-          slug: "lokale-kmu",
-          title: "local smes: google ads for practices & tradespeople",
-          metric: "immediate local visibility",
+          slug: "google-ads-dach",
+          title: "b2b saas: from lost in translation to top channel",
+          metric: "-52% cost per lead",
         },
         cta: {
           label: "request google ads consultation",
@@ -449,9 +449,9 @@ export const SERVICES_DATA = {
           "efficient retargeting of prospects",
         ],
         relatedProject: {
-          slug: "stimul-sport-resort",
-          title: "stimul sport resort: +70% bookings through paid social",
-          metric: "+70% more bookings",
+          slug: "google-ads-dach",
+          title: "b2b saas: culturally adapted ad campaigns",
+          metric: "+30% conversion rate",
         },
         cta: {
           label: "request paid social consultation",
@@ -505,9 +505,9 @@ export const SERVICES_DATA = {
           "budget optimization based on real numbers",
         ],
         relatedProject: {
-          slug: "stimul-sport-resort",
-          title: "stimul sport resort: from 0 to 100% attribution",
-          metric: "100% conversion attribution",
+          slug: "tracking-audit",
+          title: "e-commerce: consent mode v2 & tracking rescue",
+          metric: "100% gdpr compliant",
         },
         cta: {
           label: "request analytics audit",
@@ -561,9 +561,9 @@ export const SERVICES_DATA = {
           "no lead gets lost anymore",
         ],
         relatedProject: {
-          slug: "stimul-sport-resort",
-          title: "stimul sport resort: hubspot implementation",
-          metric: "+70% more bookings",
+          slug: "tracking-audit",
+          title: "e-commerce: technical implementation & automation",
+          metric: "-18% cpa through better data",
         },
         cta: {
           label: "request crm consultation",

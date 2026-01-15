@@ -51,7 +51,7 @@ export default function BookCTA({
     () => normalizeUrl(url, eventUrl),
     [url, eventUrl],
   );
-  const [hasConsent, setHasConsent] = useState(() => canLoadTool("calendly"));
+  const [hasConsent, setHasConsent] = useState(false);
 
   useEffect(() => {
     const syncConsent = () => setHasConsent(canLoadTool("calendly"));

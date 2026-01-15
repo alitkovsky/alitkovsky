@@ -55,6 +55,8 @@ const securityHeaders = [
 
 const nextConfig = {
   reactStrictMode: true,
+  // Capture browser source maps for Lighthouse diagnostics and better stack traces
+  productionBrowserSourceMaps: true,
   // Allow cross-origin requests during development
   allowedDevOrigins: ['192.168.178.79'],
   turbopack: {},
