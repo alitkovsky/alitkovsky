@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import useInitialPageLoad from "@/hooks/useInitialPageLoad";
 import useTouchDetection from "@/hooks/useTouchDetection";
 import useDeviceCapabilities from "@/hooks/useDeviceCapabilities";
@@ -38,6 +39,11 @@ export default function AppWrapper({
 
   // OPTIMIZATION: Centralized device detection for cursor effects
   const { showCursorEffects } = useDeviceCapabilities();
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   // Shared content that always renders
   const appContent = (
@@ -57,8 +63,8 @@ export default function AppWrapper({
       <LiveRegionProvider>
         <CalendlyProvider>
           <PwaRegister />
-          {/* OPTIMIZATION: Only render cursor on devices with trackpad/mouse */}
-          {showCursorEffects && <LazyCustomCursor />}
+          {/* Render after hydration to keep SSR/CSR tree consistent */}
+          {isHydrated && showCursorEffects && <LazyCustomCursor />}
           {appContent}
         </CalendlyProvider>
       </LiveRegionProvider>
