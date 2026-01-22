@@ -8,30 +8,30 @@ import useLanguage from "@/hooks/useLanguage";
 const EXPERTISE_COPY = {
   de: {
     biography: [
-      "ich bin andrii — online-marketing-berater aus hille, kreis minden-lübbecke. seit über 15 jahren helfe ich unternehmen dabei, online sichtbar zu werden und planbar kunden zu gewinnen.",
-      "mein ansatz: persönliche beratung auf augenhöhe, hands-on umsetzung und ein tiefes verständnis für lokale märkte. ich arbeite nicht mit standardpaketen — jede strategie wird individuell auf deine ziele zugeschnitten.",
-      "ob google ads, meta-kampagnen, seo oder marketing-automatisierung mit hubspot — ich bring die erfahrung und die zertifizierungen mit, um dein marketing aufs nächste level zu heben.",
+      "ich bin andrii — system architect für marketing & sales. meine heimat ist hille (owl), mein spielfeld ist global. ich helfe unternehmen, ihre digitalen prozesse zu 'architektieren' statt nur zu 'reparieren'.",
+      "nach 15 jahren im klassischen marketing habe ich eines gelernt: isolierte maßnahmen verbrennen geld. was fehlt, ist die verbindung.",
+      "deshalb baue ich systeme. ich verbinde crm mit ads, websites mit analysetools und chaos mit struktur. mein ziel ist nicht, dir stunden zu verkaufen, sondern dir eine maschine zu bauen, die läuft.",
     ],
     headings: {
       certifications: "zertifizierungen",
-      education: "bildung",
+      education: "ausbildung",
       colophon: "kolophon",
     },
     links: {
       viewCertificate: "zertifikat ansehen",
     },
     colophon: {
-      designAndCodePrefix: "design und code von",
-      typesetInPrefix: "typeset in",
+      designAndCodePrefix: "design und code mit liebe von",
+      typesetInPrefix: "gesetzt in",
       typesetByJoiner: "von",
-      copyrightSuffix: "andrii litkovskyi marketing — made in germany",
+      copyrightSuffix: "andrii litkovskyi marketing — systems architect",
     },
   },
   en: {
     biography: [
-      "i'm andrii — an online marketing consultant based in hille (minden-lübbecke), germany. for 15+ years i've helped businesses get found online and win customers predictably.",
-      "my approach: personal consulting on equal footing, hands-on execution, and a deep understanding of local markets. no cookie-cutter packages — every strategy is tailored to your goals.",
-      "whether it's google ads, meta campaigns, seo, or hubspot marketing automation — i bring the experience and certifications to take your marketing to the next level.",
+      "i'm andrii — system architect for marketing & sales. based in germany, operating globally. i help businesses 'architect' their digital processes instead of just 'fixing' them.",
+      "after 15+ years in classic marketing, i've learned one thing: isolated measures burn money. what's missing is the connection.",
+      "that's why i build systems. i connect crm with ads, websites with analytics, and chaos with structure. my goal isn't to sell you hours, but to build you a machine that runs.",
     ],
     headings: {
       certifications: "certifications",
@@ -42,10 +42,10 @@ const EXPERTISE_COPY = {
       viewCertificate: "view certificate",
     },
     colophon: {
-      designAndCodePrefix: "design and code by",
+      designAndCodePrefix: "design and code with love by",
       typesetInPrefix: "typeset in",
       typesetByJoiner: "by",
-      copyrightSuffix: "andrii litkovskyi marketing — made in germany",
+      copyrightSuffix: "andrii litkovskyi marketing — systems architect",
     },
   },
 };
@@ -81,13 +81,7 @@ const certification = {
       date: "march 2025",
       skills: "HubSpot Marketing Hub Software, Marketing",
     },
-    {
-      platform: "LinkedIn",
-      link: "https://verify.skilljar.com/c/ompyyiw62qyi",
-      direction: "LinkedIn Certified Marketing Insider",
-      date: "march 2025",
-      skills: "LinkedIn Certified Marketing Insider, Marketing",
-    },
+    // Kept key certifications that are less "tool generic" and more "professional"
     {
       platform: "Google Digital Academy",
       link: "https://skillshop.credential.net/8f0ae8dd-61e4-436b-8def-22f710dc4802",

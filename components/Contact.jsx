@@ -12,15 +12,15 @@ import useLanguage from "@/hooks/useLanguage";
 const CONTACT_COPY = {
   de: {
     hook: {
-      prefix: "lass uns quatschen —",
-      underlineThin: "unverbindlich",
-      underlineZigzag: "kostenlos",
+      prefix: "bereit für ein update? nämlich, ",
+      underlineThin: "system-audit",
+      underlineZigzag: "kostenloses",
       joiner: "und",
-      subtitle: "in 20 minuten klären wir, ob und wie ich dir helfen kann. kein verkaufsgespräch, kein druck — versprochen.",
+      subtitle: "ich prüfe deinen aktuellen status quo. in 20 minuten finden wir heraus, wo dein system sand im getriebe hat. kein verkaufsgespräch.",
     },
     card: {
-      caption: "meld dich einfach",
-      alt: "Portrait Andrii Litkovskyi - Marketing Berater für SEO & Google Ads aus Hille",
+      caption: "einfach melden",
+      alt: "Portrait Andrii Litkovskyi - Marketing Systems Architect",
     },
     labels: {
       phone: "handy",
@@ -40,20 +40,20 @@ const CONTACT_COPY = {
       privacy: "datenschutz",
     },
     cta: {
-      label: "... oder buch dir direkt einen slot",
+      label: "... oder buch dir deinen audit slot",
     },
   },
   en: {
     hook: {
-      prefix: "let's chat —",
-      underlineThin: "no strings",
+      prefix: "ready for an upgrade? namely, ",
+      underlineThin: "system audit",
       underlineZigzag: "free",
       joiner: "and",
-      subtitle: "in 20 minutes we'll figure out if and how i can help. no sales pitch, no pressure — promised.",
+      subtitle: "i audit your current status quo. in 20 minutes we find out where your system is losing efficiency. no sales pitch.",
     },
     card: {
       caption: "just reach out",
-      alt: "Portrait Andrii Litkovskyi - Marketing Consultant for SEO & Google Ads",
+      alt: "Portrait Andrii Litkovskyi - Marketing Systems Architect",
     },
     labels: {
       phone: "phone",
@@ -73,7 +73,7 @@ const CONTACT_COPY = {
       privacy: "privacy",
     },
     cta: {
-      label: "... or just grab a slot",
+      label: "... or book your audit slot",
     },
   },
 };
@@ -132,8 +132,8 @@ export default function Contact() {
       <div className="content">
         <div className="hook">
           <h2>
-            {hook.prefix}<br />
-            <TextEffect
+            {hook.prefix}
+            {/* <TextEffect
               as="span"
               variant="underlineThin"
               trigger="visible"
@@ -142,7 +142,7 @@ export default function Contact() {
             >
               {hook.underlineThin}
             </TextEffect>
-            &nbsp;{hook.joiner}&nbsp;
+            &nbsp;{hook.joiner}&nbsp; */}
             <TextEffect
               as="span"
               variant="underlineZigzag"
@@ -152,6 +152,8 @@ export default function Contact() {
             >
               {hook.underlineZigzag}
             </TextEffect>
+            {" "}
+            {hook.underlineThin}
           </h2>
           <p className="hook__subtitle">
             {hook.subtitle}

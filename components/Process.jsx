@@ -6,93 +6,109 @@ import ProcessDialog from "@/components/ProcessDialog";
 
 const COPY = {
   de: {
-    intro: "kein geheimnis, kein hexenwerk — so läuft's ab, wenn wir zusammenarbeiten. schritt für schritt, transparent und ohne überraschungen.",
+    intro: "vom chaos zum system — der prozess. wir bauen keine luftschlösser, sondern solide infrastruktur. schritt für schritt.",
     steps: [
       {
-        title: "kontakt",
+        title: "diagnose (audit)",
         description: {
-          summary: "du meldest dich — per telefon, whatsapp, kontaktformular oder mail. keine förmliche anfrage nötig, schreib einfach was du brauchst oder dass du quatschen willst. ich melde mich innerhalb von 24 stunden zurück. wir klären kurz, ob und wie ich dir helfen kann, und finden einen termin. von dir brauche ich nur eine grobe idee, was du suchst — und idealerweise einen link zu deiner aktuellen website, damit ich mich vorbereiten kann.",
-          metrics: "< 24h",
-          result: "termin für ein kostenloses erstgespräch — ohne verpflichtungen, ohne haken",
-        },
-      },
-      {
-        title: "erstgespräch",
-        description: {
-          summary: "20 minuten, kostenlos, unverbindlich — kein verkaufsgespräch, versprochen. videocall oder telefon, deine wahl. du erzählst von deinem business, deinen zielen und was dich gerade beschäftigt. ich höre zu, stelle fragen zu zielgruppe, wettbewerb und budget. wir checken, ob die chemie stimmt, und tauschen erste ideen aus. von dir brauche ich offenheit, infos zu bisherigen marketing-versuchen und eine grobe vorstellung vom budget. am ende weißt du, ob es passt — und ich hab genug info für die analyse.",
-          metrics: "20 min",
-          result: "klarheit, ob wir zusammenpassen — plus erste strategische impulse gratis obendrauf",
-        },
-      },
-      {
-        title: "analyse & angebot",
-        description: {
-          summary: "jetzt wird's ernst: ich tauche ab in deine branche, deinen wettbewerb und deine online-präsenz. website-check (technisch + inhaltlich), keyword-recherche, wettbewerbsanalyse — ich finde die quick wins und die langfristigen potenziale. das dauert 2-3 tage, also etwas geduld. falls vorhanden, brauche ich zugang zu google analytics und search console. danach bekommst du ein dokumentiertes analyse-ergebnis und ein angebot mit festpreis, timeline und meilensteinen. kein stundenzählen, keine bösen überraschungen.",
+          summary: "wir starten mit einem tiefenblick auf den status quo. ich prüfe deine aktuelle tracking-infrastruktur, deine kampagnen-historie und deine crm-prozesse. wo verlierst du daten? wo verbrennst du budget? wir identifizieren die engpässe, die dein wachstum bremsen.",
           metrics: "2-3 tage",
-          result: "transparentes festpreis-angebot + analyse-dokument mit allen erkenntnissen und potenzialen",
+          result: "dokumentierter audit-report + liste aller wachstumsbremsen",
         },
       },
       {
-        title: "strategie & umsetzung",
+        title: "blaupause (strategie)",
         description: {
-          summary: "hier passiert die magie. ich entwickle die strategie und setze sie um — von tracking-setup über landingpages bis zu google- und meta-kampagnen. seo-optimierung technisch und inhaltlich inklusive. du bekommst wöchentliche updates und kannst dich zurücklehnen. von dir brauche ich feedback zu entwürfen, zeitnahe freigaben, zugänge zu relevanten accounts und ggf. inhalte wie texte oder bilder. je nach projektumfang rechne mit 4-8 wochen bis zum launch.",
-          metrics: "4-8 wochen",
-          result: "fertige marketing-infrastruktur, die funktioniert — erste kampagnen laufen, tracking steht",
+          summary: "basierend auf dem audit entwerfe ich die architektur für dein neues system. welche tools brauchen wir? wie fließen die daten? wie sehen die kampagnen-strukturen aus? du bekommst einen klaren bauplan, bevor wir den ersten stein setzen. keine überraschungen.",
+          metrics: "1 woche",
+          result: "fertiger system-bauplan und technisches konzept",
         },
       },
       {
-        title: "optimierung & reporting",
+        title: "konstruktion (bau)",
         description: {
-          summary: "launch ist erst der anfang. ich behalte die zahlen im blick, teste varianten, optimiere kontinuierlich und halte dich mit monatlichen reports auf dem laufenden — verständlich erklärt, nicht nur zahlenkolonnen. du bekommst proaktive vorschläge zur verbesserung und schnelle reaktion bei problemen. von dir brauche ich feedback zur performance und info über geschäftliche veränderungen. dieser schritt ist optional, aber empfohlen — denn hier entsteht der echte roi.",
-          metrics: "Ø +35%",
-          result: "stetig bessere ergebnisse monat für monat — volle transparenz über dein marketing-investment",
+          summary: "jetzt wird gebaut. ich richte das tracking ein (server-side), verknüpfe die apis (n8n/make) und baue die kampagnen-struktur. wir testen die datenflüsse und stellen sicher, dass jeder lead korrekt im crm ankommt. das ist die phase der 'digitalen baustelle'.",
+          metrics: "3-6 wochen",
+          result: "schlüsselfertiges marketing-system & validiertes tracking",
         },
       },
+      {
+        title: "zündung (launch)",
+        description: {
+          summary: "das system geht live. wir schalten den traffic ein. da das tracking sauber ist, sehen wir sofort, was passiert. wir überwachen die ersten 7 tage extrem engmaschig, um kinderkrankheiten sofort zu beheben. der erste traffic fließt durch die neuen rohre.",
+          metrics: "live-gang",
+          result: "go-live und erster verifizierter dateneingang",
+        },
+      },
+      {
+        title: "kalibrierung (skalierung)",
+        description: {
+          summary: "ein system ist nie 'fertig', es wird nur besser. basierend auf echten daten optimieren wir die creatives, das targeting und die crm-automatisierungen. wir drehen an den stellschrauben, um den roi zu maximieren. monatliches reporting zeigt dir schwarz auf weiß, was das system leistet.",
+          metrics: "laufend",
+          result: "kontinuierliche roi-steigerung und system-verfeinerung",
+        },
+      },
+      // {
+      //   title: "übergabe (enablement)",
+      //   description: {
+      //     summary: "mein ziel ist nicht abhängigkeit, sondern dein wachstum. wenn das system stabil läuft, schule ich dein team darin, es zu bedienen. du bekommst dokumentationen und playbooks. du besitzt das system, nicht ich.",
+      //     metrics: "optional",
+      //     result: "inhouse-kompetenz und unabhängigkeit",
+      //   },
+      // }
     ],
   },
   en: {
-    intro: "no secrets, no magic tricks — here's how it works when we team up. step by step, transparent, no surprises.",
+    intro: "from chaos to system — the process. we don't build castles in the sky, we build solid infrastructure. step by step.",
     steps: [
       {
-        title: "contact",
+        title: "diagnosis (audit)",
         description: {
-          summary: "you reach out — via phone, whatsapp, contact form, or email. no formal request needed, just tell me what you're looking for or that you'd like to chat. i'll get back to you within 24 hours. we'll quickly figure out if and how i can help, and find a time to talk. all i need from you is a rough idea of what you're after — and ideally a link to your current website so i can prepare.",
-          metrics: "< 24h",
-          result: "free intro call scheduled — no obligations, no strings attached",
-        },
-      },
-      {
-        title: "intro call",
-        description: {
-          summary: "20 minutes, free, no strings — no sales pitch, promise. video call or phone, your choice. you tell me about your business, your goals, and what's on your mind. i listen, ask questions about target audience, competition, and budget. we check if there's chemistry and exchange first ideas. from you, i need openness, info on past marketing attempts, and a rough budget range. by the end, you'll know if it's a fit — and i'll have enough info for the analysis.",
-          metrics: "20 min",
-          result: "clarity on whether we're a match — plus first strategic impulses free on top",
-        },
-      },
-      {
-        title: "analysis & proposal",
-        description: {
-          summary: "now it gets real: i dive deep into your industry, competition, and online presence. website check (technical + content), keyword research, competitor analysis — i find the quick wins and long-term potential. this takes 2-3 days, so a bit of patience. if available, i'll need access to google analytics and search console. then you get a documented analysis and a fixed-price proposal with timeline and milestones. no hourly tracking, no nasty surprises.",
+          summary: "we start with a deep dive into the status quo. i inspect your current tracking infrastructure, campaign history, and crm processes. where are you losing data? where are you burning budget? we identify the bottlenecks slowing down your growth.",
           metrics: "2-3 days",
-          result: "transparent fixed-price proposal + analysis document with all findings and opportunities",
+          result: "documented audit report + list of growth blockers",
         },
       },
       {
-        title: "strategy & execution",
+        title: "blueprint (strategy)",
         description: {
-          summary: "this is where the magic happens. i develop the strategy and execute it — from tracking setup to landing pages to google and meta campaigns. seo optimization (technical and content) included. you get weekly updates and can sit back. from you, i need feedback on drafts, timely approvals, access to relevant accounts, and possibly content like copy or images. depending on scope, expect 4-8 weeks until launch.",
-          metrics: "4-8 weeks",
-          result: "finished marketing infrastructure that works — first campaigns running, tracking in place",
+          summary: "based on the audit, i design the architecture for your new system. which tools do we need? how does data flow? what do the campaign structures look like? you get a clear blueprint before we lay the first brick. no surprises.",
+          metrics: "1 week",
+          result: "finished system blueprint and technical concept",
         },
       },
       {
-        title: "optimization & reporting",
+        title: "construction (build)",
         description: {
-          summary: "launch is just the beginning. i keep an eye on the numbers, test variants, optimize continuously, and keep you in the loop with monthly reports — explained clearly, not just spreadsheets. you get proactive suggestions for improvement and quick response to issues. from you, i need feedback on performance and info on business changes. this step is optional but recommended — because this is where the real roi happens.",
-          metrics: "Ø +35%",
-          result: "continuously improving results month over month — full transparency on your marketing investment",
+          summary: "now we build. i set up the tracking (server-side), connect the apis (n8n/make), and build the campaign structure. we test data flows and ensure every lead lands correctly in the crm. this is the 'digital construction site' phase.",
+          metrics: "3-6 weeks",
+          result: "turnkey marketing system & validated tracking",
         },
       },
+      {
+        title: "ignition (launch)",
+        description: {
+          summary: "the system goes live. we switch on the traffic. because tracking is clean, we see exactly what happens immediately. we monitor the first 7 days extremely closely to fix teething issues instantly. initial traffic flows through the new pipes.",
+          metrics: "go-live",
+          result: "go-live and first verified data ingress",
+        },
+      },
+      {
+        title: "calibration (scale)",
+        description: {
+          summary: "a system is never 'done', it only gets better. based on real data, we optimize creatives, targeting, and crm automations. we tweak the levers to maximize roi. monthly reporting shows you black on white what the system delivers.",
+          metrics: "ongoing",
+          result: "continuous roi increase and system refinement",
+        },
+      },
+      // {
+      //   title: "handover (enablement)",
+      //   description: {
+      //     summary: "my goal isn't dependency, it's your growth. once the system runs stably, i train your team to operate it. you get documentation and playbooks. you own the system, not me.",
+      //     metrics: "optional",
+      //     result: "in-house competence and independence",
+      //   },
+      // }
     ],
   },
 };
