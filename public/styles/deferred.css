@@ -1125,6 +1125,7 @@
 ------------------------------------------------------------ */
 .section.references > .content {
   padding: var(--grid--app-xheight) 0 20px 0;
+  text-transform: lowercase;
 }
 .section.references .item {
   grid-column: span 4;

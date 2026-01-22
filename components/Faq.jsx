@@ -7,68 +7,60 @@ import Accordion from "@/components/Accordion";
 
 const COPY = {
   de: {
-    intro: "bevor wir quatschen — hier die antworten auf die häufigsten fragen. falls deine nicht dabei ist: schreib mir einfach.",
+    intro: "bevor wir loslegen — hier die antworten auf die wichtigsten fragen zum thema system-architektur.",
     items: [
       {
-        question: "was kostet das ganze?",
-        answer: "kurz: es kommt drauf an. nach unserem erstgespräch bekommst du ein transparentes angebot mit festpreis — keine versteckten kosten, keine bösen überraschungen. ich arbeite nicht auf stundenbasis, weil ich finde, dass du vorher wissen solltest, was auf dich zukommt. anzahlung 50%, rest nach abschluss. so einfach.",
+        question: "agentur vs. architekt — was ist der unterschied?",
+        answer: "agenturen vermieten dir ihre kapazität (stunden). ich baue dir vermögenswerte (systeme), die dir gehören. eine agentur will, dass du abhängig bleibst. ich will, dass dein system so stabil läuft, dass du mich für das tagesgeschäft nicht mehr brauchst.",
       },
       {
-        question: "wie läuft die zusammenarbeit ab?",
-        answer: "ganz entspannt: wir telefonieren oder treffen uns, ich höre zu, stelle fragen und analysiere deine aktuelle situation. dann bekommst du ein angebot. wenn's passt, legen wir los — strategie, umsetzung, reporting. alles aus einer hand, ohne dass du zehn verschiedenen leuten erklären musst, was du willst.",
+        question: "wem gehört das system?",
+        answer: "zu 100% dir. alle accounts, alle automations-skripte, alle daten. kein 'vendor lock-in'. ich baue auf deinem eigenen tech-stack (oder richte ihn für dich ein). wenn wir uns trennen, behältst du den schlüssel zur maschine.",
       },
       {
-        question: "muss ich mich langfristig binden?",
-        answer: "nope. keine 12-monats-verträge, keine knebelverträge, kein kleingedrucktes. wir arbeiten zusammen, solange es für beide seiten sinn macht. wenn du unzufrieden bist, kannst du jederzeit gehen. mein ziel ist es, dass du bleiben willst — nicht musst.",
+        question: "wie setzen sich die kosten zusammen?",
+        answer: "wir trennen 'bau' von 'betrieb'. der aufbau deines systems (audit, blueprint, implementierung) ist ein festpreis-projekt. danach gibt es optional einen monatlichen retainer für wartung & optimierung. so zahlst du nicht monatelang für 'setup', das eigentlich fertig sein sollte.",
       },
       {
-        question: "wie schnell sehe ich ergebnisse?",
-        answer: "bei bezahlter werbung (google ads, meta): oft schon in den ersten wochen. bei seo: rechne mit 3-6 monaten, bis es richtig anzieht — das ist kein sprint, sondern ein marathon. deshalb kombiniere ich beides: sofortige sichtbarkeit durch ads, während die organische reichweite aufgebaut wird.",
+        question: "warum n8n und make.com?",
+        answer: "weil sie flexibel und skalierbar sind. im gegensatz zu teuren alles-in-einem lösungen (die oft nichts richtig können), verbinden wir 'best-in-class' tools. n8n ermöglicht uns zudem datenschutz-konformes hosting auf deutschen servern — ein muss für viele kmu.",
       },
       {
-        question: "was macht dich anders als agenturen?",
-        answer: "alles aus einer hand, ein ansprechpartner, keine abstimmungsschleifen. bei mir sitzt kein junior am account, während der senior golfen geht. ich kenne dein projekt, deine ziele, deine macken. und: meine preise sind fair, weil ich keinen fancy glaspalast in der city finanzieren muss.",
+        question: "wie schnell ist das system einsatzbereit?",
+        answer: "das hängt vom umfang ab. ein 'control center' (crm) steht oft in 1-2 wochen. ein komplettes 'intelligence hub' tracking-setup braucht ca. 1 woche. größere wachstums-systeme ('growth engine') werden modular aufgebaut, damit du schon während der bauphase erste ergebnisse siehst.",
       },
       {
-        question: "kann ich auch nur eine einzelne leistung buchen?",
-        answer: "klar. du brauchst nur eine landingpage? nur google ads? nur ein analytics-setup? kein problem. ich empfehle zwar gerne den ganzheitlichen ansatz, weil sich alles gegenseitig verstärkt — aber ich zwinge dir kein paket auf, das du nicht brauchst.",
-      },
-      {
-        question: "was passiert nach dem projekt?",
-        answer: "wartung und support sind optional, aber empfohlen. websites brauchen updates, kampagnen brauchen optimierung. ich biete flexible support-pakete an. und wenn du lieber selbst ran willst: ich zeig dir, wie's geht.",
+        question: "machst du auch schulungen?",
+        answer: "absolut. teil der 'übergabe' ist das training deines teams. ich will keine 'black box' hinterlassen. dein team lernt, wie man das crm bedient, dashboards liest und einfache änderungen selbst vornimmt.",
       },
     ],
   },
   en: {
-    intro: "before we chat — here are answers to the most common questions. if yours isn't here, just drop me a message.",
+    intro: "before we start — here are answers to the key questions about system architecture.",
     items: [
       {
-        question: "what does it cost?",
-        answer: "short answer: it depends. after our first call, you'll get a transparent quote with a fixed price — no hidden fees, no nasty surprises. i don't do hourly billing because i think you should know what you're getting into upfront. 50% deposit, rest upon completion. simple.",
+        question: "agency vs. architect — what's the difference?",
+        answer: "agencies rent you their capacity (hours). i build you assets (systems) that you own. an agency wants you to stay dependent. i want your system to run so smoothly that you don't need me for daily operations anymore.",
       },
       {
-        question: "how does working together look like?",
-        answer: "pretty chill: we hop on a call or meet up, i listen, ask questions, and analyze your current situation. then you get a proposal. if it clicks, we get started — strategy, execution, reporting. all from one source, without you having to explain what you want to ten different people.",
+        question: "who owns the system?",
+        answer: "you do, 100%. all accounts, all automation scripts, all data. no 'vendor lock-in'. i build on your own tech stack (or set it up for you). if we part ways, you keep the keys to the machine.",
       },
       {
-        question: "do i have to commit long-term?",
-        answer: "nope. no 12-month contracts, no lock-ins, no fine print. we work together as long as it makes sense for both sides. if you're unhappy, you can leave anytime. my goal is for you to want to stay — not have to.",
+        question: "how is pricing structured?",
+        answer: "we separate 'build' from 'run'. building your system (audit, blueprint, implementation) is a fixed-price project. afterwards, there is an optional monthly retainer for maintenance & optimization. this way, you don't pay months for 'setup' that should be finished.",
       },
       {
-        question: "how fast will i see results?",
-        answer: "with paid ads (google ads, meta): often within the first few weeks. with seo: expect 3-6 months before it really picks up — it's not a sprint, it's a marathon. that's why i combine both: immediate visibility through ads while organic reach builds up.",
+        question: "why n8n and make.com?",
+        answer: "because they are flexible and scalable. unlike expensive all-in-one solutions (that often do nothing perfectly), we connect 'best-in-class' tools. n8n also allows gdpr-compliant self-hosting — a must for many european businesses.",
       },
       {
-        question: "what makes you different from agencies?",
-        answer: "everything from one source, one point of contact, no endless feedback loops. with me, there's no junior running your account while the senior's out golfing. i know your project, your goals, your quirks. and: my prices are fair because i don't need to finance some fancy glass tower in the city.",
+        question: "how fast is the system ready?",
+        answer: "depends on the scope. a 'control center' (crm) is often ready in 1-2 weeks. a full 'intelligence hub' tracking setup takes about 1 week. larger 'growth engines' are built modularly, so you see results even during the construction phase.",
       },
       {
-        question: "can i book just a single service?",
-        answer: "sure. you only need a landing page? just google ads? just an analytics setup? no problem. i do recommend the holistic approach since everything reinforces each other — but i won't push a package you don't need.",
-      },
-      {
-        question: "what happens after the project?",
-        answer: "maintenance and support are optional but recommended. websites need updates, campaigns need optimization. i offer flexible support packages. and if you'd rather do it yourself: i'll show you how.",
+        question: "do you offer training?",
+        answer: "absolutely. part of the 'handover' is training your team. i don't want to leave a 'black box'. your team learns how to operate the crm, read dashboards, and make simple changes themselves.",
       },
     ],
   },
