@@ -49,6 +49,8 @@
   display: grid;
   grid-template-columns: subgrid;
   gap: var(--grid--app-gutter);
+  text-transform: lowercase;
+  margin-top: 2rem;
 }
 .section.values .tools .title {
   grid-column: 1 / -1;
@@ -224,7 +226,7 @@
 }
 .section.values .subtitle {
   grid-column: 1 / -1;
-  padding: 4rem 0;
+  padding: 2rem 0;
 }
 .section.values .tools .tool-list {
   grid-column: 1 / -1;
