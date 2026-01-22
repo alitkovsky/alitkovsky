@@ -1,51 +1,56 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import ServiceDetail from "@/components/ServiceDetail";
-import { getAllServiceSlugs, getServiceBySlug } from "@/data/services";
+import { getAllSystemSlugs, getSystemBySlug } from "@/data/systems";
 
 // Generate static params for all services
 export async function generateStaticParams() {
-  const slugs = getAllServiceSlugs();
+  const slugs = getAllSystemSlugs();
   return slugs.map((slug) => ({ slug }));
 }
 
+const LEGACY_MAPPING = {
+  "seo": "growth-engine",
+  "google-ads": "intelligence-hub",
+  "paid-social": "growth-engine",
+  "web-analytics": "intelligence-hub",
+  "crm-automatisierung": "control-center",
+};
+
 // SEO metadata for each service
 const SERVICE_META = {
-  "seo": {
-    title: "SEO & Local SEO Beratung in OWL | Andrii Litkovskyi",
-    description: "SEO für Praxen, Handwerker und Dienstleister in Minden-Lübbecke. Bei Google gefunden werden — technisch sauber, lokal sichtbar.",
-    keywords: "SEO Beratung OWL, Local SEO Minden, SEO Bielefeld, Suchmaschinenoptimierung Praxis, SEO Handwerker",
+  "control-center": {
+    title: "The Control Center | Sales Automation & CRM",
+    description: "Automate your sales process. Zero leakage, instant follow-ups, and higher close rates. CRM setup and n8n/Make automation.",
+    keywords: "CRM Automation, Sales Pipeline, Pipedrive, HubSpot, n8n, Make.com",
   },
-  "google-ads": {
-    title: "Google Ads Beratung in OWL | Andrii Litkovskyi",
-    description: "Google Ads für lokale Unternehmen in Minden-Lübbecke. Sofort sichtbar bei Google — präzises Geo-Targeting, messbare Ergebnisse.",
-    keywords: "Google Ads Beratung OWL, Google Ads Minden, AdWords Bielefeld, PPC Agentur, Google Werbung lokal",
+  "intelligence-hub": {
+    title: "The Intelligence Hub | Data & Tracking",
+    description: "Server-side tracking and profit attribution. Connect ad spend to real revenue. GA4, GTM, and Offline Conversions.",
+    keywords: "Server-side Tracking, CAPI, Google Ads Tracking, Attribution, Data Analytics",
   },
-  "paid-social": {
-    title: "Paid Social & Meta Ads Beratung | Andrii Litkovskyi",
-    description: "Facebook und Instagram Ads für lokale Unternehmen in OWL. Zielgruppe erreichen, bevor sie suchen. Retargeting und Markenbekanntheit aufbauen.",
-    keywords: "Facebook Ads OWL, Instagram Werbung, Meta Ads Beratung, Social Media Marketing Minden, Paid Social",
-  },
-  "web-analytics": {
-    title: "Web Analytics & Tracking Setup | Andrii Litkovskyi",
-    description: "GA4 Setup, Google Tag Manager, Conversion-Tracking für bessere Marketing-Entscheidungen. Wissen, was funktioniert — keine Bauchgefühle, sondern Daten.",
-    keywords: "Google Analytics Beratung, GA4 Setup, Tag Manager, Conversion Tracking, Web Analytics",
-  },
-  "crm-automatisierung": {
-    title: "CRM & Marketing-Automatisierung | Andrii Litkovskyi",
-    description: "HubSpot Beratung und Marketing-Automation für KMU. Aus Leads Kunden machen — ohne manuelles Nachfassen. 30% weniger manuelle Arbeit.",
-    keywords: "HubSpot Beratung, CRM Setup, Marketing Automatisierung, E-Mail Marketing, Lead Management",
+  "growth-engine": {
+    title: "The Growth Engine | Marketing Operations",
+    description: "Automate your marketing routine. Inventory sync, reviews, and retention flows. Scalable operations on autopilot.",
+    keywords: "Marketing Automation, E-commerce Automation, Shopify, Klaviyo, Review Management",
   },
 };
 
 // Generate metadata for each service
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const serviceData = getServiceBySlug(slug, "de");
+
+  // Handle redirects in metadata? No, just let page redirect. 
+  // But to avoid 500 error if slug is not found in systems, check legacy mapping.
+  if (LEGACY_MAPPING[slug]) {
+    return {}; // Return empty or basic meta, redirect will happen in page
+  }
+
+  const serviceData = getSystemBySlug(slug, "de");
   const serviceMeta = SERVICE_META[slug];
 
   if (!serviceData || !serviceMeta) {
     return {
-      title: "Leistung nicht gefunden",
+      title: "System nicht gefunden",
     };
   }
 
@@ -72,7 +77,12 @@ export async function generateMetadata({ params }) {
 
 export default async function ServiceDetailPage({ params }) {
   const { slug } = await params;
-  const serviceData = getServiceBySlug(slug);
+
+  if (LEGACY_MAPPING[slug]) {
+    redirect(`/leistungen/${LEGACY_MAPPING[slug]}`);
+  }
+
+  const serviceData = getSystemBySlug(slug);
 
   if (!serviceData) {
     notFound();

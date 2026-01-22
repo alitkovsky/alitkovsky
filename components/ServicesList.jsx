@@ -6,7 +6,7 @@ import BookCTA from "@/components/BookCTA";
 import TextEffect from "@/components/TextEffect";
 import Footer from "@/components/Footer";
 import useLanguage from "@/hooks/useLanguage";
-import { getAllServices, getServicesPageCopy } from "@/data/services";
+import { getAllSystems, getSystemsPageCopy } from "@/data/systems";
 
 function ServiceCard({ service, index }) {
   return (
@@ -56,8 +56,8 @@ function ServiceCard({ service, index }) {
 
 export default function ServicesList() {
   const { language } = useLanguage();
-  const copy = getServicesPageCopy(language);
-  const services = getAllServices(language);
+  const copy = getSystemsPageCopy(language);
+  const systems = getAllSystems(language);
 
   return (
     <section className="section services-list">
@@ -70,7 +70,7 @@ export default function ServicesList() {
 
         {/* Services grid */}
         <div className="services-list__grid">
-          {services.map((service, index) => (
+          {systems.map((service, index) => (
             <ServiceCard key={service.slug} service={service} index={index} />
           ))}
         </div>

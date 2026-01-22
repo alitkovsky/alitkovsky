@@ -10,17 +10,17 @@ import TextEffect from "@/components/TextEffect";
 import Footer from "@/components/Footer";
 import Accordion from "@/components/Accordion";
 import useLanguage from "@/hooks/useLanguage";
-import { SERVICES_DATA, getServiceBySlug, getServicesPageCopy } from "@/data/services";
+import { SYSTEMS_DATA, getSystemBySlug, getSystemsPageCopy } from "@/data/systems";
 
 // Re-export for backwards compatibility
-export { SERVICES_DATA, getServiceBySlug, getServicesPageCopy };
+export { SYSTEMS_DATA, getSystemBySlug, getSystemsPageCopy };
 
 export default function ServiceDetail({ slug }) {
   const { language } = useLanguage();
   const baseId = useId();
 
-  const copy = getServicesPageCopy(language);
-  const serviceData = getServiceBySlug(slug, language);
+  const copy = getSystemsPageCopy(language);
+  const serviceData = getSystemBySlug(slug, language);
 
   if (!serviceData) {
     return null;

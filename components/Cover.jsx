@@ -4,13 +4,13 @@ import useLanguage from "@/hooks/useLanguage";
 const COVER_COPY = {
   de: {
     name: "andrii litkovskyi",
-    tagline: "– mehr lokale kunden durch digitales marketing",
-    subline: "seo, google ads & marketing-automation für praxen, handwerker und dienstleister in owl",
+    tagline: "– automatische marketing-systeme für deutsche kmu",
+    subline: "control center, intelligence hub & growth engine",
   },
   en: {
     name: "andrii litkovskyi",
-    tagline: "– more local customers through digital marketing",
-    subline: "seo, google ads & marketing automation for practices, tradespeople and service providers in owl",
+    tagline: "– scalable growth infrastructures for agencies & e-com",
+    subline: "control center, intelligence hub & growth engine",
   },
 };
 

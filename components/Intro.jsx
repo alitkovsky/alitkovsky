@@ -6,80 +6,69 @@ import useLanguage from "@/hooks/useLanguage";
 import { useLiveRegion } from "@/components/LiveRegion";
 
 import TextEffect from "@/components/TextEffect";
-import HandwritingEffect from "@/components/HandwritingEffect";
-import BookCTA from "@/components/BookCTA";
 
 const INTRO_COPY = {
   de: {
-    sectionTitle: "vorstellung & zielgruppen",
+    sectionTitle: "diagnose & lösungen",
     options: {
-      anyone: "für alle",
-      praxen: "arztpraxen",
-      handwerker: "handwerker",
-      dienstleister: "dienstleister",
-      agenturen: "agenturen",
+      general: "start hier",
+      "control-center": "leads gehen verloren?",
+      "intelligence-hub": "daten-blindflug?",
+      "growth-engine": "marketing-hamsterrad?",
     },
     cta: {
       label: "lass uns quatschen",
     },
     scroll: ["muss ich dich wirklich", "ans scrollen erinnern?"],
     texts: {
-      anyone: [
-        "tach! ich bin andrii — online-marketing-berater aus minden-lübbecke. ich helfe lokalen unternehmen in owl, online gefunden zu werden und planbar neue kunden zu gewinnen. als ergebnis: +35% mehr anfragen.",
+      general: [
+        "tach! ich bin andrii. ich baue nicht nur kampagnen, ich installiere systeme. marketing-systeme, die dir den rücken freihalten und messbar mehr gewinn bringen. kein 'hoffen und bangen', sondern infrastruktur.",
       ],
-      praxen: [
-        "du willst mehr privatpatienten oder neupatienten gewinnen? ich sorge dafür, dass deine praxis bei google ganz oben steht — mit local seo, google ads und einer website, die vertrauen schafft. als ergebnis: +40% mehr terminanfragen.",
+      "control-center": [
+        "anfragen kommen rein, aber keiner fasst nach? oder erst nach stunden? im 'control center' automatisiere ich deinen vertrieb. jede anfrage wird in sekunden qualifiziert und an dein team gemeldet. ergebnis: du schließt mehr kunden ab, ohne mehr budget.",
       ],
-      handwerker: [
-        "keine zeit für marketing? ich übernehm das. von google-anzeigen bis zur webseite — du wirst von neuen kunden gefunden, statt selbst zu suchen. als ergebnis: +30% mehr qualifizierte anfragen pro monat.",
+      "intelligence-hub": [
+        "du gibst geld für werbung aus, weißt aber nicht, was wirklich umsatz bringt? der 'intelligence hub' verbindet deine werbekonten mit deinem bankkonto. ich tracke echten gewinn, nicht nur bunte klicks. datenschutzkonform und präzise.",
       ],
-      dienstleister: [
-        "ob steuerberater, makler oder fitnessstudio — ich entwickle marketing-strategien, die zu deinem budget passen. seo, google ads, social media — alles aus einer hand. als ergebnis: +25% mehr leads bei weniger werbekosten.",
-      ],
-      agenturen: [
-        "kapazitätsengpass? ich spring ein als externer spezialist für paid social, analytics und cro. zuverlässig, erfahren, hands-on — ohne lange einarbeitung.",
+      "growth-engine": [
+        "du postest manuell, kopierst daten in excel und verschickst newsletter per hand? die 'growth engine' automatisiert diese routine. bewertungen sammeln, kunden binden, inhalte verteilen — das system macht die arbeit, du machst die strategie.",
       ],
     },
   },
   en: {
-    sectionTitle: "introduction & target groups",
+    sectionTitle: "diagnosis & solutions",
     options: {
-      anyone: "for everyone",
-      praxen: "medical practices",
-      handwerker: "tradespeople",
-      dienstleister: "service providers",
-      agenturen: "agencies",
+      general: "start here",
+      "control-center": "losing leads?",
+      "intelligence-hub": "flying blind?",
+      "growth-engine": "manual grunt work?",
     },
     cta: {
       label: "let's chat",
     },
     scroll: ["do i really need to", "remind you to scroll?"],
     texts: {
-      anyone: [
-        "hey! i'm andrii — online marketing consultant from minden-lübbecke. i help local businesses in owl get found online and win new customers predictably. as a result: +35% more inquiries.",
+      general: [
+        "hey! i'm andrii. i don't just run ads; i build automated growth infrastructures. systems that operate 24/7 without you. stop relying on luck—start building assets.",
       ],
-      praxen: [
-        "want more private or new patients? i'll make sure your practice ranks at the top of google — with local seo, google ads, and a website that builds trust. as a result: +40% more appointment requests.",
+      "control-center": [
+        "leads are coming in, but nobody follows up fast enough? in the 'control center', i automate your entire sales loop. speed-to-lead under 2 minutes. result: higher close rates without hiring more sales reps.",
       ],
-      handwerker: [
-        "no time for marketing? i've got you. from google ads to your website — you get found by new customers instead of chasing them. as a result: +30% more qualified inquiries per month.",
+      "intelligence-hub": [
+        "spending on ads but unknown roi? the 'intelligence hub' connects your ad spend to actual revenue (offline conversions). i track profit, not just vanity metrics. server-side accuracy that keeps algorithms fed with high-quality data.",
       ],
-      dienstleister: [
-        "whether you're a tax advisor, agent, or gym owner — i develop marketing strategies that fit your budget. seo, google ads, social media — all from one source. as a result: +25% more leads at lower ad costs.",
-      ],
-      agenturen: [
-        "capacity crunch? i step in as an external specialist for paid social, analytics, and cro. reliable, experienced, hands-on — no long onboarding needed.",
+      "growth-engine": [
+        "drowning in manual tasks? copy-pasting data, chasing reviews, sending emails manually? the 'growth engine' puts your operations on autopilot. inventory syncs, review management, retention flows—the system does the work, you focus on growth.",
       ],
     },
   },
 };
 
 const OPTION_KEYS = [
-  "anyone",
-  "praxen",
-  "handwerker",
-  "dienstleister",
-  "agenturen",
+  "general",
+  "control-center",
+  "intelligence-hub",
+  "growth-engine",
 ];
 
 export default function Intro() {
@@ -88,7 +77,6 @@ export default function Intro() {
 
   const copy = INTRO_COPY[language] ?? INTRO_COPY.en;
   const fallbackCopy = INTRO_COPY.en;
-  const ctaLabel = copy.cta?.label ?? fallbackCopy.cta?.label ?? "book a free call";
   const sectionTitle = copy.sectionTitle ?? fallbackCopy.sectionTitle ?? "introduction";
   const scrollLines = copy.scroll ?? fallbackCopy.scroll ?? [];
 
@@ -187,7 +175,6 @@ export default function Intro() {
         newIndex = keys.length - 1;
         break;
       case "Enter":
-      case " ":
         event.preventDefault();
         handleOptionSelect(key);
         return;
@@ -213,7 +200,7 @@ export default function Intro() {
           ref={optionsRef}
           onScroll={handleOptionsScroll}
           role="radiogroup"
-          aria-label={language === "de" ? "Zielgruppe auswählen" : "Select audience"}
+          aria-label={language === "de" ? "Problem auswählen" : "Select problem"}
         >
           {OPTION_KEYS.map((key, index) => {
             const label = copy.options[key] ?? fallbackCopy.options[key];
@@ -262,8 +249,6 @@ export default function Intro() {
             );
           })}
         </div>
-
-
 
         <div className="scroll">
           <p>
