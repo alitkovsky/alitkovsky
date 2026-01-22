@@ -1,13 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
 import TextEffect from "@/components/TextEffect";
 import LogoLoop from "@/components/LogoLoop";
 import BookCTA from "@/components/BookCTA";
 import ToolList from "@/components/ToolList";
-import WiggleSvg from "@/components/WiggleSvg";
-import CertificateDialog from "@/components/CertificateDialog";
 
 import useLanguage from "@/hooks/useLanguage";
 

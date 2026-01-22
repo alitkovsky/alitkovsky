@@ -11,90 +11,58 @@ const TOOLS_COPY = {
   de: {
     tools: [
       {
-        title: "paid social",
-        href: "",
-        iconId: "paid-social",
-        svg: "/assets/svg/paid-social.svg",
-        description: "ich schalte und optimiere anzeigen auf meta und linkedin — damit du die richtigen leute erreichst und nicht dein budget verbrennst.",
-        microResult: "als Ergebnis: 2-3x mehr anfragen bei gleichem budget",
-      },
-      {
-        title: "seo & local seo",
-        href: "",
-        iconId: "seo",
-        svg: "/assets/svg/seo.svg",
-        description: "ich sorge dafür, dass deine website bei google gefunden wird — technisch sauber, inhaltlich relevant, lokal sichtbar.",
-        microResult: "als Ergebnis: +50% organische sichtbarkeit in 6 monaten",
-      },
-      {
-        title: "web analytics",
-        href: "",
-        iconId: "analytics",
-        svg: "/assets/svg/analytics.svg",
-        description: "ga4, tag manager, dashboards — ich zeige dir, was funktioniert und was nicht. keine bauchgefühle, sondern zahlen.",
-        microResult: "als Ergebnis: klare datenbasis für bessere entscheidungen",
-      },
-      {
-        title: "crm & automatisierung",
-        href: "",
+        id: "control-center",
+        title: "the control center",
+        description: "Dein CRM als Herzstück. Ich automatisiere Follow-ups, Lead-Verteilung und Sales-Prozesse, damit kein potenzieller Kunde durchs Raster fällt.",
+        microResult: "0% lead-verlust",
         iconId: "crm-email-marketing",
         svg: "/assets/svg/crm-email-marketing.svg",
-        description: "hubspot, mailchimp, automatisierte workflows — damit aus leads kunden werden, ohne dass du jeden manuell nachfassen musst.",
-        microResult: "als Ergebnis: 30% weniger manuelle arbeit, mehr abschlüsse",
       },
-      // {
-      //   title: "landing pages & cro",
-      //   href: "",
-      //   iconId: "landing-pages",
-      //   svg: "/assets/svg/landing-pages.svg",
-      //   description: "ich baue landing pages, die konvertieren — klare struktur, überzeugende texte, optimiert für mehr anfragen und weniger absprünge.",
-      //   microResult: "als Ergebnis: +40% conversion rate",
-      // }
-    ]
+      {
+        id: "intelligence-hub",
+        title: "the intelligence hub",
+        description: "Tracking statt Raten. Mit Server-Side Tracking und Profit-Attribution mache ich sichtbar, welcher Euro wirklich Umsatz bringt.",
+        microResult: "glasklare daten",
+        iconId: "analytics",
+        svg: "/assets/svg/analytics.svg",
+      },
+      {
+        id: "growth-engine",
+        title: "the growth engine",
+        description: "Marketing auf Autopilot. Von profitablen Kampagnen bis zu automatisierten Kundenbindungs-Flows — das System skaliert dein Wachstum.",
+        microResult: "skalierbarer umsatz",
+        iconId: "paid-social",
+        svg: "/assets/svg/paid-social.svg",
+      },
+    ],
   },
   en: {
     tools: [
       {
-        title: "paid social",
-        href: "",
-        iconId: "paid-social",
-        svg: "/assets/svg/paid-social.svg",
-        description: "i run and optimize ads on meta and linkedin — so you reach the right people without burning your budget.",
-        microResult: "as a result: 2-3x more inquiries at the same budget",
-      },
-      {
-        title: "seo & local seo",
-        href: "",
-        iconId: "seo",
-        svg: "/assets/svg/seo.svg",
-        description: "i make sure your website gets found on google — technically sound, content-relevant, locally visible.",
-        microResult: "as a result: +50% organic visibility in 6 months",
-      },
-      {
-        title: "web analytics",
-        href: "",
-        iconId: "analytics",
-        svg: "/assets/svg/analytics.svg",
-        description: "ga4, tag manager, dashboards — i show you what works and what doesn't. no gut feelings, just data.",
-        microResult: "as a result: clear data foundation for better decisions",
-      },
-      {
-        title: "crm & automatisierung",
-        href: "",
+        id: "control-center",
+        title: "the control center",
+        description: "Your CRM is the core. I automate follow-ups, lead routing, and sales loops so no potential client ever slips through the cracks.",
+        microResult: "zero lead leakage",
         iconId: "crm-email-marketing",
         svg: "/assets/svg/crm-email-marketing.svg",
-        description: "hubspot, mailchimp, automated workflows — turning leads into customers without manual follow-ups.",
-        microResult: "as a result: 30% less manual work, more closes",
       },
-      // {
-      //   title: "landing pages & cro",
-      //   href: "",
-      //   iconId: "landing-pages",
-      //   svg: "/assets/svg/landing-pages.svg",
-      //   description: "i build landing pages that convert — clear structure, compelling copy, optimized for more leads and fewer bounces.",
-      //   microResult: "as a result: +40% conversion rate",
-      // }
-    ]
+      {
+        id: "intelligence-hub",
+        title: "the intelligence hub",
+        description: "Tracking over guessing. With server-side tracking and profit-attribution, I reveal exactly which dollar drives actual revenue.",
+        microResult: "crystal clear roi",
+        iconId: "analytics",
+        svg: "/assets/svg/analytics.svg",
+      },
+      {
+        id: "growth-engine",
+        title: "the growth engine",
+        description: "Marketing on autopilot. From profitable campaigns to automated retention flows — the system scales your growth machine.",
+        microResult: "scalable revenue",
+        iconId: "paid-social",
+        svg: "/assets/svg/paid-social.svg",
+      },
+    ],
   },
 };
 
@@ -210,47 +178,46 @@ export default function ToolList() {
           <motion.div
             key={tool.title}
             variants={itemVariants}
-            className={`item ${active === idx ? "is-active" : ""} ${
-              active !== idx ? "mobile-inactive" : ""
-            }`}
+            className={`item ${active === idx ? "is-active" : ""} ${active !== idx ? "mobile-inactive" : ""
+              }`}
             ref={(el) => (itemRefs.current[idx] = el)}
             onMouseEnter={() => setActive(idx)}
             onFocus={() => setActive(idx)}
             onMouseLeave={() => setActive(null)}
             onBlur={() => setActive(null)}
           >
-              <div className="icon">
-                <ToolIcon3D
-                  icon={tool.iconId}
-                  svgSrc={tool.svg}
-                  title={tool.title}
-                  color={iconColor}
-                  thickness={1.5}
-                  mode="contain"
-                  lookAtMouse={false}
-                  trigger="visible"
-                  visibilityRootMargin="0px 0px -20%"
-                  isActive={active === idx}
-                />
-              </div>
-              <div className="description">
-                <h3>{tool.title}</h3>
+            <div className="icon">
+              <ToolIcon3D
+                icon={tool.iconId}
+                svgSrc={tool.svg}
+                title={tool.title}
+                color={iconColor}
+                thickness={1.5}
+                mode="contain"
+                lookAtMouse={false}
+                trigger="visible"
+                visibilityRootMargin="0px 0px -20%"
+                isActive={active === idx}
+              />
+            </div>
+            <div className="description">
+              <h3>{tool.title}</h3>
+              <motion.p
+                layout
+                transition={{ duration: 0.3 }}
+              >
+                {tool.description}
+              </motion.p>
+              {tool.microResult && (
                 <motion.p
+                  className="micro-result"
                   layout
                   transition={{ duration: 0.3 }}
                 >
-                  {tool.description}
+                  {tool.microResult}
                 </motion.p>
-                {tool.microResult && (
-                  <motion.p
-                    className="micro-result"
-                    layout
-                    transition={{ duration: 0.3 }}
-                  >
-                    {tool.microResult}
-                  </motion.p>
-                )}
-              </div>
+              )}
+            </div>
           </motion.div>
         ))}
       </motion.div>
