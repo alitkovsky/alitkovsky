@@ -78,6 +78,7 @@ function ToolIcon3D({
             height="100%"
             trigger="visible"
             visibilityRootMargin={visibilityRootMargin}
+            splitPathsToLayers
             className="tool-icon-3d-fallback__effect"
           />
         </WiggleSvg>

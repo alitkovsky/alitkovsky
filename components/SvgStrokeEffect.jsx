@@ -15,6 +15,7 @@ export default function SvgStrokeEffect({
   frameStrategy = "sequential",
   loopFrames = false,
   groupSequence = true,
+  splitPathsToLayers = false,
   className,
   style,
   initiallyVisible = false,
@@ -36,8 +37,9 @@ export default function SvgStrokeEffect({
       frameStrategy,
       loopFrames,
       groupSequence,
+      splitPathsToLayers,
     };
-  }, [file, animationDuration, svgStyle, frameStrategy, loopFrames, groupSequence]);
+  }, [file, animationDuration, svgStyle, frameStrategy, loopFrames, groupSequence, splitPathsToLayers]);
 
   const sizeStyle = useMemo(
     () => ({

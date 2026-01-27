@@ -451,14 +451,20 @@ class TextEffectController {
 
     const configLayerCount = Number(this.config.layers)
     const useGroupsAsFrames = Boolean(this.config.useGroupsAsFrames)
+    const splitPathsToLayers = Boolean(this.config.splitPathsToLayers)
     const shouldUseGroups =
       !useGroupsAsFrames &&
+      !splitPathsToLayers &&
       ((Number.isFinite(configLayerCount) && configLayerCount > 1) ||
       (!Number.isFinite(configLayerCount) && groupElements.length > 1))
 
     const layerSources = []
 
-    if (shouldUseGroups) {
+    if (splitPathsToLayers) {
+      allPaths.forEach((path) => {
+        if (path) layerSources.push([path])
+      })
+    } else if (shouldUseGroups) {
       groupElements.forEach((group) => {
         const groupPaths = Array.from(group.querySelectorAll("path"))
         if (groupPaths.length) {
