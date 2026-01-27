@@ -11,6 +11,7 @@
   --font--size-huge: clamp(2rem, 1.25rem + 3.5vw, 3.25rem);
   --font--size-large: clamp(1.625rem, 1rem + 2.5vw, 2.5rem);
   --font--size-medium: clamp(1.25rem, 0.875rem + 1.5vw, 1.625rem);
+  --font--size-handwritten: clamp(1.425rem, 0.975rem + 2vw, 2rem);
   --font--size-regular: clamp(1rem, 0.875rem + 0.5vw, 1.125rem);
   --font--size-small: clamp(0.875rem, 0.8125rem + 0.25vw, 0.9375rem);
   --font--size-regular-line-height: 1.25;

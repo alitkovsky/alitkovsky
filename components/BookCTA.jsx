@@ -8,6 +8,8 @@ import useLanguage from "@/hooks/useLanguage";
 import { cn } from "@/lib/utils";
 import { trackCTAClick } from "@/lib/analytics";
 import { canLoadTool } from "@/lib/consent";
+import WiggleSvg from "@/components/WiggleSvg";
+import SvgStrokeEffect from "@/components/SvgStrokeEffect";
 
 const normalizeUrl = (value, fallback) => {
   if (typeof value !== "string") return fallback;
@@ -128,9 +130,9 @@ export default function BookCTA({
           as="a"
           href={targetUrl}
           variant="ellipseAuto"
-          trigger="hover"
+          trigger="always"
           className="cta-link inline-flex"
-          autoActive={autoActive}
+          autoActive={false}
           onClick={handleClick}
           aria-busy={isLoading}
           aria-disabled={isLoading}
@@ -139,8 +141,8 @@ export default function BookCTA({
           aria-describedby={consentBlocked ? noteId : undefined}
           aria-label={ariaLabel}
         >
-          <span>{displayLabel}</span>
-          <i aria-hidden className="cta-icon" data-loading={isLoading ? "true" : undefined}>↗</i>
+          <span className="handwritten">{displayLabel}</span>
+          {/* <i aria-hidden className="cta-icon" data-loading={isLoading ? "true" : undefined}>↗</i> */}
           <span className="sr-only" aria-live="polite">
             {isLoading ? copy.srLoading : ""}
           </span>

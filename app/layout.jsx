@@ -4,7 +4,7 @@ import "./styles/font.css";
 import "./styles/variables.css";
 import "./styles/grid.css";
 
-import { Comfortaa, Satisfy } from "next/font/google";
+import { Comfortaa, Shadows_Into_Light, Reenie_Beanie } from "next/font/google";
 import Script from "next/script";
 import { cookies, headers } from "next/headers";
 
@@ -89,11 +89,18 @@ const comfortaa = Comfortaa({
   variable: "--font-family-primary",
 });
 
-const satisfy = Satisfy({
+const shadowsIntoLight = Shadows_Into_Light({
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
-  variable: "--font-handwriting",
+  variable: "--font-shadows-into-light",
+});
+
+const reenieBeanie = Reenie_Beanie({
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+  variable: "--font-reenie-beanie",
 });
 
 export default async function RootLayout({ children }) {
@@ -138,7 +145,7 @@ export default async function RootLayout({ children }) {
     <html
       lang={initialLanguage}
       suppressHydrationWarning
-      className={`${comfortaa.variable} ${satisfy.variable}`}
+      className={`${comfortaa.variable} ${shadowsIntoLight.variable} ${reenieBeanie.variable}`}
       data-theme={initialTheme}
       style={{ colorScheme: initialTheme }}
     >

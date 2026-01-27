@@ -328,7 +328,7 @@
   justify-content: center;
   font-size: 8.3vw;
   line-height: 1;
-  color: var(--color--background--100);
+  color: var(--color--foreground--100);
   cursor: pointer;
 }
 /* Custom certificate logo sizing */
