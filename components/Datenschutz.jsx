@@ -62,7 +62,7 @@ const DATENSCHUTZ_COPY = {
       },
       legalBasis: {
         label: "rechtsgrundlage:",
-        text: "die verwendung von cookies erfolgt auf grundlage deiner einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TTDSG.",
+        text: "die verwendung von cookies erfolgt auf grundlage deiner einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG.",
       },
     },
     googleAnalytics: {
@@ -247,7 +247,7 @@ const DATENSCHUTZ_COPY = {
       },
       legalBasis: {
         label: "legal basis:",
-        text: "the use of cookies is based on your consent pursuant to Art. 6 (1) (a) GDPR and § 25 (1) TTDSG.",
+        text: "the use of cookies is based on your consent pursuant to Art. 6 (1) (a) GDPR and § 25 (1) TDDDG.",
       },
     },
     googleAnalytics: {

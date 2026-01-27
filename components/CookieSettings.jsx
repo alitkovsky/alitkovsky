@@ -74,7 +74,7 @@ export default function CookieSettings({ onClose, onSave }) {
 
   const [preferences, setPreferences] = useState({
     necessary: true,
-    functional: true,
+    functional: false,
     analytics: false,
     marketing: false,
   });

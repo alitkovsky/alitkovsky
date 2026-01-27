@@ -13,6 +13,7 @@ import AppWrapper from "@/components/AppWrapper";
 import CookieBanner from "@/components/CookieBanner";
 import DeferredStyles from "@/components/DeferredStyles";
 import Gtm from "@/components/Gtm";
+import PrivacyTrigger from "@/components/PrivacyTrigger";
 import StructuredData from "@/components/StructuredData";
 import {
   FALLBACK_LANGUAGE,
@@ -195,13 +196,6 @@ export default async function RootLayout({ children }) {
         {/* Microsoft Clarity - Consent-aware loading */}
         <Clarity />
 
-        {/* Preconnect to external domains for performance */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://www.google-analytics.com" />
-        <link rel="preconnect" href="https://www.clarity.ms" />
-        <link rel="preconnect" href="https://assets.calendly.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://assets.calendly.com" />
-
         {/* Structured Data (JSON-LD) for SEO and GEO */}
         <StructuredData />
       </head>
@@ -216,6 +210,9 @@ export default async function RootLayout({ children }) {
 
           {/* Cookie Consent Banner */}
           <CookieBanner />
+
+          {/* Privacy Trigger (cookie settings shortcut) */}
+          {/* <PrivacyTrigger /> */}
 
           {/* Google Tag Manager - Loaded after consent/idle */}
           <Gtm />
