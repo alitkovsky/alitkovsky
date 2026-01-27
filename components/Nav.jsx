@@ -204,9 +204,12 @@ export default function Nav({ initialTheme = "dark" }) {
   const languages = supportedLanguages ?? ["en", "de"];
   const navCopy = NAV_COPY[language] ?? NAV_COPY.en;
 
-  function NavItem({ id, label, isActive, onActivate }) {
+  function NavItem({ id, label, isActive, onActivate, sequenceIndex }) {
     const lineEffect = useRef(null)
     const activationTimeout = useRef(null)
+    const sequenceStyle = sequenceIndex !== undefined
+      ? { "--nav-seq-index": sequenceIndex }
+      : undefined
 
     useEffect(() => {
       const getEffect = () => lineEffect.current
@@ -267,6 +270,7 @@ export default function Nav({ initialTheme = "dark" }) {
     return (
       <div
         className={cn("item", id, { "is--active": isActive })}
+        style={sequenceStyle}
         role="menuitem"
         tabIndex={0}
         onClick={handleActivate}
@@ -291,9 +295,12 @@ export default function Nav({ initialTheme = "dark" }) {
     )
   }
 
-  function SubNavItem({ id, label, route, isActive, onActivate }) {
+  function SubNavItem({ id, label, route, isActive, onActivate, sequenceIndex }) {
     const lineEffect = useRef(null)
     const activationTimeout = useRef(null)
+    const sequenceStyle = sequenceIndex !== undefined
+      ? { "--nav-seq-index": sequenceIndex }
+      : undefined
 
     useEffect(() => {
       const getEffect = () => lineEffect.current
@@ -354,6 +361,7 @@ export default function Nav({ initialTheme = "dark" }) {
     return (
       <div
         className={cn("sub-item", id, { "is--active": isActive })}
+        style={sequenceStyle}
         role="menuitem"
         tabIndex={0}
         onClick={handleActivate}
@@ -417,21 +425,31 @@ export default function Nav({ initialTheme = "dark" }) {
     navItems[nextIndex]?.focus();
   };
 
+  const navSequenceCount = items.length + pageItems.length + subItems.length
+  const pageItemOffset = items.length
+  const subItemOffset = items.length + pageItems.length
+
   return (
     <nav className="app-nav" role="navigation" aria-label="Main navigation">
       <div className="content">
-        <div className="flex flex-col" role="menu" onKeyDown={handleNavKeyDown}>
-          {items.map(({ id, label }) => (
+        <div
+          className="flex flex-col"
+          role="menu"
+          onKeyDown={handleNavKeyDown}
+          style={{ "--nav-seq-count": navSequenceCount }}
+        >
+          {items.map(({ id, label }, index) => (
             <NavItem
               key={id}
               id={id}
               label={label}
               isActive={activeId === id}
               onActivate={() => handleSectionRequest(id)}
+              sequenceIndex={index}
             />
           ))}
           <div className="mt-[4em]"></div>
-          {pageItems.map(({ id, label, route }) => (
+          {pageItems.map(({ id, label, route }, index) => (
             <SubNavItem
               key={id}
               id={id}
@@ -439,10 +457,11 @@ export default function Nav({ initialTheme = "dark" }) {
               route={route}
               isActive={pathname === route || pathname.startsWith(route)}
               onActivate={() => handleSubItemRequest(route)}
+              sequenceIndex={pageItemOffset + index}
             />
           ))}
           <div className="mt-[2em]"></div>
-          {subItems.map(({ id, label, route }) => (
+          {subItems.map(({ id, label, route }, index) => (
             <SubNavItem
               key={id}
               id={id}
@@ -450,6 +469,7 @@ export default function Nav({ initialTheme = "dark" }) {
               route={route}
               isActive={pathname === route}
               onActivate={() => handleSubItemRequest(route)}
+              sequenceIndex={subItemOffset + index}
             />
           ))}
         </div>

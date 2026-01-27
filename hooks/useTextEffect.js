@@ -39,9 +39,23 @@ const EFFECTS = {
   underlineLong: {
     file: "UnderlineLong.svg",
     animationDuration: 400,
+    useGroupsAsFrames: true,
     style: {
       position: "absolute",
-      bottom: "-0.1em",
+      bottom: "-0.3em",
+      top: "auto",
+      left: "0",
+      width: "100%",
+      height: "auto",
+    },
+  },
+  underlineBold: {
+    file: "UnderlineLong.svg",
+    animationDuration: 400,
+    useGroupsAsFrames: true,
+    style: {
+      position: "absolute",
+      bottom: "-0.2em",
       top: "auto",
       left: "0",
       width: "100%",
@@ -53,7 +67,7 @@ const EFFECTS = {
     animationDuration: 400,
     style: {
       position: "absolute",
-      bottom: "-0.3em",
+      bottom: "-0.2em",
       top: "auto",
       left: "0",
       width: "100%",
@@ -65,7 +79,7 @@ const EFFECTS = {
     animationDuration: 400,
     style: {
       position: "absolute",
-      bottom: "-0.25em",
+      bottom: "-0.4em",
       top: "auto",
       left: "0",
       width: "100%",
@@ -77,7 +91,7 @@ const EFFECTS = {
     animationDuration: 400,
     style: {
       position: "absolute",
-      bottom: "-0.3em",
+      bottom: "-0.6em",
       top: "auto",
       left: "0",
       width: "100%",
@@ -436,9 +450,11 @@ class TextEffectController {
     const groupElements = Array.from(svgElement.querySelectorAll("g"))
 
     const configLayerCount = Number(this.config.layers)
+    const useGroupsAsFrames = Boolean(this.config.useGroupsAsFrames)
     const shouldUseGroups =
-      (Number.isFinite(configLayerCount) && configLayerCount > 1) ||
-      (!Number.isFinite(configLayerCount) && groupElements.length > 1)
+      !useGroupsAsFrames &&
+      ((Number.isFinite(configLayerCount) && configLayerCount > 1) ||
+      (!Number.isFinite(configLayerCount) && groupElements.length > 1))
 
     const layerSources = []
 
