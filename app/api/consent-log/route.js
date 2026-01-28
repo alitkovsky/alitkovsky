@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
 
 export const runtime = "nodejs";
 
@@ -51,7 +50,7 @@ const isAllowedOrigin = (headerStore) => {
 };
 
 export async function POST(request) {
-  const headerStore = headers();
+  const headerStore = request.headers;
 
   if (!isAllowedOrigin(headerStore)) {
     return NextResponse.json({ ok: false }, { status: 403 });
