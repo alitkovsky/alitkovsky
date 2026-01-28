@@ -32,7 +32,6 @@ yarn-error.log*
 screenshots/
 test-portfolio-screenshots.js
 docs/
-data/consent-log.jsonl
 
 # local env files
 .env*.local

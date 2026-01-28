@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import { appendFile, mkdir } from "node:fs/promises";
-import path from "node:path";
 
 export const runtime = "nodejs";
 
-const DEFAULT_LOG_PATH = path.join(process.cwd(), "data", "consent-log.jsonl");
+const CONSENT_TABLE = process.env.SUPABASE_CONSENT_TABLE || "consent_logs";
 
 const anonymizeIp = (ip) => {
   if (!ip) return null;
@@ -25,28 +23,89 @@ const anonymizeIp = (ip) => {
   return ip;
 };
 
+const normalizeConsent = (value) => {
+  if (!value || typeof value !== "object") return null;
+  const keys = ["necessary", "functional", "analytics", "marketing"];
+  const output = {};
+  keys.forEach((key) => {
+    if (typeof value[key] === "boolean") {
+      output[key] = value[key];
+    }
+  });
+  return Object.keys(output).length ? output : null;
+};
+
+const isAllowedOrigin = (headerStore) => {
+  const rawAllowed = process.env.CONSENT_LOG_ALLOWED_ORIGINS || "";
+  const allowed = rawAllowed
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
+
+  if (allowed.length === 0) {
+    return process.env.NODE_ENV !== "production";
+  }
+
+  const origin = headerStore.get("origin");
+  return origin ? allowed.includes(origin) : false;
+};
+
 export async function POST(request) {
+  const headerStore = headers();
+
+  if (!isAllowedOrigin(headerStore)) {
+    return NextResponse.json({ ok: false }, { status: 403 });
+  }
+
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    console.error("[consent-log] Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
+    return NextResponse.json({ ok: false }, { status: 500 });
+  }
+
   try {
     const payload = await request.json();
-    const headerStore = headers();
     const forwardedFor = headerStore.get("x-forwarded-for");
     const rawIp = forwardedFor ? forwardedFor.split(",")[0]?.trim() : headerStore.get("x-real-ip");
 
+    const consent = normalizeConsent(payload?.consent);
+    const previousConsent = normalizeConsent(payload?.previousConsent);
+    const action = ["initial", "update", "clear"].includes(payload?.action) ? payload.action : "update";
+
+    if (!consent) {
+      return NextResponse.json({ ok: false }, { status: 400 });
+    }
+
     const entry = {
-      receivedAt: new Date().toISOString(),
+      action,
+      consent,
+      previous_consent: previousConsent,
+      consent_version: typeof payload?.version === "string" ? payload.version : null,
+      consent_timestamp: payload?.timestamp ? Number(payload.timestamp) : null,
+      page_url: typeof payload?.pageUrl === "string" ? payload.pageUrl.slice(0, 2048) : null,
+      language: typeof payload?.language === "string" ? payload.language.slice(0, 16) : null,
       ip: anonymizeIp(rawIp),
-      userAgent: headerStore.get("user-agent") || null,
-      ...payload,
+      user_agent: headerStore.get("user-agent")?.slice(0, 512) || null,
+      received_at: new Date().toISOString(),
     };
 
-    const logPath = process.env.CONSENT_LOG_PATH || DEFAULT_LOG_PATH;
+    const response = await fetch(`${supabaseUrl}/rest/v1/${CONSENT_TABLE}`, {
+      method: "POST",
+      headers: {
+        apikey: serviceRoleKey,
+        Authorization: `Bearer ${serviceRoleKey}`,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify(entry),
+    });
 
-    try {
-      await mkdir(path.dirname(logPath), { recursive: true });
-      await appendFile(logPath, `${JSON.stringify(entry)}\n`, "utf8");
-    } catch (fileError) {
-      console.warn("[consent-log] Failed to write file, falling back to console", fileError);
-      console.info("[consent-log]", JSON.stringify(entry));
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("[consent-log] Supabase insert failed", response.status, errorText);
+      return NextResponse.json({ ok: false }, { status: 502 });
     }
 
     return NextResponse.json({ ok: true });
