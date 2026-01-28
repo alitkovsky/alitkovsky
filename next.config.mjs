@@ -44,7 +44,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
       "img-src 'self' data: blob: https://*.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms",
       "font-src 'self' data:",
-      "connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.clarity.ms https://calendly.com https://api.calendly.com",
+      "connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://*.clarity.ms https://calendly.com https://api.calendly.com",
       "frame-src 'self' https://calendly.com https://www.youtube.com",
       "object-src 'none'",
       "base-uri 'self'",
