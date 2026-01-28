@@ -12,7 +12,6 @@ import Clarity from "@/components/Clarity";
 import AppWrapper from "@/components/AppWrapper";
 import CookieBanner from "@/components/CookieBanner";
 import DeferredStyles from "@/components/DeferredStyles";
-import Gtm from "@/components/Gtm";
 import PrivacyTrigger from "@/components/PrivacyTrigger";
 import StructuredData from "@/components/StructuredData";
 import {
@@ -82,6 +81,8 @@ export const viewport = {
     { color: "#12191a" },
   ],
 };
+
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 const comfortaa = Comfortaa({
   subsets: ["latin"],
@@ -193,6 +194,22 @@ export default async function RootLayout({ children }) {
           }}
         />
 
+        {GTM_ID ? (
+          <Script
+            id="gtm-base"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','${GTM_ID}');
+              `,
+            }}
+          />
+        ) : null}
+
         {/* Microsoft Clarity - Consent-aware loading */}
         <Clarity />
 
@@ -213,9 +230,6 @@ export default async function RootLayout({ children }) {
 
           {/* Privacy Trigger (cookie settings shortcut) */}
           {/* <PrivacyTrigger /> */}
-
-          {/* Google Tag Manager - Loaded after consent/idle */}
-          <Gtm />
 
           {/* Non-critical styles loaded after initial paint */}
           <DeferredStyles />
