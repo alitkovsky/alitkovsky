@@ -72,6 +72,9 @@ export async function POST(request) {
     const consent = normalizeConsent(payload?.consent);
     const previousConsent = normalizeConsent(payload?.previousConsent);
     const action = ["initial", "update", "clear"].includes(payload?.action) ? payload.action : "update";
+    const source = typeof payload?.source === "string" ? payload.source.slice(0, 64) : null;
+    const consentIdRaw = payload?.consentId || payload?.consent_id;
+    const consentId = typeof consentIdRaw === "string" ? consentIdRaw.slice(0, 64) : null;
 
     if (!consent) {
       return NextResponse.json({ ok: false }, { status: 400 });
@@ -85,6 +88,8 @@ export async function POST(request) {
       consent_timestamp: payload?.timestamp ? Number(payload.timestamp) : null,
       page_url: typeof payload?.pageUrl === "string" ? payload.pageUrl.slice(0, 2048) : null,
       language: typeof payload?.language === "string" ? payload.language.slice(0, 16) : null,
+      consent_id: consentId,
+      source,
       ip: anonymizeIp(rawIp),
       user_agent: headerStore.get("user-agent")?.slice(0, 512) || null,
       received_at: new Date().toISOString(),

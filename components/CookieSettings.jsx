@@ -154,7 +154,7 @@ export default function CookieSettings({ onClose, onSave }) {
   };
 
   const handleSave = () => {
-    onSave(preferences);
+    onSave(preferences, { source: "settings_save" });
   };
 
   const handleAcceptAll = () => {
@@ -165,7 +165,7 @@ export default function CookieSettings({ onClose, onSave }) {
       marketing: true,
     };
     setPreferences(allAccepted);
-    onSave(allAccepted);
+    onSave(allAccepted, { source: "settings_save" });
   };
 
   const handleDeclineAll = () => {
@@ -176,7 +176,7 @@ export default function CookieSettings({ onClose, onSave }) {
       marketing: false,
     };
     setPreferences(onlyNecessary);
-    onSave(onlyNecessary);
+    onSave(onlyNecessary, { source: "settings_save" });
   };
 
   return (

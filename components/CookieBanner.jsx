@@ -105,7 +105,7 @@ export default function CookieBanner() {
       analytics: true,
       marketing: true,
     };
-    setConsent(consent); // Dynamic loading - no reload needed!
+    setConsent(consent, { source: "banner_accept" }); // Dynamic loading - no reload needed!
     setIsOpen(false);
   };
 
@@ -116,7 +116,7 @@ export default function CookieBanner() {
       analytics: false,
       marketing: false,
     };
-    setConsent(consent);
+    setConsent(consent, { source: "banner_decline" });
     setIsOpen(false);
   };
 
@@ -132,8 +132,8 @@ export default function CookieBanner() {
     }
   };
 
-  const handleSaveSettings = (preferences) => {
-    setConsent(preferences); // Dynamic loading - no reload needed!
+  const handleSaveSettings = (preferences, options) => {
+    setConsent(preferences, options); // Dynamic loading - no reload needed!
     setIsOpen(false);
     setShowSettings(false);
   };
