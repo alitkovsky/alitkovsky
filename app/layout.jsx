@@ -222,7 +222,7 @@ export default async function RootLayout({ children }) {
         {/* Structured Data (JSON-LD) for SEO and GEO */}
         <StructuredData />
       </head>
-      <body className={`cover--is--visible is--loading theme-${initialTheme}`}>
+      <body className={`theme-${initialTheme}`}>
           <AppWrapper
             initialTheme={initialTheme}
             initialLanguage={initialLanguage}

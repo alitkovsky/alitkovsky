@@ -27,16 +27,6 @@ export default function PwaRegister() {
       return;
     }
 
-    let controllerChanged = false;
-    const onControllerChange = () => {
-      if (controllerChanged) return;
-      controllerChanged = true;
-      // Refresh once the newly installed worker takes control.
-      window.location.reload();
-    };
-
-    navigator.serviceWorker.addEventListener("controllerchange", onControllerChange);
-
     const register = async () => {
       try {
         const registration = await navigator.serviceWorker.register(SW_PATH, { scope: "/" });
@@ -63,10 +53,6 @@ export default function PwaRegister() {
     };
 
     register();
-
-    return () => {
-      navigator.serviceWorker.removeEventListener("controllerchange", onControllerChange);
-    };
   }, []);
 
   return null;

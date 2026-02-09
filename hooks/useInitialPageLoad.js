@@ -8,25 +8,14 @@ export default function useInitialPageLoad() {
     }
   }, []);
 
-  // Simple timeout-based cover hide (like billy-project)
+  // Ensure any stale loading-cover classes are removed immediately.
+  // This avoids delaying above-the-fold rendering on initial load.
   useEffect(() => {
     if (typeof window === "undefined") {
       return undefined;
     }
 
-    // Hide cover after h1 animation completes (1.5s) + small buffer
-    const coverTimeout = setTimeout(() => {
-      document.body.classList.remove("cover--is--visible");
-    }, 1750);
-
-    // Remove loading class after cover slide-up transition completes (1750ms + 1500ms transition)
-    const loadingTimeout = setTimeout(() => {
-      document.body.classList.remove("is--loading");
-    }, 3500);
-
-    return () => {
-      clearTimeout(coverTimeout);
-      clearTimeout(loadingTimeout);
-    };
+    document.body.classList.remove("cover--is--visible", "is--loading");
+    return undefined;
   }, []);
 }
