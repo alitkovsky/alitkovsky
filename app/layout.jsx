@@ -4,14 +4,13 @@ import "./styles/font.css";
 import "./styles/variables.css";
 import "./styles/grid.css";
 
-import { Comfortaa, Shadows_Into_Light, Reenie_Beanie } from "next/font/google";
+import { Comfortaa, Gloria_Hallelujah, Shadows_Into_Light, Reenie_Beanie } from "next/font/google";
 import Script from "next/script";
 import { cookies, headers } from "next/headers";
 
 import Clarity from "@/components/Clarity";
 import AppWrapper from "@/components/AppWrapper";
 import CookieBanner from "@/components/CookieBanner";
-import DeferredStyles from "@/components/DeferredStyles";
 import PrivacyTrigger from "@/components/PrivacyTrigger";
 import StructuredData from "@/components/StructuredData";
 import {
@@ -98,6 +97,13 @@ const shadowsIntoLight = Shadows_Into_Light({
   variable: "--font-shadows-into-light",
 });
 
+const gloriaHallelujah = Gloria_Hallelujah({
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+  variable: "--font-gloria-hallelujah",
+});
+
 const reenieBeanie = Reenie_Beanie({
   subsets: ["latin"],
   weight: ["400"],
@@ -147,7 +153,7 @@ export default async function RootLayout({ children }) {
     <html
       lang={initialLanguage}
       suppressHydrationWarning
-      className={`${comfortaa.variable} ${shadowsIntoLight.variable} ${reenieBeanie.variable}`}
+      className={`${comfortaa.variable} ${shadowsIntoLight.variable} ${gloriaHallelujah.variable} ${reenieBeanie.variable}`}
       data-theme={initialTheme}
       style={{ colorScheme: initialTheme }}
     >
@@ -231,8 +237,6 @@ export default async function RootLayout({ children }) {
           {/* Privacy Trigger (cookie settings shortcut) */}
           {/* <PrivacyTrigger /> */}
 
-          {/* Non-critical styles loaded after initial paint */}
-          <DeferredStyles />
       </body>
     </html>
   );

@@ -22,7 +22,7 @@ const FolderTabEdge = ({ className }) => (
 const PROJECTS_PREVIEW_COPY = {
   de: {
     sectionTitle: "ausgewählte projekte",
-    viewAll: "alle projekte ansehen",
+    viewAll: "alle projekte",
     industryLabel: "branche",
     clientLabel: "kunde",
     periodLabel: "zeitraum",
@@ -69,11 +69,12 @@ const PROJECTS_PREVIEW_COPY = {
     ],
     cta: {
       label: "neugierig? lass uns reden",
+      // label: "neugierig?\nlass uns reden",
     },
   },
   en: {
     sectionTitle: "selected projects",
-    viewAll: "view all projects",
+    viewAll: "all projects",
     industryLabel: "industry",
     clientLabel: "client",
     periodLabel: "period",
@@ -123,6 +124,13 @@ const PROJECTS_PREVIEW_COPY = {
     },
   },
 };
+
+const PROJECTS_PREVIEW_EFFECT_STYLE_PRESETS = Object.freeze({
+  viewAllArrow: Object.freeze({
+    top: "0.45em",
+    left: "-11.25ch",
+  }),
+});
 
 function ProjectPreviewCard({ project, labels, index }) {
   return (
@@ -224,14 +232,24 @@ export default function ProjectsPreview() {
         <header className="projects-preview__header">
           <h2 className="projects-preview__title">{sectionTitle}</h2>
           <TextEffect
-            as={Link}
-            href="/projects"
-            variant="ellipseAuto"
-            trigger="hover"
-            className="projects-preview__view-all"
+            variant="arrowRight"
+            trigger="always"
+            className="inline-block"
+            effectOverrides={{
+              style: {
+                ...PROJECTS_PREVIEW_EFFECT_STYLE_PRESETS.viewAllArrow,
+            }}}
           >
-            {viewAll}
-            <span aria-hidden="true"></span>
+            <TextEffect
+              as={Link}
+              href="/projects"
+              variant="ellipseAuto"
+              trigger="hover"
+              className="projects-preview__view-all"
+            >
+              {viewAll}
+              <span aria-hidden="true"></span>
+            </TextEffect>
           </TextEffect>
         </header>
 

@@ -5,6 +5,7 @@
   --font--style: normal;
   --font--weight: 500;
   --font--margin-left: -0.07em;
+  --font-handwriting: var(--font-gloria-hallelujah);
   --font--feature-settings: "liga", "ss02", "ss03", "ss04", "ss06";
   --font--feature-settings-no-stylized-numeral-8: "ss06" 0;
   --font--size-monster: clamp(2.625rem, 1.5rem + 5vw, 5rem);
@@ -30,4 +31,6 @@
   --grid--app-gutter: 1.25rem;
   --grid--app-xheight: 13.75rem; /* 120px */
   --image--height: 35rem;
+  --bottom-overlay-height: 240px;
+  --overlay-edge-bleed: 12px;
 }

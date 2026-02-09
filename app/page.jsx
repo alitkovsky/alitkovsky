@@ -19,7 +19,7 @@ export default async function Home({ searchParams }) {
         {/* Track business card QR scans */}
         <QRTracker searchParams={params} />
 
-      <Cover />
+      {/* <Cover /> */}
       <Intro />
       <HomeLazySections />
     </main>

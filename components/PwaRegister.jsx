@@ -9,6 +9,24 @@ export default function PwaRegister() {
     if (typeof window === "undefined") return;
     if (!("serviceWorker" in navigator)) return;
 
+    if (process.env.NODE_ENV !== "production") {
+      const cleanupDevSw = async () => {
+        try {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(registrations.map((registration) => registration.unregister()));
+          if ("caches" in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((key) => caches.delete(key)));
+          }
+        } catch (error) {
+          console.error("Failed to clean up service worker in dev:", error);
+        }
+      };
+
+      cleanupDevSw();
+      return;
+    }
+
     let controllerChanged = false;
     const onControllerChange = () => {
       if (controllerChanged) return;
@@ -53,4 +71,3 @@ export default function PwaRegister() {
 
   return null;
 }
-

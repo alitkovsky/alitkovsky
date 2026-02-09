@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import TextEffect from "@/components/TextEffect";
 import LogoLoop from "@/components/LogoLoop";
 import BookCTA from "@/components/BookCTA";
@@ -174,6 +175,45 @@ const systemToolLogos = [
   { node: <SiTableau />, title: "Tableau", aspectRatio: "1 / 1" },
 ];
 
+const VALUES_EFFECT_STYLE_PRESETS = Object.freeze({
+  resultOneUnderline: Object.freeze({
+    top: "-1.4em",
+    width: "6ch",
+    left: "5.25ch",
+  }),
+  resultTwoDashedSide: Object.freeze({
+    top: "-0.72em",
+  }),
+  resultThreeEllipse: Object.freeze({
+    height: "1.8em",
+    top: "-0.4em",
+    left: "-0.9ch",
+    width: "6.4ch",
+  }),
+  resultFourUnderlineCurved: Object.freeze({
+    top: "1em",
+    left: "-0.3ch",
+    width: "6.5ch",
+  }),
+  resultTwoEnDashed: Object.freeze({
+    top: "0em",
+    transform: "translateY(-1em)",
+  }),
+  resultsLabelArrow: Object.freeze({
+    rotate: "-10deg",
+    top: "0.925em",
+    left: "110%",
+    width: "3.4ch",
+  }),
+  expertiseLabelArrow: Object.freeze({
+    rotate: "20deg",
+    top: "0.525em",
+    left: "auto",
+    right: "-6ch",
+    width: "5.4ch",
+  }),
+});
+
 const VALUES_COPY = {
   de: {
     title: {
@@ -183,23 +223,55 @@ const VALUES_COPY = {
       local: "zukunftssicher",
     },
     description: "keine bauchgefühle, sondern infrastruktur. ich baue marketing-systeme, die funktionieren — egal ob du urlaub machst oder schläfst. von der daten-erfassung über crm-automatisierung bis hin zu profitablen kampagnen. mein 'tech stack' ist dein wettbewerbsvorteil.",
-    label: "was meine systeme für kunden leisten:",
+    label: "messbare effekte",
     results: [
       {
-        counter: "+48%",
-        title: "sichtbarkeit",
+        counter: "bis zu +48%",
+        counterLines: ["bis zu +48%", "mehr sichtbar"],
+        title: "mehr sichtbar",
+        subtitles: ["lokal top 3.", "stabil"],
+        variant: "underline",
+        counterEffectOverrides: {
+          style: {
+            ...VALUES_EFFECT_STYLE_PRESETS.resultOneUnderline,
+          },
+        },
       },
       {
         counter: "+35%",
-        title: "conversions",
+        counterLines: ["+35%", "neukunden"],
+        title: "neukunden",
+        subtitles: ["bei fixem", "fixes budget"],
+        variant: "dashedSide",
+        counterEffectOverrides: {
+          style: {
+            ...VALUES_EFFECT_STYLE_PRESETS.resultTwoDashedSide,
+          },
+        },
       },
       {
-        counter: "100%",
-        title: "daten-kontrolle",
+        counter: "+25%",
+        counterLines: ["+25%", "passende leads"],
+        title: "passende leads",
+        subtitles: ["hohe absicht.", "statt lead-spam", "die kaufen"],
+        variant: "ellipseThin",
+        counterEffectOverrides: {
+          style: {
+            ...VALUES_EFFECT_STYLE_PRESETS.resultThreeEllipse,
+          },
+        },
       },
       {
         counter: "-22%",
-        title: "manuelle arbeit",
+        counterLines: ["-22%", "prozessaufwand"],
+        title: "prozessaufwand",
+        subtitles: [""],
+        variant: "underlineCurved",
+        counterEffectOverrides: {
+          style: {
+            ...VALUES_EFFECT_STYLE_PRESETS.resultFourUnderlineCurved,
+          },
+        },
       },
     ],
     expertiseTitle: "mein system stack", // Changed from "meine zertifizierungen"
@@ -207,6 +279,7 @@ const VALUES_COPY = {
     logosLabel: "technologien",
     cta: {
       label: "ist dein stack bereit? lass uns reden",
+      // label: "ist dein stack bereit?\nlass uns reden",
     },
   },
   en: {
@@ -217,33 +290,66 @@ const VALUES_COPY = {
       local: "future-proof",
     },
     description: "no gut feelings, just infrastructure. i build marketing systems that work — whether you're on vacation or sleeping. from data capture to crm automation to profitable campaigns. my 'tech stack' is your competitive advantage.",
-    label: "what my systems deliver for clients:",
+    label: "it's a win win",
     results: [
       {
-        counter: "+48%",
-        title: "visibility",
+        counter: "up to +48%",
+        counterLines: ["up to +48%", "more visibility"],
+        title: "more visibility",
+        subtitles: ["local search", "lifted"],
+        variant: "underline",
+        counterEffectOverrides: {
+          style: {
+            ...VALUES_EFFECT_STYLE_PRESETS.resultOneUnderline,
+          },
+        },
       },
       {
         counter: "+35%",
-        title: "conversions",
+        counterLines: ["+35%", "new leads"],
+        title: "new leads",
+        subtitles: ["same cost", "budget fixed"],
+        variant: "dashedSide",
+        counterEffectOverrides: {
+          style: {
+            ...VALUES_EFFECT_STYLE_PRESETS.resultTwoDashedSide,
+          },
+        },
       },
       {
-        counter: "100%",
-        title: "data control",
+        counter: "+25%",
+        counterLines: ["+25%", "high-fit leads"],
+        title: "high-fit leads",
+        subtitles: ["buyer intent.", "instead of spam", "that close"],
+        variant: "ellipseThin",
+        counterEffectOverrides: {
+          style: {
+            ...VALUES_EFFECT_STYLE_PRESETS.resultThreeEllipse,
+          },
+        },
       },
       {
-        counter: "—22%",
-        title: "manual work",
+        counter: "-22%",
+        counterLines: ["-22%", "manual effort"],
+        title: "manual effort",
+        subtitles: [""],
+        variant: "underlineCurved",
+        counterEffectOverrides: {
+          style: {
+            ...VALUES_EFFECT_STYLE_PRESETS.resultFourUnderlineCurved,
+          },
+        },
       },
     ],
     expertiseTitle: "my system stack",
     toolsTitle: "my toolkit",
     logosLabel: "technologies",
     cta: {
-      label: "is your stack ready? let's talk",
+      label: "is your stack ready?\nlet's talk",
     },
   },
 };
+
 
 export default function Values() {
   const { language } = useLanguage();
@@ -255,6 +361,25 @@ export default function Values() {
   const description = copy.description ?? fallbackCopy.description ?? "";
   const resultsLabel = copy.label ?? fallbackCopy.label ?? "";
   const results = copy.results ?? fallbackCopy.results ?? [];
+  const fallbackResults = fallbackCopy.results ?? [];
+  const resultOne = results[0] ?? fallbackResults[0] ?? {};
+  const resultTwo = results[1] ?? fallbackResults[1] ?? {};
+  const resultThree = results[2] ?? fallbackResults[2] ?? {};
+  const resultFour = results[3] ?? fallbackResults[3] ?? {};
+
+  const renderSubtitles = (subtitles) => {
+    if (!Array.isArray(subtitles) || subtitles.length === 0) return null;
+    return (
+      <p className="subtitle">
+        {subtitles.map((subtitle, index) => (
+          <Fragment key={index}>
+            {subtitle}
+            {index < subtitles.length - 1 && <br />}
+          </Fragment>
+        ))}
+      </p>
+    );
+  };
   const expertiseTitle = copy.expertiseTitle ?? fallbackCopy.expertiseTitle ?? "my system stack";
   const logosLabel = copy.logosLabel ?? fallbackCopy.logosLabel ?? "Technologies";
   const ctaLabel = copy.cta?.label ?? fallbackCopy.cta?.label ?? "book a free call";
@@ -263,7 +388,6 @@ export default function Values() {
     <section className="section values" id="values">
       <div className="content">
         <div className="title">
-          {/* <h2 className="marker-variation-11"><span className="highlight">{titleCopy.transparent}</span></h2> */}
           <h2>{titleCopy.transparent}</h2>
           <h2>{titleCopy.handsOn}</h2>
           <TextEffect
@@ -281,44 +405,135 @@ export default function Values() {
           <p className="description">
             {description}
           </p>
-          <p className="description">
-            <strong>{resultsLabel}</strong>
-          </p>
+          <div className="results_subtitle">
+            <TextEffect
+              as="h3"
+              variant="arrowDown"
+              trigger="always"
+              className="inline-block"
+              effectOverrides={{
+                style: {
+                  ...VALUES_EFFECT_STYLE_PRESETS.resultsLabelArrow,
+              }}}
+            >
+              {resultsLabel}
+            </TextEffect>
+          </div>
           <div className="results">
-            {results.map((result, index) => (
-              <TextEffect
-                key={index}
-                as="div"
-                variant="sidelineBold"
-                trigger="visible"
-                visibilityRootMargin="0px 0px -25%"
-                className="inline-block result-effect result"
-              >
-                <p className="counter">
-                  {result.counter}
-                </p>
-                <p className="title">{result.title}</p>
-              </TextEffect>
-            ))}
+            <div className="result-effect result result--one">
+              <div className="counter counter--one">
+                {Array.isArray(resultOne.counterLines) && resultOne.counterLines[1] ? (
+                  <>
+                    <span className="counter-line">{resultOne.counterLines[0]}</span>
+                    <TextEffect
+                      variant={resultOne.variant}
+                      trigger="visible"
+                      className="counter-line counter-line--effect"
+                      effectOverrides={resultOne.counterEffectOverrides}
+                    >
+                      {resultOne.counterLines[1]}
+                    </TextEffect>
+                  </>
+                ) : (
+                  <TextEffect
+                    variant={resultOne.variant}
+                    trigger="visible"
+                    className="inline-block"
+                    effectOverrides={resultOne.counterEffectOverrides}
+                  >
+                    {resultOne.counter}
+                  </TextEffect>
+                )}
+              </div>
+              <div className="subtitles">
+                {renderSubtitles(resultOne.subtitles)}
+              </div>
+            </div>
+
+            <div className="result-effect result result--two">
+              <div className="counter counter--two">
+                {Array.isArray(resultTwo.counterLines) && resultTwo.counterLines[1] ? (
+                  <>
+                    <span className="counter-line">{resultTwo.counterLines[0]}</span>
+                    <TextEffect
+                      variant={resultTwo.variant}
+                      trigger="visible"
+                      className="counter-line counter-line--effect"
+                      effectOverrides={resultTwo.counterEffectOverrides}
+                    >
+                      {resultTwo.counterLines[1]}
+                    </TextEffect>
+                  </>
+                ) : (
+                  <TextEffect
+                    variant={resultTwo.variant}
+                    trigger="visible"
+                    className="inline-block"
+                    effectOverrides={resultTwo.counterEffectOverrides}
+                  >
+                    {resultTwo.counter}
+                  </TextEffect>
+                )}
+              </div>
+              <div className="subtitles">
+                {renderSubtitles(resultTwo.subtitles)}
+              </div>
+            </div>
+
+            <div className="result-effect result result--three">
+              <div className="counter counter--three">
+                <TextEffect
+                  variant={resultThree.variant}
+                  trigger="visible"
+                  className="inline-block"
+                  effectOverrides={resultThree.counterEffectOverrides}
+                >
+                  {resultThree.counter}
+                </TextEffect>
+              </div>
+              <p className="title">{resultThree.title}</p>
+              <div className="subtitles">
+                {renderSubtitles(resultThree.subtitles)}
+              </div>
+            </div>
+
+            <div className="result-effect result result--four">
+              <div className="counter counter--four">
+                <TextEffect
+                  variant={resultFour.variant}
+                  trigger="visible"
+                  className="inline-block"
+                  effectOverrides={resultFour.counterEffectOverrides}
+                >
+                  {resultFour.counter}
+                </TextEffect>
+              </div>
+              <p className="title">{resultFour.title}</p>
+              <div className="subtitles">
+                {renderSubtitles(resultFour.subtitles)}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* We can remove the separate "Tools" section as it was duplicative, or perhaps keep ToolList for specific detail? 
-            The brief said "Replace valid certificates with the Tech Stack".
-            Let's keep ToolList (which has the 3D icons) as "The Pillars" and this new Marquee as "The Stack".
-        */}
         <div className="tools">
-          {/* ToolList remains as it was generally useful for high level services, but maybe we rename it? 
-               Wait, ToolList was showing: Paid Social, SEO, Analytics, CRM. 
-               The new marquee shows specific TOOLS (HubSpot, etc). 
-               This works well together.
-           */}
           <ToolList />
         </div>
 
-        <h3 className="subtitle">
-          {expertiseTitle}
-        </h3>
+        <div className="results_subtitle">
+            <TextEffect
+              as="h3"
+              variant="arrowDownRight"
+              trigger="always"
+              className="inline-block"
+              effectOverrides={{
+                style: {
+                  ...VALUES_EFFECT_STYLE_PRESETS.expertiseLabelArrow,
+              }}}
+            >
+              {expertiseTitle}
+            </TextEffect>
+          </div>
         <div className="logos clients-cards-groups">
           <div className="gradient-mask left is--visible"></div>
           <div className="gradient-mask right is--visible"></div>
@@ -331,8 +546,6 @@ export default function Values() {
             hoverSpeed={0}
             className="clients-cards-group"
             scaleOnHover
-            fadeOut
-            fadeOutColor="var(--color--background--100)"
             ariaLabel={logosLabel}
             renderItem={(item, itemIndex) => {
               // Simply render the icon, no button needed as we aren't opening a dialog anymore

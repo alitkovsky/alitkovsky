@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState, useCallback } from "react"
+import { forwardRef, useEffect, useMemo, useRef, useState, useCallback } from "react"
 import { cn } from "@/lib/utils"
 
 const DEFAULT_SELECTOR = "svg"
+const HEADING_TAGS = new Set(["h1", "h2", "h3", "h4", "h5", "h6"])
 
 // OPTIMIZATION: Debounce helper for mutation callbacks
 function debounce(fn, delay) {
@@ -54,7 +55,7 @@ function applyVariables(target, { duration, steps, distance, delay }) {
  * - visible: animation runs when intersecting the viewport
  * - manual: controlled via the `active` prop
  */
-export default function WiggleSvg({
+const WiggleSvg = forwardRef(function WiggleSvg({
   as: Component = "span",
   children,
   className,
@@ -69,12 +70,23 @@ export default function WiggleSvg({
   steps = 7,
   distance = 1,
   ...rest
-}) {
+}, forwardedRef) {
   const wrapperRef = useRef(null)
   const targetRef = useRef(null)
   const isControlled = active !== undefined
   const [internalActive, setInternalActive] = useState(trigger === "always")
   const resolvedActive = isControlled ? Boolean(active) : internalActive
+  const setWrapperRef = useCallback(
+    (node) => {
+      wrapperRef.current = node
+      if (typeof forwardedRef === "function") {
+        forwardedRef(node)
+      } else if (forwardedRef) {
+        forwardedRef.current = node
+      }
+    },
+    [forwardedRef],
+  )
 
   // Keep the target element reference up to date (important if children change or load async)
   useEffect(() => {
@@ -207,13 +219,22 @@ export default function WiggleSvg({
   }, [isControlled, trigger])
 
   const componentClassName = useMemo(
-    () => cn("inline-flex", className),
-    [className],
+    () => {
+      const isHeading =
+        typeof Component === "string" && HEADING_TAGS.has(Component.toLowerCase())
+      const defaultDisplayClass = isHeading ? "block" : "inline-flex"
+      return cn(defaultDisplayClass, className)
+    },
+    [Component, className],
   )
 
   return (
-    <Component ref={wrapperRef} className={componentClassName} style={style} {...rest}>
+    <Component ref={setWrapperRef} className={componentClassName} style={style} {...rest}>
       {children}
     </Component>
   )
-}
+})
+
+WiggleSvg.displayName = "WiggleSvg"
+
+export default WiggleSvg

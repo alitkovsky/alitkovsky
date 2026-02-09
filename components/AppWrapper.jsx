@@ -11,6 +11,7 @@ import { CalendlyProvider } from "@/components/CalendlyProvider";
 import { LiveRegionProvider } from "@/components/LiveRegion";
 
 import GridOverlay from "@/components/GridOverlay";
+import BottomOverlay from "@/components/BottomOverlay";
 
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
@@ -45,12 +46,15 @@ export default function AppWrapper({
     setIsHydrated(true);
   }, []);
 
+  const shouldRenderCursor = isHydrated && showCursorEffects;
+
   // Shared content that always renders
   const appContent = (
     <>
       <Header />
       <Nav initialTheme={initialTheme} />
       {children}
+      <BottomOverlay />
       {/* <GridOverlay /> */}
     </>
   );
@@ -64,7 +68,7 @@ export default function AppWrapper({
         <CalendlyProvider>
           <PwaRegister />
           {/* OPTIMIZATION: Only render cursor on devices with trackpad/mouse */}
-          {showCursorEffects && <LazyCustomCursor />}
+          {shouldRenderCursor && <LazyCustomCursor />}
           {appContent}
         </CalendlyProvider>
       </LiveRegionProvider>

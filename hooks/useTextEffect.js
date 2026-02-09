@@ -101,6 +101,8 @@ const EFFECTS = {
   linethrough: {
     file: "UnderlineLong.svg",
     animationDuration: 500,
+    useGroupsAsFrames: true,
+    frameStrategy: "sequential",
     style: {
       position: "absolute",
       top: "50%",
@@ -141,6 +143,186 @@ const EFFECTS = {
       left: "0%",
       width: "120%",
       height: "150%",
+    },
+  },
+  strikethrough: {
+    file: "Strikethrough.svg",
+    animationDuration: 500,
+    style: {
+      position: "absolute",
+      top: "40%",
+      left: "-5%",
+      width: "110%",
+      height: "50%",
+    },
+  },
+  highlight: {
+    cssOnly: true,
+    animationDuration: 500,
+  },
+  arrowUp: {
+    file: "ArrowUp.svg",
+    animationDuration: 600,
+    style: {
+      position: "absolute",
+      top: "50%",
+      left: "105%",
+      width: "1.5em",
+      height: "1.5em",
+      transform: "translateY(-50%)",
+    },
+  },
+  arrowDown: {
+    file: "ArrowDown.svg",
+    animationDuration: 600,
+    style: {
+      position: "absolute",
+      top: "50%",
+      left: "105%",
+      width: "40%",
+      height: "auto",
+    },
+  },
+  underline: {
+    file: "Underline.svg",
+    animationDuration: 400,
+    style: {
+      position: "absolute",
+      bottom: "-0.2em",
+      top: "auto",
+      left: "0",
+      width: "100%",
+      height: "auto",
+    },
+  },
+  dashedSide: {
+    file: "DashedSide.svg",
+    animationDuration: 500,
+    splitPathsToLayers: true,
+    pathAttributes: {
+      fill: "currentColor",
+    },
+    style: {
+      position: "absolute",
+      top: "50%",
+      right: "-1em",
+      width: "auto",
+      height: "200%",
+      left: "auto"
+    },
+  },
+  dashedSideLeft: {
+    file: "DashedSideLeft.svg",
+    animationDuration: 500,
+    splitPathsToLayers: true,
+    pathAttributes: {
+      fill: "currentColor",
+    },
+    style: {
+      position: "absolute",
+      top: "50%",
+      right: "-1em",
+      width: "auto",
+      height: "200%",
+      left: "auto"
+    },
+  },
+  dashedCircle: {
+    file: "DashedCircle.svg",
+    animationDuration: 500,
+    splitPathsToLayers: true,
+    pathAttributes: {
+      fill: "currentColor",
+    },
+    style: {
+      position: "absolute",
+      top: "0",
+      right: "-1em",
+      left: "auto",
+      width: "100%",
+      height: "auto",
+    },
+  },
+  hearts: {
+    file: "Hearts.svg",
+    animationDuration: 500,
+    splitPathsToLayers: true,
+    pathAttributes: {
+      fill: "currentColor",
+    },
+    style: {
+      position: "absolute",
+      top: "50%",
+      right: "-1em",
+      width: "auto",
+      height: "200%",
+      left: "auto"
+    },
+  },
+  arrowSpiral: {
+    file: "Arrow.svg",
+    animationDuration: 600,
+    style: {
+      position: "absolute",
+      top: "0%",
+      left: "105%",
+      width: "40%",
+      height: "auto",
+    },
+  },
+  arrowDownRight: {
+    file: "ArrowDownRight.svg",
+    animationDuration: 600,
+    style: {
+      position: "absolute",
+      top: "20%",
+      left: "105%",
+      width: "40%",
+      height: "auto",
+    },
+  },
+  arrowDownLeft: {
+    file: "ArrowDownLeft.svg",
+    animationDuration: 600,
+    style: {
+      position: "absolute",
+      top: "20%",
+      right: "100%",
+      width: "40%",
+      height: "auto",
+    },
+  },
+  arrowRight: {
+    file: "ArrowRight.svg",
+    animationDuration: 600,
+    style: {
+      position: "absolute",
+      top: "50%",
+      left: "105%",
+      width: "auto",
+      height: "40%",
+    },
+  },
+  arrowLeft: {
+    file: "ArrowLeft.svg",
+    animationDuration: 600,
+    style: {
+      position: "absolute",
+      top: "55%",
+      right: "105%",
+      width: "auto",
+      height: "30%",
+    },
+  },
+  arrowShort: {
+    file: "ArrowShort.svg",
+    animationDuration: 600,
+    style: {
+      position: "absolute",
+      top: "50%",
+      left: "105%",
+      width: "40%",
+      height: "auto",
     },
   },
 };
@@ -258,7 +440,7 @@ function getSharedResizeObserver() {
 
 function registerResizeCallback(element, callback) {
   const observer = getSharedResizeObserver();
-  if (!observer || !element) return () => {};
+  if (!observer || !element) return () => { };
 
   if (!resizeCallbacks.has(element)) {
     resizeCallbacks.set(element, new Set());
@@ -337,7 +519,7 @@ function initSharedThemeObserver() {
 }
 
 function registerThemeCallback(callback) {
-  if (!isBrowser) return () => {};
+  if (!isBrowser) return () => { };
 
   initSharedThemeObserver();
   themeCallbacks.add(callback);
@@ -369,7 +551,7 @@ function sharedRafLoop(timestamp) {
 }
 
 function registerRafCallback(callback) {
-  if (!isBrowser) return () => {};
+  if (!isBrowser) return () => { };
 
   rafCallbacks.add(callback);
 
@@ -408,6 +590,7 @@ class TextEffectController {
     this.svg = null
     this.lastAnimation = 0
     this.addedPosition = false
+    this.pathAttributesByNode = null
 
     // Cleanup functions for shared observers
     this._cleanupResize = null;
@@ -448,6 +631,26 @@ class TextEffectController {
 
     const allPaths = Array.from(svgElement.querySelectorAll("path"))
     const groupElements = Array.from(svgElement.querySelectorAll("g"))
+    const basePathAttributes =
+      this.config && typeof this.config.pathAttributes === "object"
+        ? this.config.pathAttributes
+        : null
+    const perPathAttributes = Array.isArray(this.config?.pathAttributesByIndex)
+      ? this.config.pathAttributesByIndex
+      : null
+
+    if (basePathAttributes || perPathAttributes) {
+      this.pathAttributesByNode = new Map()
+      allPaths.forEach((path, index) => {
+        const indexAttributes = perPathAttributes?.[index]
+        if (!basePathAttributes && !indexAttributes) return
+        const mergedAttributes = {
+          ...(basePathAttributes ?? {}),
+          ...(indexAttributes ?? {}),
+        }
+        this.pathAttributesByNode.set(path, mergedAttributes)
+      })
+    }
 
     const configLayerCount = Number(this.config.layers)
     const useGroupsAsFrames = Boolean(this.config.useGroupsAsFrames)
@@ -456,7 +659,7 @@ class TextEffectController {
       !useGroupsAsFrames &&
       !splitPathsToLayers &&
       ((Number.isFinite(configLayerCount) && configLayerCount > 1) ||
-      (!Number.isFinite(configLayerCount) && groupElements.length > 1))
+        (!Number.isFinite(configLayerCount) && groupElements.length > 1))
 
     const layerSources = []
 
@@ -526,6 +729,24 @@ class TextEffectController {
       path.setAttribute("vector-effect", "non-scaling-stroke")
       path.style.stroke = ""
       path.style.fill = ""
+
+      const pathAttributes = this.pathAttributesByNode?.get(path)
+      if (pathAttributes) {
+        const { style: styleOverrides, ...restAttributes } = pathAttributes
+
+        if (styleOverrides && typeof styleOverrides === "object") {
+          Object.entries(styleOverrides).forEach(([styleKey, styleValue]) => {
+            if (styleValue === undefined || styleValue === null) return
+            path.style[styleKey] = styleValue
+          })
+        }
+
+        Object.entries(restAttributes).forEach(([key, value]) => {
+          if (value === undefined || value === null) return
+          const attributeName = key === "strokeWidth" ? "stroke-width" : key
+          path.setAttribute(attributeName, String(value))
+        })
+      }
 
       if (index === 0) {
         path.style.opacity = "0"
@@ -853,6 +1074,15 @@ class TextEffectController {
   }
 }
 
+function mergeEffectConfig(baseConfig, overrides) {
+  if (!baseConfig || !overrides) return baseConfig
+  const merged = { ...baseConfig, ...overrides }
+  if (baseConfig.style || overrides.style) {
+    merged.style = { ...(baseConfig.style ?? {}), ...(overrides.style ?? {}) }
+  }
+  return merged
+}
+
 export function useTextEffect(options = {}) {
   const {
     variant = "underlineLong",
@@ -862,6 +1092,7 @@ export function useTextEffect(options = {}) {
     visibilityRootMargin = "0px 0px -33%",
     visibilityThreshold = 0,
     customEffect,
+    configOverrides,
   } = options
 
   const effectRef = useRef(null)
@@ -875,7 +1106,8 @@ export function useTextEffect(options = {}) {
   useEffect(() => {
     if (!isBrowser || !node) return undefined
 
-    const config = customEffect ?? EFFECTS[variant]
+    const baseConfig = customEffect ?? EFFECTS[variant]
+    const config = mergeEffectConfig(baseConfig, configOverrides)
     if (!config) {
       const message = customEffect
         ? "Invalid text effect config provided to useTextEffect"
@@ -884,6 +1116,67 @@ export function useTextEffect(options = {}) {
       return undefined
     }
 
+    // Handle CSS-only effects (like highlight)
+    if (config.cssOnly) {
+      let observer = null
+      let cleanupHover = null
+
+      const animateIn = () => {
+        node.setAttribute("data-effect-visible", "true")
+        node.classList.add("is--visible")
+      }
+
+      const animateOut = () => {
+        node.removeAttribute("data-effect-visible")
+        node.classList.remove("is--visible")
+      }
+
+      // Store controls for external access
+      effectRef.current = { animateIn, animateOut }
+      setReady(true)
+
+      if (trigger === "always" || initiallyVisible) {
+        animateIn()
+      }
+
+      if (trigger === "hover") {
+        node.addEventListener("mouseenter", animateIn)
+        node.addEventListener("mouseleave", animateOut)
+        cleanupHover = () => {
+          node.removeEventListener("mouseenter", animateIn)
+          node.removeEventListener("mouseleave", animateOut)
+        }
+      } else if (trigger === "visible") {
+        observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.target !== node) return
+              if (entry.isIntersecting && entry.intersectionRatio > visibilityThreshold) {
+                animateIn()
+              } else if (!entry.isIntersecting) {
+                animateOut()
+              }
+            })
+          },
+          {
+            root: null,
+            rootMargin: visibilityRootMargin,
+            threshold: visibilityThreshold,
+          },
+        )
+        observer.observe(node)
+      }
+
+      return () => {
+        cleanupHover?.()
+        observer?.disconnect()
+        animateOut()
+        effectRef.current = null
+        setReady(false)
+      }
+    }
+
+    // SVG-based effects require a file property
     if (!config.file) {
       console.warn("Text effect config must include a `file` property")
       return undefined
@@ -991,6 +1284,7 @@ export function useTextEffect(options = {}) {
     visibilityRootMargin,
     visibilityThreshold,
     customEffect,
+    configOverrides,
   ])
 
   const controls = useMemo(

@@ -21,7 +21,9 @@ const EXPERTISE_COPY = {
       viewCertificate: "zertifikat ansehen",
     },
     colophon: {
-      designAndCodePrefix: "design und code mit liebe von",
+      designAndCodePrefix: "design und code",
+      designAndCodeLove: "mit liebe",
+      designAndCodeSuffix: "von",
       typesetInPrefix: "gesetzt in",
       typesetByJoiner: "von",
       copyrightSuffix: "andrii litkovskyi marketing — systems architect",
@@ -42,7 +44,9 @@ const EXPERTISE_COPY = {
       viewCertificate: "view certificate",
     },
     colophon: {
-      designAndCodePrefix: "design and code with love by",
+      designAndCodePrefix: "design and code",
+      designAndCodeLove: "with love",
+      designAndCodeSuffix: "by",
       typesetInPrefix: "typeset in",
       typesetByJoiner: "by",
       copyrightSuffix: "andrii litkovskyi marketing — systems architect",
@@ -121,7 +125,9 @@ export default function Expertise() {
   const headingCertifications = headings.certifications ?? "Certifications";
   const headingEducation = headings.education ?? "Education";
   const headingColophon = headings.colophon ?? "Colophon";
-  const colophonDesignAndCode = colophon.designAndCodePrefix ?? "Design and code by";
+  const colophonDesignAndCodePrefix = colophon.designAndCodePrefix ?? "Design and code";
+  const colophonDesignAndCodeLove = colophon.designAndCodeLove ?? "with love";
+  const colophonDesignAndCodeSuffix = colophon.designAndCodeSuffix ?? "by";
   const colophonTypesetIn = colophon.typesetInPrefix ?? "Typeset in";
   const colophonTypesetBy = colophon.typesetByJoiner ?? "by";
   const colophonCopyright = colophon.copyrightSuffix ?? "Andrii Litkovskyi Marketing — made in Germany";
@@ -182,8 +188,27 @@ export default function Expertise() {
         >
           <h2>{headingColophon}</h2>
           <p>
-            <span className="description">{colophonDesignAndCode} <Link href="/">Andrii Litkovskyi</Link><br /></span>
-            <span className="description">{colophonTypesetIn} <Link href="https://fonts.google.com/specimen/Comfortaa" target="_blank" rel="noopener noreferrer">Comfortaa</Link> {colophonTypesetBy} <Link href="https://fonts.google.com/?query=Johan%20Aakerlund" target="_blank" rel="noopener noreferrer">Johan Aakerlund</Link><br /><br /></span>
+            <span className="description">
+              {colophonDesignAndCodePrefix}{" "}
+              {/* <TextEffect
+                as="span"
+                variant="hearts"
+                trigger="always"
+                className="inline-block"
+                effectOverrides={{
+                  style: {
+                    height: "400%",
+                    top: "-40",
+                    right: "",
+                }}}
+              >
+                {colophonDesignAndCodeLove}
+              </TextEffect> */}
+              {colophonDesignAndCodeLove}{" "}
+              {colophonDesignAndCodeSuffix}{" "}
+              <Link href="/">Andrii Litkovskyi</Link>
+              <br /><br />
+            </span>
             <span className="copyright">©&nbsp;<span className="year">{new Date().getFullYear()}</span> {colophonCopyright}</span>
             {/* <TextEffect
               as="a"

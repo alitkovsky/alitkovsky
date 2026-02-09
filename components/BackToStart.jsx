@@ -63,8 +63,18 @@ export default function BackToStart({
           autoActive={autoActive}
           onClick={handleClick}
         >
-          <i aria-hidden className="cta-icon rotate-225">↗</i>
-          <span>{resolvedLabel}</span>
+          <TextEffect
+            as="span"
+            variant="arrowLeft"
+            trigger="always"
+            className="inline-block"
+            effectOverrides={{
+              style: {
+                top: "0.85em",
+            }}}
+          >
+            <span className="handwritten">{resolvedLabel}</span>
+          </TextEffect>
         </TextEffect>
       </Magnet>
     </div>

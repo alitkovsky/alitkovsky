@@ -4,6 +4,35 @@ import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRe
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useTextEffect, resolveAutoVariant } from "@/hooks/useTextEffect"
+import WiggleSvg from "./WiggleSvg"
+
+// Variants that use the internal frame-based animation (TextEffectController)
+// All others will be treated as "static" SVGs and animated via CSS transform (WiggleSvg)
+const DYNAMIC_VARIANTS = new Set([
+  'ellipse',
+  'ellipseBold',
+  'ellipseThin',
+  'sidelineBold',
+  'sidelineThin',
+  'underlineCurved',
+  'underlineLong',
+  'underlineThin',
+  'underlineZigzag',
+  'linethrough',
+  'underlineBold'
+])
+
+const INLINE_TEXT_TAGS = new Set([
+  "a",
+  "b",
+  "em",
+  "i",
+  "label",
+  "mark",
+  "small",
+  "span",
+  "strong",
+]);
 
 const TextEffect = forwardRef(function TextEffect(
   {
@@ -23,6 +52,8 @@ const TextEffect = forwardRef(function TextEffect(
     effectRef,
     className,
     children,
+    wiggle = true,
+    effectOverrides,
     ...rest
   },
   forwardedRef,
@@ -129,6 +160,7 @@ const TextEffect = forwardRef(function TextEffect(
   }, [autoActive, href, pathname])
 
   const isActive = activeProp ?? (autoActive ? autoActiveState : false)
+  const isControlledActive = activeProp !== undefined || autoActive
 
   const targetVariant = useMemo(
     () => (isActive && resolvedActiveVariant ? resolvedActiveVariant : resolvedVariant),
@@ -177,6 +209,20 @@ const TextEffect = forwardRef(function TextEffect(
     }
   }, [currentTrigger, targetTrigger, activeDelay])
 
+  const shouldWiggle = wiggle !== false && wiggle !== "static"
+
+  const effectConfigOverrides = useMemo(() => {
+    if (!shouldWiggle) {
+      return {
+        ...(effectOverrides ?? {}),
+        frameStrategy: "none",
+        loopFrames: false,
+        animationDuration: 0,
+      }
+    }
+    return effectOverrides ?? null
+  }, [shouldWiggle, effectOverrides])
+
   const effect = useTextEffect({
     variant: currentVariant,
     trigger: currentTrigger,
@@ -184,6 +230,7 @@ const TextEffect = forwardRef(function TextEffect(
     initiallyVisible,
     visibilityRootMargin,
     visibilityThreshold,
+    configOverrides: effectConfigOverrides,
   })
 
   useEffect(() => {
@@ -247,10 +294,51 @@ const TextEffect = forwardRef(function TextEffect(
     [effect, nodeRef],
   )
 
+  // Decide if we should wrap with WiggleSvg
+  // We use WiggleSvg when the variant is NOT in the dynamic list (and not highlight/cssOnly)
+  const isDynamic = DYNAMIC_VARIANTS.has(currentVariant)
+  const isHighlight = currentVariant === 'highlight' // specialized CSS only variant
+  const shouldUseWiggle = !isDynamic && !isHighlight
+
+  // If wiggle is disabled, force active=false on WiggleSvg
+  // If wiggle is enabled, but TextEffect is controlled (active/autoActive), align WiggleSvg active state
+  // If wiggle is enabled, and TextEffect is uncontrolled (hover), leave WiggleSvg active undefined to key off trigger
+  let wiggleActiveProp = undefined
+  if (!shouldWiggle) {
+    wiggleActiveProp = false
+  } else if (isControlledActive) {
+    wiggleActiveProp = isActive
+  }
+
+  const OutputComponent = shouldUseWiggle ? WiggleSvg : Component
+  const outputProps = shouldUseWiggle
+    ? {
+      as: Component,
+      trigger: currentTrigger,
+      ...(wiggleActiveProp !== undefined ? { active: wiggleActiveProp } : {}),
+      // Pass wiggle specific props if needed, or rely on defaults
+      ...componentProps
+    }
+    : componentProps
+
+  const dynamicLayoutClassName = useMemo(() => {
+    if (shouldUseWiggle) return undefined
+    if (typeof Component !== "string") return undefined
+    const tagName = Component.toLowerCase()
+    if (INLINE_TEXT_TAGS.has(tagName)) {
+      return "inline-block"
+    }
+    return undefined
+  }, [Component, shouldUseWiggle])
+
   return (
-    <Component ref={setNode} className={cn("relative", className)} {...componentProps}>
+    <OutputComponent
+      ref={setNode}
+      className={cn("relative", dynamicLayoutClassName, className)}
+      {...outputProps}
+    >
       {children}
-    </Component>
+    </OutputComponent>
   )
 })
 

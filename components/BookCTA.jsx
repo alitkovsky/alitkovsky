@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useId, useMemo, useRef, useState } from "react";
 import TextEffect from "@/components/TextEffect";
 import Magnet from "@/components/Magnet";
 import useCalendly from "@/hooks/useCalendly";
@@ -42,6 +42,8 @@ export default function BookCTA({
   ctaLocation,
   autoActive = true,
   ariaLabel,
+  variant = "ellipseAuto",
+  trigger = "always"
 }) {
   const { openCalendly, isLoading, isOpen, eventUrl, lastError } = useCalendly();
   const { language } = useLanguage();
@@ -112,6 +114,10 @@ export default function BookCTA({
   }, [copy.defaultLabel, label, language]);
 
   const displayLabel = isLoading ? copy.loadingLabel : resolvedLabel;
+  const displayLabelLines = useMemo(
+    () => displayLabel.split(/\r?\n/),
+    [displayLabel],
+  );
 
   return (
     <div
@@ -129,8 +135,8 @@ export default function BookCTA({
           ref={ctaRef}
           as="a"
           href={targetUrl}
-          variant="ellipseAuto"
-          trigger="always"
+          variant={variant}
+          trigger={trigger}
           className="cta-link inline-flex"
           autoActive={false}
           onClick={handleClick}
@@ -141,7 +147,14 @@ export default function BookCTA({
           aria-describedby={consentBlocked ? noteId : undefined}
           aria-label={ariaLabel}
         >
-          <span className="handwritten">{displayLabel}</span>
+          <span className="handwritten">
+            {displayLabelLines.map((line, index) => (
+              <Fragment key={`${line}-${index}`}>
+                {line}
+                {index < displayLabelLines.length - 1 ? <br /> : null}
+              </Fragment>
+            ))}
+          </span>
           {/* <i aria-hidden className="cta-icon" data-loading={isLoading ? "true" : undefined}>↗</i> */}
           <span className="sr-only" aria-live="polite">
             {isLoading ? copy.srLoading : ""}
