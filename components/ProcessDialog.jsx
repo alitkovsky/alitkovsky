@@ -1,19 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function ProcessDialog({ step, onClose }) {
   const modalRef = useRef(null);
   const headingId = "process-dialog-title";
   const [isClosing, setIsClosing] = useState(false);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     if (isClosing) return;
     setIsClosing(true);
     setTimeout(() => {
       onClose();
     }, 300); // Match animation duration
-  };
+  }, [isClosing, onClose]);
 
   useEffect(() => {
     const dialog = modalRef.current;
@@ -66,7 +66,7 @@ export default function ProcessDialog({ step, onClose }) {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isClosing]);
+  }, [handleClose]);
 
   const { title, description } = step;
 

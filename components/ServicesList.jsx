@@ -11,7 +11,7 @@ import { getAllSystems, getSystemsPageCopy } from "@/data/systems";
 function ServiceCard({ service, index }) {
   return (
     <article className="services-list__card">
-      <Link href={`/leistungen/${service.slug}`} className="services-list__card-link">
+      <Link href={`/solutions/${service.slug}`} className="services-list__card-link">
         <header className="services-list__card-header">
           <h2 className="services-list__card-title">{service.title}</h2>
           <p className="services-list__card-subtitle">{service.subtitle}</p>

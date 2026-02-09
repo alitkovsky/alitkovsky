@@ -73,6 +73,13 @@ const WiggleSvg = forwardRef(function WiggleSvg({
 }, forwardedRef) {
   const wrapperRef = useRef(null)
   const targetRef = useRef(null)
+  const targetConfigRef = useRef({
+    duration,
+    steps,
+    distance,
+    delay,
+    resolvedActive: Boolean(active),
+  })
   const isControlled = active !== undefined
   const [internalActive, setInternalActive] = useState(trigger === "always")
   const resolvedActive = isControlled ? Boolean(active) : internalActive
@@ -87,6 +94,16 @@ const WiggleSvg = forwardRef(function WiggleSvg({
     },
     [forwardedRef],
   )
+
+  useEffect(() => {
+    targetConfigRef.current = {
+      duration,
+      steps,
+      distance,
+      delay,
+      resolvedActive,
+    }
+  }, [duration, steps, distance, delay, resolvedActive])
 
   // Keep the target element reference up to date (important if children change or load async)
   useEffect(() => {
@@ -104,8 +121,8 @@ const WiggleSvg = forwardRef(function WiggleSvg({
 
       targetRef.current = target
       target.classList.add("wiggle")
-      applyVariables(target, { duration, steps, distance, delay })
-      target.dataset.wiggleActive = resolvedActive ? "true" : "false"
+      applyVariables(target, targetConfigRef.current)
+      target.dataset.wiggleActive = targetConfigRef.current.resolvedActive ? "true" : "false"
     }
 
     const updateTarget = () => {

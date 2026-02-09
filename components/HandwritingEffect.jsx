@@ -252,12 +252,13 @@ const HandwritingEffect = forwardRef(function HandwritingEffect(
 
   useEffect(() => {
     if (!isBrowser) return undefined
-    if (!containerRef.current || !resolvedText) return undefined
+    const container = containerRef.current
+    if (!container || !resolvedText) return undefined
 
     let mounted = true
     let instance = null
     setReady(false)
-    containerRef.current.innerHTML = ""
+    container.innerHTML = ""
 
     const initialise = async () => {
       try {
@@ -319,8 +320,8 @@ const HandwritingEffect = forwardRef(function HandwritingEffect(
       if (instance?.svg?.parentNode) {
         instance.svg.remove()
       }
-      if (containerRef.current) {
-        containerRef.current.replaceChildren()
+      if (container) {
+        container.replaceChildren()
       }
       if (varaInstanceRef.current === instance) {
         varaInstanceRef.current = null

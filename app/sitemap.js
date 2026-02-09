@@ -1,4 +1,4 @@
-import { getAllServiceSlugs } from '@/data/services';
+import { getAllSystemSlugs } from "@/data/systems";
 
 /**
  * Sitemap configuration
@@ -6,8 +6,8 @@ import { getAllServiceSlugs } from '@/data/services';
  * Using static dates allows search engines to detect real content updates.
  */
 export default function sitemap() {
-  const baseUrl = 'https://litkovskyi.de';
-  const serviceSlugs = getAllServiceSlugs();
+  const baseUrl = "https://litkovskyi.de";
+  const systemSlugs = getAllSystemSlugs();
 
   // Static pages
   const staticPages = [
@@ -30,9 +30,9 @@ export default function sitemap() {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/leistungen`,
-      lastModified: new Date('2025-01-12'),
-      changeFrequency: 'monthly',
+      url: `${baseUrl}/solutions`,
+      lastModified: new Date("2025-01-12"),
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
@@ -49,13 +49,13 @@ export default function sitemap() {
     },
   ];
 
-  // Service detail pages
-  const servicePages = serviceSlugs.map((slug) => ({
-    url: `${baseUrl}/leistungen/${slug}`,
-    lastModified: new Date('2025-01-12'),
-    changeFrequency: 'monthly',
+  // Solution detail pages
+  const systemPages = systemSlugs.map((slug) => ({
+    url: `${baseUrl}/solutions/${slug}`,
+    lastModified: new Date("2025-01-12"),
+    changeFrequency: "monthly",
     priority: 0.8,
   }));
 
-  return [...staticPages, ...servicePages];
+  return [...staticPages, ...systemPages];
 }

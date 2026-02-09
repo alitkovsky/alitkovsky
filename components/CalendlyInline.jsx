@@ -16,17 +16,18 @@ export default function CalendlyInline({
 
   useEffect(() => {
     let isMounted = true;
+    const container = containerRef.current;
 
     ensureReady()
       .then((CalendlyApi) => {
-        if (!CalendlyApi || !isMounted || !containerRef.current) {
+        if (!CalendlyApi || !isMounted || !container) {
           return;
         }
 
-        containerRef.current.innerHTML = "";
+        container.innerHTML = "";
         CalendlyApi.initInlineWidget({
           url: eventUrl,
-          parentElement: containerRef.current,
+          parentElement: container,
           prefill,
           utm,
         });
@@ -40,8 +41,8 @@ export default function CalendlyInline({
 
     return () => {
       isMounted = false;
-      if (containerRef.current) {
-        containerRef.current.innerHTML = "";
+      if (container) {
+        container.innerHTML = "";
       }
     };
   }, [ensureReady, eventUrl, prefill, utm]);

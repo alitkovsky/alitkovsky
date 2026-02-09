@@ -91,7 +91,17 @@ const nextConfig = {
       },
       {
         source: '/services',
-        destination: '/',
+        destination: '/solutions',
+        permanent: true,
+      },
+      {
+        source: '/leistungen',
+        destination: '/solutions',
+        permanent: true,
+      },
+      {
+        source: '/leistungen/:slug',
+        destination: '/solutions/:slug',
         permanent: true,
       },
     ];

@@ -299,6 +299,7 @@ export const LogoLoop = memo(({
         {item.node}
       </span>
     ) : (
+      // eslint-disable-next-line @next/next/no-img-element -- native img keeps loop rendering lightweight for many animated logo items
       <img
         src={item.src}
         srcSet={item.srcSet}

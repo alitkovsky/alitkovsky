@@ -121,12 +121,12 @@ const INTRO_COPY = {
         [
           {
             text: "tach!",
-            effect: "dashedSideLeft",
-            counterEffectOverrides: {
-              style: {
-                ...INTRO_EFFECT_STYLE_PRESETS.greetingDashed,
-              },
-            }
+            // effect: "dashedSideLeft",
+            // counterEffectOverrides: {
+            //   style: {
+            //     ...INTRO_EFFECT_STYLE_PRESETS.greetingDashed,
+            //   },
+            // }
           },
           { text: " ich bin andrii. ich baue " },
           {
@@ -233,12 +233,12 @@ const INTRO_COPY = {
           { text: "du gibst geld für " },
           {
             text: "werbung",
-            effect: "dashedSide",
-            counterEffectOverrides: {
-              style: {
-                ...INTRO_EFFECT_STYLE_PRESETS.adsDashed,
-              },
-            }
+            // effect: "dashedSide",
+            // counterEffectOverrides: {
+            //   style: {
+            //     ...INTRO_EFFECT_STYLE_PRESETS.adsDashed,
+            //   },
+            // }
           },
           { text: " aus, weißt aber nicht, was " },
           {
@@ -365,12 +365,12 @@ const INTRO_COPY = {
         [
           {
             text: "hey!",
-            effect: "dashedSideLeft",
-            counterEffectOverrides: {
-              style: {
-                ...INTRO_EFFECT_STYLE_PRESETS.greetingDashed,
-              },
-            }
+            // effect: "dashedSideLeft",
+            // counterEffectOverrides: {
+            //   style: {
+            //     ...INTRO_EFFECT_STYLE_PRESETS.greetingDashed,
+            //   },
+            // }
           },
           { text: " i'm andrii. i build " },
           {
@@ -478,12 +478,12 @@ const INTRO_COPY = {
           { text: "you spend money on " },
           {
             text: "ads",
-            effect: "dashedSide",
-            counterEffectOverrides: {
-              style: {
-                ...INTRO_EFFECT_STYLE_PRESETS.adsDashed,
-              },
-            }
+            // effect: "dashedSide",
+            // counterEffectOverrides: {
+            //   style: {
+            //     ...INTRO_EFFECT_STYLE_PRESETS.adsDashed,
+            //   },
+            // }
           },
           { text: ", but don't know what drives " },
           {

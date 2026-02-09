@@ -155,7 +155,6 @@ export function CalendlyProvider({
         setIsOpen(true);
       } catch (error) {
         setLastError(error instanceof Error ? error : new Error("Unable to open Calendly"));
-        // eslint-disable-next-line no-console
         console.error("[Calendly] Failed to open widget", error);
       } finally {
         setIsLoading(false);

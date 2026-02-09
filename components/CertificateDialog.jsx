@@ -1,19 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function CertificateDialog({ certificate, onClose }) {
   const modalRef = useRef(null);
   const headingId = "certificate-dialog-title";
   const [isClosing, setIsClosing] = useState(false);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     if (isClosing) return;
     setIsClosing(true);
     setTimeout(() => {
       onClose();
     }, 300); // Match animation duration
-  };
+  }, [isClosing, onClose]);
 
   useEffect(() => {
     const dialog = modalRef.current;
@@ -66,7 +66,7 @@ export default function CertificateDialog({ certificate, onClose }) {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isClosing]);
+  }, [handleClose]);
 
   const { title, imageSrc, aspectRatio = "4 / 3" } = certificate;
 

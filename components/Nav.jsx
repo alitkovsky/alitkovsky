@@ -20,10 +20,14 @@ const NAV_COPY = {
   de: {
     dayMode: "tag",
     nightMode: "nacht",
+    solutions: "lösungen",
+    projects: "projekte",
   },
   en: {
     dayMode: "day",
     nightMode: "night",
+    solutions: "solutions",
+    projects: "projects",
   },
 };
 
@@ -185,9 +189,12 @@ export default function Nav({ initialTheme = "dark" }) {
     { id: "contact", label: "contact" }
   ];
 
+  const languages = supportedLanguages ?? ["en", "de"];
+  const navCopy = NAV_COPY[language] ?? NAV_COPY.en;
+
   const pageItems = [
-    { id: "leistungen", label: "leistungen", route: "/leistungen" },
-    { id: "projekte", label: "projekte", route: "/projects" }
+    { id: "solutions", label: navCopy.solutions, route: "/solutions" },
+    { id: "projects-page", label: navCopy.projects, route: "/projects" }
   ];
 
   const subItems = [
@@ -200,9 +207,6 @@ export default function Nav({ initialTheme = "dark" }) {
       router.push(route);
     });
   };
-
-  const languages = supportedLanguages ?? ["en", "de"];
-  const navCopy = NAV_COPY[language] ?? NAV_COPY.en;
 
   function NavItem({ id, label, isActive, onActivate, sequenceIndex }) {
     const lineEffect = useRef(null)

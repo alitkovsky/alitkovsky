@@ -2,7 +2,7 @@ export const SYSTEMS_DATA = {
    de: {
       pageTitle: "lösungen",
       pageSubtitle: "automatisierte marketing-systeme für dein wachstum",
-      backToSystems: "alle systeme",
+      backToSystems: "alle lösungen",
       whatIncluded: "enthaltene module",
       whoIsItFor: "symptome & diagnose",
       expectedResults: "ergebnisse",
@@ -122,9 +122,9 @@ export const SYSTEMS_DATA = {
       },
    },
    en: {
-      pageTitle: "systems",
+      pageTitle: "solutions",
       pageSubtitle: "automated growth infrastructures for modern businesses",
-      backToSystems: "all systems",
+      backToSystems: "all solutions",
       whatIncluded: "modules included",
       whoIsItFor: "symptoms & diagnosis",
       expectedResults: "expected outcomes",

@@ -2,7 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import ServiceDetail from "@/components/ServiceDetail";
 import { getAllSystemSlugs, getSystemBySlug } from "@/data/systems";
 
-// Generate static params for all services
+// Generate static params for all solutions
 export async function generateStaticParams() {
   const slugs = getAllSystemSlugs();
   return slugs.map((slug) => ({ slug }));
@@ -16,7 +16,7 @@ const LEGACY_MAPPING = {
   "crm-automatisierung": "control-center",
 };
 
-// SEO metadata for each service
+// SEO metadata for each solution
 const SERVICE_META = {
   "control-center": {
     title: "The Control Center | Sales Automation & CRM",
@@ -35,7 +35,7 @@ const SERVICE_META = {
   },
 };
 
-// Generate metadata for each service
+// Generate metadata for each solution
 export async function generateMetadata({ params }) {
   const { slug } = await params;
 
@@ -59,17 +59,17 @@ export async function generateMetadata({ params }) {
     description: serviceMeta.description,
     keywords: serviceMeta.keywords,
     alternates: {
-      canonical: `/leistungen/${slug}`,
+      canonical: `/solutions/${slug}`,
       languages: {
-        de: `/leistungen/${slug}`,
-        en: `/leistungen/${slug}`,
-        "x-default": `/leistungen/${slug}`,
+        de: `/solutions/${slug}`,
+        en: `/solutions/${slug}`,
+        "x-default": `/solutions/${slug}`,
       },
     },
     openGraph: {
       title: serviceMeta.title,
       description: serviceMeta.description,
-      url: `/leistungen/${slug}`,
+      url: `/solutions/${slug}`,
       type: "article",
     },
   };
@@ -79,7 +79,7 @@ export default async function ServiceDetailPage({ params }) {
   const { slug } = await params;
 
   if (LEGACY_MAPPING[slug]) {
-    redirect(`/leistungen/${LEGACY_MAPPING[slug]}`);
+    redirect(`/solutions/${LEGACY_MAPPING[slug]}`);
   }
 
   const serviceData = getSystemBySlug(slug);

@@ -1,26 +1,26 @@
 import ServicesList from "@/components/ServicesList";
 
 export const metadata = {
-  title: "Leistungen – Online-Marketing-Beratung | Andrii Litkovskyi",
+  title: "Lösungen – Online-Marketing-Beratung | Andrii Litkovskyi",
   description: "SEO, Google Ads, Paid Social & CRM-Automatisierung für lokale Unternehmen in OWL. Mehr Kunden durch digitales Marketing.",
   keywords: "SEO Beratung OWL, Google Ads Minden, Online Marketing Bielefeld, Local SEO, Marketing Automatisierung, HubSpot Beratung",
   alternates: {
-    canonical: '/leistungen',
+    canonical: "/solutions",
     languages: {
-      'de': '/leistungen',
-      'en': '/leistungen',
-      'x-default': '/leistungen',
+      de: "/solutions",
+      en: "/solutions",
+      "x-default": "/solutions",
     },
   },
   openGraph: {
-    title: "Leistungen – Online-Marketing-Beratung | Andrii Litkovskyi",
+    title: "Lösungen – Online-Marketing-Beratung | Andrii Litkovskyi",
     description: "SEO, Google Ads, Paid Social, Web Analytics und CRM-Automatisierung für lokale Unternehmen in OWL. Mehr Kunden durch digitales Marketing.",
-    url: '/leistungen',
-    type: 'website',
+    url: "/solutions",
+    type: "website",
   },
 };
 
-export default function LeistungenPage() {
+export default function SolutionsPage() {
   return (
     <main className="app-main">
       <ServicesList />

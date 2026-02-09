@@ -20,6 +20,7 @@ export default function ServiceDetail({ slug }) {
   const baseId = useId();
 
   const copy = getSystemsPageCopy(language);
+  const backToOverviewLabel = copy.backToSystems ?? copy.backToServices;
   const serviceData = getSystemBySlug(slug, language);
 
   if (!serviceData) {
@@ -30,18 +31,18 @@ export default function ServiceDetail({ slug }) {
     <section className="section service-detail">
       <div className="content">
         <div className="service-detail__nav-top">
-          <Breadcrumb pageName={serviceData.title} pageUrl={`/leistungen/${slug}`} />
+          <Breadcrumb pageName={serviceData.title} pageUrl={`/solutions/${slug}`} />
           {/* Back link */}
           <nav>
             <TextEffect
               as={Link}
-              href="/leistungen"
+              href="/solutions"
               variant="ellipseAuto"
               trigger="hover"
               className="service-detail__back-link"
             >
               <i aria-hidden className="cta-icon rotate-225">↗</i>
-              {copy.backToServices}
+              {backToOverviewLabel}
             </TextEffect>
           </nav>
         </div>
@@ -138,8 +139,8 @@ export default function ServiceDetail({ slug }) {
 
         <div className="service-detail__back">
           <BackToStart
-            label={copy.backToServices}
-            url="/leistungen"
+            label={backToOverviewLabel}
+            url="/solutions"
             ctaLocation={`service-${slug}`}
           />
         </div>
