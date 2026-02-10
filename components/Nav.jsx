@@ -170,13 +170,6 @@ export default function Nav({ initialTheme = "dark" }) {
     });
   };
 
-  const handleModeKeyDown = (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      toggleTheme();
-    }
-  };
-
   const items = [
     { id: "intro", label: "intro" },
     { id: "values", label: "values" },
@@ -259,28 +252,19 @@ export default function Nav({ initialTheme = "dark" }) {
       }
     }, [isActive])
 
-    const handleActivate = (event) => {
-      event?.preventDefault()
+    const handleActivate = () => {
       onActivate?.()
     }
 
-    const handleKeyDown = (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault()
-        onActivate?.()
-      }
-    }
-
     return (
-      <div
+      <button
+        type="button"
         className={cn("item", id, { "is--active": isActive })}
         style={sequenceStyle}
-        role="menuitem"
-        tabIndex={0}
         onClick={handleActivate}
-        onKeyDown={handleKeyDown}
+        data-nav-focus-item="true"
         aria-label={`Navigate to ${label} section`}
-        aria-current={isActive ? "true" : undefined}
+        aria-current={isActive ? "location" : undefined}
       >
         <TextEffect
           as="span"
@@ -295,7 +279,7 @@ export default function Nav({ initialTheme = "dark" }) {
         >
           <span className={cn("nav-link", { "is--active": isActive })}>{label}</span>
         </TextEffect>
-      </div>
+      </button>
     )
   }
 
@@ -351,25 +335,27 @@ export default function Nav({ initialTheme = "dark" }) {
     }, [isActive])
 
     const handleActivate = (event) => {
+      if (
+        event?.metaKey ||
+        event?.ctrlKey ||
+        event?.shiftKey ||
+        event?.altKey ||
+        event?.button !== 0
+      ) {
+        return
+      }
+
       event?.preventDefault()
       onActivate?.()
     }
 
-    const handleKeyDown = (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault()
-        onActivate?.()
-      }
-    }
-
     return (
-      <div
+      <Link
+        href={route}
         className={cn("sub-item", id, { "is--active": isActive })}
         style={sequenceStyle}
-        role="menuitem"
-        tabIndex={0}
         onClick={handleActivate}
-        onKeyDown={handleKeyDown}
+        data-nav-focus-item="true"
         aria-label={`Go to ${label} page`}
         aria-current={isActive ? "page" : undefined}
       >
@@ -384,9 +370,9 @@ export default function Nav({ initialTheme = "dark" }) {
           effectRef={lineEffect}
           className="inline-block"
         >
-          <Link href={route} className={cn("nav-link", { "is--active": isActive })}>{label}</Link>
+          <span className={cn("nav-link", { "is--active": isActive })}>{label}</span>
         </TextEffect>
-      </div>
+      </Link>
     )
   }
 
@@ -397,7 +383,7 @@ export default function Nav({ initialTheme = "dark" }) {
     }
 
     const navItems = Array.from(
-      event.currentTarget.querySelectorAll('[role="menuitem"][tabindex="0"]')
+      event.currentTarget.querySelectorAll('[data-nav-focus-item="true"]')
     );
 
     if (navItems.length === 0) return;
@@ -438,7 +424,6 @@ export default function Nav({ initialTheme = "dark" }) {
       <div className="content">
         <div
           className="flex flex-col"
-          role="menu"
           onKeyDown={handleNavKeyDown}
           style={{ "--nav-seq-count": navSequenceCount }}
         >
@@ -479,13 +464,11 @@ export default function Nav({ initialTheme = "dark" }) {
         </div>
 
         <div className="toggles">
-          <div
+          <button
+            type="button"
             className="mode"
-            role="button"
-            tabIndex={0}
             aria-pressed={theme === "dark"}
             onClick={toggleTheme}
-            onKeyDown={handleModeKeyDown}
             data-mode={theme}
             aria-label={theme === "dark" ? `Switch to ${navCopy.dayMode} mode` : `Switch to ${navCopy.nightMode} mode`}
           >
@@ -495,7 +478,7 @@ export default function Nav({ initialTheme = "dark" }) {
             <span className="mode-label mode-label--dark">
               {navCopy.nightMode}
             </span>
-          </div>
+          </button>
           <div className="language" role="group" aria-label="Language">
             {languages.map((lang) => (
               <button

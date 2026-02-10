@@ -554,7 +554,7 @@ export default function Values() {
                   className="client-card"
                   key={itemIndex}
                   title={item.title}
-                  aria-label={item.title}
+                  aria-hidden="true"
                 >
                   <span className="client-logo" style={{ fontSize: '2.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {item.node}

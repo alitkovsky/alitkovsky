@@ -658,6 +658,7 @@ export default function Intro() {
 
   const optionsRef = useRef(null);
   const optionRefs = useRef({});
+  const maskRafRef = useRef(null);
   const [maskVisibility, setMaskVisibility] = useState({ left: false, right: false });
 
   const updateMaskVisibility = useCallback((node) => {
@@ -676,7 +677,15 @@ export default function Intro() {
   }, []);
 
   const handleOptionsScroll = useCallback((event) => {
-    updateMaskVisibility(event.currentTarget);
+    const element = event.currentTarget;
+    if (!element) return;
+    if (maskRafRef.current) {
+      cancelAnimationFrame(maskRafRef.current);
+    }
+    maskRafRef.current = requestAnimationFrame(() => {
+      maskRafRef.current = null;
+      updateMaskVisibility(element);
+    });
   }, [updateMaskVisibility]);
 
   useEffect(() => {
@@ -685,17 +694,45 @@ export default function Intro() {
 
     updateMaskVisibility(element);
 
-    const handleResize = () => updateMaskVisibility(element);
+    const handleResize = () => {
+      if (maskRafRef.current) {
+        cancelAnimationFrame(maskRafRef.current);
+      }
+      maskRafRef.current = requestAnimationFrame(() => {
+        maskRafRef.current = null;
+        updateMaskVisibility(element);
+      });
+    };
+
+    let resizeObserver;
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(handleResize);
+      resizeObserver.observe(element);
+    }
+
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      resizeObserver?.disconnect();
+      if (maskRafRef.current) {
+        cancelAnimationFrame(maskRafRef.current);
+        maskRafRef.current = null;
+      }
     };
   }, [updateMaskVisibility]);
 
   // Re-evaluate mask visibility when language (and option widths) change
   useEffect(() => {
-    updateMaskVisibility(optionsRef.current);
+    const element = optionsRef.current;
+    if (!element) return;
+    if (maskRafRef.current) {
+      cancelAnimationFrame(maskRafRef.current);
+    }
+    maskRafRef.current = requestAnimationFrame(() => {
+      maskRafRef.current = null;
+      updateMaskVisibility(element);
+    });
   }, [language, updateMaskVisibility]);
 
   const handleOptionSelect = useCallback((key) => {

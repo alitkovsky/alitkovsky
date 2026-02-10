@@ -592,6 +592,8 @@ class TextEffectController {
     this.addedPosition = false
     this.pathAttributesByNode = null
     this.lastColor = ""
+    this.lastMeasuredSizeKey = ""
+    this.lastStrokeWidth = null
 
     // Cleanup functions for shared observers
     this._cleanupResize = null;
@@ -712,14 +714,6 @@ class TextEffectController {
     this._cleanupResize = registerResizeCallback(this.element, this.onResize);
     this._cleanupTheme = registerThemeCallback(this.onThemeChange);
     this.setSizes()
-
-    // Recalculate after webfonts settle to avoid late path jitter.
-    if (typeof document !== "undefined" && document.fonts?.ready) {
-      document.fonts.ready.then(() => {
-        if (!this.layers.length || !this.element?.isConnected) return
-        this.setSizes()
-      })
-    }
   }
 
   createLayer(layerPaths = []) {
@@ -789,15 +783,19 @@ class TextEffectController {
   }
 
   ensurePositioning() {
+    const inlinePosition = this.element.style.position
+    if (inlinePosition && inlinePosition !== "static") return
+    if (this.element.classList?.contains("relative")) return
+
     const computed = window.getComputedStyle(this.element)
-    if (computed.position === "static") {
-      this.element.style.position = "relative"
-      this.addedPosition = true
-    }
+    if (computed.position !== "static") return
+
+    this.element.style.position = "relative"
+    this.addedPosition = true
   }
 
-  handleResize() {
-    this.setSizes()
+  handleResize(entry) {
+    this.setSizes(entry?.contentRect)
   }
 
   handleThemeChange() {
@@ -1028,13 +1026,42 @@ class TextEffectController {
     this.updateLayerFrames(0)
   }
 
-  setSizes() {
+  setSizes(contentRect) {
     if (!this.layers.length) return
+
+    let width = contentRect?.width ?? this.element?.clientWidth ?? 0
+    let height = contentRect?.height ?? this.element?.clientHeight ?? 0
+    if ((!width || !height) && this.element?.getBoundingClientRect) {
+      const rect = this.element.getBoundingClientRect()
+      width ||= rect.width
+      height ||= rect.height
+    }
+
     const fontSize = parseFloat(window.getComputedStyle(this.element).fontSize) || 16
     const strokeWidth = clamp(fontSize / 16, 1, 2)
+    const sizeKey = `${Math.round(width)}x${Math.round(height)}`
+    const isSizeUnchanged = this.lastMeasuredSizeKey === sizeKey
+    const isStrokeUnchanged =
+      this.lastStrokeWidth !== null && Math.abs(this.lastStrokeWidth - strokeWidth) < 0.01
+
+    if (
+      isSizeUnchanged &&
+      isStrokeUnchanged &&
+      this.layers.every((layer) => layer.pathLength > 0)
+    ) {
+      this.updateColor()
+      return
+    }
+
+    this.lastMeasuredSizeKey = sizeKey
+    this.lastStrokeWidth = strokeWidth
+
     this.layers.forEach((layer) => {
       if (!layer.path) return
-      layer.path.setAttribute("stroke-width", `${strokeWidth}`)
+      const strokeWidthValue = `${strokeWidth}`
+      if (layer.path.getAttribute("stroke-width") !== strokeWidthValue) {
+        layer.path.setAttribute("stroke-width", strokeWidthValue)
+      }
       this.updatePathLength(layer)
       const length = layer.pathLength || 0
       layer.path.style.strokeDasharray = `${length}`
@@ -1078,10 +1105,11 @@ class TextEffectController {
 
   updateColor() {
     if (!this.svg || !this.element) return
-    const computed = window.getComputedStyle(this.element)
-    if (computed.color && computed.color !== this.lastColor) {
-      this.lastColor = computed.color
-      this.svg.style.color = computed.color
+    const inlineColor = this.element.style.color
+    const resolvedColor = inlineColor || window.getComputedStyle(this.element).color
+    if (resolvedColor && resolvedColor !== this.lastColor) {
+      this.lastColor = resolvedColor
+      this.svg.style.color = resolvedColor
     }
   }
 }

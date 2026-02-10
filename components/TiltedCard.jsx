@@ -64,7 +64,6 @@ export default function TiltedCard({
 
     const handleViewportChange = () => scheduleMeasure();
     window.addEventListener("resize", handleViewportChange);
-    window.addEventListener("scroll", handleViewportChange, true);
 
     let observer = null;
     if (typeof ResizeObserver !== "undefined" && ref.current) {
@@ -74,7 +73,6 @@ export default function TiltedCard({
 
     return () => {
       window.removeEventListener("resize", handleViewportChange);
-      window.removeEventListener("scroll", handleViewportChange, true);
       observer?.disconnect();
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
@@ -108,7 +106,7 @@ export default function TiltedCard({
   }
 
   function handleMouseEnter() {
-    scheduleMeasure();
+    measureRect();
     scale.set(scaleOnHover);
     opacity.set(1);
   }

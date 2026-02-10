@@ -147,20 +147,11 @@ export default function ToolList() {
     const media = window.matchMedia?.("(prefers-color-scheme: dark)");
     media?.addEventListener?.("change", scheduleUpdate);
 
-    // Re-check on focus/hover events similar to TextEffect
-    const colorEvents = ["focus", "blur", "pointerdown", "pointerup", "mouseenter", "mouseleave"];
-    colorEvents.forEach((eventName) => {
-      document.addEventListener(eventName, scheduleUpdate, { capture: true, passive: true });
-    });
-
     return () => {
       observer.disconnect();
       media?.removeEventListener?.("change", scheduleUpdate);
       if (rafId) cancelAnimationFrame(rafId);
       if (debounceId) clearTimeout(debounceId);
-      colorEvents.forEach((eventName) => {
-        document.removeEventListener(eventName, scheduleUpdate, { capture: true });
-      });
     };
   }, [containerRef]);
 
@@ -203,7 +194,6 @@ export default function ToolList() {
             <div className="description">
               <h3>{tool.title}</h3>
               <motion.p
-                layout
                 transition={{ duration: 0.3 }}
               >
                 {tool.description}
@@ -211,7 +201,6 @@ export default function ToolList() {
               {tool.microResult && (
                 <motion.p
                   className="micro-result"
-                  layout
                   transition={{ duration: 0.3 }}
                 >
                   {tool.microResult}

@@ -142,7 +142,7 @@ const DATENSCHUTZ_COPY = {
       },
       fonts: {
         heading: "5.4 schriftarten",
-        text: "diese website verwendet die schriftarten Comfortaa, Shadows Into Light und Reenie Beanie. die schriftarten werden lokal von unseren servern geladen (self-hosted via Next.js), nicht von externen google-servern. es werden keine daten an google übermittelt.",
+        text: "diese website verwendet die schriftarten Comfortaa und Gloria Hallelujah. die schriftarten werden lokal von unseren servern geladen (self-hosted), nicht von externen google-servern. es werden keine daten an google übermittelt.",
       },
     },
     socialMedia: {
@@ -327,7 +327,7 @@ const DATENSCHUTZ_COPY = {
       },
       fonts: {
         heading: "5.4 fonts",
-        text: "this website uses the fonts Comfortaa, Shadows Into Light, and Reenie Beanie. the fonts are loaded locally from our servers (self-hosted via Next.js), not from external google servers. no data is transmitted to google.",
+        text: "this website uses the fonts Comfortaa and Gloria Hallelujah. the fonts are loaded locally from our servers (self-hosted), not from external google servers. no data is transmitted to google.",
       },
     },
     socialMedia: {

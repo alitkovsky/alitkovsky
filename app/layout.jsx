@@ -4,7 +4,6 @@ import "./styles/font.css";
 import "./styles/variables.css";
 import "./styles/grid.css";
 
-import { Comfortaa, Gloria_Hallelujah, Shadows_Into_Light, Reenie_Beanie } from "next/font/google";
 import { cookies, headers } from "next/headers";
 
 import Clarity from "@/components/Clarity";
@@ -79,37 +78,6 @@ export const viewport = {
   ],
 };
 
-const comfortaa = Comfortaa({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-family-primary",
-});
-
-const shadowsIntoLight = Shadows_Into_Light({
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-  preload: false,
-  variable: "--font-shadows-into-light",
-});
-
-const gloriaHallelujah = Gloria_Hallelujah({
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-  preload: false,
-  variable: "--font-gloria-hallelujah",
-});
-
-const reenieBeanie = Reenie_Beanie({
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-  preload: false,
-  variable: "--font-reenie-beanie",
-});
-
 export default async function RootLayout({ children }) {
   const cookieStore = await cookies();
   const themeCookie = cookieStore.get("nav-theme")?.value;
@@ -152,7 +120,6 @@ export default async function RootLayout({ children }) {
     <html
       lang={initialLanguage}
       suppressHydrationWarning
-      className={`${comfortaa.variable} ${shadowsIntoLight.variable} ${gloriaHallelujah.variable} ${reenieBeanie.variable}`}
       data-theme={initialTheme}
       style={{ colorScheme: initialTheme }}
     >
@@ -207,17 +174,16 @@ export default async function RootLayout({ children }) {
         <StructuredData />
       </head>
       <body className={`theme-${initialTheme}`}>
-          <AppWrapper
-            initialTheme={initialTheme}
-            initialLanguage={initialLanguage}
-            initialLanguageSource={initialLanguageSource}
-          >
-            {children}
-          </AppWrapper>
+        <AppWrapper
+          initialTheme={initialTheme}
+          initialLanguage={initialLanguage}
+          initialLanguageSource={initialLanguageSource}
+        >
+          {children}
+        </AppWrapper>
 
-          {/* Privacy Trigger (cookie settings shortcut) */}
-          {/* <PrivacyTrigger /> */}
-
+        {/* Privacy Trigger (cookie settings shortcut) */}
+        {/* <PrivacyTrigger /> */}
       </body>
     </html>
   );

@@ -61,6 +61,7 @@ function ToolIcon3DCanvas({
   // Initialize Three.js scene with SVG loading
   useEffect(() => {
     let cancelled = false;
+    let resizeObserver = null;
 
     if (prefersReducedMotion || !svgSrc || isMobile) {
       setFailed(true);
@@ -79,6 +80,25 @@ function ToolIcon3DCanvas({
       pullApart
     });
     sceneRef.current = scene;
+
+    const applyResize = (contentRect) => {
+      scene.handleResize(contentRect ?? {
+        width: container.clientWidth || 1,
+        height: container.clientHeight || 1,
+      });
+    };
+
+    applyResize();
+
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.target !== container) return;
+          applyResize(entry.contentRect);
+        });
+      });
+      resizeObserver.observe(container);
+    }
 
     scene
       .loadFromSVG()  // Load SVG directly
@@ -100,6 +120,7 @@ function ToolIcon3DCanvas({
 
     return () => {
       cancelled = true;
+      resizeObserver?.disconnect();
       scene.dispose();
       sceneRef.current = null;
     };
