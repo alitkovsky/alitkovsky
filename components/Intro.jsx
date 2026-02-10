@@ -901,7 +901,7 @@ export default function Intro() {
           </div>
         </div>
 
-        <div className="scroll">
+        {/* <div className="scroll">
           <TextEffect
             variant="arrowDownLeft"
             trigger="always"
@@ -920,7 +920,7 @@ export default function Intro() {
             ))}
           </p>
           </TextEffect>
-        </div>
+        </div> */}
       </div>
     </section>
   );
