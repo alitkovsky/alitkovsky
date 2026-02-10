@@ -5,13 +5,11 @@ import "./styles/variables.css";
 import "./styles/grid.css";
 
 import { Comfortaa, Gloria_Hallelujah, Shadows_Into_Light, Reenie_Beanie } from "next/font/google";
-import Script from "next/script";
 import { cookies, headers } from "next/headers";
 
 import Clarity from "@/components/Clarity";
+import Gtm from "@/components/Gtm";
 import AppWrapper from "@/components/AppWrapper";
-import CookieBanner from "@/components/CookieBanner";
-import PrivacyTrigger from "@/components/PrivacyTrigger";
 import StructuredData from "@/components/StructuredData";
 import {
   FALLBACK_LANGUAGE,
@@ -81,8 +79,6 @@ export const viewport = {
   ],
 };
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
-
 const comfortaa = Comfortaa({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -94,6 +90,7 @@ const shadowsIntoLight = Shadows_Into_Light({
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
+  preload: false,
   variable: "--font-shadows-into-light",
 });
 
@@ -101,6 +98,7 @@ const gloriaHallelujah = Gloria_Hallelujah({
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
+  preload: false,
   variable: "--font-gloria-hallelujah",
 });
 
@@ -108,6 +106,7 @@ const reenieBeanie = Reenie_Beanie({
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
+  preload: false,
   variable: "--font-reenie-beanie",
 });
 
@@ -162,9 +161,8 @@ export default async function RootLayout({ children }) {
           CRITICAL: Google Consent Mode v2 MUST be loaded BEFORE GTM
           This sets default consent state to "denied" and waits for user consent
         */}
-        <Script
+        <script
           id="google-consent-mode"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -200,24 +198,10 @@ export default async function RootLayout({ children }) {
           }}
         />
 
-        {GTM_ID ? (
-          <Script
-            id="gtm-base"
-            strategy="beforeInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','${GTM_ID}');
-              `,
-            }}
-          />
-        ) : null}
-
         {/* Microsoft Clarity - Consent-aware loading */}
         <Clarity />
+        {/* Google Tag Manager - Consent-aware loading */}
+        <Gtm />
 
         {/* Structured Data (JSON-LD) for SEO and GEO */}
         <StructuredData />
@@ -230,9 +214,6 @@ export default async function RootLayout({ children }) {
           >
             {children}
           </AppWrapper>
-
-          {/* Cookie Consent Banner */}
-          <CookieBanner />
 
           {/* Privacy Trigger (cookie settings shortcut) */}
           {/* <PrivacyTrigger /> */}

@@ -19,6 +19,7 @@ import Nav from "@/components/Nav";
 import dynamic from "next/dynamic";
 
 const LazyCustomCursor = dynamic(() => import("@/components/CustomCursor"), { ssr: false });
+const LazyCookieBanner = dynamic(() => import("@/components/CookieBanner"), { ssr: false });
 
 /**
  * AppWrapper - Main application wrapper with performance optimizations.
@@ -41,9 +42,33 @@ export default function AppWrapper({
   // OPTIMIZATION: Centralized device detection for cursor effects
   const { showCursorEffects } = useDeviceCapabilities();
   const [isHydrated, setIsHydrated] = useState(false);
+  const [loadCookieBanner, setLoadCookieBanner] = useState(false);
 
   useEffect(() => {
     setIsHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    let timeoutId = null;
+    let idleId = null;
+
+    const loadBanner = () => setLoadCookieBanner(true);
+    if ("requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(loadBanner, { timeout: 2500 });
+    } else {
+      timeoutId = window.setTimeout(loadBanner, 0);
+    }
+
+    return () => {
+      if (idleId && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId) {
+        window.clearTimeout(timeoutId);
+      }
+    };
   }, []);
 
   const shouldRenderCursor = isHydrated && showCursorEffects;
@@ -70,6 +95,7 @@ export default function AppWrapper({
           {/* OPTIMIZATION: Only render cursor on devices with trackpad/mouse */}
           {shouldRenderCursor && <LazyCustomCursor />}
           {appContent}
+          {loadCookieBanner && <LazyCookieBanner />}
         </CalendlyProvider>
       </LiveRegionProvider>
     </LanguageProvider>

@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import useLanguage from "@/hooks/useLanguage";
-import { useLiveRegion } from "@/components/LiveRegion";
 import TextEffect from "@/components/TextEffect";
 import BookCTA from "@/components/BookCTA";
 
@@ -45,31 +44,6 @@ const INTRO_EFFECT_STYLE_PRESETS = Object.freeze({
     transform: "translateY(-50%)",
   }),
 });
-
-// Helper to check if theme changed for re-triggering animations
-function useThemeChange() {
-  const [themeVersion, setThemeVersion] = useState(0);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const observer = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        if (mutation.type === "attributes" && (mutation.attributeName === "class" || mutation.attributeName === "data-theme")) {
-          setThemeVersion(v => v + 1);
-        }
-      }
-    });
-
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class", "data-theme"] });
-    // Also watch body class just in case
-    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-
-    return () => observer.disconnect();
-  }, []);
-
-  return themeVersion;
-}
 
 function subscribeToMediaQuery(query, onStoreChange) {
   if (typeof window === "undefined") return () => {};
@@ -646,8 +620,6 @@ const splitTextAndCtaLine = (lines) => {
 
 export default function Intro() {
   const { language } = useLanguage();
-  const { announce } = useLiveRegion();
-  const themeVersion = useThemeChange();
 
   const copy = INTRO_COPY[language] ?? INTRO_COPY.en;
   const fallbackCopy = INTRO_COPY.en;
@@ -790,6 +762,11 @@ export default function Intro() {
     };
   }, [copy.texts, fallbackCopy.texts, fallbackCtaLabel]);
 
+  const renderedKey = availableKeys.includes(visibleKey)
+    ? visibleKey
+    : (availableKeys[0] ?? OPTION_KEYS[0]);
+  const { lines: renderedLines, ctaLabel: renderedCtaLabel } = getOptionContent(renderedKey);
+
   return (
     <section className="section intro" id="intro">
       <h2 className="sr-only">{sectionTitle}</h2>
@@ -804,7 +781,7 @@ export default function Intro() {
           role="radiogroup"
           aria-label={language === "de" ? "Problem auswählen" : "Select problem"}
         >
-          {OPTION_KEYS.map((key, index) => {
+          {availableKeys.map((key, index) => {
             const label = copy.options[key] ?? fallbackCopy.options[key];
             const isSelected = activeKey === key || (!activeKey && index === 0);
             const isEffectActive = visibleKey === key || (!visibleKey && index === 0);
@@ -839,93 +816,89 @@ export default function Intro() {
         </div>
 
         <div className="texts">
-          {OPTION_KEYS.map((key) => {
-            const { lines, ctaLabel } = getOptionContent(key);
-            const isVisible = visibleKey === key;
+          <div
+            key={renderedKey}
+            className={`text ${renderedKey} is--visible`}
+            data-key={renderedKey}
+            aria-hidden={false}
+          >
+            {renderedLines.map((line, lineIndex) => {
+              const isCtaLine = lineIndex === renderedLines.length - 1;
+              const LineTag = isCtaLine ? "span" : "span";
 
-            return (
-              <div
-                key={key}
-                className={`text ${key} ${isVisible ? "is--visible" : ""}`}
-                data-key={key}
-                aria-hidden={!isVisible}
-              >
-                {lines.map((line, lineIndex) => {
-                  const isCtaLine = lineIndex === lines.length - 1;
-                  const LineTag = isCtaLine ? "span" : "span";
+              return (
+                <LineTag
+                  key={`${renderedKey}-${lineIndex}`}
+                  className={`${isCtaLine ? "cta-hook" : ""} m-0`}
+                >
+                  {" "}
+                  {line.map((segment, segIndex) => {
+                    if (typeof segment === "string") {
+                      return <span key={`${lineIndex}-${segIndex}`}>{segment}</span>;
+                    }
+                    if (!segment?.effect) {
+                      return <span key={`${lineIndex}-${segIndex}`}>{segment?.text ?? ""}</span>;
+                    }
 
-                  return (
-                    <LineTag
-                      key={`${key}-${lineIndex}`}
-                      className={`${isCtaLine ? "cta-hook" : ""} m-0`}
-                    >
-                    {" "}{line.map((segment, segIndex) => {
-                      if (segment.effect) {
-                        const segmentWiggle = segment.wiggle ?? textEffectWiggle;
-                        const segmentEffectOverrides = segment.counterEffectOverrides;
-                        const segmentClassName = segment.className ? ` ${segment.className}` : "";
-                        const responsiveConfig = isSmallTextEffectViewport
-                          ? segment.responsiveEffect?.max1020
-                          : segment.responsiveEffect?.min1280;
-                        const hasResponsiveEffect = Object.prototype.hasOwnProperty.call(
-                          responsiveConfig ?? {},
-                          "effect",
-                        );
-                        const hasResponsiveOverrides = Object.prototype.hasOwnProperty.call(
-                          responsiveConfig ?? {},
-                          "counterEffectOverrides",
-                        );
-                        const hasResponsiveWiggle = Object.prototype.hasOwnProperty.call(
-                          responsiveConfig ?? {},
-                          "wiggle",
-                        );
-                        const resolvedSegmentEffect = hasResponsiveEffect
-                          ? responsiveConfig.effect
-                          : segment.effect;
-                        const resolvedSegmentEffectOverrides = hasResponsiveOverrides
-                          ? responsiveConfig.counterEffectOverrides
-                          : segmentEffectOverrides;
-                        const resolvedSegmentWiggle = hasResponsiveWiggle
-                          ? responsiveConfig.wiggle
-                          : segmentWiggle;
+                    const segmentWiggle = segment.wiggle ?? textEffectWiggle;
+                    const segmentEffectOverrides = segment.counterEffectOverrides;
+                    const segmentClassName = segment.className ? ` ${segment.className}` : "";
+                    const responsiveConfig = isSmallTextEffectViewport
+                      ? segment.responsiveEffect?.max1020
+                      : segment.responsiveEffect?.min1280;
+                    const hasResponsiveEffect = Object.prototype.hasOwnProperty.call(
+                      responsiveConfig ?? {},
+                      "effect",
+                    );
+                    const hasResponsiveOverrides = Object.prototype.hasOwnProperty.call(
+                      responsiveConfig ?? {},
+                      "counterEffectOverrides",
+                    );
+                    const hasResponsiveWiggle = Object.prototype.hasOwnProperty.call(
+                      responsiveConfig ?? {},
+                      "wiggle",
+                    );
+                    const resolvedSegmentEffect = hasResponsiveEffect
+                      ? responsiveConfig.effect
+                      : segment.effect;
+                    const resolvedSegmentEffectOverrides = hasResponsiveOverrides
+                      ? responsiveConfig.counterEffectOverrides
+                      : segmentEffectOverrides;
+                    const resolvedSegmentWiggle = hasResponsiveWiggle
+                      ? responsiveConfig.wiggle
+                      : segmentWiggle;
 
-                        if (!resolvedSegmentEffect) {
-                          return <span key={segIndex}>{segment.text}</span>;
-                        }
+                    if (!resolvedSegmentEffect) {
+                      return <span key={`${lineIndex}-${segIndex}`}>{segment.text}</span>;
+                    }
 
-                        // Adding key={themeVersion} to force re-render/animate on theme change
-                        return (
-                          <TextEffect
-                            key={`${segIndex}-${themeVersion}`}
-                            variant={resolvedSegmentEffect}
-                            trigger="visible"
-                            create-key={themeVersion}
-                            className={`intro-effect-${resolvedSegmentEffect}${segmentClassName}`}
-                            effectOverrides={resolvedSegmentEffectOverrides}
-                            wiggle={resolvedSegmentWiggle}
-                          >
-                            {segment.text}
-                          </TextEffect>
-                        );
-                      }
-                      return <span key={segIndex}>{segment.text}</span>;
-                    })}
-                  </LineTag>
-                );
-              })}
+                    return (
+                      <TextEffect
+                        key={`${lineIndex}-${segIndex}`}
+                        variant={resolvedSegmentEffect}
+                        trigger="visible"
+                        className={`intro-effect-${resolvedSegmentEffect}${segmentClassName}`}
+                        effectOverrides={resolvedSegmentEffectOverrides}
+                        wiggle={resolvedSegmentWiggle}
+                      >
+                        {segment.text}
+                      </TextEffect>
+                    );
+                  })}
+                </LineTag>
+              );
+            })}
 
-              <div className="intro-cta">
-                <BookCTA
-                  label={ctaLabel}
-                  className="intro-cta-book"
-                  ctaLocation="intro"
-                  variant="ellipseThin"
-                  trigger={introCtaTrigger}
-                />
-              </div>
-              </div>
-            );
-          })}
+            <div className="intro-cta">
+              <BookCTA
+                label={renderedCtaLabel}
+                className="intro-cta-book"
+                ctaLocation="intro"
+                variant="ellipseThin"
+                trigger={introCtaTrigger}
+              />
+            </div>
+          </div>
         </div>
 
         <div className="scroll">

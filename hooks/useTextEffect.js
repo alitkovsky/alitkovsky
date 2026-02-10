@@ -591,6 +591,7 @@ class TextEffectController {
     this.lastAnimation = 0
     this.addedPosition = false
     this.pathAttributesByNode = null
+    this.lastColor = ""
 
     // Cleanup functions for shared observers
     this._cleanupResize = null;
@@ -710,8 +711,15 @@ class TextEffectController {
     this._cleanupRaf = registerRafCallback(this.onRaf);
     this._cleanupResize = registerResizeCallback(this.element, this.onResize);
     this._cleanupTheme = registerThemeCallback(this.onThemeChange);
+    this.setSizes()
 
-    setTimeout(() => this.setSizes(), 2000)
+    // Recalculate after webfonts settle to avoid late path jitter.
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(() => {
+        if (!this.layers.length || !this.element?.isConnected) return
+        this.setSizes()
+      })
+    }
   }
 
   createLayer(layerPaths = []) {
@@ -790,7 +798,6 @@ class TextEffectController {
 
   handleResize() {
     this.setSizes()
-    this.updateColor()
   }
 
   handleThemeChange() {
@@ -1038,13 +1045,17 @@ class TextEffectController {
 
   updatePathLength(layer) {
     if (!layer?.path) return
-    const rect = layer.path.getBoundingClientRect()
-    const box = layer.path.getBBox()
-    const hasDimensions = box.width !== 0 && box.height !== 0
-    const widthScale = hasDimensions ? rect.width / box.width : 1
-    const heightScale = hasDimensions ? rect.height / box.height : 1
-    const scale = (widthScale + heightScale) / 2
-    layer.pathLength = layer.path.getTotalLength() * scale * 1.2
+    const baseLength = layer.path.getTotalLength()
+    const matrix = layer.path.getCTM()
+    if (!matrix) {
+      layer.pathLength = baseLength * 1.2
+      return
+    }
+
+    const scaleX = Math.hypot(matrix.a, matrix.b)
+    const scaleY = Math.hypot(matrix.c, matrix.d)
+    const scale = Number.isFinite(scaleX + scaleY) ? (scaleX + scaleY) / 2 : 1
+    layer.pathLength = baseLength * Math.max(scale, 0.0001) * 1.2
   }
 
   destroy() {
@@ -1068,7 +1079,8 @@ class TextEffectController {
   updateColor() {
     if (!this.svg || !this.element) return
     const computed = window.getComputedStyle(this.element)
-    if (computed.color) {
+    if (computed.color && computed.color !== this.lastColor) {
+      this.lastColor = computed.color
       this.svg.style.color = computed.color
     }
   }
@@ -1212,7 +1224,6 @@ export function useTextEffect(options = {}) {
       })
 
     let cleanupHover = null
-    let cleanupColorEvents = null
     let observer = null
 
     if (trigger === "hover") {
@@ -1251,20 +1262,9 @@ export function useTextEffect(options = {}) {
       observer.observe(node)
     }
 
-    const colorEvents = ["focus", "blur", "pointerdown", "pointerup", "mouseenter", "mouseleave"]
-    colorEvents.forEach((eventName) => {
-      node.addEventListener(eventName, scheduleColorUpdate)
-    })
-    cleanupColorEvents = () => {
-      colorEvents.forEach((eventName) => {
-        node.removeEventListener(eventName, scheduleColorUpdate)
-      })
-    }
-
     return () => {
       cancelled = true
       cleanupHover?.()
-      cleanupColorEvents?.()
       observer?.disconnect()
       if (colorSyncId) {
         cancelAnimationFrame(colorSyncId)
