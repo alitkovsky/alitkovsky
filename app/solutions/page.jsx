@@ -1,9 +1,9 @@
 import ServicesList from "@/components/ServicesList";
 
 export const metadata = {
-  title: "Lösungen – Online-Marketing-Beratung | Andrii Litkovskyi",
-  description: "SEO, Google Ads, Paid Social & CRM-Automatisierung für lokale Unternehmen in OWL. Mehr Kunden durch digitales Marketing.",
-  keywords: "SEO Beratung OWL, Google Ads Minden, Online Marketing Bielefeld, Local SEO, Marketing Automatisierung, HubSpot Beratung",
+  title: "Lösungen: Prozesse, CRM & Marketing | Andrii Litkovskyi",
+  description: "Einrichtung von CRM-Systemen (HubSpot), saubere Datenanalysen und digitales Marketing. Ich sorge für technische Infrastruktur und funktionierende Abläufe.",
+  keywords: "Prozessoptimierung Hille, CRM Beratung OWL, HubSpot Einrichtung, Google Ads Optimierung, Digitale Verwaltung, Datenanalyse Minden",
   alternates: {
     canonical: "/solutions",
     languages: {
@@ -13,8 +13,8 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Lösungen – Online-Marketing-Beratung | Andrii Litkovskyi",
-    description: "SEO, Google Ads, Paid Social, Web Analytics und CRM-Automatisierung für lokale Unternehmen in OWL. Mehr Kunden durch digitales Marketing.",
+    title: "Lösungen für Struktur & Wachstum | Andrii Litkovskyi",
+    description: "Von der CRM-Integration bis zur Kampagne. Ich optimiere Ihre digitalen Werkzeuge für bessere Ergebnisse.",
     url: "/solutions",
     type: "website",
   },

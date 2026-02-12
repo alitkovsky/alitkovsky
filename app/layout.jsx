@@ -23,8 +23,8 @@ import {
 
 export const metadata = {
   metadataBase: new URL('https://litkovskyi.de'),
-  title: "Andrii Litkovskyi | Marketing Berater Hille | SEO & Ads",
-  description: "Online-Marketing-Beratung in Minden-Lübbecke. SEO, Google Ads & Meta Ads für Praxen, Handwerker und lokale Unternehmen in OWL. 15+ Jahre Erfahrung.",
+  title: "Andrii Litkovskyi | Digital Operations & Marketing | Hille & OWL",
+  description: "Strukturierte digitale Lösungen für Unternehmen in OWL. Ich verbinde CRM, Prozess-Automatisierung und Online-Marketing für mehr Effizienz und Sichtbarkeit.",
   alternates: {
     canonical: '/',
     languages: {
@@ -54,16 +54,16 @@ export const metadata = {
     statusBarStyle: "default",
   },
   openGraph: {
-    title: "Andrii Litkovskyi | Marketing Berater Hille",
-    description: "Online-Marketing-Beratung in Minden-Lübbecke. SEO, Google Ads & Meta Ads für Praxen, Handwerker und lokale Unternehmen in OWL.",
+    title: "Andrii Litkovskyi | Digital Business & Prozesse",
+    description: "Effiziente digitale Abläufe und messbares Marketing. Unterstützung bei CRM, Datenmanagement und Sichtbarkeit für lokale Unternehmen.",
     type: "website",
     url: "https://litkovskyi.de/",
     images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Andrii Litkovskyi | Marketing Berater Hille",
-    description: "Online-Marketing-Beratung in Minden-Lübbecke. SEO, Google Ads & Meta Ads für Praxen, Handwerker und lokale Unternehmen in OWL.",
+    title: "Andrii Litkovskyi | Digital Business & Prozesse",
+    description: "Effiziente digitale Abläufe und messbares Marketing in OWL.",
     images: ["/og-image.png"],
   },
 };

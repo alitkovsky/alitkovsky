@@ -1,8 +1,8 @@
 import ProjectsList from "@/components/ProjectsList";
 
 export const metadata = {
-  title: "Marketing Projekte & Case Studies | Andrii Litkovskyi",
-  description: "Marketing-Projekte mit messbaren Ergebnissen: +70% Buchungen, +35% Traffic. SEO, Google Ads, und Marketing-Automation für lokale Unternehmen.",
+  title: "Projekte: System-Integration & Performance | Andrii Litkovskyi",
+  description: "Fallstudien zu Prozessoptimierung und Marketing. Wie durch saubere Datenstrukturen und Automatisierung +70% Buchungen und effizientere Abläufe entstanden sind.",
   alternates: {
     canonical: '/projects',
     languages: {
@@ -12,8 +12,8 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Marketing Projekte & Case Studies | Andrii Litkovskyi",
-    description: "Marketing-Projekte mit messbaren Ergebnissen: +70% Buchungen, +35% Traffic. SEO, Google Ads, und Marketing-Automation für lokale Unternehmen.",
+    title: "Ergebnisse durch Struktur & Strategie | Andrii Litkovskyi",
+    description: "Praxisbeispiele: Erfolgreiche Implementierung von CRM-Lösungen, Tracking-Konzepten und Performance-Kampagnen.",
     url: '/projects',
     type: 'website',
   },

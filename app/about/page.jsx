@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "About – Andrii Litkovskyi Marketing",
-  description: "Marketing consultant with 15+ years of experience in SEO, Google Ads, and Meta Ads for local businesses in Germany.",
+  title: "Über mich – Digital-Experte & Strukturgeber",
+  description: "15+ Jahre Erfahrung in digitalen Prozessen, Marketing und Administration. Ich bringe Ordnung in Daten und Erfolg in Kampagnen. Ansässig in Hille.",
   alternates: {
     canonical: '/about',
     languages: {

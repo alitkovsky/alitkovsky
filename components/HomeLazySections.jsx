@@ -25,9 +25,9 @@ export default function HomeLazySections() {
       <LazySection>
         <LazyBackground />
       </LazySection>
-      <LazySection>
+      {/* <LazySection>
         <LazyProjectsPreview />
-      </LazySection>
+      </LazySection> */}
       <LazySection>
         <LazyReferences />
       </LazySection>

@@ -7,22 +7,11 @@ import BookCTA from "@/components/BookCTA";
 import TextEffect from "@/components/TextEffect";
 import useLanguage from "@/hooks/useLanguage";
 
-// Inline SVG component for folder tab right edge
-const FolderTabEdge = ({ className }) => (
-  <svg
-    className={className}
-    viewBox="0 0 40 40"
-    preserveAspectRatio="none"
-    aria-hidden="true"
-  >
-    <path d="M0,40h40L6.5,2.7C5.1,1.1,3.1,0,0,0v40Z" />
-  </svg>
-);
-
 const PROJECTS_PREVIEW_COPY = {
   de: {
     sectionTitle: "ausgewählte projekte",
     viewAll: "alle projekte",
+    viewProject: "projekt ansehen",
     industryLabel: "branche",
     clientLabel: "kunde",
     periodLabel: "zeitraum",
@@ -75,6 +64,7 @@ const PROJECTS_PREVIEW_COPY = {
   en: {
     sectionTitle: "selected projects",
     viewAll: "all projects",
+    viewProject: "view project",
     industryLabel: "industry",
     clientLabel: "client",
     periodLabel: "period",
@@ -132,64 +122,125 @@ const PROJECTS_PREVIEW_EFFECT_STYLE_PRESETS = Object.freeze({
   }),
 });
 
-function ProjectPreviewCard({ project, labels, index }) {
-  return (
-    <article
-      className="projects-preview-card"
-      id={project.slug}
-      itemScope
-      itemType="https://schema.org/Article"
-    >
-      <meta itemProp="author" content="Andrii Litkovskyi" />
+const PROJECTS_PREVIEW_ACCENTS = Object.freeze({
+  "tracking-audit": "#2b67f3",
+  "local-seo-dental": "#0f9a7a",
+  "google-ads-dach": "#a857f2",
+});
 
-      {/* Header with title and tags */}
-      <header className="projects-preview-card__header">
-        <div className="projects-preview-card__title-group">
-          <h3 className="projects-preview-card__title" itemProp="headline">
+function ProjectDisclosure({
+  project,
+  index,
+  isActive,
+  onActivate,
+  labels,
+  language,
+  viewProject,
+  activeProjectIndex,
+}) {
+  const tabNumber = String(index + 1).padStart(2, "0");
+  const tabId = `projects-preview-tab-${project.slug}`;
+  const panelId = `projects-preview-panel-${project.slug}`;
+  const accent = PROJECTS_PREVIEW_ACCENTS[project.slug] ?? "#2b67f3";
+
+  return (
+    <li
+      className={`projects-preview__disclosure ${isActive ? "is--active" : ""}`}
+      data-active={isActive ? "true" : "false"}
+      style={{
+        "--projects-preview-size": isActive ? "10" : "1",
+        "--projects-preview-accent": accent,
+      }}
+      onPointerMove={() => onActivate(index)}
+    >
+      <article
+        className="projects-preview__disclosure-shell"
+        id={project.slug}
+        itemScope
+        itemType="https://schema.org/Article"
+      >
+        <meta itemProp="author" content="Andrii Litkovskyi" />
+
+        <button
+          type="button"
+          id={tabId}
+          className="projects-preview__tab-trigger"
+          onClick={() => onActivate(index)}
+          onFocus={() => onActivate(index)}
+          aria-pressed={isActive}
+          aria-controls={panelId}
+          aria-label={`${language === "de" ? "Projekt" : "Project"} ${index + 1}: ${project.title}`}
+        >
+          <span className="projects-preview__tab-index">{tabNumber}</span>
+          <span className="projects-preview__tab-name">{project.title}</span>
+        </button>
+
+        <div
+          id={panelId}
+          className="projects-preview__panel"
+          role="region"
+          aria-labelledby={tabId}
+          aria-hidden={!isActive}
+        >
+          <h3 className="projects-preview__panel-title" itemProp="headline">
             {project.title}
           </h3>
-          <div className="projects-preview-card__tags">
+
+          <p className="projects-preview__panel-copy" itemProp="description">
+            {labels.clientLabel}: {project.client} · {labels.industryLabel}: {project.industry}
+          </p>
+
+          <div className="projects-preview__panel-tags">
             {project.tags.map((tag) => (
-              <span key={tag} className="projects-preview-card__tag">
+              <span key={tag} className="projects-preview__panel-tag">
                 {tag}
               </span>
             ))}
           </div>
-        </div>
 
-        {/* Metric */}
-        <div className="projects-preview-card__metric">
-          <span className="projects-preview-card__metric-value">
-            <CountUp
-              from={0}
-              to={project.metric.value}
-              separator=","
-              direction="up"
-              duration={1.5}
-              delay={index * 0.15}
-            />
-            <span className="projects-preview-card__metric-suffix">{project.metric.suffix}</span>
-          </span>
-          <span className="projects-preview-card__metric-label">{project.metric.label}</span>
-        </div>
-      </header>
+          <dl className="projects-preview__panel-meta">
+            <div className="projects-preview__panel-meta-item">
+              <dt>{labels.clientLabel}</dt>
+              <dd>{project.client}</dd>
+            </div>
+            <div className="projects-preview__panel-meta-item">
+              <dt>{labels.industryLabel}</dt>
+              <dd>{project.industry}</dd>
+            </div>
+            <div className="projects-preview__panel-meta-item">
+              <dt>{labels.periodLabel}</dt>
+              <dd>{project.period}</dd>
+            </div>
+          </dl>
 
-      {/* Meta info */}
-      <dl className="projects-preview-card__meta">
-        <div className="projects-preview-card__meta-item">
-          <dt>{labels.clientLabel}</dt>
-          <dd>{project.client}</dd>
+          <div className="projects-preview__panel-footer">
+            <div className="projects-preview__panel-metric">
+              <span className="projects-preview__panel-metric-value">
+                {isActive ? (
+                  <CountUp
+                    key={`${project.slug}-${activeProjectIndex}`}
+                    from={0}
+                    to={project.metric.value}
+                    separator=","
+                    direction="up"
+                    duration={1.2}
+                    delay={index * 0.1}
+                  />
+                ) : (
+                  project.metric.value
+                )}
+                <span className="projects-preview__panel-metric-suffix">{project.metric.suffix}</span>
+              </span>
+              <span className="projects-preview__panel-metric-label">{project.metric.label}</span>
+            </div>
+
+            <Link href={`/projects/${project.slug}`} className="projects-preview__panel-link">
+              {viewProject}
+            </Link>
+          </div>
         </div>
-        <div className="projects-preview-card__meta-item">
-          <dt>{labels.industryLabel}</dt>
-          <dd>{project.industry}</dd>
-        </div>
-        <div className="projects-preview-card__meta-item">
-          <dt>{labels.periodLabel}</dt>
-          <dd>{project.period}</dd>
-        </div>
-      </dl>
-    </article>
+      </article>
+    </li>
   );
 }
 
@@ -202,6 +253,7 @@ export default function ProjectsPreview() {
 
   const sectionTitle = copy.sectionTitle ?? fallbackCopy.sectionTitle;
   const viewAll = copy.viewAll ?? fallbackCopy.viewAll;
+  const viewProject = copy.viewProject ?? fallbackCopy.viewProject;
   const projects = (copy.projects ?? fallbackCopy.projects).slice().reverse();
   const ctaLabel = copy.cta?.label ?? fallbackCopy.cta?.label;
 
@@ -211,15 +263,8 @@ export default function ProjectsPreview() {
     periodLabel: copy.periodLabel ?? fallbackCopy.periodLabel,
   };
 
-  // Handle tab click
-  const handleTabClick = (index) => {
-    setActiveProjectIndex(index);
-  };
-
-  // Get z-index for tab based on active state
-  const getTabZIndex = (index) => {
-    if (index === activeProjectIndex) return projects.length + 1;
-    return projects.length - Math.abs(index - activeProjectIndex);
+  const handleProjectActivate = (index) => {
+    setActiveProjectIndex((current) => (current === index ? current : index));
   };
 
   return (
@@ -253,54 +298,21 @@ export default function ProjectsPreview() {
           </TextEffect>
         </header>
 
-        <div className="projects-preview__folder">
-          {/* Folder tabs row */}
-          <div className="projects-preview__folder-tabs">
-            {projects.map((project, index) => {
-              const isActive = index === activeProjectIndex;
-
-              return (
-                <button
-                  key={project.slug}
-                  type="button"
-                  className={`projects-preview__folder-tab ${isActive ? 'is--active' : ''}`}
-                  style={{ zIndex: getTabZIndex(index) }}
-                  onClick={() => handleTabClick(index)}
-                  aria-pressed={isActive}
-                  aria-label={`${language === "de" ? "Projekt" : "Project"} ${index + 1}: ${project.title}`}
-                >
-                  <span className="projects-preview__folder-tab-index">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <span className="projects-preview__folder-tab-name">
-                    {project.title}
-                  </span>
-                  <FolderTabEdge className="projects-preview__folder-tab-edge" />
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Folder content - shows active project */}
-          <div className="projects-preview__folder-content">
-            <div className="projects-preview__folder-scroll">
-              <div className="projects-preview__list">
-                {projects.map((project, index) => (
-                  <div
-                    key={project.slug}
-                    className={`projects-preview__card-wrapper ${index === activeProjectIndex ? 'is--active' : ''}`}
-                  >
-                    <ProjectPreviewCard
-                      project={project}
-                      labels={labels}
-                      index={index}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+        <ul className="projects-preview__disclosures">
+          {projects.map((project, index) => (
+            <ProjectDisclosure
+              key={project.slug}
+              project={project}
+              index={index}
+              isActive={index === activeProjectIndex}
+              onActivate={handleProjectActivate}
+              labels={labels}
+              language={language}
+              viewProject={viewProject}
+              activeProjectIndex={activeProjectIndex}
+            />
+          ))}
+        </ul>
 
         <div className="projects-preview__cta">
           <BookCTA label={ctaLabel} ctaLocation="projects-preview" />
