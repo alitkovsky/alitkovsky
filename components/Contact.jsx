@@ -203,11 +203,6 @@ export default function Contact() {
             <p>{labels.location}</p>
             <p>{values.location}</p>
           </div>
-          <div>
-            <p>{labels.workingHours}</p>
-            <p>{values.workingHoursWeek}</p>
-            <p>{values.workingHoursSat}</p>
-          </div>
           <div />
           <div>
             <p>{labels.localTime}</p>
