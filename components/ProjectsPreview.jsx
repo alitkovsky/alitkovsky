@@ -18,7 +18,7 @@ const PROJECTS_PREVIEW_COPY = {
     projects: [
       {
         slug: "tracking-audit",
-        title: "die \"black box\" rettung",
+        title: "tracking-transparenz wiederhergestellt",
         tags: ["ga4", "gtm", "consent mode v2"],
         client: "e-commerce marke (dach)",
         industry: "fashion & lifestyle",
@@ -31,7 +31,7 @@ const PROJECTS_PREVIEW_COPY = {
       },
       {
         slug: "local-seo-dental",
-        title: "der \"unsichtbare\" zahnarzt",
+        title: "lokale sichtbarkeit strukturiert verbessert",
         tags: ["local seo", "gbp", "schema.org"],
         client: "private zahnarztpraxis",
         industry: "healthcare / dental",
@@ -44,7 +44,7 @@ const PROJECTS_PREVIEW_COPY = {
       },
       {
         slug: "google-ads-dach",
-        title: "der \"lost in translation\" fix",
+        title: "dach-ads auf qualifizierte leads ausgerichtet",
         tags: ["google ads", "dach", "b2b"],
         client: "b2b saas company",
         industry: "software / logistics",
@@ -71,7 +71,7 @@ const PROJECTS_PREVIEW_COPY = {
     projects: [
       {
         slug: "tracking-audit",
-        title: "the \"black box\" rescue",
+        title: "tracking transparency restored",
         tags: ["ga4", "gtm", "consent mode v2"],
         client: "e-commerce brand (dach)",
         industry: "fashion & lifestyle",
@@ -84,7 +84,7 @@ const PROJECTS_PREVIEW_COPY = {
       },
       {
         slug: "local-seo-dental",
-        title: "the \"invisible\" dentist",
+        title: "structured local visibility improvement",
         tags: ["local seo", "gbp", "schema.org"],
         client: "private dental practice",
         industry: "healthcare / dental",
@@ -97,7 +97,7 @@ const PROJECTS_PREVIEW_COPY = {
       },
       {
         slug: "google-ads-dach",
-        title: "the \"lost in translation\" fix",
+        title: "dach ads aligned for qualified leads",
         tags: ["google ads", "dach", "b2b"],
         client: "b2b saas company",
         industry: "software / logistics",

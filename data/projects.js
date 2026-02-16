@@ -16,7 +16,7 @@ export const PROJECTS_DATA = {
     projects: {
       "tracking-audit": {
         slug: "tracking-audit",
-        title: "die \"black box\" rettung",
+        title: "tracking-transparenz wiederhergestellt",
         subtitle: "tracking-audit & consent mode v2 fuer e-commerce",
         tags: ["ga4", "gtm", "consent mode v2", "cookiebot", "google ads", "gdpr"],
         client: "e-commerce marke (dach)",
@@ -68,7 +68,7 @@ export const PROJECTS_DATA = {
       },
       "local-seo-dental": {
         slug: "local-seo-dental",
-        title: "der \"unsichtbare\" zahnarzt",
+        title: "lokale sichtbarkeit strukturiert verbessert",
         subtitle: "local seo & reputation management für eine zahnarztpraxis",
         tags: ["local seo", "google business profile", "schema.org", "ahrefs", "wordpress", "content"],
         client: "private zahnarztpraxis",
@@ -120,7 +120,7 @@ export const PROJECTS_DATA = {
       },
       "google-ads-dach": {
         slug: "google-ads-dach",
-        title: "der \"lost in translation\" fix",
+        title: "dach-ads auf qualifizierte leads ausgerichtet",
         subtitle: "google ads signal-qualitaet & dach-adaption fuer b2b saas",
         tags: ["google ads", "gtm", "dach", "b2b", "german copywriting", "negative keywords"],
         client: "b2b saas company",
@@ -191,7 +191,7 @@ export const PROJECTS_DATA = {
     projects: {
       "tracking-audit": {
         slug: "tracking-audit",
-        title: "the \"black box\" rescue",
+        title: "tracking transparency restored",
         subtitle: "tracking audit & consent mode v2 implementation for e-commerce",
         tags: ["ga4", "gtm", "consent mode v2", "cookiebot", "google ads", "gdpr"],
         client: "e-commerce brand (dach)",
@@ -243,7 +243,7 @@ export const PROJECTS_DATA = {
       },
       "local-seo-dental": {
         slug: "local-seo-dental",
-        title: "the \"invisible\" dentist",
+        title: "structured local visibility improvement",
         subtitle: "local seo & reputation management for a dental practice",
         tags: ["local seo", "google business profile", "schema.org", "ahrefs", "wordpress", "content"],
         client: "private dental practice",
@@ -295,7 +295,7 @@ export const PROJECTS_DATA = {
       },
       "google-ads-dach": {
         slug: "google-ads-dach",
-        title: "the \"lost in translation\" fix",
+        title: "dach ads aligned for qualified leads",
         subtitle: "google ads signal quality and dach adaptation for b2b saas",
         tags: ["google ads", "gtm", "dach", "b2b", "german copywriting", "negative keywords"],
         client: "b2b saas company",
