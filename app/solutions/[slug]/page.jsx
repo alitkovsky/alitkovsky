@@ -19,19 +19,19 @@ const LEGACY_MAPPING = {
 // SEO metadata for each solution
 const SERVICE_META = {
   "control-center": {
-    title: "The Control Center | Sales Automation & CRM",
-    description: "Automate your sales process. Zero leakage, instant follow-ups, and higher close rates. CRM setup and n8n/Make automation.",
-    keywords: "CRM Automation, Sales Pipeline, Pipedrive, HubSpot, n8n, Make.com",
+    title: "The Control Center | CRM & Workflow Operations",
+    description: "Structured CRM processes, clear responsibilities, and automated follow-ups for reliable lead handling.",
+    keywords: "CRM Integration, Workflow Operations, HubSpot, Pipedrive, Process Documentation, Lead Routing",
   },
   "intelligence-hub": {
-    title: "The Intelligence Hub | Data & Tracking",
-    description: "Server-side tracking and profit attribution. Connect ad spend to real revenue. GA4, GTM, and Offline Conversions.",
-    keywords: "Server-side Tracking, CAPI, Google Ads Tracking, Attribution, Data Analytics",
+    title: "The Intelligence Hub | Data Quality & Reporting",
+    description: "Clean tracking, clear KPI dashboards, and decision-ready data for day-to-day operations.",
+    keywords: "Data Quality, GA4, GTM, Reporting, Consent Mode, Process Controlling",
   },
   "growth-engine": {
-    title: "The Growth Engine | Marketing Operations",
-    description: "Automate your marketing routine. Inventory sync, reviews, and retention flows. Scalable operations on autopilot.",
-    keywords: "Marketing Automation, E-commerce Automation, Shopify, Klaviyo, Review Management",
+    title: "The Growth Engine | Process Automation",
+    description: "Automate recurring tasks across marketing and backoffice to reduce manual routine and speed up execution.",
+    keywords: "Process Automation, Operations Efficiency, Workflow Automation, n8n, Make, Backoffice",
   },
 };
 

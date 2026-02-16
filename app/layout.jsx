@@ -23,8 +23,8 @@ import {
 
 export const metadata = {
   metadataBase: new URL('https://litkovskyi.de'),
-  title: "Andrii Litkovskyi | Digital Operations & Marketing | Hille & OWL",
-  description: "Strukturierte digitale Lösungen für Unternehmen in OWL. Ich verbinde CRM, Prozess-Automatisierung und Online-Marketing für mehr Effizienz und Sichtbarkeit.",
+  title: "Andrii Litkovskyi | Digital Operations & System Integration | Hille & OWL",
+  description: "CRM-Integration, Datenanalyse und Prozessoptimierung fuer Unternehmen in OWL. Ich baue digitale Strukturen, die Verwaltung und Vertrieb entlasten.",
   alternates: {
     canonical: '/',
     languages: {
@@ -54,16 +54,16 @@ export const metadata = {
     statusBarStyle: "default",
   },
   openGraph: {
-    title: "Andrii Litkovskyi | Digital Business & Prozesse",
-    description: "Effiziente digitale Abläufe und messbares Marketing. Unterstützung bei CRM, Datenmanagement und Sichtbarkeit für lokale Unternehmen.",
+    title: "Andrii Litkovskyi | Digital Operations & Prozesse",
+    description: "Effiziente digitale Ablaeufe: CRM, Datenmanagement, Prozessautomatisierung und messbare Umsetzung.",
     type: "website",
     url: "https://litkovskyi.de/",
     images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Andrii Litkovskyi | Digital Business & Prozesse",
-    description: "Effiziente digitale Abläufe und messbares Marketing in OWL.",
+    title: "Andrii Litkovskyi | Digital Operations & Prozesse",
+    description: "Digitale Strukturen fuer klare Prozesse, saubere Daten und bessere Entscheidungen.",
     images: ["/og-image.png"],
   },
 };

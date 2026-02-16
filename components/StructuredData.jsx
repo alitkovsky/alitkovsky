@@ -6,11 +6,11 @@ export function LocalBusinessStructuredData() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     '@id': `${baseUrl}/#business`,
-    name: 'Andrii Litkovskyi - Marketing Services',
-    alternateName: 'Andrii Litkovskyi - Marketing Dienstleistungen',
+    name: 'Andrii Litkovskyi - Digital Operations & System Integration',
+    alternateName: 'Andrii Litkovskyi - Prozessoptimierung & CRM',
     description: {
       '@language': 'de',
-      '@value': 'Marketing ohne Buzzwords und leere Versprechen. Über 15 Jahre Erfahrung in Paid Social, SEO und CRM-Automatisierung.',
+      '@value': 'Digitale Prozesse, CRM-Strukturen und Datenmanagement fuer Unternehmen in OWL. Fokus auf effiziente Ablaeufe, messbare Ergebnisse und administrative Entlastung.',
     },
     url: baseUrl,
     image: `${baseUrl}/og-image.png`,
@@ -139,11 +139,11 @@ export default function StructuredData() {
     image: `${baseUrl}/og-image.png`,
     jobTitle: {
       '@language': 'en',
-      '@value': 'Digital Marketing Expert',
+      '@value': 'Digital Operations & System Integrator',
     },
     description: {
       '@language': 'en',
-      '@value': 'Marketing without buzzwords or empty promises. 15+ years of experience in paid social, SEO, and CRM automation.',
+      '@value': 'Digital operations specialist for CRM, process automation, data quality, and reliable reporting.',
     },
     email: 'andrii@litkovskyi.de',
     telephone: '+49 176 58238236',
@@ -251,12 +251,12 @@ export default function StructuredData() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': `${baseUrl}/#organization`,
-    name: 'Andrii Litkovskyi - Marketing Services',
+    name: 'Andrii Litkovskyi - Digital Operations',
     alternateName: 'litkovskyi.de',
     url: baseUrl,
     logo: `${baseUrl}/og-image.png`,
     image: `${baseUrl}/og-image.png`,
-    description: 'Online-Marketing-Beratung in Minden-Lübbecke. SEO, Google Ads & Meta Ads für lokale Unternehmen in OWL.',
+    description: 'Beratung und Umsetzung fuer CRM-Integration, Prozessautomatisierung, Datenanalyse und digitale Verwaltung.',
     email: 'andrii@litkovskyi.de',
     telephone: '+49 176 58238236',
     address: {
@@ -285,7 +285,7 @@ export default function StructuredData() {
     alternateName: 'litkovskyi.de',
     description: {
       '@language': 'en',
-      '@value': 'Digital Marketing Expert - Transparent, Hands-on, Down-to-earth, Locally rooted',
+      '@value': 'Digital Operations and System Integration for CRM, analytics, and process optimization.',
     },
     inLanguage: ['de', 'en'],
     author: { '@id': `${baseUrl}/#person` },
@@ -299,11 +299,11 @@ export default function StructuredData() {
     '@id': `${baseUrl}/#services`,
     name: {
       '@language': 'en',
-      '@value': 'Digital Marketing Services',
+      '@value': 'Digital Operations & System Integration Services',
     },
     alternateName: {
       '@language': 'de',
-      '@value': 'Digitale Marketing Dienstleistungen',
+      '@value': 'Digitale Prozess- und Systemintegrationsleistungen',
     },
     provider: { '@id': `${baseUrl}/#person` },
     areaServed: {
@@ -311,39 +311,38 @@ export default function StructuredData() {
       name: 'Germany',
     },
     serviceType: [
-      'SEO Optimization',
-      'Paid Social Media Advertising',
-      'CRM Automation',
-      'Google Analytics',
-      'Marketing Strategy',
-      'Performance Marketing',
+      'CRM Integration',
+      'Process Automation',
+      'Data Analytics & Reporting',
+      'Tracking & Consent Setup',
+      'Digital Operations Consulting',
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Marketing Services',
+      name: 'Digital Operations Services',
       itemListElement: [
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'SEO Optimization',
-            description: 'Search engine optimization to increase visibility',
+            name: 'CRM Integration & Workflow Design',
+            description: 'CRM setup, process design, and reliable lead handoff workflows.',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Paid Social Advertising',
-            description: 'Meta Ads, LinkedIn Campaign Management',
+            name: 'Tracking, Analytics & Reporting',
+            description: 'Clean measurement setup, KPI dashboards, and clear reporting structures.',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'CRM Automation',
-            description: 'HubSpot, Mailchimp automation setup',
+            name: 'Process Automation & Documentation',
+            description: 'Automation of recurring workflows and structured process documentation.',
           },
         },
       ],

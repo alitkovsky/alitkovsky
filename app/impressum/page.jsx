@@ -1,7 +1,7 @@
 import Impressum from "@/components/Impressum";
 
 export const metadata = {
-  title: "Impressum – Andrii Litkovskyi Marketing",
+  title: "Impressum - Andrii Litkovskyi Digital Operations",
   description: "impressum (legal notice) für andrii litkovskyi – angaben gemäß § 5 DDG.",
   alternates: {
     canonical: '/impressum',

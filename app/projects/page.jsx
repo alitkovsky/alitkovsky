@@ -1,8 +1,8 @@
 import ProjectsList from "@/components/ProjectsList";
 
 export const metadata = {
-  title: "Projekte: System-Integration & Performance | Andrii Litkovskyi",
-  description: "Fallstudien zu Prozessoptimierung und Marketing. Wie durch saubere Datenstrukturen und Automatisierung +70% Buchungen und effizientere Abläufe entstanden sind.",
+  title: "Projekte: Systemintegration & Prozessoptimierung | Andrii Litkovskyi",
+  description: "Praxisbeispiele fuer CRM-Integration, Tracking-Qualitaet und automatisierte Prozesse mit messbarer Entlastung im Tagesgeschaeft.",
   alternates: {
     canonical: '/projects',
     languages: {
@@ -12,8 +12,8 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Ergebnisse durch Struktur & Strategie | Andrii Litkovskyi",
-    description: "Praxisbeispiele: Erfolgreiche Implementierung von CRM-Lösungen, Tracking-Konzepten und Performance-Kampagnen.",
+    title: "Ergebnisse durch Struktur und Umsetzung | Andrii Litkovskyi",
+    description: "Case Studies: bessere Datenqualitaet, klarere Prozesse und effizientere digitale Arbeitsablaeufe.",
     url: '/projects',
     type: 'website',
   },

@@ -1,9 +1,9 @@
 import ServicesList from "@/components/ServicesList";
 
 export const metadata = {
-  title: "Lösungen: Prozesse, CRM & Marketing | Andrii Litkovskyi",
-  description: "Einrichtung von CRM-Systemen (HubSpot), saubere Datenanalysen und digitales Marketing. Ich sorge für technische Infrastruktur und funktionierende Abläufe.",
-  keywords: "Prozessoptimierung Hille, CRM Beratung OWL, HubSpot Einrichtung, Google Ads Optimierung, Digitale Verwaltung, Datenanalyse Minden",
+  title: "Loesungen: CRM, Prozesse & Daten | Andrii Litkovskyi",
+  description: "Einrichtung von CRM-Systemen, strukturierte Automatisierung und klares Reporting. Ich optimiere digitale Prozesse fuer Verwaltung, Vertrieb und Marketing.",
+  keywords: "CRM Einrichtung OWL, Prozessoptimierung Hille, Datenanalyse Minden, Digitale Verwaltung, HubSpot Integration, Workflow Automatisierung",
   alternates: {
     canonical: "/solutions",
     languages: {
@@ -13,8 +13,8 @@ export const metadata = {
     },
   },
   openGraph: {
-    title: "Lösungen für Struktur & Wachstum | Andrii Litkovskyi",
-    description: "Von der CRM-Integration bis zur Kampagne. Ich optimiere Ihre digitalen Werkzeuge für bessere Ergebnisse.",
+    title: "Loesungen fuer stabile digitale Ablaeufe | Andrii Litkovskyi",
+    description: "Von CRM-Setup bis Reporting: digitale Prozesse, die nachvollziehbar und alltagstauglich funktionieren.",
     url: "/solutions",
     type: "website",
   },

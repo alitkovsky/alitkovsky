@@ -81,12 +81,12 @@ const INTRO_COPY = {
     sectionTitle: "diagnose & lösungen",
     options: {
       general: "start hier",
-      "control-center": "leads gehen verloren?",
-      "intelligence-hub": "daten-blindflug?",
-      "growth-engine": "marketing-hamsterrad?",
+      "control-center": "prozess-chaos?",
+      "intelligence-hub": "daten-luecken?",
+      "growth-engine": "zu viel manuell?",
     },
     cta: {
-      label: "lass uns quatschen",
+      label: "kurz austauschen",
     },
     scroll: ["muss ich dich wirklich", "ans scrollen erinnern?"],
     textEffectWiggle: true,
@@ -125,9 +125,9 @@ const INTRO_COPY = {
             text: "systeme",
             effect: "highlight",
           },
-          { text: ". marketing-systeme, die dir den rücken freihalten und messbar mehr" },
+          { text: ". digitale prozesse, die teams entlasten und messbar mehr" },
           { text: " " },
-          { text: "gewinn",
+          { text: "uebersicht",
             effect: "highlight",
            },
           { text: " " },
@@ -152,7 +152,7 @@ const INTRO_COPY = {
           },
           { text: ", sondern " },
           {
-            text: "infrastruktur",
+            text: "stabile prozesse",
             effect: "underlineThin",
             counterEffectOverrides: {}
           },
@@ -183,19 +183,19 @@ const INTRO_COPY = {
             effect: "strikethrough",
             counterEffectOverrides: {}
           },
-          { text: "? oder erst nach stunden? im 'control center' automatisiere ich deinen vertrieb. " },
+          { text: "? oder erst nach stunden? im 'control center' strukturiere ich crm-ablaeufe und zustaendigkeiten. " },
           {
             text: "jede anfrage",
             effect: "highlight",
             counterEffectOverrides: {}
           },
-          { text: " wird in sekunden qualifiziert und an dein team gemeldet. als ergebnis, schließt du mehr kunden ab, " },
+          { text: " wird sauber priorisiert und an dein team uebergeben. als ergebnis, reagiert ihr schneller, " },
           {
             text: "ohne",
             effect: "highlight",
             counterEffectOverrides: {}
           },
-          { text: " mehr budget." }
+          { text: " ohne mehr hektik." }
         ],
         [
           { text: "schluss mit chaos." },
@@ -204,9 +204,9 @@ const INTRO_COPY = {
       ],
       "intelligence-hub": [
         [
-          { text: "du gibst geld für " },
+          { text: "du sammelst " },
           {
-            text: "werbung",
+            text: "daten",
             // effect: "dashedSide",
             // counterEffectOverrides: {
             //   style: {
@@ -214,19 +214,19 @@ const INTRO_COPY = {
             //   },
             // }
           },
-          { text: " aus, weißt aber nicht, was " },
+          { text: ", aber weißt nicht, welche " },
           {
-            text: "umsatz",
+            text: "kennzahlen",
             effect: "highlight"
           },
           { text: " " },
           {
-            text: "bringt",
+            text: "zuverlaessig sind",
             effect: "highlight"
           },
           { text: "? der 'intelligence hub' verbindet deine " },
           {
-            text: "werbekonten",
+            text: "quellen",
             effect: "underlineThin",
             counterEffectOverrides: {
               style: {
@@ -254,7 +254,7 @@ const INTRO_COPY = {
             text: " mit deinem bankkonto. ich tracke "
           },
           {
-            text: "echten gewinn",
+            text: "belastbare daten",
             effect: "highlight",
             counterEffectOverrides: {}
           },
@@ -279,13 +279,13 @@ const INTRO_COPY = {
       ],
       "growth-engine": [
         [
-          { text: "du postest " },
+          { text: "du kopierst " },
           {
             text: "manuell",
             effect: "strikethrough",
             counterEffectOverrides: {}
           },
-          { text: ", kopierst daten in excel und verschickst newsletter " },
+          { text: " daten zwischen tools, pflegst listen und verschickst updates " },
           {
             text: "per hand",
             effect: "highlight"
@@ -296,7 +296,7 @@ const INTRO_COPY = {
             effect: "strikethrough",
             counterEffectOverrides: {}
           },
-          { text: ". bewertungen sammeln, kunden binden, inhalte " },
+          { text: ". statusmeldungen, follow-ups und inhalte " },
           {
             text: "verteilen",
             effect: "arrowRight",
@@ -307,7 +307,7 @@ const INTRO_COPY = {
               },
             }
           },
-          { text: " das system macht die arbeit, du machst die " },
+          { text: " das system uebernimmt routine, du steuerst die " },
           {
             text: "strategie",
             effect: "ellipse",
@@ -325,12 +325,12 @@ const INTRO_COPY = {
     sectionTitle: "diagnosis & solutions",
     options: {
       general: "start here",
-      "control-center": "losing leads?",
-      "intelligence-hub": "flying blind?",
-      "growth-engine": "manual grunt work?",
+      "control-center": "process chaos?",
+      "intelligence-hub": "data gaps?",
+      "growth-engine": "too much manual work?",
     },
     cta: {
-      label: "let's chat",
+      label: "let's talk briefly",
     },
     scroll: ["do i really need to", "remind you to scroll?"],
     textEffectWiggle: true,
@@ -369,10 +369,10 @@ const INTRO_COPY = {
             text: "systems",
             effect: "highlight",
           },
-          { text: ". marketing systems that keep your back free and bring measurably more" },
+          { text: ". digital processes that reduce friction and create measurably more" },
           { text: " " },
           {
-            text: "profit",
+            text: "clarity",
             effect: "highlight",
           },
           { text: " " },
@@ -397,7 +397,7 @@ const INTRO_COPY = {
           },
           { text: ", but " },
           {
-            text: "infrastructure",
+            text: "stable operations",
             effect: "underlineThin",
             counterEffectOverrides: {}
           },
@@ -428,19 +428,19 @@ const INTRO_COPY = {
             effect: "strikethrough",
             counterEffectOverrides: {}
           },
-          { text: "? or only hours later? in the 'control center', i automate your sales process. " },
+          { text: "? or only hours later? in the 'control center', i structure crm workflows and responsibilities. " },
           {
             text: "every inquiry",
             effect: "highlight",
             counterEffectOverrides: {}
           },
-          { text: " is qualified in seconds and sent to your team. as a result, you close more customers, " },
+          { text: " is prioritized and handed off clearly. as a result, your team responds faster, " },
           {
             text: "without",
             effect: "highlight",
             counterEffectOverrides: {}
           },
-          { text: " more budget." }
+          { text: " with less operational stress." }
         ],
         [
           { text: "end the chaos." },
@@ -449,9 +449,9 @@ const INTRO_COPY = {
       ],
       "intelligence-hub": [
         [
-          { text: "you spend money on " },
+          { text: "you collect " },
           {
-            text: "ads",
+            text: "data",
             // effect: "dashedSide",
             // counterEffectOverrides: {
             //   style: {
@@ -459,14 +459,14 @@ const INTRO_COPY = {
             //   },
             // }
           },
-          { text: ", but don't know what drives " },
+          { text: ", but you still do not know which " },
           {
-            text: "revenue",
+            text: "signals",
             effect: "highlight"
           },
-          { text: "? the 'intelligence hub' connects your " },
+          { text: " are reliable? the 'intelligence hub' connects your " },
           {
-            text: "ad accounts",
+            text: "sources",
             effect: "underlineThin",
                 counterEffectOverrides: {
                   style: {
@@ -494,7 +494,7 @@ const INTRO_COPY = {
             text: " with your bank account. i track "
           },
           {
-            text: "real profit",
+            text: "decision-ready data",
             effect: "highlight",
             counterEffectOverrides: {}
           },
@@ -519,13 +519,13 @@ const INTRO_COPY = {
       ],
       "growth-engine": [
         [
-          { text: "you post " },
+          { text: "you copy " },
           {
             text: "manually",
             effect: "strikethrough",
             counterEffectOverrides: {}
           },
-          { text: ", copy data into excel, and send newsletters " },
+          { text: " data between tools, update sheets, and send updates " },
           {
             text: "by hand",
             effect: "highlight",
@@ -536,7 +536,7 @@ const INTRO_COPY = {
             effect: "strikethrough",
             counterEffectOverrides: {}
           },
-          { text: ". collect reviews, retain customers, " },
+          { text: ". automate status updates, follow-ups, and " },
           {
             text: "distribute",
             effect: "arrowRight",
@@ -547,7 +547,7 @@ const INTRO_COPY = {
               },
             }
           },
-          { text: " content. the system does the work, you make the " },
+          { text: " content flows. the system handles routine, you steer the " },
           {
             text: "strategy",
             effect: "ellipse",

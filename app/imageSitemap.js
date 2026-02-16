@@ -12,13 +12,13 @@ export default function imageSitemap() {
       images: [
         {
           url: `${baseUrl}/og-image.png`,
-          title: 'Andrii Litkovskyi - Marketing Berater',
-          caption: 'Andrii Litkovskyi - Online Marketing Experte aus Hille, OWL',
+          title: 'Andrii Litkovskyi - Digital Operations',
+          caption: 'Systemintegration, CRM und Prozessoptimierung aus Hille, OWL',
         },
         {
           url: `${baseUrl}/og-image.webp`,
           title: 'Andrii Litkovskyi Portrait',
-          caption: 'Marketing Berater für Praxen, Handwerker und lokale Unternehmen',
+          caption: 'Digitale Strukturen fuer Verwaltung, Vertrieb und Marketingprozesse',
         },
       ],
     },

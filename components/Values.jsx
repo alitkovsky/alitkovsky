@@ -218,18 +218,18 @@ const VALUES_COPY = {
   de: {
     title: {
       transparent: "transparent",
-      handsOn: "systematisch",
-      eyeLevel: "skalierbar",
-      local: "zukunftssicher",
+      handsOn: "strukturiert",
+      eyeLevel: "verlaesslich",
+      local: "praxisnah",
     },
-    description: "keine bauchgefühle, sondern infrastruktur. ich baue marketing-systeme, die funktionieren — egal ob du urlaub machst oder schläfst. von der daten-erfassung über crm-automatisierung bis hin zu profitablen kampagnen. mein 'tech stack' ist dein wettbewerbsvorteil.",
-    label: "messbare effekte",
+    description: "keine isolierten kampagnen, sondern stabile digitale ablaeufe. ich verbinde crm, tracking und administrative prozesse so, dass teams schneller reagieren, sauber dokumentieren und besser entscheiden koennen.",
+    label: "messbare prozess-effekte",
     results: [
       {
         counter: "bis zu +48%",
-        counterLines: ["bis zu +48%", "mehr sichtbar"],
-        title: "mehr sichtbar",
-        subtitles: ["lokal top 3.", "stabil"],
+        counterLines: ["bis zu +48%", "mehr sichtbarkeit"],
+        title: "mehr sichtbarkeit",
+        subtitles: ["lokal priorisiert.", "sauber messbar"],
         variant: "underline",
         counterEffectOverrides: {
           style: {
@@ -238,10 +238,10 @@ const VALUES_COPY = {
         },
       },
       {
-        counter: "+35%",
-        counterLines: ["+35%", "neukunden"],
-        title: "neukunden",
-        subtitles: ["bei fixem", "fixes budget"],
+        counter: "-40%",
+        counterLines: ["-40%", "reporting-aufwand"],
+        title: "reporting-aufwand",
+        subtitles: ["automatisierte", "berichte"],
         variant: "dashedSide",
         counterEffectOverrides: {
           style: {
@@ -250,10 +250,10 @@ const VALUES_COPY = {
         },
       },
       {
-        counter: "+25%",
-        counterLines: ["+25%", "passende leads"],
-        title: "passende leads",
-        subtitles: ["hohe absicht.", "statt lead-spam", "die kaufen"],
+        counter: "+100%",
+        counterLines: ["+100%", "nachverfolgung"],
+        title: "nachverfolgung",
+        subtitles: ["anfragen strukturiert", "im crm"],
         variant: "ellipseThin",
         counterEffectOverrides: {
           style: {
@@ -265,7 +265,7 @@ const VALUES_COPY = {
         counter: "-22%",
         counterLines: ["-22%", "prozessaufwand"],
         title: "prozessaufwand",
-        subtitles: [""],
+        subtitles: ["weniger manuelle", "routine"],
         variant: "underlineCurved",
         counterEffectOverrides: {
           style: {
@@ -274,29 +274,29 @@ const VALUES_COPY = {
         },
       },
     ],
-    expertiseTitle: "mein system stack", // Changed from "meine zertifizierungen"
+    expertiseTitle: "mein operations-stack", // Changed from "meine zertifizierungen"
     toolsTitle: "meine werkzeuge", // This might be redundant if we merge everything. Let's keep one section for the Stack maruqee.
     logosLabel: "technologien",
     cta: {
-      label: "ist dein stack bereit? lass uns reden",
+      label: "passt dein setup zu deinen prozessen?",
       // label: "ist dein stack bereit?\nlass uns reden",
     },
   },
   en: {
     title: {
       transparent: "transparent",
-      handsOn: "systematic",
-      eyeLevel: "scalable",
-      local: "future-proof",
+      handsOn: "structured",
+      eyeLevel: "reliable",
+      local: "practical",
     },
-    description: "no gut feelings, just infrastructure. i build marketing systems that work — whether you're on vacation or sleeping. from data capture to crm automation to profitable campaigns. my 'tech stack' is your competitive advantage.",
-    label: "it's a win win",
+    description: "no isolated campaign tactics, but stable digital operations. i connect crm, tracking, and administrative workflows so teams respond faster, document cleanly, and make better decisions.",
+    label: "measurable process impact",
     results: [
       {
         counter: "up to +48%",
         counterLines: ["up to +48%", "more visibility"],
         title: "more visibility",
-        subtitles: ["local search", "lifted"],
+        subtitles: ["locally prioritized.", "cleanly measurable"],
         variant: "underline",
         counterEffectOverrides: {
           style: {
@@ -305,10 +305,10 @@ const VALUES_COPY = {
         },
       },
       {
-        counter: "+35%",
-        counterLines: ["+35%", "new leads"],
-        title: "new leads",
-        subtitles: ["same cost", "budget fixed"],
+        counter: "-40%",
+        counterLines: ["-40%", "reporting effort"],
+        title: "reporting effort",
+        subtitles: ["automated", "reporting flows"],
         variant: "dashedSide",
         counterEffectOverrides: {
           style: {
@@ -317,10 +317,10 @@ const VALUES_COPY = {
         },
       },
       {
-        counter: "+25%",
-        counterLines: ["+25%", "high-fit leads"],
-        title: "high-fit leads",
-        subtitles: ["buyer intent.", "instead of spam", "that close"],
+        counter: "+100%",
+        counterLines: ["+100%", "follow-up coverage"],
+        title: "follow-up coverage",
+        subtitles: ["requests tracked", "inside crm"],
         variant: "ellipseThin",
         counterEffectOverrides: {
           style: {
@@ -330,9 +330,9 @@ const VALUES_COPY = {
       },
       {
         counter: "-22%",
-        counterLines: ["-22%", "manual effort"],
-        title: "manual effort",
-        subtitles: [""],
+        counterLines: ["-22%", "manual workload"],
+        title: "manual workload",
+        subtitles: ["less repetitive", "operations work"],
         variant: "underlineCurved",
         counterEffectOverrides: {
           style: {
@@ -341,11 +341,11 @@ const VALUES_COPY = {
         },
       },
     ],
-    expertiseTitle: "my system stack",
+    expertiseTitle: "my operations stack",
     toolsTitle: "my toolkit",
     logosLabel: "technologies",
     cta: {
-      label: "is your stack ready?\nlet's talk",
+      label: "does your setup fit your processes?",
     },
   },
 };
