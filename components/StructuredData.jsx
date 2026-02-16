@@ -71,7 +71,7 @@ export function LocalBusinessStructuredData() {
           bestRating: '5',
           worstRating: '1',
         },
-        reviewBody: 'Andrii joined us when we were practically invisible online. He started from scratch — SEO, social media, the first real tracking setup. Two years later, we had 35% more website traffic and measurable revenue growth. But what impressed me most: he never stopped learning and questioned every process until it worked.',
+        reviewBody: 'Andrii helped us build our first reliable tracking and reporting setup. We finally saw where requests came from and where process handoffs failed. Within two years we reached 35% more website traffic and made decisions with clear data.',
       },
       {
         '@type': 'Review',
@@ -90,7 +90,7 @@ export function LocalBusinessStructuredData() {
           bestRating: '5',
           worstRating: '1',
         },
-        reviewBody: 'When Andrii started with us, he was hungry for data and results. He completely revamped our paid social strategy, and for the first time we could see exactly which campaigns actually drove bookings. His technical depth combined with a feel for creative campaigns is rare. I knew early on he would take on more responsibility.',
+        reviewBody: 'Andrii redesigned our paid channels and connected them to CRM visibility, so we could evaluate lead quality instead of only clicks. His strength was combining technical depth with practical process structure. That made daily execution much more reliable.',
       },
       {
         '@type': 'Review',
@@ -109,7 +109,7 @@ export function LocalBusinessStructuredData() {
           bestRating: '5',
           worstRating: '1',
         },
-        reviewBody: 'Andrii turned our digital marketing from an afterthought into our main growth driver. +70% bookings in one year speaks for itself. But what really sets him apart: he thinks like an entrepreneur, not just in campaigns. He built a team, established processes, and always kept the big picture in mind. One of the best people I have ever worked with.',
+        reviewBody: 'Andrii turned digital marketing into a structured operating process. A 70% booking increase in one year was important, but equally important were the team workflows, documentation, and execution standards he introduced.',
       },
     ],
   };

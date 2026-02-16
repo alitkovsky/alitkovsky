@@ -8,28 +8,28 @@ import useLanguage from "@/hooks/useLanguage";
 
 const BACKGROUND_COPY = {
   de: {
-    brief: "über 15 jahre erfahrung in paid media, seo, cro und web analytics. mein fokus: messbare ergebnisse für lokale unternehmen in owl und darüber hinaus. von der strategie bis zur umsetzung — alles aus einer hand.",
+    brief: "15+ jahre erfahrung an der schnittstelle von marketing, daten und operativen ablaeufen. heute liegt mein fokus auf systemintegration, prozessklarheit und administrativer entlastung fuer kmu in owl und darueber hinaus.",
     items: [
       {
         company: "selbstständig, hille (owl)",
-        role: "online-marketing-berater",
-        description: "beratung und umsetzung für lokale kmu: google ads, meta ads, seo-optimierung, landing-page-erstellung und web-analytics-setup. spezialisiert auf praxen, handwerksbetriebe und lokale dienstleister.",
+        role: "systemintegrator & prozessoptimierer",
+        description: "ich implementiere crm-workflows, tracking-standards und automationen fuer lokale kmu. fokus: klare uebergaben, nachvollziehbare daten und weniger manuelle routine in marketing und backoffice.",
         period: "2022 — heute",
         path: "path-down-first.svg",
         pathHeight: "100%",
       },
       {
         company: "stimul sport resort, feodosiya",
-        role: "digital marketing & performance manager",
-        description: "+70% buchungswachstum yoy durch full-funnel-kampagnen. verantwortlich für paid social, seo, crm-strategie (hubspot) und event-marketing. team von 3 mitarbeitern koordiniert.",
+        role: "digital operations & performance manager",
+        description: "aufbau und steuerung von crm-, tracking- und reporting-prozessen fuer ein wachsendes team. neben kanalverantwortung wurden standards fuer datenqualitaet, teamkoordination und kampagnen-uebergaben etabliert.",
         period: "2015 — 2022",
         path: "path-down-second.svg",
         pathHeight: "100%",
       },
       {
         company: "sunny bay hotel, feodosiya",
-        role: "paid social & seo manager",
-        description: "+35% website-traffic durch seo-optimierung. +20% umsatzsteigerung durch datenbasierte social-media-kampagnen. aufbau der ersten digitalen marketing-infrastruktur des hotels.",
+        role: "digital marketing & analytics manager",
+        description: "aufbau der ersten digitalen grundinfrastruktur mit website-analytics, seo-basis und wiederholbaren kampagnenablaeufen. daraus entstanden belastbare daten als basis fuer spaetere operations-verbesserungen.",
         period: "2009 — 2015",
         path: "path-down-third.svg",
         pathHeight: "80%",
@@ -40,28 +40,28 @@ const BACKGROUND_COPY = {
     },
   },
   en: {
-    brief: "15+ years of experience in paid media, seo, cro, and web analytics. my focus: measurable results for local businesses in owl and beyond. from strategy to execution — everything from one source.",
+    brief: "15+ years of experience at the intersection of marketing, data, and operations. today i focus on system integration, process clarity, and administrative relief for smb teams in owl and beyond.",
     items: [
       {
         company: "self-employed, hille (owl)",
-        role: "online marketing consultant",
-        description: "consulting and execution for local smes: google ads, meta ads, seo optimization, landing page creation, and web analytics setup. specialized in medical practices, tradespeople, and local service providers.",
+        role: "system integrator & process optimizer",
+        description: "i implement CRM workflows, tracking standards, and automations for local SMEs. core focus: clear handoffs, traceable data, and less manual routine across marketing and backoffice.",
         period: "2022 — today",
         path: "path-down-first.svg",
         pathHeight: "100%",
       },
       {
         company: "stimul sport resort, feodosiya",
-        role: "digital marketing & performance manager",
-        description: "+70% bookings yoy through full-funnel campaigns. owned paid social, seo, crm strategy (hubspot), and event marketing. managed a team of 3.",
+        role: "digital operations & performance manager",
+        description: "built and managed CRM, tracking, and reporting processes for a growing team. alongside channel ownership, i introduced standards for data quality, team coordination, and campaign-to-sales handoffs.",
         period: "2015 — 2022",
         path: "path-down-second.svg",
         pathHeight: "100%",
       },
       {
         company: "sunny bay hotel, feodosiya",
-        role: "paid social & seo manager",
-        description: "+35% website traffic through seo optimization. +20% revenue growth with data-driven social campaigns. built the hotel's first digital marketing infrastructure.",
+        role: "digital marketing & analytics manager",
+        description: "built the first digital foundation: website analytics, SEO baseline, and repeatable campaign workflows. this created the reliable data layer later used for broader operational improvements.",
         period: "2009 — 2015",
         path: "path-down-third.svg",
         pathHeight: "80%",

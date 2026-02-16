@@ -6,46 +6,46 @@ import ProcessDialog from "@/components/ProcessDialog";
 
 const COPY = {
   de: {
-    intro: "vom chaos zum system — der prozess. wir bauen keine luftschlösser, sondern solide infrastruktur. schritt für schritt.",
+    intro: "vom status quo zu stabilen ablaeufen - der prozess. klar priorisiert, sauber dokumentiert, schritt fuer schritt umgesetzt.",
     steps: [
       {
         title: "diagnose (audit)",
         description: {
-          summary: "wir starten mit einem tiefenblick auf den status quo. ich prüfe deine aktuelle tracking-infrastruktur, deine kampagnen-historie und deine crm-prozesse. wo verlierst du daten? wo verbrennst du budget? wir identifizieren die engpässe, die dein wachstum bremsen.",
+          summary: "wir starten mit einem systemaudit: ich pruefe crm-uebergaben, tracking-qualitaet, consent-setup und die schnittstellen zwischen marketing, vertrieb und backoffice. ziel ist eine klare fehler- und engpassanalyse.",
           metrics: "2-3 tage",
-          result: "dokumentierter audit-report + liste aller wachstumsbremsen",
+          result: "auditreport mit priorisierter fehler- und potenzialliste",
         },
       },
       {
         title: "blaupause (strategie)",
         description: {
-          summary: "basierend auf dem audit entwerfe ich die architektur für dein neues system. welche tools brauchen wir? wie fließen die daten? wie sehen die kampagnen-strukturen aus? du bekommst einen klaren bauplan, bevor wir den ersten stein setzen. keine überraschungen.",
+          summary: "auf basis des audits definiere ich die zielarchitektur: datenfelder, rollen, automationslogik, reporting-struktur und governance-regeln. damit ist vor der umsetzung klar, was gebaut wird und warum.",
           metrics: "1 woche",
-          result: "fertiger system-bauplan und technisches konzept",
+          result: "umsetzungsfahrplan mit prioritaeten, aufwand und verantwortlichkeiten",
         },
       },
       {
-        title: "konstruktion (bau)",
+        title: "implementierung (bau)",
         description: {
-          summary: "jetzt wird gebaut. ich richte das tracking ein (server-side), verknüpfe die apis (n8n/make) und baue die kampagnen-struktur. wir testen die datenflüsse und stellen sicher, dass jeder lead korrekt im crm ankommt. das ist die phase der 'digitalen baustelle'.",
+          summary: "jetzt erfolgt die technische umsetzung: crm-strukturen, tracking, automationsworkflows und tool-integrationen. alle kritischen datenfluesse werden getestet, inklusive fehlerfaelle und vertretungsszenarien.",
           metrics: "3-6 wochen",
-          result: "schlüsselfertiges marketing-system & validiertes tracking",
+          result: "funktionsfaehiger prozess-kern mit validierten datenfluessen",
         },
       },
       {
-        title: "zündung (launch)",
+        title: "stabilisierung (go-live)",
         description: {
-          summary: "das system geht live. wir schalten den traffic ein. da das tracking sauber ist, sehen wir sofort, was passiert. wir überwachen die ersten 7 tage extrem engmaschig, um kinderkrankheiten sofort zu beheben. der erste traffic fließt durch die neuen rohre.",
+          summary: "der rollout erfolgt kontrolliert: checklisten, monitoring und klare reaktionsregeln fuer die ersten tage. dadurch werden anlaufprobleme frueh erkannt und ohne chaos behoben.",
           metrics: "live-gang",
-          result: "go-live und erster verifizierter dateneingang",
+          result: "kontrollierter go-live mit verifizierten produktivsignalen",
         },
       },
       {
-        title: "kalibrierung (skalierung)",
+        title: "optimierung (betrieb)",
         description: {
-          summary: "ein system ist nie 'fertig', es wird nur besser. basierend auf echten daten optimieren wir die creatives, das targeting und die crm-automatisierungen. wir drehen an den stellschrauben, um den roi zu maximieren. monatliches reporting zeigt dir schwarz auf weiß, was das system leistet.",
+          summary: "im laufenden betrieb optimiere ich gemeinsam mit dem team durchlaufzeiten, datenqualitaet und aufgabenlast. entscheidungen basieren auf dokumentierten kpis statt auf gefuehl.",
           metrics: "laufend",
-          result: "kontinuierliche roi-steigerung und system-verfeinerung",
+          result: "kontinuierliche prozessverbesserung bei geringerer manueller routine",
         },
       },
       // {
@@ -59,46 +59,46 @@ const COPY = {
     ],
   },
   en: {
-    intro: "from chaos to system — the process. we don't build castles in the sky, we build solid infrastructure. step by step.",
+    intro: "from status quo to stable operations - the process. clearly prioritized, documented, and executed step by step.",
     steps: [
       {
         title: "diagnosis (audit)",
         description: {
-          summary: "we start with a deep dive into the status quo. i inspect your current tracking infrastructure, campaign history, and crm processes. where are you losing data? where are you burning budget? we identify the bottlenecks slowing down your growth.",
+          summary: "we begin with a system audit: CRM handoffs, tracking quality, consent setup, and the interfaces between marketing, sales, and backoffice. the goal is a clear bottleneck and risk map.",
           metrics: "2-3 days",
-          result: "documented audit report + list of growth blockers",
+          result: "audit report with prioritized issues and leverage points",
         },
       },
       {
         title: "blueprint (strategy)",
         description: {
-          summary: "based on the audit, i design the architecture for your new system. which tools do we need? how does data flow? what do the campaign structures look like? you get a clear blueprint before we lay the first brick. no surprises.",
+          summary: "based on the audit, i define the target architecture: data fields, ownership, automation logic, reporting structure, and governance rules. this creates implementation clarity before any build starts.",
           metrics: "1 week",
-          result: "finished system blueprint and technical concept",
+          result: "implementation roadmap with priorities, effort, and ownership",
         },
       },
       {
-        title: "construction (build)",
+        title: "implementation (build)",
         description: {
-          summary: "now we build. i set up the tracking (server-side), connect the apis (n8n/make), and build the campaign structure. we test data flows and ensure every lead lands correctly in the crm. this is the 'digital construction site' phase.",
+          summary: "this is the technical build phase: CRM structures, tracking, automation workflows, and tool integrations. critical data flows are tested, including failure scenarios and team handoff cases.",
           metrics: "3-6 weeks",
-          result: "turnkey marketing system & validated tracking",
+          result: "working process core with validated data flows",
         },
       },
       {
-        title: "ignition (launch)",
+        title: "stabilization (go-live)",
         description: {
-          summary: "the system goes live. we switch on the traffic. because tracking is clean, we see exactly what happens immediately. we monitor the first 7 days extremely closely to fix teething issues instantly. initial traffic flows through the new pipes.",
+          summary: "rollout happens in a controlled way: checklists, monitoring, and clear response rules for the first days. this catches startup issues early and resolves them without disruption.",
           metrics: "go-live",
-          result: "go-live and first verified data ingress",
+          result: "controlled go-live with verified production signals",
         },
       },
       {
-        title: "calibration (scale)",
+        title: "optimization (operations)",
         description: {
-          summary: "a system is never 'done', it only gets better. based on real data, we optimize creatives, targeting, and crm automations. we tweak the levers to maximize roi. monthly reporting shows you black on white what the system delivers.",
+          summary: "during ongoing operations, we continuously improve cycle times, data quality, and workload distribution. decisions are based on documented KPIs, not assumptions.",
           metrics: "ongoing",
-          result: "continuous roi increase and system refinement",
+          result: "continuous process improvement with lower manual routine",
         },
       },
       // {
