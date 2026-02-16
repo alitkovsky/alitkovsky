@@ -12,18 +12,18 @@ import useLanguage from "@/hooks/useLanguage";
 const CONTACT_COPY = {
   de: {
     hook: {
-      prefix: "bereit für ein update? nämlich, ",
-      underlineThin: "system-audit",
-      underlineZigzag: "kostenloses",
+      prefix: "bereit fuer klarere digitale ablaeufe? naemlich, ",
+      underlineThin: "erst-check",
+      underlineZigzag: "kostenloser",
       joiner: "und",
-      subtitle: "ich prüfe deinen aktuellen status quo. in 20 minuten finden wir heraus, wo dein system sand im getriebe hat. kein verkaufsgespräch.",
+      subtitle: "in 20 minuten analysieren wir gemeinsam prozesse, datenfluesse und prioritaeten. du bekommst konkrete naechste schritte, kein verkaufspitch.",
     },
     card: {
       caption: "einfach melden",
-      alt: "Portrait Andrii Litkovskyi - Marketing Systems Architect",
+      alt: "Portrait Andrii Litkovskyi - Digital Operations & System Integration",
     },
     labels: {
-      phone: "handy",
+      phone: "telefon",
       email: "email",
       location: "standort",
       workingHours: "arbeitszeiten",
@@ -40,20 +40,20 @@ const CONTACT_COPY = {
       privacy: "datenschutz",
     },
     cta: {
-      label: "... oder buch dir deinen audit slot",
+      label: "... oder buch dir deinen erst-check",
     },
   },
   en: {
     hook: {
-      prefix: "ready for an upgrade? namely, ",
-      underlineThin: "system audit",
+      prefix: "ready for clearer digital operations? namely, ",
+      underlineThin: "first check",
       underlineZigzag: "free",
       joiner: "and",
-      subtitle: "i audit your current status quo. in 20 minutes we find out where your system is losing efficiency. no sales pitch.",
+      subtitle: "in 20 minutes, we review your workflows, data flow, and priorities. you get concrete next steps, not a sales pitch.",
     },
     card: {
       caption: "just reach out",
-      alt: "Portrait Andrii Litkovskyi - Marketing Systems Architect",
+      alt: "Portrait Andrii Litkovskyi - Digital Operations & System Integration",
     },
     labels: {
       phone: "phone",
@@ -73,7 +73,7 @@ const CONTACT_COPY = {
       privacy: "privacy",
     },
     cta: {
-      label: "... or book your audit slot",
+      label: "... or book your first check",
     },
   },
 };

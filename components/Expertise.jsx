@@ -8,9 +8,9 @@ import useLanguage from "@/hooks/useLanguage";
 const EXPERTISE_COPY = {
   de: {
     biography: [
-      "ich bin andrii — system architect für marketing & sales. meine heimat ist hille (owl), mein spielfeld ist global. ich helfe unternehmen, ihre digitalen prozesse zu 'architektieren' statt nur zu 'reparieren'.",
-      "nach 15 jahren im klassischen marketing habe ich eines gelernt: isolierte maßnahmen verbrennen geld. was fehlt, ist die verbindung.",
-      "deshalb baue ich systeme. ich verbinde crm mit ads, websites mit analysetools und chaos mit struktur. mein ziel ist nicht, dir stunden zu verkaufen, sondern dir eine maschine zu bauen, die läuft.",
+      "ich bin andrii - digital operations und systemintegrator aus hille (owl). ich helfe unternehmen dabei, crm, daten und prozesse so aufzusetzen, dass verwaltung, vertrieb und marketing reibungslos zusammenarbeiten.",
+      "mein hintergrund im marketing hilft mir, kanaldenken zu vermeiden: ich betrachte den gesamten ablauf von anfrage, bearbeitung und dokumentation bis zum reporting.",
+      "mein fokus liegt auf klaren zustaendigkeiten, sauberer datenqualitaet und automatisierten routineaufgaben. so entstehen stabile systeme statt kurzfristiger einzelmassnahmen.",
     ],
     headings: {
       certifications: "zertifizierungen",
@@ -26,14 +26,14 @@ const EXPERTISE_COPY = {
       designAndCodeSuffix: "von",
       typesetInPrefix: "gesetzt in",
       typesetByJoiner: "von",
-      copyrightSuffix: "andrii litkovskyi marketing — systems architect",
+      copyrightSuffix: "andrii litkovskyi digital operations - systems architect",
     },
   },
   en: {
     biography: [
-      "i'm andrii — system architect for marketing & sales. based in germany, operating globally. i help businesses 'architect' their digital processes instead of just 'fixing' them.",
-      "after 15+ years in classic marketing, i've learned one thing: isolated measures burn money. what's missing is the connection.",
-      "that's why i build systems. i connect crm with ads, websites with analytics, and chaos with structure. my goal isn't to sell you hours, but to build you a machine that runs.",
+      "i am andrii - a digital operations and system integration specialist based in hille (owl). i help companies set up crm, data, and workflows so administration, sales, and marketing run in sync.",
+      "my background in marketing helps me avoid channel silos: i focus on the full flow from incoming inquiry and processing to documentation and reporting.",
+      "my core focus is clear ownership, clean data quality, and automation of recurring routine work. that is how teams get stable systems instead of short-term campaign fixes.",
     ],
     headings: {
       certifications: "certifications",
@@ -49,7 +49,7 @@ const EXPERTISE_COPY = {
       designAndCodeSuffix: "by",
       typesetInPrefix: "typeset in",
       typesetByJoiner: "by",
-      copyrightSuffix: "andrii litkovskyi marketing — systems architect",
+      copyrightSuffix: "andrii litkovskyi digital operations - systems architect",
     },
   },
 };
@@ -130,7 +130,7 @@ export default function Expertise() {
   const colophonDesignAndCodeSuffix = colophon.designAndCodeSuffix ?? "by";
   const colophonTypesetIn = colophon.typesetInPrefix ?? "Typeset in";
   const colophonTypesetBy = colophon.typesetByJoiner ?? "by";
-  const colophonCopyright = colophon.copyrightSuffix ?? "Andrii Litkovskyi Marketing — made in Germany";
+  const colophonCopyright = colophon.copyrightSuffix ?? "Andrii Litkovskyi Digital Operations - made in Germany";
 
   return (
     <section className="section expertise" id="expertise">
