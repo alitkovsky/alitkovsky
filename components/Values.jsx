@@ -11,7 +11,6 @@ import useLanguage from "@/hooks/useLanguage";
 import {
   SiGoogleanalytics,
   SiHubspot,
-  SiLinkedin,
   SiN8N,
   SiMake,
   SiZapier,
@@ -30,14 +29,14 @@ import {
   SiSlack,
   SiDiscord,
   SiTwilio,
-  SiMagento,
   SiMailchimp,
   SiWebflow,
   SiFramer,
   SiMatomo,
-  SiLooker,
-  SiTableau
+  SiLooker
 } from "react-icons/si";
+import { FaMagento as SiMagento } from "react-icons/fa6";
+import { IoLogoLinkedin as SiLinkedin, IoLogoTableau as SiTableau } from "react-icons/io5";
 
 const ActiveCampaignLogo = () => (
   <svg
