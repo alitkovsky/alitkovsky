@@ -21,12 +21,14 @@ const NAV_COPY = {
   de: {
     dayMode: "tag",
     nightMode: "nacht",
+    home: "index",
     solutions: "lösungen",
     projects: "projekte",
   },
   en: {
     dayMode: "day",
     nightMode: "night",
+    home: "index",
     solutions: "solutions",
     projects: "projects",
   },
@@ -175,7 +177,7 @@ export default function Nav({ initialTheme = "dark" }) {
     });
   };
 
-  const items = [
+  const sectionItems = [
     { id: "intro", label: "intro" },
     { id: "values", label: "values" },
     { id: "process", label: "process" },
@@ -190,14 +192,20 @@ export default function Nav({ initialTheme = "dark" }) {
   const languages = supportedLanguages ?? ["en", "de"];
   const navCopy = NAV_COPY[currentLocale] ?? NAV_COPY.en;
 
-  const pageItems = [
+  const routeItems = [
     { id: "solutions", label: navCopy.solutions, route: localizePath("/solutions", currentLocale) },
     { id: "projects-page", label: navCopy.projects, route: localizePath("/projects", currentLocale) }
   ];
 
-  const subItems = [
+  const legalItems = [
     { id: "impressum", label: "impressum", route: localizePath("/impressum", currentLocale) },
     { id: "datenschutz", label: "datenschutz", route: localizePath("/datenschutz", currentLocale) }
+  ];
+
+  const nonHomeItems = [
+    { id: "home", label: navCopy.home, route: localeHomePath, exact: true },
+    ...routeItems,
+    ...legalItems
   ];
 
   const handleSubItemRequest = (route) => {
@@ -305,9 +313,19 @@ export default function Nav({ initialTheme = "dark" }) {
     )
   }
 
-  function SubNavItem({ id, label, route, isActive, onActivate, sequenceIndex }) {
+  function RouteNavItem({
+    id,
+    label,
+    route,
+    isActive,
+    onActivate,
+    sequenceIndex,
+    className,
+    variant = "sub-item"
+  }) {
     const lineEffect = useRef(null)
     const activationTimeout = useRef(null)
+    const navItemClass = variant === "item" ? "item" : "sub-item"
     const sequenceStyle = sequenceIndex !== undefined
       ? { "--nav-seq-index": sequenceIndex }
       : undefined
@@ -374,7 +392,7 @@ export default function Nav({ initialTheme = "dark" }) {
     return (
       <Link
         href={route}
-        className={cn("sub-item", id, { "is--active": isActive })}
+        className={cn(navItemClass, id, className, { "is--active": isActive })}
         style={sequenceStyle}
         onClick={handleActivate}
         data-nav-focus-item="true"
@@ -437,52 +455,69 @@ export default function Nav({ initialTheme = "dark" }) {
     navItems[nextIndex]?.focus();
   };
 
-  const navSequenceCount = items.length + pageItems.length + subItems.length
-  const pageItemOffset = items.length
-  const subItemOffset = items.length + pageItems.length
+  const navSequenceCount = isHomeRoute
+    ? sectionItems.length + legalItems.length
+    : nonHomeItems.length
+
+  const isRouteActive = (route, exact = false) => {
+    if (exact) {
+      return pathname === route
+    }
+    return pathname === route || pathname.startsWith(`${route}/`)
+  }
 
   return (
     <nav className="app-nav" role="navigation" aria-label="Main navigation">
       <div className="content">
         <div
-          className="flex flex-col"
+          className="nav-links"
           onKeyDown={handleNavKeyDown}
           style={{ "--nav-seq-count": navSequenceCount }}
         >
-          {items.map(({ id, label }, index) => (
-            <NavItem
-              key={id}
-              id={id}
-              label={label}
-              isActive={activeId === id}
-              onActivate={() => handleSectionRequest(id)}
-              sequenceIndex={index}
-            />
-          ))}
-          <div className="mt-[4em]"></div>
-          {pageItems.map(({ id, label, route }, index) => (
-            <SubNavItem
-              key={id}
-              id={id}
-              label={label}
-              route={route}
-              isActive={pathname === route || pathname.startsWith(route)}
-              onActivate={() => handleSubItemRequest(route)}
-              sequenceIndex={pageItemOffset + index}
-            />
-          ))}
-          <div className="mt-[2em]"></div>
-          {subItems.map(({ id, label, route }, index) => (
-            <SubNavItem
-              key={id}
-              id={id}
-              label={label}
-              route={route}
-              isActive={pathname === route}
-              onActivate={() => handleSubItemRequest(route)}
-              sequenceIndex={subItemOffset + index}
-            />
-          ))}
+          {isHomeRoute ? (
+            <>
+              {sectionItems.map(({ id, label }, index) => (
+                <NavItem
+                  key={id}
+                  id={id}
+                  label={label}
+                  isActive={activeId === id}
+                  onActivate={() => handleSectionRequest(id)}
+                  sequenceIndex={index}
+                />
+              ))}
+
+              {legalItems.map(({ id, label, route }, index) => (
+                <RouteNavItem
+                  key={id}
+                  id={id}
+                  label={label}
+                  route={route}
+                  isActive={pathname === route}
+                  onActivate={() => handleSubItemRequest(route)}
+                  sequenceIndex={sectionItems.length + index}
+                  className={cn("home-mobile-only", {
+                    "sub-item--meta-start": index === 0,
+                  })}
+                />
+              ))}
+            </>
+          ) : (
+            <>
+              {nonHomeItems.map(({ id, label, route, exact }, index) => (
+                <RouteNavItem
+                  key={id}
+                  id={id}
+                  label={label}
+                  route={route}
+                  isActive={isRouteActive(route, exact)}
+                  onActivate={() => handleSubItemRequest(route)}
+                  sequenceIndex={index}
+                  variant="item"
+                />
+              ))}
+            </>
+          )}
         </div>
 
         <div className="toggles">
