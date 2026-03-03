@@ -1133,7 +1133,7 @@ body.mobile-nav--is--visible .app-header .navigation .line:nth-child(2) .content
   margin-top: clamp(0.5rem, 1.6vh, 0.9rem);
 }
 
-.app-nav .home-mobile-only {
+.app-nav .sub-item.home-mobile-only {
   display: none;
 }
 
@@ -5568,8 +5568,8 @@ footer .footer__letter {
     margin-top: clamp(0.35rem, 1.2vh, 0.65rem);
   }
 
-  body.mobile-nav--is--transitioning .app-nav .home-mobile-only,
-  body.mobile-nav--is--visible .app-nav .home-mobile-only {
+  body.mobile-nav--is--transitioning .app-nav .sub-item.home-mobile-only,
+  body.mobile-nav--is--visible .app-nav .sub-item.home-mobile-only {
     display: flex;
   }
 
