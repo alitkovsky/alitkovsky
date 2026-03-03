@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import BottomOverlayLayers from "@/components/BottomOverlayLayers";
+import { stripLocaleFromPathname } from "@/lib/localeRouting";
 
 const HOME_SCROLL_REVEAL_PX = 100;
 
 export default function BottomOverlay() {
   const pathname = usePathname();
-  const isHomepage = pathname === "/";
+  const isHomepage = stripLocaleFromPathname(pathname) === "/";
   const [isVisible, setIsVisible] = useState(!isHomepage);
 
   useEffect(() => {

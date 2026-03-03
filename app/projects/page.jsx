@@ -7,7 +7,7 @@ export const metadata = {
     canonical: '/projects',
     languages: {
       'de': '/projects',
-      'en': '/projects',
+      'en': '/en/projects',
       'x-default': '/projects',
     },
   },

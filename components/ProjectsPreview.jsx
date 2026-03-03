@@ -6,6 +6,7 @@ import CountUp from "@/components/CountUp";
 import BookCTA from "@/components/BookCTA";
 import TextEffect from "@/components/TextEffect";
 import useLanguage from "@/hooks/useLanguage";
+import { localizePath } from "@/lib/localeRouting";
 
 const PROJECTS_PREVIEW_COPY = {
   de: {
@@ -138,6 +139,7 @@ function ProjectDisclosure({
   viewProject,
   activeProjectIndex,
 }) {
+  const projectHref = localizePath(`/projects/${project.slug}`, language);
   const tabNumber = String(index + 1).padStart(2, "0");
   const tabId = `projects-preview-tab-${project.slug}`;
   const panelId = `projects-preview-panel-${project.slug}`;
@@ -234,7 +236,7 @@ function ProjectDisclosure({
               <span className="projects-preview__panel-metric-label">{project.metric.label}</span>
             </div>
 
-            <Link href={`/projects/${project.slug}`} className="projects-preview__panel-link">
+            <Link href={projectHref} className="projects-preview__panel-link">
               {viewProject}
             </Link>
           </div>

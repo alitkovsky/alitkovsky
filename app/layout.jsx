@@ -12,6 +12,7 @@ import AppWrapper from "@/components/AppWrapper";
 import StructuredData from "@/components/StructuredData";
 import {
   FALLBACK_LANGUAGE,
+  SUPPORTED_LANGUAGES,
   LANGUAGE_COOKIE_KEY,
   LANGUAGE_SOURCE_COOKIE_KEY,
   LANGUAGE_SOURCE_AUTO,
@@ -29,7 +30,7 @@ export const metadata = {
     canonical: '/',
     languages: {
       'de': '/',
-      'en': '/',
+      'en': '/en',
       'x-default': '/',
     },
   },
@@ -87,25 +88,31 @@ export default async function RootLayout({ children }) {
   const languageSourceCookie = cookieStore.get(LANGUAGE_SOURCE_COOKIE_KEY)?.value;
   const headerStore = await headers();
   const detectedCountry = getCountryFromHeaders(headerStore);
+  const localeFromPathHeader = headerStore.get("x-app-locale");
+  const localeFromPath = SUPPORTED_LANGUAGES.includes(localeFromPathHeader)
+    ? localeFromPathHeader
+    : null;
 
-  let initialLanguage = FALLBACK_LANGUAGE;
-  let initialLanguageSource = LANGUAGE_SOURCE_AUTO;
+  let initialLanguage = localeFromPath ?? FALLBACK_LANGUAGE;
+  let initialLanguageSource = localeFromPath ? LANGUAGE_SOURCE_MANUAL : LANGUAGE_SOURCE_AUTO;
 
-  if (languageCookie) {
-    if (!languageSourceCookie || languageSourceCookie === LANGUAGE_SOURCE_MANUAL) {
-      initialLanguage = sanitizeLanguage(languageCookie);
-      initialLanguageSource = LANGUAGE_SOURCE_MANUAL;
-    } else {
-      initialLanguage = sanitizeLanguage(languageCookie);
-      initialLanguageSource = LANGUAGE_SOURCE_AUTO;
+  if (!localeFromPath) {
+    if (languageCookie) {
+      if (!languageSourceCookie || languageSourceCookie === LANGUAGE_SOURCE_MANUAL) {
+        initialLanguage = sanitizeLanguage(languageCookie);
+        initialLanguageSource = LANGUAGE_SOURCE_MANUAL;
+      } else {
+        initialLanguage = sanitizeLanguage(languageCookie);
+        initialLanguageSource = LANGUAGE_SOURCE_AUTO;
+      }
     }
-  }
 
-  if (initialLanguageSource !== LANGUAGE_SOURCE_MANUAL) {
-    if (detectedCountry) {
-      initialLanguage = resolveLanguageFromCountry(detectedCountry);
-    } else if (!languageCookie) {
-      initialLanguage = FALLBACK_LANGUAGE;
+    if (initialLanguageSource !== LANGUAGE_SOURCE_MANUAL) {
+      if (detectedCountry) {
+        initialLanguage = resolveLanguageFromCountry(detectedCountry);
+      } else if (!languageCookie) {
+        initialLanguage = FALLBACK_LANGUAGE;
+      }
     }
   }
 

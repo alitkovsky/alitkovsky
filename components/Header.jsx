@@ -2,8 +2,10 @@
 
 import useLanguage from "@/hooks/useLanguage";
 import useMobileNav from "@/hooks/useMobileNav";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import BookCTA from "@/components/BookCTA";
+import { getLocaleFromPathname, localizePath } from "@/lib/localeRouting";
 
 const HEADER_COPY = {
   de: {
@@ -20,6 +22,9 @@ const HEADER_COPY = {
 
 export default function Header() {
   const { language } = useLanguage();
+  const pathname = usePathname();
+  const locale = getLocaleFromPathname(pathname);
+  const homeHref = localizePath("/", locale);
   const copy = HEADER_COPY[language] ?? HEADER_COPY.en;
 
   useMobileNav();
@@ -28,7 +33,7 @@ export default function Header() {
     <header className="app-header">
       <div className="content">
         <div className="brand">
-          <Link href="/" className="flex" aria-label={copy.brandLabel}>
+          <Link href={homeHref} className="flex" aria-label={copy.brandLabel}>
               <span className="brand__name" aria-hidden="true"><span>a</span><span>n</span><span>d</span><span>r</span><span>ı</span><span>ı</span><span>&nbsp;</span><span>l</span><span>ı</span><span>t</span><span>k</span><span>o</span><span>v</span><span>s</span><span>k</span><span>y</span><span>ı</span></span>
           </Link>
       </div>

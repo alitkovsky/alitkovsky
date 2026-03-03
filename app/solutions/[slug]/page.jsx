@@ -62,7 +62,7 @@ export async function generateMetadata({ params }) {
       canonical: `/solutions/${slug}`,
       languages: {
         de: `/solutions/${slug}`,
-        en: `/solutions/${slug}`,
+        en: `/en/solutions/${slug}`,
         "x-default": `/solutions/${slug}`,
       },
     },

@@ -7,6 +7,7 @@ import Magnet from "@/components/Magnet";
 import useLanguage from "@/hooks/useLanguage";
 import { cn } from "@/lib/utils";
 import { trackCTAClick } from "@/lib/analytics";
+import { localizeHref } from "@/lib/localeRouting";
 
 const COPY = {
   en: {
@@ -46,6 +47,11 @@ export default function BackToStart({
     return copy.defaultLabel;
   }, [copy.defaultLabel, label, language]);
 
+  const localizedUrl = useMemo(
+    () => localizeHref(url, language),
+    [url, language],
+  );
+
   return (
     <div className={cn("book-cta", className)}>
       <Magnet
@@ -56,7 +62,7 @@ export default function BackToStart({
       >
         <TextEffect
           as={Link}
-          href={url}
+          href={localizedUrl}
           variant="ellipseAuto"
           trigger="hover"
           className="cta-link inline-flex"

@@ -1,9 +1,9 @@
 "use client";
 
 import Script from "next/script";
-import Link from "next/link";
 import useLanguage from "@/hooks/useLanguage";
 import TextEffect from "@/components/TextEffect";
+import { localizePath } from "@/lib/localeRouting";
 
 /**
  * Breadcrumb component with Schema.org BreadcrumbList structured data
@@ -12,6 +12,9 @@ import TextEffect from "@/components/TextEffect";
 export default function Breadcrumb({ pageName, pageUrl }) {
   const { language } = useLanguage();
   const homeLabel = language === "de" ? "index" : "index";
+  const homePath = localizePath("/", language);
+  const localizedPageUrl = localizePath(pageUrl, language);
+  const homeItemUrl = homePath === "/" ? "https://litkovskyi.de" : `https://litkovskyi.de${homePath}`;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -21,13 +24,13 @@ export default function Breadcrumb({ pageName, pageUrl }) {
         "@type": "ListItem",
         position: 1,
         name: homeLabel,
-        item: "https://litkovskyi.de",
+        item: homeItemUrl,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: pageName,
-        item: `https://litkovskyi.de${pageUrl}`,
+        item: `https://litkovskyi.de${localizedPageUrl}`,
       },
     ],
   };
@@ -45,7 +48,7 @@ export default function Breadcrumb({ pageName, pageUrl }) {
             <TextEffect
               as="a"
               variant="ellipseAuto"
-              href="/"
+              href={homePath}
               trigger="hover"
               className="inline-block"
             >

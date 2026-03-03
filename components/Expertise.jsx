@@ -4,6 +4,7 @@ import Link from "next/link";
 import TextEffect from "@/components/TextEffect";
 
 import useLanguage from "@/hooks/useLanguage";
+import { localizePath } from "@/lib/localeRouting";
 
 const EXPERTISE_COPY = {
   de: {
@@ -112,6 +113,7 @@ const certification = {
 
 export default function Expertise() {
   const { language } = useLanguage();
+  const homeHref = localizePath("/", language);
 
   const copy = EXPERTISE_COPY[language] ?? EXPERTISE_COPY.en;
   const fallbackCopy = EXPERTISE_COPY.en;
@@ -206,7 +208,7 @@ export default function Expertise() {
               </TextEffect> */}
               {colophonDesignAndCodeLove}{" "}
               {colophonDesignAndCodeSuffix}{" "}
-              <Link href="/">Andrii Litkovskyi</Link>
+              <Link href={homeHref}>Andrii Litkovskyi</Link>
               <br /><br />
             </span>
             <span className="copyright">©&nbsp;<span className="year">{new Date().getFullYear()}</span> {colophonCopyright}</span>

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useTextEffect, resolveAutoVariant } from "@/hooks/useTextEffect"
 import WiggleSvg from "./WiggleSvg"
+import { getLocaleFromPathname, localizeHref } from "@/lib/localeRouting"
 
 // Variants that use the internal frame-based animation (TextEffectController)
 // All others will be treated as "static" SVGs and animated via CSS transform (WiggleSvg)
@@ -20,6 +21,11 @@ const DYNAMIC_VARIANTS = new Set([
   'underlineZigzag',
   'linethrough',
   'underlineBold'
+])
+
+const CSS_ONLY_VARIANTS = new Set([
+  'highlight',
+  'highlightNarrow',
 ])
 
 const INLINE_TEXT_TAGS = new Set([
@@ -59,7 +65,8 @@ const TextEffect = forwardRef(function TextEffect(
   forwardedRef,
 ) {
   const pathname = usePathname()
-  const href = typeof rest?.href === "string" ? rest.href : undefined
+  const locale = getLocaleFromPathname(pathname)
+  const href = typeof rest?.href === "string" ? localizeHref(rest.href, locale) : undefined
   const isStringComponent = typeof Component === "string"
   const isAnchorComponent =
     (isStringComponent && Component.toLowerCase() === "a") || Boolean(href)
@@ -67,6 +74,9 @@ const TextEffect = forwardRef(function TextEffect(
   const autoActive = autoActiveProp ?? (isAnchorComponent && Boolean(href))
 
   const componentProps = { ...rest }
+  if (href) {
+    componentProps.href = href
+  }
 
   if (openInNewTab) {
     if (!componentProps.target) {
@@ -295,10 +305,10 @@ const TextEffect = forwardRef(function TextEffect(
   )
 
   // Decide if we should wrap with WiggleSvg
-  // We use WiggleSvg when the variant is NOT in the dynamic list (and not highlight/cssOnly)
+  // We use WiggleSvg when the variant is not dynamic and not CSS-only.
   const isDynamic = DYNAMIC_VARIANTS.has(currentVariant)
-  const isHighlight = currentVariant === 'highlight' // specialized CSS only variant
-  const shouldUseWiggle = !isDynamic && !isHighlight
+  const isCssOnly = CSS_ONLY_VARIANTS.has(currentVariant)
+  const shouldUseWiggle = !isDynamic && !isCssOnly
 
   // If wiggle is disabled, force active=false on WiggleSvg
   // If wiggle is enabled, but TextEffect is controlled (active/autoActive), align WiggleSvg active state

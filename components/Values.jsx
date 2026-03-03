@@ -202,7 +202,7 @@ const VALUES_EFFECT_STYLE_PRESETS = Object.freeze({
   resultsLabelArrow: Object.freeze({
     rotate: "-10deg",
     top: "0.925em",
-    left: "110%",
+    left: "100%",
     width: "3.4ch",
   }),
   expertiseLabelArrow: Object.freeze({
@@ -408,7 +408,7 @@ export default function Values() {
           <div className="results_subtitle">
             <TextEffect
               as="h3"
-              variant="arrowDown"
+              variant="arrowSpiral"
               trigger="always"
               className="inline-block"
               effectOverrides={{

@@ -7,7 +7,7 @@ export const metadata = {
     canonical: '/impressum',
     languages: {
       'de': '/impressum',
-      'en': '/impressum',
+      'en': '/en/impressum',
       'x-default': '/impressum',
     },
   },

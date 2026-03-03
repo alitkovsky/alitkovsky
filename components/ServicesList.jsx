@@ -7,11 +7,14 @@ import TextEffect from "@/components/TextEffect";
 import Footer from "@/components/Footer";
 import useLanguage from "@/hooks/useLanguage";
 import { getAllSystems, getSystemsPageCopy } from "@/data/systems";
+import { localizePath } from "@/lib/localeRouting";
 
-function ServiceCard({ service, index }) {
+function ServiceCard({ service, index, language }) {
+  const serviceHref = localizePath(`/solutions/${service.slug}`, language);
+
   return (
     <article className="services-list__card">
-      <Link href={`/solutions/${service.slug}`} className="services-list__card-link">
+      <Link href={serviceHref} className="services-list__card-link">
         <header className="services-list__card-header">
           <h2 className="services-list__card-title">{service.title}</h2>
           <p className="services-list__card-subtitle">{service.subtitle}</p>
@@ -71,7 +74,7 @@ export default function ServicesList() {
         {/* Services grid */}
         <div className="services-list__grid">
           {systems.map((service, index) => (
-            <ServiceCard key={service.slug} service={service} index={index} />
+            <ServiceCard key={service.slug} service={service} index={index} language={language} />
           ))}
         </div>
 

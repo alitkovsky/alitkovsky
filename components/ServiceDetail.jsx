@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import Accordion from "@/components/Accordion";
 import useLanguage from "@/hooks/useLanguage";
 import { SYSTEMS_DATA, getSystemBySlug, getSystemsPageCopy } from "@/data/systems";
+import { localizePath } from "@/lib/localeRouting";
 
 // Re-export for backwards compatibility
 export { SYSTEMS_DATA, getSystemBySlug, getSystemsPageCopy };
@@ -22,6 +23,9 @@ export default function ServiceDetail({ slug }) {
   const copy = getSystemsPageCopy(language);
   const backToOverviewLabel = copy.backToSystems ?? copy.backToServices;
   const serviceData = getSystemBySlug(slug, language);
+  const relatedProjectHref = serviceData?.relatedProject
+    ? localizePath(`/projects/${serviceData.relatedProject.slug}`, language)
+    : null;
 
   if (!serviceData) {
     return null;
@@ -113,7 +117,7 @@ export default function ServiceDetail({ slug }) {
         {serviceData.relatedProject && (
           <aside className="service-detail__related-project">
             <h3>{copy.relatedProject}</h3>
-            <Link href={`/projects/${serviceData.relatedProject.slug}`} className="service-detail__project-card">
+            <Link href={relatedProjectHref} className="service-detail__project-card">
               <span className="service-detail__project-title">{serviceData.relatedProject.title}</span>
               <span className="service-detail__project-metric">{serviceData.relatedProject.metric}</span>
             </Link>

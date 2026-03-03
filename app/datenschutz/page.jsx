@@ -7,7 +7,7 @@ export const metadata = {
     canonical: '/datenschutz',
     languages: {
       'de': '/datenschutz',
-      'en': '/datenschutz',
+      'en': '/en/datenschutz',
       'x-default': '/datenschutz',
     },
   },

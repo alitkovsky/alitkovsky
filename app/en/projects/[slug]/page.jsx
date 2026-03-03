@@ -2,31 +2,29 @@ import { notFound } from "next/navigation";
 import ProjectDetail from "@/components/ProjectDetail";
 import { getAllProjectSlugs, getProjectBySlug } from "@/data/projects";
 
-// Generate static params for all projects
 export async function generateStaticParams() {
   const slugs = getAllProjectSlugs();
   return slugs.map((slug) => ({ slug }));
 }
 
-// Generate metadata for each project
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const projectData = getProjectBySlug(slug, "de");
+  const projectData = getProjectBySlug(slug, "en");
 
   if (!projectData) {
     return {
-      title: "Projekt nicht gefunden",
+      title: "Project not found",
     };
   }
 
-  const title = `${projectData.title} – Andrii Litkovskyi`;
+  const title = `${projectData.title} - Andrii Litkovskyi`;
   const description = projectData.hero || projectData.subtitle;
 
   return {
     title,
     description,
     alternates: {
-      canonical: `/projects/${slug}`,
+      canonical: `/en/projects/${slug}`,
       languages: {
         de: `/projects/${slug}`,
         en: `/en/projects/${slug}`,
@@ -36,13 +34,13 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title,
       description,
-      url: `/projects/${slug}`,
+      url: `/en/projects/${slug}`,
       type: "article",
     },
   };
 }
 
-export default async function ProjectDetailPage({ params }) {
+export default async function ProjectDetailPageEn({ params }) {
   const { slug } = await params;
   const projectData = getProjectBySlug(slug);
 

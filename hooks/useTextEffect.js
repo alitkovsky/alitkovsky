@@ -160,6 +160,10 @@ const EFFECTS = {
     cssOnly: true,
     animationDuration: 500,
   },
+  highlightNarrow: {
+    cssOnly: true,
+    animationDuration: 500,
+  },
   arrowUp: {
     file: "ArrowUp.svg",
     animationDuration: 600,

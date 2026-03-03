@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import useScrollToSection, { MOBILE_NAV_TRANSITION_DURATION } from "@/hooks/useScrollToSection";
 import useActiveSection from "@/hooks/useActiveSection";
@@ -10,6 +10,7 @@ import Link from "next/link";
 import TextEffect from "@/components/TextEffect";
 import BookCTA from "@/components/BookCTA";
 import useLanguage from "@/hooks/useLanguage";
+import { getLocaleFromPathname, localizePath, stripLocaleFromPathname } from "@/lib/localeRouting";
 
 const THEME_STORAGE_KEY = "nav-theme";
 const THEME_COOKIE_KEY = "nav-theme";
@@ -61,11 +62,15 @@ export default function Nav({ initialTheme = "dark" }) {
   const scrollTo = useScrollToSection();
   const router = useRouter();
   const pathname = usePathname();
-  const isHomeRoute = pathname === "/";
+  const searchParams = useSearchParams();
+  const currentLocale = getLocaleFromPathname(pathname);
+  const localeHomePath = localizePath("/", currentLocale);
+  const basePathname = stripLocaleFromPathname(pathname);
+  const isHomeRoute = basePathname === "/";
   const activeId = useActiveSection({ enabled: isHomeRoute });
   const [theme, setTheme] = useState(initialTheme);
   const transitionTimeoutRef = useRef(null);
-  const { language, setLanguage, supportedLanguages } = useLanguage();
+  const { setLanguage, supportedLanguages } = useLanguage();
 
   useEffect(() => {
     if (typeof document === "undefined") {
@@ -166,7 +171,7 @@ export default function Nav({ initialTheme = "dark" }) {
     }
 
     closeMobileNavIfNeeded(() => {
-      router.push(`/#${id}`);
+      router.push(`${localeHomePath}#${id}`);
     });
   };
 
@@ -183,21 +188,38 @@ export default function Nav({ initialTheme = "dark" }) {
   ];
 
   const languages = supportedLanguages ?? ["en", "de"];
-  const navCopy = NAV_COPY[language] ?? NAV_COPY.en;
+  const navCopy = NAV_COPY[currentLocale] ?? NAV_COPY.en;
 
   const pageItems = [
-    { id: "solutions", label: navCopy.solutions, route: "/solutions" },
-    { id: "projects-page", label: navCopy.projects, route: "/projects" }
+    { id: "solutions", label: navCopy.solutions, route: localizePath("/solutions", currentLocale) },
+    { id: "projects-page", label: navCopy.projects, route: localizePath("/projects", currentLocale) }
   ];
 
   const subItems = [
-    { id: "impressum", label: "impressum", route: "/impressum" },
-    { id: "datenschutz", label: "datenschutz", route: "/datenschutz" }
+    { id: "impressum", label: "impressum", route: localizePath("/impressum", currentLocale) },
+    { id: "datenschutz", label: "datenschutz", route: localizePath("/datenschutz", currentLocale) }
   ];
 
   const handleSubItemRequest = (route) => {
     closeMobileNavIfNeeded(() => {
       router.push(route);
+    });
+  };
+
+  const handleLanguageSwitch = (targetLanguage) => {
+    const normalizedTargetLanguage = targetLanguage === "en" ? "en" : "de";
+    if (normalizedTargetLanguage === currentLocale) {
+      return;
+    }
+
+    const query = searchParams?.toString();
+    const hash = typeof window !== "undefined" ? window.location.hash : "";
+    const targetPath = localizePath(pathname, normalizedTargetLanguage);
+    const targetUrl = `${targetPath}${query ? `?${query}` : ""}${hash}`;
+
+    closeMobileNavIfNeeded(() => {
+      setLanguage(normalizedTargetLanguage);
+      router.replace(targetUrl, { scroll: false });
     });
   };
 
@@ -484,9 +506,9 @@ export default function Nav({ initialTheme = "dark" }) {
               <button
                 key={lang}
                 type="button"
-                className={cn({ active: language === lang })}
-                aria-pressed={language === lang}
-                onClick={() => setLanguage(lang)}
+                className={cn({ active: currentLocale === lang })}
+                aria-pressed={currentLocale === lang}
+                onClick={() => handleLanguageSwitch(lang)}
               >
                 {lang}
               </button>

@@ -349,12 +349,47 @@
    Based on version #12 with overlaying gradients and reveal animation 218, 94%, 51%)
 ------------------------------------------------------------ */
 .intro-effect-highlight {
-  --highlight-color: var(--color--accent--100, hsl(300 100% 50%));
+  --highlight-color: var(--color--accent--100, rgb(194 255 114));
   position: relative;
   display: inline;
   padding: 0.05em 0.15em;
   margin: 0 -0.15em;
   border-radius: 0.2em;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+.intro-effect-highlightNarrow {
+  --highlight-color: var(--color--accent--100, rgb(194 255 114));
+  position: relative;
+  display: inline;
+  padding: 0.05em 0.15em;
+  margin: 0 -0.15em;
+  border-radius: 0.2em;
+  background: linear-gradient(
+    transparent 50%,
+    var(--highlight-color) 50%,
+    var(--highlight-color) 85%,
+    transparent 85%,
+    transparent 100%
+  );
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left center;
+  transition: background-size 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.intro-effect-highlight[data-effect-visible="true"],
+.intro-effect-highlight.is--visible {
+  background-size: 100% 100%, 100% 100%;
+}
+
+.intro-effect-highlightNarrow[data-effect-visible="true"],
+.intro-effect-highlightNarrow.is--visible {
+  background-size: 100% 100%;
+}
+
+.intro-effect-highlight {
   background:
     linear-gradient(100deg,
       hsl(from var(--highlight-color) h s l / 0) 1%,
@@ -367,31 +402,23 @@
       hsl(from var(--highlight-color) h s l / 0.25) 8%,
       hsl(from var(--highlight-color) h s l / 0) 15%);
   background-size: 0% 100%, 0% 100%;
-  background-repeat: no-repeat;
-  background-position: left center;
   transition: background-size 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-/* Trigger animation when visible - uses data attribute set by visibility observer */
-.intro-effect-highlight[data-effect-visible="true"],
-.intro-effect-highlight.is--visible {
-  background-size: 100% 100%, 100% 100%;
-}
-
 /* Fallback for browsers without relative color syntax */
-@supports not (color: hsl(from magenta h s l)) {
+@supports not (color: hsl(from rgb(194 255 114) h s l)) {
   .intro-effect-highlight {
     background:
       linear-gradient(100deg,
-        hsl(39 100% 50% / 0) 1%,
-        hsl(39 100% 50% / 0.75) 2.5%,
-        hsl(39 100% 50% / 0.15) 93%,
-        hsl(39 100% 50% / 0.65) 95%,
-        hsl(39 100% 50% / 0) 98%),
+        hsl(86 100% 72% / 0) 1%,
+        hsl(86 100% 72% / 0.75) 2.5%,
+        hsl(86 100% 72% / 0.15) 93%,
+        hsl(86 100% 72% / 0.65) 95%,
+        hsl(86 100% 72% / 0) 98%),
       linear-gradient(182deg,
-        hsl(39 100% 50% / 0),
-        hsl(39 100% 50% / 0.25) 8%,
-        hsl(39 100% 50% / 0) 15%);
+        hsl(86 100% 72% / 0),
+        hsl(86 100% 72% / 0.25) 8%,
+        hsl(86 100% 72% / 0) 15%);
     background-size: 0% 100%, 0% 100%;
     background-repeat: no-repeat;
     background-position: left center;
@@ -403,6 +430,11 @@
   .intro-effect-highlight {
     transition: none;
     background-size: 100% 100%, 100% 100%;
+  }
+
+  .intro-effect-highlightNarrow {
+    transition: none;
+    background-size: 100% 100%;
   }
 }
 
@@ -2693,7 +2725,10 @@ footer .footer__letter {
   z-index: 52;
   min-height: 4.8em;
   display: flex;
-  background-color: transparent;
+  background-color: var(--color--background--50);
+  -webkit-backdrop-filter: blur(0.2rem);
+  backdrop-filter: blur(0.2rem);
+  border-top: 1px solid var(--color--foreground--5);
   transition: transform 1.5s ease, opacity 1.5s cubic-bezier(0.33, 0, 0.2, 1) 0.75s;
   flex-direction: row;
   align-items: center;
@@ -6748,7 +6783,7 @@ footer .footer__letter {
 
 :root {
   --custom-cursor-base-color: rgba(0, 0, 0, 0.85);
-  --custom-cursor-text-color: hsl(300, 100%, 50%);
+  --custom-cursor-text-color: rgb(194 255 114);
 }
 
 body,

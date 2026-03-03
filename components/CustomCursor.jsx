@@ -8,6 +8,7 @@ import useDeviceCapabilities from "@/hooks/useDeviceCapabilities";
 const DEFAULT_DIAMETER = 12;
 const LINK_SCALE = 1.35;
 const MIN_CARET_WIDTH = 3;
+const CURSOR_TEXT_COLOR = "rgb(194 255 114)";
 
 const SPRING_CONFIG = {
   damping: 26,
@@ -267,7 +268,7 @@ export default function CustomCursor() {
         : 999,
     backgroundColor:
       cursorStyles.variant === "text"
-        ? "var(--custom-cursor-text-color)"
+        ? `var(--custom-cursor-text-color, ${CURSOR_TEXT_COLOR})`
         : "var(--custom-cursor-base-color)",
     scale: cursorStyles.variant === "link" ? LINK_SCALE : 1,
   };
@@ -276,6 +277,7 @@ export default function CustomCursor() {
     <motion.div
       className="custom-cursor"
       style={{
+        "--custom-cursor-text-color": CURSOR_TEXT_COLOR,
         x: cursorX,
         y: cursorY,
       }}
