@@ -46,7 +46,7 @@ const INTRO_EFFECT_STYLE_PRESETS = Object.freeze({
 });
 
 function subscribeToMediaQuery(query, onStoreChange) {
-  if (typeof window === "undefined") return () => {};
+  if (typeof window === "undefined") return () => { };
 
   const mediaQuery = window.matchMedia(query);
   if (typeof mediaQuery.addEventListener === "function") {
@@ -127,9 +127,10 @@ const INTRO_COPY = {
           },
           { text: ". digitale prozesse, die teams entlasten und messbar mehr" },
           { text: " " },
-          { text: "uebersicht",
+          {
+            text: "uebersicht",
             effect: "highlight",
-           },
+          },
           { text: " " },
           { text: "bringen. kein" },
           { text: " " },
@@ -152,14 +153,14 @@ const INTRO_COPY = {
           },
           { text: ", sondern " },
           {
-            text: "stabile prozesse",
+            text: "stabile abläufe",
             effect: "underlineThin",
             counterEffectOverrides: {}
           },
           { text: "." }
         ],
         [
-          { text: "bereit für das nächste level?", },
+          { text: "bereit für skalierbare systeme?", },
           { text: "hier entlang", }
         ]
       ],
@@ -189,13 +190,14 @@ const INTRO_COPY = {
             effect: "highlight",
             counterEffectOverrides: {}
           },
-          { text: " wird sauber priorisiert und an dein team uebergeben. als ergebnis, reagiert ihr schneller, " },
+          { text: " wird sauber priorisiert und an dein team uebergeben. als ergebnis reagiert ihr schneller " },
+          { text: "– und das ganz " },
           {
             text: "ohne",
             effect: "highlight",
             counterEffectOverrides: {}
           },
-          { text: " ohne mehr hektik." }
+          { text: " zusätzliche hektik." }
         ],
         [
           { text: "schluss mit chaos." },
@@ -221,12 +223,12 @@ const INTRO_COPY = {
           },
           { text: " " },
           {
-            text: "zuverlaessig sind",
+            text: "zuverlässig sind",
             effect: "highlight"
           },
           { text: "? der 'intelligence hub' verbindet deine " },
           {
-            text: "quellen",
+            text: "marketingkanäle",
             effect: "underlineThin",
             counterEffectOverrides: {
               style: {
@@ -251,7 +253,7 @@ const INTRO_COPY = {
             // }
           },
           {
-            text: " mit deinem bankkonto. ich tracke "
+            text: " direkt mit deinem umsatz. ich tracke "
           },
           {
             text: "belastbare daten",
@@ -274,7 +276,7 @@ const INTRO_COPY = {
         ],
         [
           { text: "wahrheit sehen?" },
-          { text: "hier lang", effect: "arrowUp", counterEffectOverrides: {} }
+          { text: "zu den echten zahlen", effect: "arrowUp", counterEffectOverrides: {} }
         ]
       ],
       "growth-engine": [
@@ -296,9 +298,9 @@ const INTRO_COPY = {
             effect: "strikethrough",
             counterEffectOverrides: {}
           },
-          { text: ". statusmeldungen, follow-ups und inhalte " },
+          { text: ". statusmeldungen, follow-ups und inhaltsverteilung " },
           {
-            text: "verteilen",
+            text: "passieren automatisch",
             effect: "arrowRight",
             className: "intro-effect-arrow-right-gap",
             counterEffectOverrides: {
@@ -307,7 +309,7 @@ const INTRO_COPY = {
               },
             }
           },
-          { text: " das system uebernimmt routine, du steuerst die " },
+          { text: ". das system uebernimmt die routine, du steuerst die " },
           {
             text: "strategie",
             effect: "ellipse",
@@ -375,8 +377,7 @@ const INTRO_COPY = {
             text: "clarity",
             effect: "highlight",
           },
-          { text: " " },
-          { text: "in. no" },
+          { text: ". no" },
           { text: " " },
           {
             text: "'hoping",
@@ -395,7 +396,7 @@ const INTRO_COPY = {
             effect: "strikethrough",
             counterEffectOverrides: {}
           },
-          { text: ", but " },
+          { text: "—just " },
           {
             text: "stable operations",
             effect: "underlineThin",
@@ -404,7 +405,7 @@ const INTRO_COPY = {
           { text: "." }
         ],
         [
-          { text: "ready for the next level?" },
+          { text: "ready for systems that scale?" },
           { text: "this way" }
         ]
       ],
@@ -434,13 +435,13 @@ const INTRO_COPY = {
             effect: "highlight",
             counterEffectOverrides: {}
           },
-          { text: " is prioritized and handed off clearly. as a result, your team responds faster, " },
+          { text: " is prioritized and handed off clearly. as a result, your team responds faster, with " },
           {
-            text: "without",
+            text: "zero",
             effect: "highlight",
             counterEffectOverrides: {}
           },
-          { text: " with less operational stress." }
+          { text: " added operational stress." }
         ],
         [
           { text: "end the chaos." },
@@ -466,13 +467,13 @@ const INTRO_COPY = {
           },
           { text: " are reliable? the 'intelligence hub' connects your " },
           {
-            text: "sources",
+            text: "marketing efforts",
             effect: "underlineThin",
-                counterEffectOverrides: {
-                  style: {
-                    ...INTRO_EFFECT_STYLE_PRESETS.accountArrowCompact,
-                  },
-                },
+            counterEffectOverrides: {
+              style: {
+                ...INTRO_EFFECT_STYLE_PRESETS.accountArrowCompact,
+              },
+            },
             // counterEffectOverrides: {
             //   style: {
             //     ...INTRO_EFFECT_STYLE_PRESETS.accountArrowDesktop,
@@ -491,7 +492,7 @@ const INTRO_COPY = {
             // }
           },
           {
-            text: " with your bank account. i track "
+            text: " directly to your revenue. i track "
           },
           {
             text: "decision-ready data",
@@ -506,7 +507,7 @@ const INTRO_COPY = {
           },
           { text: " " },
           {
-            text: "clicks",
+            text: "metrics",
             effect: "strikethrough",
             counterEffectOverrides: {}
           },
@@ -514,18 +515,18 @@ const INTRO_COPY = {
         ],
         [
           { text: "see the truth?" },
-          { text: "this way", effect: "arrowUp", counterEffectOverrides: {} }
+          { text: "show me the data", effect: "arrowUp", counterEffectOverrides: {} }
         ]
       ],
       "growth-engine": [
         [
-          { text: "you copy " },
+          { text: "you manually copy " },
           {
-            text: "manually",
+            text: "data",
             effect: "strikethrough",
             counterEffectOverrides: {}
           },
-          { text: " data between tools, update sheets, and send updates " },
+          { text: " between tools, update sheets, and send updates " },
           {
             text: "by hand",
             effect: "highlight",
@@ -536,9 +537,9 @@ const INTRO_COPY = {
             effect: "strikethrough",
             counterEffectOverrides: {}
           },
-          { text: ". automate status updates, follow-ups, and " },
+          { text: ". it handles status updates, follow-ups, and content " },
           {
-            text: "distribute",
+            text: "distribution",
             effect: "arrowRight",
             className: "intro-effect-arrow-right-gap",
             counterEffectOverrides: {
@@ -547,7 +548,7 @@ const INTRO_COPY = {
               },
             }
           },
-          { text: " content flows. the system handles routine, you steer the " },
+          { text: ". the system handles the routine, you steer the " },
           {
             text: "strategy",
             effect: "ellipse",
@@ -844,7 +845,8 @@ export default function Intro() {
                   style: {
                     width: "100%",
                     left: "0",
-                }}}
+                  }
+                }}
               >
                 {label}
               </TextEffect>
@@ -860,13 +862,10 @@ export default function Intro() {
             aria-hidden={false}
           >
             {renderedLines.map((line, lineIndex) => {
-              const isCtaLine = lineIndex === renderedLines.length - 1;
-              const LineTag = isCtaLine ? "span" : "span";
-
               return (
-                <LineTag
+                <span
                   key={`${renderedKey}-${lineIndex}`}
-                  className={`${isCtaLine ? "cta-hook" : ""} m-0`}
+                  className="m-0"
                 >
                   {" "}
                   {line.map((segment, segIndex) => {
@@ -922,19 +921,20 @@ export default function Intro() {
                       </TextEffect>
                     );
                   })}
-                </LineTag>
+                </span>
               );
             })}
-
-            <div className="intro-cta">
-              <BookCTA
-                label={renderedCtaLabel}
-                className="intro-cta-book"
-                ctaLocation="intro"
-                variant="ellipseThin"
-                trigger={introCtaTrigger}
-              />
-            </div>
+            {" "}
+            <BookCTA
+              label={renderedCtaLabel}
+              className="intro-cta-book"
+              ctaLocation="intro"
+              variant="ellipseThin"
+              trigger={introCtaTrigger}
+              inline
+              showConsentNote={false}
+              handwritten={false}
+            />
           </div>
         </div>
 

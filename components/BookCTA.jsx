@@ -43,7 +43,10 @@ export default function BookCTA({
   autoActive = true,
   ariaLabel,
   variant = "ellipseAuto",
-  trigger = "always"
+  trigger = "always",
+  inline = false,
+  showConsentNote = true,
+  handwritten = true,
 }) {
   const { openCalendly, isLoading, isOpen, eventUrl, lastError } = useCalendly();
   const { language } = useLanguage();
@@ -76,6 +79,7 @@ export default function BookCTA({
   }, [isOpen]);
 
   const consentBlocked = !hasConsent || Boolean(lastError && /consent/i.test(lastError.message));
+  const showConsentHint = consentBlocked && showConsentNote;
 
   const handleClick = (event) => {
     // Let users open Calendly in a new tab with modifier keys
@@ -121,15 +125,15 @@ export default function BookCTA({
 
   return (
     <div
-      className={cn("book-cta", className)}
+      className={cn("book-cta", inline && "book-cta--inline", className)}
       data-consent-blocked={consentBlocked ? "true" : undefined}
     >
       <Magnet
         wrapperClassName="book-cta__magnet"
         innerClassName="book-cta__magnet-inner"
         disabled={isLoading}
-        magnetStrength={3}
-        padding={72}
+        magnetStrength={inline ? 2 : 3}
+        padding={inline ? 24 : 72}
       >
         <TextEffect
           ref={ctaRef}
@@ -137,17 +141,17 @@ export default function BookCTA({
           href={targetUrl}
           variant={variant}
           trigger={trigger}
-          className="cta-link inline-flex"
+          className={cn("cta-link inline-flex", inline && "cta-link--inline")}
           autoActive={false}
           onClick={handleClick}
           aria-busy={isLoading}
           aria-disabled={isLoading}
           aria-haspopup="dialog"
           data-loading={isLoading ? "true" : undefined}
-          aria-describedby={consentBlocked ? noteId : undefined}
+          aria-describedby={showConsentHint ? noteId : undefined}
           aria-label={ariaLabel}
         >
-          <span className="handwritten">
+          <span className={cn(handwritten && "handwritten")}>
             {displayLabelLines.map((line, index) => (
               <Fragment key={`${line}-${index}`}>
                 {line}
@@ -161,7 +165,7 @@ export default function BookCTA({
           </span>
         </TextEffect>
       </Magnet>
-      {consentBlocked ? (
+      {showConsentHint ? (
         <p className="book-cta__note" role="tooltip" id={noteId}>
           {copy.consentNotePrefix}{" "}
           <a href={targetUrl} target="_blank" rel="noopener noreferrer">

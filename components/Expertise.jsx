@@ -9,7 +9,7 @@ import { localizePath } from "@/lib/localeRouting";
 const EXPERTISE_COPY = {
   de: {
     biography: [
-      "ich bin andrii - digital operations und systemintegrator aus hille (owl). ich helfe unternehmen dabei, crm, daten und prozesse so aufzusetzen, dass verwaltung, vertrieb und marketing reibungslos zusammenarbeiten.",
+      "ich bin andrii — digital operations und systemintegrator aus hille (owl). ich helfe unternehmen dabei, crm, daten und prozesse so aufzusetzen, dass verwaltung, vertrieb und marketing reibungslos zusammenarbeiten.",
       "mein hintergrund im marketing hilft mir, kanaldenken zu vermeiden: ich betrachte den gesamten ablauf von anfrage, bearbeitung und dokumentation bis zum reporting.",
       "mein fokus liegt auf klaren zustaendigkeiten, sauberer datenqualitaet und automatisierten routineaufgaben. so entstehen stabile systeme statt kurzfristiger einzelmassnahmen.",
     ],
@@ -32,7 +32,7 @@ const EXPERTISE_COPY = {
   },
   en: {
     biography: [
-      "i am andrii - a digital operations and system integration specialist based in hille (owl). i help companies set up crm, data, and workflows so administration, sales, and marketing run in sync.",
+      "i am andrii — a digital operations and system integration specialist based in hille (owl). i help companies set up crm, data, and workflows so administration, sales, and marketing run in sync.",
       "my background in marketing helps me avoid channel silos: i focus on the full flow from incoming inquiry and processing to documentation and reporting.",
       "my core focus is clear ownership, clean data quality, and automation of recurring routine work. that is how teams get stable systems instead of short-term campaign fixes.",
     ],

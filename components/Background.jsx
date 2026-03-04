@@ -103,7 +103,7 @@ export default function Background() {
                 </p>
               </div>
               <div className="right">
-                <p>{item.period}</p>
+                <p className="period">{item.period}</p>
                 <WiggleSvg
                   selector="path"
                   distance={1.2}

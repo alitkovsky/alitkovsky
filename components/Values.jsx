@@ -176,7 +176,7 @@ const systemToolLogos = [
 
 const VALUES_EFFECT_STYLE_PRESETS = Object.freeze({
   resultOneUnderline: Object.freeze({
-    top: "-1.4em",
+    top: "-0.1em",
     width: "6ch",
     left: "5.25ch",
   }),
@@ -185,17 +185,17 @@ const VALUES_EFFECT_STYLE_PRESETS = Object.freeze({
   }),
   resultThreeEllipse: Object.freeze({
     height: "1.8em",
-    top: "-0.4em",
+    top: "-0.2em",
     left: "-0.9ch",
     width: "6.4ch",
   }),
   resultFourUnderlineCurved: Object.freeze({
-    top: "1em",
+    top: "1.2em",
     left: "-0.3ch",
     width: "6.5ch",
   }),
   resultTwoEnDashed: Object.freeze({
-    top: "0em",
+    top: "0.2em",
     transform: "translateY(-1em)",
   }),
   resultsLabelArrow: Object.freeze({
@@ -226,7 +226,6 @@ const VALUES_COPY = {
     results: [
       {
         counter: "bis zu +48%",
-        counterLines: ["bis zu +48%", "mehr sichtbarkeit"],
         title: "mehr sichtbarkeit",
         subtitles: ["lokal priorisiert.", "sauber messbar"],
         variant: "underline",
@@ -238,7 +237,6 @@ const VALUES_COPY = {
       },
       {
         counter: "-40%",
-        counterLines: ["-40%", "reporting-aufwand"],
         title: "reporting-aufwand",
         subtitles: ["automatisierte", "berichte"],
         variant: "dashedSide",
@@ -250,7 +248,6 @@ const VALUES_COPY = {
       },
       {
         counter: "+100%",
-        counterLines: ["+100%", "nachverfolgung"],
         title: "nachverfolgung",
         subtitles: ["anfragen strukturiert", "im crm"],
         variant: "ellipseThin",
@@ -262,7 +259,6 @@ const VALUES_COPY = {
       },
       {
         counter: "-22%",
-        counterLines: ["-22%", "prozessaufwand"],
         title: "prozessaufwand",
         subtitles: ["weniger manuelle", "routine"],
         variant: "underlineCurved",
@@ -293,7 +289,6 @@ const VALUES_COPY = {
     results: [
       {
         counter: "up to +48%",
-        counterLines: ["up to +48%", "more visibility"],
         title: "more visibility",
         subtitles: ["locally prioritized.", "cleanly measurable"],
         variant: "underline",
@@ -305,7 +300,6 @@ const VALUES_COPY = {
       },
       {
         counter: "-40%",
-        counterLines: ["-40%", "reporting effort"],
         title: "reporting effort",
         subtitles: ["automated", "reporting flows"],
         variant: "dashedSide",
@@ -317,7 +311,6 @@ const VALUES_COPY = {
       },
       {
         counter: "+100%",
-        counterLines: ["+100%", "follow-up coverage"],
         title: "follow-up coverage",
         subtitles: ["requests tracked", "inside crm"],
         variant: "ellipseThin",
@@ -329,7 +322,6 @@ const VALUES_COPY = {
       },
       {
         counter: "-22%",
-        counterLines: ["-22%", "manual workload"],
         title: "manual workload",
         subtitles: ["less repetitive", "operations work"],
         variant: "underlineCurved",
@@ -365,6 +357,19 @@ export default function Values() {
   const resultTwo = results[1] ?? fallbackResults[1] ?? {};
   const resultThree = results[2] ?? fallbackResults[2] ?? {};
   const resultFour = results[3] ?? fallbackResults[3] ?? {};
+  const getResultTitle = (result) => {
+    if (typeof result?.title === "string" && result.title.trim().length > 0) {
+      return result.title;
+    }
+    if (Array.isArray(result?.counterLines) && typeof result.counterLines[1] === "string") {
+      return result.counterLines[1];
+    }
+    return "";
+  };
+  const resultOneTitle = getResultTitle(resultOne);
+  const resultTwoTitle = getResultTitle(resultTwo);
+  const resultThreeTitle = getResultTitle(resultThree);
+  const resultFourTitle = getResultTitle(resultFour);
 
   const renderSubtitles = (subtitles) => {
     if (!Array.isArray(subtitles) || subtitles.length === 0) return null;
@@ -421,29 +426,16 @@ export default function Values() {
           <div className="results">
             <div className="result-effect result result--one">
               <div className="counter counter--one">
-                {Array.isArray(resultOne.counterLines) && resultOne.counterLines[1] ? (
-                  <>
-                    <span className="counter-line">{resultOne.counterLines[0]}</span>
-                    <TextEffect
-                      variant={resultOne.variant}
-                      trigger="visible"
-                      className="counter-line counter-line--effect"
-                      effectOverrides={resultOne.counterEffectOverrides}
-                    >
-                      {resultOne.counterLines[1]}
-                    </TextEffect>
-                  </>
-                ) : (
-                  <TextEffect
-                    variant={resultOne.variant}
-                    trigger="visible"
-                    className="inline-block"
-                    effectOverrides={resultOne.counterEffectOverrides}
-                  >
-                    {resultOne.counter}
-                  </TextEffect>
-                )}
+                <TextEffect
+                  variant={resultOne.variant}
+                  trigger="visible"
+                  className="inline-block"
+                  effectOverrides={resultOne.counterEffectOverrides}
+                >
+                  {resultOne.counter}
+                </TextEffect>
               </div>
+              <p className="title">{resultOneTitle}</p>
               <div className="subtitles">
                 {renderSubtitles(resultOne.subtitles)}
               </div>
@@ -451,29 +443,16 @@ export default function Values() {
 
             <div className="result-effect result result--two">
               <div className="counter counter--two">
-                {Array.isArray(resultTwo.counterLines) && resultTwo.counterLines[1] ? (
-                  <>
-                    <span className="counter-line">{resultTwo.counterLines[0]}</span>
-                    <TextEffect
-                      variant={resultTwo.variant}
-                      trigger="visible"
-                      className="counter-line counter-line--effect"
-                      effectOverrides={resultTwo.counterEffectOverrides}
-                    >
-                      {resultTwo.counterLines[1]}
-                    </TextEffect>
-                  </>
-                ) : (
-                  <TextEffect
-                    variant={resultTwo.variant}
-                    trigger="visible"
-                    className="inline-block"
-                    effectOverrides={resultTwo.counterEffectOverrides}
-                  >
-                    {resultTwo.counter}
-                  </TextEffect>
-                )}
+                <TextEffect
+                  variant={resultTwo.variant}
+                  trigger="visible"
+                  className="inline-block"
+                  effectOverrides={resultTwo.counterEffectOverrides}
+                >
+                  {resultTwo.counter}
+                </TextEffect>
               </div>
+              <p className="title">{resultTwoTitle}</p>
               <div className="subtitles">
                 {renderSubtitles(resultTwo.subtitles)}
               </div>
@@ -490,7 +469,7 @@ export default function Values() {
                   {resultThree.counter}
                 </TextEffect>
               </div>
-              <p className="title">{resultThree.title}</p>
+              <p className="title">{resultThreeTitle}</p>
               <div className="subtitles">
                 {renderSubtitles(resultThree.subtitles)}
               </div>
@@ -507,7 +486,7 @@ export default function Values() {
                   {resultFour.counter}
                 </TextEffect>
               </div>
-              <p className="title">{resultFour.title}</p>
+              <p className="title">{resultFourTitle}</p>
               <div className="subtitles">
                 {renderSubtitles(resultFour.subtitles)}
               </div>
