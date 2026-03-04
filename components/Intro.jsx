@@ -154,7 +154,6 @@ const INTRO_COPY = {
           { text: ", sondern " },
           {
             text: "stabile abläufe",
-            effect: "underlineThin",
             counterEffectOverrides: {}
           },
           { text: "." }
@@ -224,33 +223,15 @@ const INTRO_COPY = {
           { text: " " },
           {
             text: "zuverlässig sind",
-            effect: "highlight"
           },
           { text: "? der 'intelligence hub' verbindet deine " },
           {
             text: "marketingkanäle",
-            effect: "underlineThin",
             counterEffectOverrides: {
               style: {
                 ...INTRO_EFFECT_STYLE_PRESETS.accountArrowCompact,
               },
             },
-            // counterEffectOverrides: {
-            //   style: {
-            //     ...INTRO_EFFECT_STYLE_PRESETS.accountArrowDesktop,
-            //   },
-            // },
-            // responsiveEffect: {
-            //   max1020: {
-            //     effect: "underlineThin",
-            //     counterEffectOverrides: {
-            //       style: {
-            //         ...INTRO_EFFECT_STYLE_PRESETS.accountArrowCompact,
-            //       },
-            //     },
-            //     wiggle: true,
-            //   },
-            // }
           },
           {
             text: " direkt mit deinem umsatz. ich tracke "
@@ -309,10 +290,9 @@ const INTRO_COPY = {
               },
             }
           },
-          { text: ". das system uebernimmt die routine, du steuerst die " },
+          { text: " das system uebernimmt die routine, du steuerst die " },
           {
             text: "strategie",
-            effect: "ellipse",
           },
           { text: "." },
         ],
@@ -396,10 +376,9 @@ const INTRO_COPY = {
             effect: "strikethrough",
             counterEffectOverrides: {}
           },
-          { text: "—just " },
+          { text: " — just " },
           {
             text: "stable operations",
-            effect: "underlineThin",
             counterEffectOverrides: {}
           },
           { text: "." }
@@ -468,7 +447,6 @@ const INTRO_COPY = {
           { text: " are reliable? the 'intelligence hub' connects your " },
           {
             text: "marketing efforts",
-            effect: "underlineThin",
             counterEffectOverrides: {
               style: {
                 ...INTRO_EFFECT_STYLE_PRESETS.accountArrowCompact,
@@ -495,8 +473,12 @@ const INTRO_COPY = {
             text: " directly to your revenue. i track "
           },
           {
-            text: "decision-ready data",
+            text: "decision-ready",
             effect: "highlight",
+            counterEffectOverrides: {}
+          },
+          {
+            text: " data",
             counterEffectOverrides: {}
           },
           { text: ", not just " },
@@ -548,10 +530,9 @@ const INTRO_COPY = {
               },
             }
           },
-          { text: ". the system handles the routine, you steer the " },
+          { text: " the system handles the routine, you steer the " },
           {
             text: "strategy",
-            effect: "ellipse",
           },
           { text: "." },
         ],
