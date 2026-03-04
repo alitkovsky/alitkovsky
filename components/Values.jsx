@@ -239,7 +239,7 @@ const VALUES_COPY = {
         counter: "-40%",
         title: "reporting-aufwand",
         subtitles: ["automatisierte", "berichte"],
-        variant: "dashedSide",
+        variantTitle: "dashedSide",
         counterEffectOverrides: {
           style: {
             ...VALUES_EFFECT_STYLE_PRESETS.resultTwoDashedSide,
@@ -249,7 +249,7 @@ const VALUES_COPY = {
       {
         counter: "+100%",
         title: "nachverfolgung",
-        subtitles: ["anfragen strukturiert", "im crm"],
+        subtitles: ["anfragen", "strukturiert", "im crm"],
         variant: "ellipseThin",
         counterEffectOverrides: {
           style: {
@@ -260,7 +260,7 @@ const VALUES_COPY = {
       {
         counter: "-22%",
         title: "prozessaufwand",
-        subtitles: ["weniger manuelle", "routine"],
+        subtitles: ["weniger", "manuelle", "routine"],
         variant: "underlineCurved",
         counterEffectOverrides: {
           style: {
@@ -443,16 +443,19 @@ export default function Values() {
 
             <div className="result-effect result result--two">
               <div className="counter counter--two">
-                <TextEffect
-                  variant={resultTwo.variant}
+                <span>
+                  {resultTwo.counter}
+                </span>
+              </div>
+              <TextEffect
+                  variant={resultTwo.variantTitle}
                   trigger="visible"
-                  className="inline-block"
+                  className="inline-block title"
                   effectOverrides={resultTwo.counterEffectOverrides}
                 >
-                  {resultTwo.counter}
+                  {resultTwoTitle}
                 </TextEffect>
-              </div>
-              <p className="title">{resultTwoTitle}</p>
+              {/* <p className="title">{resultTwoTitle}</p> */}
               <div className="subtitles">
                 {renderSubtitles(resultTwo.subtitles)}
               </div>
