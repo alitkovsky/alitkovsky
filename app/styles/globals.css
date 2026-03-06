@@ -2738,7 +2738,7 @@ footer .footer__letter {
   left: auto;
   bottom: var(--grid--app-margin);
   z-index: 9999999;
-  background-color: var(--color--foreground--10);
+  background-color: var(--color--foreground--15);
   -webkit-backdrop-filter: blur(0.2rem);
   backdrop-filter: blur(0.2rem);
   transition: transform 1.5s ease, opacity 1.5s cubic-bezier(0.33, 0, 0.2, 1) 0.75s;
