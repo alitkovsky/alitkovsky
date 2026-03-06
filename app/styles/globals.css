@@ -6817,7 +6817,9 @@ footer .footer__letter {
 
   .cookie-banner__actions {
     flex-direction: column;
-    width: 100%;
+    width: auto;
+    align-items: center;
+    margin-inline: auto;
   }
 
   .cookie-settings {
