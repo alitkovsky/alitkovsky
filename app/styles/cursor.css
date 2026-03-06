@@ -1,4 +1,5 @@
 :root {
+  --z-custom-cursor: 2147483647;
   --custom-cursor-text-color: rgb(194 255 114);
 }
 
@@ -33,7 +34,7 @@ body.custom-cursor-active textarea {
   left: 0;
   pointer-events: none;
   will-change: width, height, transform, opacity, background-color;
-  z-index: 10000;
+  z-index: var(--z-custom-cursor, 2147483647);
   mix-blend-mode: normal;
   transform-origin: center;
 }

@@ -1766,7 +1766,7 @@ body.theme-transition * {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  top: -0.9em;
+  top: -0.5em;
   transform: translateY(0.35rem);
   transition: opacity 320ms var(--primary-curve), transform 320ms var(--primary-curve), visibility 0s linear 320ms;
 }
@@ -2732,22 +2732,21 @@ footer .footer__letter {
 
 /* Cookie banner */
 .cookie-banner {
+  display: block;
   position: fixed;
-  inset-inline: 0;
-  bottom: 0;
-  z-index: 52;
-  min-height: 4.8em;
-  display: flex;
-  background-color: var(--color--background--50);
+  right: var(--grid--app-margin);
+  left: auto;
+  bottom: var(--grid--app-margin);
+  z-index: 9999999;
+  background-color: var(--color--foreground--10);
   -webkit-backdrop-filter: blur(0.2rem);
   backdrop-filter: blur(0.2rem);
-  border-top: 1px solid var(--color--foreground--5);
   transition: transform 1.5s ease, opacity 1.5s cubic-bezier(0.33, 0, 0.2, 1) 0.75s;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.2rem 1.5rem;
-  gap: 1rem;
+  padding: calc(20px + 1vw) calc(20px + 1vw);
+  max-width: 400px;
+  width: calc(100vw - (var(--grid--app-margin) * 2));
+  text-align: center;
+  border-radius: 3px;
 }
 
 /* Privacy trigger (cookie settings shortcut) */
@@ -2810,16 +2809,15 @@ footer .footer__letter {
 
 .cookie-banner__link {
   text-decoration: none;
-  font-weight: 600;
-  color: inherit;
+  color: var(--color--foreground--33);
   transition: color 0.2s ease;
   /* Button reset for semantic button elements */
   background: none;
   border: none;
   padding: 0;
   margin: 0;
-  font-family: inherit;
   font-size: inherit;
+  font-family: var(--font-gloria-hallelujah);
   cursor: pointer;
 }
 
@@ -6852,6 +6850,7 @@ footer .footer__letter {
 }
 
 :root {
+  --z-custom-cursor: 2147483647;
   --custom-cursor-base-color: rgba(0, 0, 0, 0.85);
   --custom-cursor-text-color: rgb(194 255 114);
 }
@@ -6887,7 +6886,7 @@ body.custom-cursor-active textarea {
   left: 0;
   pointer-events: none;
   will-change: width, height, transform, opacity, background-color;
-  z-index: 10000;
+  z-index: var(--z-custom-cursor, 2147483647);
   contain: layout style paint;
   background-color: var(--custom-cursor-base-color, rgba(0, 0, 0, 0.85));
   mix-blend-mode: normal;

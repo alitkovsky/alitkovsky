@@ -6,29 +6,27 @@ import CookieSettings from "@/components/CookieSettings";
 import TextEffect from "@/components/TextEffect";
 import useLanguage from "@/hooks/useLanguage";
 
-import Link from "next/link";
-
 const COPY = {
   de: {
-    title: "Cookie-Einstellungen",
-    description: "ich verwende cookies, um diese seite funktionsfähig zu halten und marketingmaßnahmen zu unterstützen. unter",
-    manageCookies: "cookies verwalten",
-    descriptionMiddle: "kannst du deine einstellungen jederzeit ändern. mehr infos in meiner",
-    cookiePolicy: "cookie-richtlinie",
-    descriptionEnd: ".",
-    manage: "cookies verwalten",
-    reject: "nicht notwendige ablehnen",
+    title: "cookie-einstellungen",
+    description: "ich nutze notwendige cookies, damit diese seite technisch funktioniert. optionale cookies fuer statistik und marketing setze ich nur mit deiner einwilligung.",
+    question: "was moechtest du waehlen?",
+    moreInfo: "anpassen oder mehr lesen:",
+    manageCookies: "einstellungen",
+    cookiePolicy: "datenschutz",
+    connector: " oder ",
+    necessaryOnly: "nur notwendige",
     accept: "alle akzeptieren",
   },
   en: {
-    title: "Cookie Settings",
-    description: "i use cookies to help this site function and support marketing efforts. visit",
-    manageCookies: "manage cookies",
-    descriptionMiddle: "to change preferences anytime. view my",
-    cookiePolicy: "cookie policy",
-    descriptionEnd: " for more info.",
-    manage: "manage cookies",
-    reject: "reject non-essential",
+    title: "cookie settings",
+    description: "i use necessary cookies to keep this site running. i only use optional cookies for analytics and marketing with your consent.",
+    question: "what would you like to choose?",
+    moreInfo: "adjust or read more:",
+    manageCookies: "settings",
+    cookiePolicy: "privacy policy",
+    connector: " or ",
+    necessaryOnly: "necessary only",
     accept: "accept all",
   },
 };
@@ -109,7 +107,7 @@ export default function CookieBanner() {
     setIsOpen(false);
   };
 
-  const handleDecline = () => {
+  const handleNecessaryOnly = () => {
     const consent = {
       necessary: true,
       functional: false,
@@ -160,7 +158,36 @@ export default function CookieBanner() {
               id="cookieConsentDesc"
               className="cookie-banner__description"
             >
-              {copy.description}{" "}
+              {copy.description}
+              {copy.question}
+            </p>
+          </div>
+
+          <div className="cookie-banner__actions my-6">
+            <TextEffect
+              as="button"
+              type="button"
+              onClick={handleAccept}
+              variant="ellipseAuto"
+              trigger="always"
+              className="cookie-banner__btn"
+            >
+              {copy.accept}
+            </TextEffect>
+            <TextEffect
+              as="button"
+              type="button"
+              onClick={handleNecessaryOnly}
+              variant="underlineThin"
+              trigger="always"
+              className="cookie-banner__btn"
+            >
+              {copy.necessaryOnly}
+            </TextEffect>
+          </div>
+
+          <p className="cookie-banner__description">
+              {/* {copy.moreInfo}<br/> */}
               <TextEffect
                 as="button"
                 type="button"
@@ -168,50 +195,20 @@ export default function CookieBanner() {
                 trigger="hover"
                 className="cookie-banner__link inline-block"
                 onClick={handleOpenSettings}
-                autoActive
               >
                 {copy.manageCookies}
-              </TextEffect>{" "}
-              {copy.descriptionMiddle}{" "}
+              </TextEffect>
+              {" / "}
               <TextEffect
                 as="a"
                 variant="ellipseAuto"
                 href="/datenschutz"
                 trigger="hover"
                 className="cookie-banner__link inline-block"
-                autoActive
               >
                 {copy.cookiePolicy}
               </TextEffect>
-              {copy.descriptionEnd}
             </p>
-          </div>
-
-          <div className="cookie-banner__actions">
-            <button
-              type="button"
-              onClick={handleOpenSettings}
-              className="cookie-banner__btn cookie-banner__btn--ghost"
-              aria-haspopup="dialog"
-              aria-expanded={showSettings}
-            >
-              {copy.manage}
-            </button>
-            <button
-              type="button"
-              onClick={handleDecline}
-              className="cookie-banner__btn cookie-banner__btn--ghost"
-            >
-              {copy.reject}
-            </button>
-            <button
-              type="button"
-              onClick={handleAccept}
-              className="cookie-banner__btn cookie-banner__btn--ghost"
-            >
-              {copy.accept}
-            </button>
-          </div>
         </div>
       )}
 
