@@ -193,10 +193,16 @@ export default function CookieBanner() {
                 type="button"
                 variant="ellipseAuto"
                 trigger="hover"
-                className="cookie-banner__link inline-block"
+                className="cookie-banner__link"
                 onClick={handleOpenSettings}
               >
                 {copy.manageCookies}
+                <span
+                  aria-hidden
+                  className="cookie-banner__link-icon cookie-banner__link-icon--material"
+                >
+                  arrow_outward
+                </span>
               </TextEffect>
               {" / "}
               <TextEffect
@@ -204,9 +210,15 @@ export default function CookieBanner() {
                 variant="ellipseAuto"
                 href="/datenschutz"
                 trigger="hover"
-                className="cookie-banner__link inline-block"
+                className="cookie-banner__link"
               >
                 {copy.cookiePolicy}
+                <span
+                  aria-hidden
+                  className="cookie-banner__link-icon cookie-banner__link-icon--material"
+                >
+                  arrow_outward
+                </span>
               </TextEffect>
             </p>
         </div>
