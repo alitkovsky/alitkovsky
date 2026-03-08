@@ -2810,7 +2810,6 @@ footer .footer__letter {
 .cookie-banner .cookie-banner__link {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
   text-decoration: none;
   color: var(--color--foreground--33);
   transition: color 0.2s ease;
@@ -2825,10 +2824,11 @@ footer .footer__letter {
   cursor: pointer;
 }
 
-.cookie-banner__link-icon {
+.link-icon {
   display: inline-block;
   width: auto;
   height: auto;
+  margin-left: 0.3rem;
   line-height: 1;
   flex-shrink: 0;
   transform: translate3d(0, 0, 0);
@@ -2837,11 +2837,11 @@ footer .footer__letter {
   color: currentColor;
 }
 
-.cookie-banner__link-icon--material {
+.link-icon--material {
   font-family: "Material Symbols Outlined" !important;
   font-weight: 400;
   font-style: normal;
-  font-size: 0.95em;
+  font-size: inherit;
   line-height: 1;
   display: inline-block;
   letter-spacing: normal;
@@ -2858,8 +2858,8 @@ footer .footer__letter {
   color: var(--color--foreground--100);
 }
 
-.cookie-banner__link:hover .cookie-banner__link-icon,
-.cookie-banner__link:focus-visible .cookie-banner__link-icon {
+.cookie-banner__link:hover .link-icon,
+.cookie-banner__link:focus-visible .link-icon {
   transform: translate3d(2px, -2px, 0);
 }
 
@@ -2890,6 +2890,8 @@ footer .footer__letter {
   white-space: nowrap;
   hyphens: none;
 }
+
+.cookie-banner__btn {}
 
 .cookie-banner__btn--ghost {
   background: var(--color--foreground--5);

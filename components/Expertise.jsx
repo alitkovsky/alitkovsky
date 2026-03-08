@@ -157,10 +157,15 @@ export default function Expertise() {
                       variant="ellipseAuto"
                       href={item.link}
                       trigger="hover"
-                      className="inline-block"
-                      autoActive
+                      className="inline-block cookie-banner__link"
                     >
                       {viewCertificate}
+                      <span
+                        aria-hidden
+                        className="link-icon link-icon--material"
+                      >
+                        arrow_outward
+                      </span>
                     </TextEffect>
                   ) : null}
                 </span>

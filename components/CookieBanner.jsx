@@ -186,7 +186,7 @@ export default function CookieBanner() {
             </TextEffect>
           </div>
 
-          <p className="cookie-banner__description">
+          <p className="cookie-banner__description flex justify-between">
               {/* {copy.moreInfo}<br/> */}
               <TextEffect
                 as="button"
@@ -199,7 +199,7 @@ export default function CookieBanner() {
                 {copy.manageCookies}
                 <span
                   aria-hidden
-                  className="cookie-banner__link-icon cookie-banner__link-icon--material"
+                  className="link-icon link-icon--material"
                 >
                   arrow_outward
                 </span>
@@ -215,7 +215,7 @@ export default function CookieBanner() {
                 {copy.cookiePolicy}
                 <span
                   aria-hidden
-                  className="cookie-banner__link-icon cookie-banner__link-icon--material"
+                  className="link-icon link-icon--material"
                 >
                   arrow_outward
                 </span>
