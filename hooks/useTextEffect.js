@@ -185,6 +185,7 @@ const EFFECTS = {
       left: "105%",
       width: "40%",
       height: "auto",
+      transform: "translateY(-50%)",
     },
   },
   underline: {

@@ -6,6 +6,7 @@ import LazySection from "@/components/LazySection";
 
 const LazyValues = dynamic(() => import("@/components/Values"));
 const LazyProcess = dynamic(() => import("@/components/Process"));
+const LazySolutionsPreview = dynamic(() => import("@/components/SolutionsPreview"));
 const LazyBackground = dynamic(() => import("@/components/Background"));
 const LazyProjectsPreview = dynamic(() => import("@/components/ProjectsPreview"));
 const LazyReferences = dynamic(() => import("@/components/References"));
@@ -22,6 +23,9 @@ export default function HomeLazySections() {
       <LazySection>
         <LazyProcess />
       </LazySection>
+      {/* <LazySection>
+        <LazySolutionsPreview />
+      </LazySection> */}
       <LazySection>
         <LazyBackground />
       </LazySection>

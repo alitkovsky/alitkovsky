@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
-import ServiceDetail from "@/components/ServiceDetail";
-import { getAllSystemSlugs, getSystemBySlug } from "@/data/systems";
+import SolutionDetail from "@/components/SolutionDetail";
+import { getAllSystemSlugs, getSystemBySlug } from "@/data/solutions";
 
 const LEGACY_MAPPING = {
   seo: "growth-engine",
@@ -63,7 +63,7 @@ export default async function ServiceDetailPageEn({ params }) {
 
   return (
     <main className="app-main">
-      <ServiceDetail slug={slug} />
+      <SolutionDetail slug={slug} />
     </main>
   );
 }

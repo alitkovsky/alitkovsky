@@ -54,6 +54,9 @@ export default function BookCTA({
   const noteId = useId();
   const ctaRef = useRef(null);
   const openedFromThisRef = useRef(false);
+
+  // CTA visibility control via environment variable
+  const ctaEnabled = process.env.NEXT_PUBLIC_CTA_ENABLED !== 'false';
   const targetUrl = useMemo(
     () => normalizeUrl(url, eventUrl),
     [url, eventUrl],
@@ -127,6 +130,8 @@ export default function BookCTA({
     <div
       className={cn("book-cta", inline && "book-cta--inline", className)}
       data-consent-blocked={consentBlocked ? "true" : undefined}
+      data-cta-hidden={!ctaEnabled ? "true" : undefined}
+      aria-hidden={!ctaEnabled ? "true" : undefined}
     >
       <Magnet
         wrapperClassName="book-cta__magnet"

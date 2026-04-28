@@ -28,6 +28,9 @@ export default function BackToStart({
   const { language } = useLanguage();
   const copy = COPY[language] ?? COPY.en;
 
+  // CTA visibility control via environment variable
+  const ctaEnabled = process.env.NEXT_PUBLIC_CTA_ENABLED !== 'false';
+
   const handleClick = () => {
     trackCTAClick("navigate_home", ctaLocation || "unspecified");
   };
@@ -53,7 +56,11 @@ export default function BackToStart({
   );
 
   return (
-    <div className={cn("book-cta", className)}>
+    <div
+      className={cn("book-cta", className)}
+      data-cta-hidden={!ctaEnabled ? "true" : undefined}
+      aria-hidden={!ctaEnabled ? "true" : undefined}
+    >
       <Magnet
         wrapperClassName="book-cta__magnet"
         innerClassName="book-cta__magnet-inner"

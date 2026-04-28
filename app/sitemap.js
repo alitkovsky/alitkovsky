@@ -1,4 +1,4 @@
-import { getAllSystemSlugs } from "@/data/systems";
+import { getAllSystemSlugs } from "@/data/solutions";
 import { getAllProjectSlugs } from "@/data/projects";
 
 /**

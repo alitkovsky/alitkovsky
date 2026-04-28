@@ -1,4 +1,4 @@
-import ServicesList from "@/components/ServicesList";
+import SolutionsList from "@/components/SolutionsList";
 
 export const metadata = {
   title: "Loesungen: CRM, Prozesse & Daten | Andrii Litkovskyi",
@@ -23,7 +23,7 @@ export const metadata = {
 export default function SolutionsPage() {
   return (
     <main className="app-main">
-      <ServicesList />
+      <SolutionsList />
     </main>
   );
 }

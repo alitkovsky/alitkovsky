@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
-import ServiceDetail from "@/components/ServiceDetail";
-import { getAllSystemSlugs, getSystemBySlug } from "@/data/systems";
+import SolutionDetail from "@/components/SolutionDetail";
+import { getAllSystemSlugs, getSystemBySlug } from "@/data/solutions";
 
 // Generate static params for all solutions
 export async function generateStaticParams() {
@@ -17,21 +17,33 @@ const LEGACY_MAPPING = {
 };
 
 // SEO metadata for each solution
-const SERVICE_META = {
+const SOLUTION_META = {
   "control-center": {
-    title: "The Control Center | CRM & Workflow Operations",
-    description: "Structured CRM processes, clear responsibilities, and automated follow-ups for reliable lead handling.",
-    keywords: "CRM Integration, Workflow Operations, HubSpot, Pipedrive, Process Documentation, Lead Routing",
+    title: "The Control Center | Autonomous Sales & Customer Operations",
+    description: "Complete automation from lead capture to retention. Autonomous Sales Agent, Lifecycle Guardian, Administration Droid. Zero lost leads, predictable revenue.",
+    keywords: "Sales Automation, CRM Automation, n8n Workflows, Lead Scoring, Email Sequences, HubSpot Automation, Pipedrive Automation, Customer Success Automation, Churn Prevention, Invoice Automation",
+    ogImage: "/og-images/solutions/control-center.png",
+    author: "Andrii Litkovskyi",
+    publishedTime: "2025-03-11T00:00:00.000Z",
+    modifiedTime: "2025-03-11T00:00:00.000Z",
   },
   "intelligence-hub": {
-    title: "The Intelligence Hub | Data Quality & Reporting",
-    description: "Clean tracking, clear KPI dashboards, and decision-ready data for day-to-day operations.",
-    keywords: "Data Quality, GA4, GTM, Reporting, Consent Mode, Process Controlling",
+    title: "The Intelligence Hub | 24/7 Competitive Intelligence & Market Monitoring",
+    description: "Automated competitor tracking, customer feedback aggregation, and AI-powered market insights. Detect threats in days, not weeks.",
+    keywords: "Competitive Intelligence, Market Monitoring, Competitor Tracking, Web Scraping, AI Insights, Customer Feedback Analysis, Market Research Automation, GPT-4 Analysis, Puppeteer Automation",
+    ogImage: "/og-images/solutions/intelligence-hub.png",
+    author: "Andrii Litkovskyi",
+    publishedTime: "2025-03-11T00:00:00.000Z",
+    modifiedTime: "2025-03-11T00:00:00.000Z",
   },
   "growth-engine": {
-    title: "The Growth Engine | Process Automation",
-    description: "Automate recurring tasks across marketing and backoffice to reduce manual routine and speed up execution.",
-    keywords: "Process Automation, Operations Efficiency, Workflow Automation, n8n, Make, Backoffice",
+    title: "The Growth Engine | Automated Content Creation & Distribution",
+    description: "3x content output with 80% less time. AI-powered content factory and YouTube automation. Blog, social, video—all automated.",
+    keywords: "Content Automation, AI Content Creation, GPT-4 Content, WordPress Automation, YouTube Automation, Social Media Automation, Content Factory, Multi-Platform Publishing, SEO Automation",
+    ogImage: "/og-images/solutions/growth-engine.png",
+    author: "Andrii Litkovskyi",
+    publishedTime: "2025-03-11T00:00:00.000Z",
+    modifiedTime: "2025-03-11T00:00:00.000Z",
   },
 };
 
@@ -39,25 +51,28 @@ const SERVICE_META = {
 export async function generateMetadata({ params }) {
   const { slug } = await params;
 
-  // Handle redirects in metadata? No, just let page redirect. 
+  // Handle redirects in metadata? No, just let page redirect.
   // But to avoid 500 error if slug is not found in systems, check legacy mapping.
   if (LEGACY_MAPPING[slug]) {
     return {}; // Return empty or basic meta, redirect will happen in page
   }
 
-  const serviceData = getSystemBySlug(slug, "de");
-  const serviceMeta = SERVICE_META[slug];
+  const solutionData = getSystemBySlug(slug, "de");
+  const solutionMeta = SOLUTION_META[slug];
 
-  if (!serviceData || !serviceMeta) {
+  if (!solutionData || !solutionMeta) {
     return {
-      title: "System nicht gefunden",
+      title: "Solution nicht gefunden",
     };
   }
 
   return {
-    title: serviceMeta.title,
-    description: serviceMeta.description,
-    keywords: serviceMeta.keywords,
+    title: solutionMeta.title,
+    description: solutionMeta.description,
+    keywords: solutionMeta.keywords,
+    authors: [{ name: solutionMeta.author }],
+    creator: solutionMeta.author,
+    publisher: solutionMeta.author,
     alternates: {
       canonical: `/solutions/${slug}`,
       languages: {
@@ -67,30 +82,62 @@ export async function generateMetadata({ params }) {
       },
     },
     openGraph: {
-      title: serviceMeta.title,
-      description: serviceMeta.description,
+      title: solutionMeta.title,
+      description: solutionMeta.description,
       url: `/solutions/${slug}`,
+      siteName: "Andrii Litkovskyi - Workflow Automation",
+      locale: "de_DE",
       type: "article",
+      publishedTime: solutionMeta.publishedTime,
+      modifiedTime: solutionMeta.modifiedTime,
+      authors: [solutionMeta.author],
+      images: [
+        {
+          url: solutionMeta.ogImage,
+          width: 1200,
+          height: 630,
+          alt: solutionMeta.title,
+          type: "image/png",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: solutionMeta.title,
+      description: solutionMeta.description,
+      creator: "@alitkovsky",
+      images: [solutionMeta.ogImage],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }
 
-export default async function ServiceDetailPage({ params }) {
+export default async function SolutionDetailPage({ params }) {
   const { slug } = await params;
 
   if (LEGACY_MAPPING[slug]) {
     redirect(`/solutions/${LEGACY_MAPPING[slug]}`);
   }
 
-  const serviceData = getSystemBySlug(slug);
+  const solutionData = getSystemBySlug(slug);
 
-  if (!serviceData) {
+  if (!solutionData) {
     notFound();
   }
 
   return (
     <main className="app-main">
-      <ServiceDetail slug={slug} />
+      <SolutionDetail slug={slug} />
     </main>
   );
 }

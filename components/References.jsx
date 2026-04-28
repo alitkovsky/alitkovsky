@@ -9,7 +9,7 @@ const COPY = {
     references: [
       {
         quote: "Andrii kam nicht als klassische Agentur, sondern als Systemintegrator. Er hat unsere Datenfluesse und das Tracking von Grund auf neu strukturiert. Seitdem treffen wir Entscheidungen mit belastbaren Zahlen statt mit Annahmen.",
-        name: "Helena Warlamova",
+        name: "Lena Warlamova",
         role: "Geschäftsführerin",
         company: "Sunny Bay Hotel",
         linkedin: "",
@@ -34,7 +34,7 @@ const COPY = {
     references: [
       {
         quote: "Andrii did not come in as a classic agency, but as a systems integrator. He rebuilt our data flow and tracking foundation from scratch. Since then, we make decisions based on reliable numbers, not assumptions.",
-        name: "Helena Warlamova",
+        name: "Lena Warlamova",
         role: "CEO",
         company: "Sunny Bay Hotel",
         linkedin: "",

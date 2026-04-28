@@ -118,15 +118,15 @@ const PROJECTS_PREVIEW_COPY = {
 
 const PROJECTS_PREVIEW_EFFECT_STYLE_PRESETS = Object.freeze({
   viewAllArrow: Object.freeze({
-    top: "0.45em",
-    left: "-11.25ch",
+    top: "0.7ch",
+    left: "-8.25ch",
   }),
 });
 
 const PROJECTS_PREVIEW_ACCENTS = Object.freeze({
-  "tracking-audit": "#2b67f3",
-  "local-seo-dental": "#0f9a7a",
-  "google-ads-dach": "#a857f2",
+  "tracking-audit": "var(--color--foreground--20)",
+  "local-seo-dental": "var(--color--foreground--20)",
+  "google-ads-dach": "var(--color--foreground--20)",
 });
 
 function ProjectDisclosure({
@@ -150,7 +150,7 @@ function ProjectDisclosure({
       className={`projects-preview__disclosure ${isActive ? "is--active" : ""}`}
       data-active={isActive ? "true" : "false"}
       style={{
-        "--projects-preview-size": isActive ? "10" : "1",
+        "--projects-preview-size": isActive ? "12" : "1",
         "--projects-preview-accent": accent,
       }}
       onPointerMove={() => onActivate(index)}
@@ -194,9 +194,14 @@ function ProjectDisclosure({
 
           <div className="projects-preview__panel-tags">
             {project.tags.map((tag) => (
-              <span key={tag} className="projects-preview__panel-tag">
-                {tag}
-              </span>
+                <TextEffect
+                  key={tag}
+                  variant="ellipseAuto"
+                  trigger="visible"
+                  className="inline-block projects-preview__panel-tag"
+                >
+                  {tag}
+                </TextEffect>
             ))}
           </div>
 
@@ -236,9 +241,22 @@ function ProjectDisclosure({
               <span className="projects-preview__panel-metric-label">{project.metric.label}</span>
             </div>
 
-            <Link href={projectHref} className="projects-preview__panel-link">
+            <TextEffect
+              as={Link}
+              href={projectHref}
+              variant="ellipseAuto"
+              trigger="hover"
+              className="projects-preview__view-all cookie-banner__link"
+            >
               {viewProject}
-            </Link>
+              <span
+                  aria-hidden
+                  className="link-icon link-icon--material"
+                >
+                  arrow_outward
+                </span>
+              <span aria-hidden="true"></span>
+            </TextEffect>
           </div>
         </div>
       </article>

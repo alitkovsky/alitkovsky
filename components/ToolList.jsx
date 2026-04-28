@@ -34,6 +34,16 @@ const TOOLS_COPY = {
         iconId: "paid-social",
         svg: "/assets/svg/paid-social.svg",
       },
+      {
+        id: "solutions",
+        title: "",
+        description: "",
+        microResult: "",
+        iconId: "",
+        svg: "",
+        linkTitle: "more about solutions",
+        linkURL: "",
+      },
     ],
   },
   en: {

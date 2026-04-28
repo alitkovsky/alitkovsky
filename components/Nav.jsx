@@ -182,7 +182,7 @@ export default function Nav({ initialTheme = "dark" }) {
     { id: "values", label: "values" },
     { id: "process", label: "process" },
     { id: "background", label: "background" },
-    { id: "projects", label: "projects" },
+    // { id: "projects", label: "projects" },
     { id: "references", label: "references" },
     { id: "faq", label: "faq" },
     { id: "expertise", label: "expertise" },

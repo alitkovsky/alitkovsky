@@ -6,22 +6,34 @@ import BookCTA from "@/components/BookCTA";
 import TextEffect from "@/components/TextEffect";
 import Footer from "@/components/Footer";
 import useLanguage from "@/hooks/useLanguage";
-import { getAllSystems, getSystemsPageCopy } from "@/data/systems";
+import { getAllSystems, getSystemsPageCopy } from "@/data/solutions";
 import { localizePath } from "@/lib/localeRouting";
 
-function ServiceCard({ service, index, language }) {
-  const serviceHref = localizePath(`/solutions/${service.slug}`, language);
+function SolutionCard({ solution, index, language }) {
+  const solutionHref = localizePath(`/solutions/${solution.slug}`, language);
 
   return (
     <article className="services-list__card">
-      <Link href={serviceHref} className="services-list__card-link">
+      <Link href={solutionHref} className="services-list__card-link">
         <header className="services-list__card-header">
-          <h2 className="services-list__card-title">{service.title}</h2>
-          <p className="services-list__card-subtitle">{service.subtitle}</p>
+          <h2 className="services-list__card-title">{solution.title}</h2>
+          <p className="services-list__card-subtitle">{solution.subtitle}</p>
+
+          {/* NEW: Badges for modules count and timeline */}
+          {solution.modules && solution.modules.length > 0 && (
+            <div className="services-list__card-badges">
+              <span className="badge badge--modules">
+                {solution.modules.length} {language === "de" ? "Module" : "Modules"}
+              </span>
+              {solution.modules[0]?.timeline && (
+                <span className="badge badge--timeline">{solution.modules[0].timeline}</span>
+              )}
+            </div>
+          )}
         </header>
 
         <div className="services-list__card-metrics">
-          {service.metrics.slice(0, 2).map((metric, i) => (
+          {solution.metrics.slice(0, 2).map((metric, i) => (
             <div key={i} className="services-list__card-metric">
               <span className="services-list__card-metric-value">
                 <CountUp
@@ -39,7 +51,27 @@ function ServiceCard({ service, index, language }) {
           ))}
         </div>
 
-        <p className="services-list__card-description">{service.description}</p>
+        <p className="services-list__card-description">{solution.description}</p>
+
+        {/* NEW: Display modules (Super-Workflows) */}
+        {solution.modules && solution.modules.length > 0 && (
+          <div className="services-list__card-modules">
+            {solution.modules.slice(0, 2).map((module, i) => (
+              <div key={i} className="services-list__module">
+                <h4 className="services-list__module-name">{module.name}</h4>
+                <p className="services-list__module-description">{module.descriptionShort}</p>
+                {module.roi && (
+                  <span className="badge badge--roi">{module.roi} ROI</span>
+                )}
+              </div>
+            ))}
+            {solution.modules.length > 2 && (
+              <p className="services-list__modules-more">
+                +{solution.modules.length - 2} {language === "de" ? "weitere" : "more"}
+              </p>
+            )}
+          </div>
+        )}
 
         <span className="services-list__card-cta">
           <TextEffect
@@ -48,7 +80,7 @@ function ServiceCard({ service, index, language }) {
             trigger="hover"
             className="services-list__link-cta"
           >
-            {service.cta.label}
+            {solution.cta.label}
             <i aria-hidden className="services-list__cta rotate-45">↗</i>
           </TextEffect>
         </span>
@@ -60,7 +92,7 @@ function ServiceCard({ service, index, language }) {
 export default function ServicesList() {
   const { language } = useLanguage();
   const copy = getSystemsPageCopy(language);
-  const systems = getAllSystems(language);
+  const solutions = getAllSystems(language);
 
   return (
     <section className="section services-list">
@@ -71,10 +103,10 @@ export default function ServicesList() {
           <p className="services-list__subtitle">{copy.pageSubtitle}</p>
         </header>
 
-        {/* Services grid */}
+        {/* Solutions grid */}
         <div className="services-list__grid">
-          {systems.map((service, index) => (
-            <ServiceCard key={service.slug} service={service} index={index} language={language} />
+          {solutions.map((solution, index) => (
+            <SolutionCard key={solution.slug} solution={solution} index={index} language={language} />
           ))}
         </div>
 

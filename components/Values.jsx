@@ -202,14 +202,20 @@ const VALUES_EFFECT_STYLE_PRESETS = Object.freeze({
     rotate: "-10deg",
     top: "0.925em",
     left: "100%",
-    width: "3.4ch",
+    width: "4.4ch",
   }),
   expertiseLabelArrow: Object.freeze({
     rotate: "20deg",
     top: "0.525em",
     left: "auto",
+    right: "-7ch",
+    width: "6.4ch",
+  }),
+  solutionsLabelArrow: Object.freeze({
+    top: "1.7ch",
+    left: "auto",
     right: "-6ch",
-    width: "5.4ch",
+    width: "5ch",
   }),
 });
 
@@ -269,8 +275,8 @@ const VALUES_COPY = {
         },
       },
     ],
+    solutionsTitle: "meine loesungen",
     expertiseTitle: "mein operations-stack", // Changed from "meine zertifizierungen"
-    toolsTitle: "meine werkzeuge", // This might be redundant if we merge everything. Let's keep one section for the Stack maruqee.
     logosLabel: "technologien",
     cta: {
       label: "passt dein setup zu deinen prozessen?",
@@ -302,7 +308,7 @@ const VALUES_COPY = {
         counter: "-40%",
         title: "reporting effort",
         subtitles: ["automated", "reporting flows"],
-        variant: "dashedSide",
+        variantTitle: "dashedSide",
         counterEffectOverrides: {
           style: {
             ...VALUES_EFFECT_STYLE_PRESETS.resultTwoDashedSide,
@@ -333,7 +339,7 @@ const VALUES_COPY = {
       },
     ],
     expertiseTitle: "my operations stack",
-    toolsTitle: "my toolkit",
+    solutionsTitle: "my solutions",
     logosLabel: "technologies",
     cta: {
       label: "does your setup fit your processes?",
@@ -385,6 +391,7 @@ export default function Values() {
     );
   };
   const expertiseTitle = copy.expertiseTitle ?? fallbackCopy.expertiseTitle ?? "my system stack";
+  const solutionsTitle = copy.solutionsTitle ?? fallbackCopy.solutionsTitle ?? "my solutions";
   const logosLabel = copy.logosLabel ?? fallbackCopy.logosLabel ?? "Technologies";
   const ctaLabel = copy.cta?.label ?? fallbackCopy.cta?.label ?? "book a free call";
 
@@ -455,7 +462,6 @@ export default function Values() {
                 >
                   {resultTwoTitle}
                 </TextEffect>
-              {/* <p className="title">{resultTwoTitle}</p> */}
               <div className="subtitles">
                 {renderSubtitles(resultTwo.subtitles)}
               </div>
@@ -497,6 +503,20 @@ export default function Values() {
           </div>
         </div>
 
+        <div className="results_subtitle">
+            <TextEffect
+              as="h3"
+              variant="arrowDown"
+              trigger="always"
+              className="inline-block"
+              effectOverrides={{
+                style: {
+                  ...VALUES_EFFECT_STYLE_PRESETS.solutionsLabelArrow,
+              }}}
+            >
+              {solutionsTitle}
+            </TextEffect>
+          </div>
         <div className="tools">
           <ToolList />
         </div>
