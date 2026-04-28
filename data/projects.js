@@ -1743,3 +1743,17 @@ export function getProjectsPageCopy(language = "de") {
     timelineLabel: data.timelineLabel,
   };
 }
+
+export function getAdjacentProjects(slug) {
+  const slugs = getAllProjectSlugs();
+  const currentIndex = slugs.indexOf(slug);
+
+  if (currentIndex === -1) {
+    return { prev: null, next: null };
+  }
+
+  return {
+    prev: currentIndex > 0 ? slugs[currentIndex - 1] : null,
+    next: currentIndex < slugs.length - 1 ? slugs[currentIndex + 1] : null,
+  };
+}
