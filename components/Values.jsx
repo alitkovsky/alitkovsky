@@ -14,7 +14,6 @@ import {
   SiN8N,
   SiMake,
   SiZapier,
-  SiSalesforce,
   SiShopify,
   SiShopware,
   SiAirtable,
@@ -26,17 +25,16 @@ import {
   SiWordpress,
   SiWoo,
   SiWhatsapp,
-  SiSlack,
   SiDiscord,
-  SiTwilio,
   SiMailchimp,
   SiWebflow,
   SiFramer,
   SiMatomo,
   SiLooker
 } from "react-icons/si";
-import { FaMagento as SiMagento } from "react-icons/fa6";
-import { IoLogoLinkedin as SiLinkedin, IoLogoTableau as SiTableau } from "react-icons/io5";
+import { FaMagento as SiMagento, FaSalesforce as SiSalesforce } from "react-icons/fa6";
+import { IoLogoLinkedin as SiLinkedin, IoLogoTableau as SiTableau, IoLogoSlack as SiSlack } from "react-icons/io5";
+import { CgTwilio as SiTwilio } from "react-icons/cg";
 
 const ActiveCampaignLogo = () => (
   <svg
