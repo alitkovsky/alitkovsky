@@ -187,10 +187,10 @@ export default function ProjectDetail({ slug }) {
 
         {/* Main content sections */}
         <div className="project-detail__body">
-          {/* Problem */}
+          {/* Challenge */}
           <section className="project-detail__section">
-            <h2>{projectData.problem.title}</h2>
-            {projectData.problem.content.map((p, i) => (
+            <h2>{projectData.challenge.title}</h2>
+            {projectData.challenge.content.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </section>
@@ -236,14 +236,16 @@ export default function ProjectDetail({ slug }) {
         )}
 
         {/* Services */}
-        <aside className="project-detail__services">
-          <h3>{data.servicesLabel}</h3>
-          <ul>
-            {projectData.services.map((service, i) => (
-              <li key={i}>{service}</li>
-            ))}
-          </ul>
-        </aside>
+        {projectData.services && projectData.services.length > 0 && (
+          <aside className="project-detail__services">
+            <h3>{data.servicesLabel}</h3>
+            <ul>
+              {projectData.services.map((service, i) => (
+                <li key={i}>{service}</li>
+              ))}
+            </ul>
+          </aside>
+        )}
 
         {/* NEW: Related Solution */}
         {projectData.category && (
@@ -370,7 +372,7 @@ export default function ProjectDetail({ slug }) {
 
         {/* CTA */}
         <div className="project-detail__cta">
-          <BookCTA label={data.cta.label} ctaLocation="project-detail" />
+          <BookCTA label={data.cta?.label} ctaLocation="project-detail" />
         </div>
 
         <div className="project-detail__back">
