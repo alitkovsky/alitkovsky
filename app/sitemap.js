@@ -6,6 +6,8 @@ import { getAllProjectSlugs } from "@/data/projects";
  * Note: Update lastModified dates when content on these pages actually changes.
  * Using static dates allows search engines to detect real content updates.
  */
+export const dynamic = "force-static";
+
 export default function sitemap() {
   const baseUrl = "https://litkovskyi.de";
   const systemSlugs = getAllSystemSlugs();
