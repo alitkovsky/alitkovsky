@@ -71,11 +71,13 @@ export default function Nav({ initialTheme = "dark" }) {
   const isHomeRoute = basePathname === "/";
   const activeId = useActiveSection({ enabled: isHomeRoute });
   const [theme, setTheme] = useState(initialTheme);
+  // Static HTML always renders the dark default; persist only after the saved theme is read.
+  const [themeLoaded, setThemeLoaded] = useState(false);
   const transitionTimeoutRef = useRef(null);
   const { setLanguage, supportedLanguages } = useLanguage();
 
   useEffect(() => {
-    if (typeof document === "undefined") {
+    if (typeof document === "undefined" || !themeLoaded) {
       return;
     }
 
@@ -94,7 +96,7 @@ export default function Nav({ initialTheme = "dark" }) {
 
     const maxAge = 60 * 60 * 24 * 365; // one year
     document.cookie = `${THEME_COOKIE_KEY}=${theme};path=/;max-age=${maxAge};SameSite=Lax`;
-  }, [theme]);
+  }, [theme, themeLoaded]);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -105,6 +107,7 @@ export default function Nav({ initialTheme = "dark" }) {
     if (stored) {
       setTheme((current) => (current === stored ? current : stored));
     }
+    setThemeLoaded(true);
 
     const handleStorage = (event) => {
       if (event.key === THEME_STORAGE_KEY && (event.newValue === "light" || event.newValue === "dark")) {

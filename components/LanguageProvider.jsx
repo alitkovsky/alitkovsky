@@ -10,10 +10,8 @@ import {
   LANGUAGE_SOURCE_STORAGE_KEY,
   LANGUAGE_COOKIE_KEY,
   LANGUAGE_SOURCE_COOKIE_KEY,
-  LANGUAGE_SOURCE_AUTO,
   LANGUAGE_SOURCE_MANUAL,
   sanitizeLanguage,
-  sanitizeLanguageSource,
 } from "@/lib/language";
 import { getLocaleFromPathname } from "@/lib/localeRouting";
 
@@ -36,14 +34,11 @@ export const LanguageContext = createContext({
   setLanguage: () => {},
 });
 
-export default function LanguageProvider({
-  children,
-  initialLanguage = FALLBACK_LANGUAGE,
-  initialLanguageSource = LANGUAGE_SOURCE_AUTO,
-}) {
+export default function LanguageProvider({ children }) {
   const pathname = usePathname();
-  const [language, setLanguage] = useState(() => sanitizeLanguage(initialLanguage));
-  const [languageSource, setLanguageSource] = useState(() => sanitizeLanguageSource(initialLanguageSource));
+  // The route decides the language (/en/… vs. the root), also during static prerender.
+  const [language, setLanguage] = useState(() => getLocaleFromPathname(pathname));
+  const [languageSource, setLanguageSource] = useState(LANGUAGE_SOURCE_MANUAL);
 
   useEffect(() => {
     if (!pathname) {

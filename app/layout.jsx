@@ -4,23 +4,11 @@ import "./styles/font.css";
 import "./styles/variables.css";
 import "./styles/grid.css";
 
-import { cookies, headers } from "next/headers";
-
 import Clarity from "@/components/Clarity";
 import Gtm from "@/components/Gtm";
 import AppWrapper from "@/components/AppWrapper";
 import StructuredData from "@/components/StructuredData";
-import {
-  FALLBACK_LANGUAGE,
-  SUPPORTED_LANGUAGES,
-  LANGUAGE_COOKIE_KEY,
-  LANGUAGE_SOURCE_COOKIE_KEY,
-  LANGUAGE_SOURCE_AUTO,
-  LANGUAGE_SOURCE_MANUAL,
-  getCountryFromHeaders,
-  resolveLanguageFromCountry,
-  sanitizeLanguage,
-} from "@/lib/language";
+import { FALLBACK_LANGUAGE } from "@/lib/language";
 
 export const metadata = {
   metadataBase: new URL('https://litkovskyi.de'),
@@ -79,56 +67,31 @@ export const viewport = {
   ],
 };
 
-export default async function RootLayout({ children }) {
-  const cookieStore = await cookies();
-  const themeCookie = cookieStore.get("nav-theme")?.value;
-  const initialTheme = themeCookie === "light" ? "light" : "dark";
-  const consentCookie = cookieStore.get("cookie_consent_v1")?.value;
-  const languageCookie = cookieStore.get(LANGUAGE_COOKIE_KEY)?.value;
-  const languageSourceCookie = cookieStore.get(LANGUAGE_SOURCE_COOKIE_KEY)?.value;
-  const headerStore = await headers();
-  const detectedCountry = getCountryFromHeaders(headerStore);
-  const localeFromPathHeader = headerStore.get("x-app-locale");
-  const localeFromPath = SUPPORTED_LANGUAGES.includes(localeFromPathHeader)
-    ? localeFromPathHeader
-    : null;
-
-  let initialLanguage = localeFromPath ?? FALLBACK_LANGUAGE;
-  let initialLanguageSource = localeFromPath ? LANGUAGE_SOURCE_MANUAL : LANGUAGE_SOURCE_AUTO;
-
-  if (!localeFromPath) {
-    if (languageCookie) {
-      if (!languageSourceCookie || languageSourceCookie === LANGUAGE_SOURCE_MANUAL) {
-        initialLanguage = sanitizeLanguage(languageCookie);
-        initialLanguageSource = LANGUAGE_SOURCE_MANUAL;
-      } else {
-        initialLanguage = sanitizeLanguage(languageCookie);
-        initialLanguageSource = LANGUAGE_SOURCE_AUTO;
-      }
+// Static export: pages render the German default here. scripts/finalize-export.js sets
+// lang="en" on /en pages, and this script applies the saved theme before first paint.
+const THEME_INIT_SCRIPT = `
+  (function () {
+    var theme = null;
+    try { theme = window.localStorage.getItem("nav-theme"); } catch (error) {}
+    if (theme !== "light" && theme !== "dark") {
+      var match = document.cookie.match(/(?:^|; )nav-theme=([^;]*)/);
+      theme = match ? match[1] : null;
     }
+    if (theme !== "light") return;
+    document.documentElement.dataset.theme = "light";
+    document.documentElement.style.colorScheme = "light";
+    document.body.classList.remove("theme-dark");
+    document.body.classList.add("theme-light");
+  })();
+`;
 
-    if (initialLanguageSource !== LANGUAGE_SOURCE_MANUAL) {
-      if (detectedCountry) {
-        initialLanguage = resolveLanguageFromCountry(detectedCountry);
-      } else if (!languageCookie) {
-        initialLanguage = FALLBACK_LANGUAGE;
-      }
-    }
-  }
-
-  let serverConsent = null;
-  if (consentCookie) {
-    try {
-      serverConsent = JSON.parse(decodeURIComponent(consentCookie));
-    } catch (error) {}
-  }
-
+export default function RootLayout({ children }) {
   return (
     <html
-      lang={initialLanguage}
+      lang={FALLBACK_LANGUAGE}
       suppressHydrationWarning
-      data-theme={initialTheme}
-      style={{ colorScheme: initialTheme }}
+      data-theme="dark"
+      style={{ colorScheme: "dark" }}
     >
       <head>
         {/*
@@ -141,14 +104,18 @@ export default async function RootLayout({ children }) {
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
-              const serverConsent = ${JSON.stringify(serverConsent)};
-              const consentDefaults = serverConsent ? {
-                'analytics_storage': serverConsent.analytics ? 'granted' : 'denied',
-                'ad_storage': serverConsent.marketing ? 'granted' : 'denied',
-                'ad_user_data': serverConsent.marketing ? 'granted' : 'denied',
-                'ad_personalization': serverConsent.marketing ? 'granted' : 'denied',
-                'functionality_storage': serverConsent.functional ? 'granted' : 'denied',
-                'personalization_storage': serverConsent.functional ? 'granted' : 'denied',
+              let storedConsent = null;
+              try {
+                const match = document.cookie.match(/(?:^|; )cookie_consent_v1=([^;]*)/);
+                if (match) storedConsent = JSON.parse(decodeURIComponent(match[1]));
+              } catch (error) {}
+              const consentDefaults = storedConsent ? {
+                'analytics_storage': storedConsent.analytics ? 'granted' : 'denied',
+                'ad_storage': storedConsent.marketing ? 'granted' : 'denied',
+                'ad_user_data': storedConsent.marketing ? 'granted' : 'denied',
+                'ad_personalization': storedConsent.marketing ? 'granted' : 'denied',
+                'functionality_storage': storedConsent.functional ? 'granted' : 'denied',
+                'personalization_storage': storedConsent.functional ? 'granted' : 'denied',
                 'security_storage': 'granted',
                 'wait_for_update': 500
               } : {
@@ -180,14 +147,9 @@ export default async function RootLayout({ children }) {
         {/* Structured Data (JSON-LD) for SEO and GEO */}
         <StructuredData />
       </head>
-      <body className={`theme-${initialTheme}`}>
-        <AppWrapper
-          initialTheme={initialTheme}
-          initialLanguage={initialLanguage}
-          initialLanguageSource={initialLanguageSource}
-        >
-          {children}
-        </AppWrapper>
+      <body className="theme-dark" suppressHydrationWarning>
+        <script id="theme-init" dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        <AppWrapper>{children}</AppWrapper>
 
         {/* Privacy Trigger (cookie settings shortcut) */}
         {/* <PrivacyTrigger /> */}
