@@ -33,8 +33,6 @@ const LazyCookieBanner = dynamic(() => import("@/components/CookieBanner"), { ss
 export default function AppWrapper({
   children,
   initialTheme = "dark",
-  initialLanguage,
-  initialLanguageSource,
 }) {
   useInitialPageLoad();
   useTouchDetection();
@@ -85,10 +83,7 @@ export default function AppWrapper({
   );
 
   return (
-    <LanguageProvider
-      initialLanguage={initialLanguage}
-      initialLanguageSource={initialLanguageSource}
-    >
+    <LanguageProvider>
       <LiveRegionProvider>
         <CalendlyProvider>
           <PwaRegister />

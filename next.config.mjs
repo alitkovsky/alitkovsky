@@ -4,148 +4,21 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 });
 
+// Static export served by Cloudflare Workers static assets (wrangler.jsonc).
+// Security headers and CSP: public/_headers. Redirects: public/_redirects.
 /** @type {import('next').NextConfig} */
-const immutableCacheHeaders = [
-  { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
-];
-
-const shortCacheHeaders = [
-  { key: "Cache-Control", value: "public, max-age=3600, must-revalidate" },
-];
-
-const securityHeaders = [
-  {
-    key: "X-Content-Type-Options",
-    value: "nosniff",
-  },
-  {
-    key: "X-Frame-Options",
-    value: "SAMEORIGIN",
-  },
-  {
-    key: "Referrer-Policy",
-    value: "strict-origin-when-cross-origin",
-  },
-  {
-    // HSTS: Force HTTPS connections for 1 year, include subdomains
-    key: "Strict-Transport-Security",
-    value: "max-age=31536000; includeSubDomains; preload",
-  },
-  {
-    // COOP: Isolate browsing context to prevent cross-origin attacks
-    key: "Cross-Origin-Opener-Policy",
-    value: "same-origin-allow-popups",
-  },
-  {
-    key: "Content-Security-Policy",
-    value: [
-      "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://*.google-analytics.com https://*.clarity.ms https://assets.calendly.com",
-      "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
-      "img-src 'self' data: blob: https://*.google-analytics.com https://www.googletagmanager.com https://*.clarity.ms",
-      "font-src 'self' data:",
-      "connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://*.clarity.ms https://calendly.com https://api.calendly.com",
-      "frame-src 'self' https://calendly.com https://www.youtube.com",
-      "object-src 'none'",
-      "base-uri 'self'",
-      "form-action 'self'",
-    ].join("; "),
-  },
-];
-
 const nextConfig = {
+  output: 'export',
+  // next/image only renders SVGs here, which were never optimized
+  images: { unoptimized: true },
   reactStrictMode: true,
   // Capture browser source maps for Lighthouse diagnostics and better stack traces
   productionBrowserSourceMaps: true,
   // Allow cross-origin requests during development
   allowedDevOrigins: ['192.168.178.79'],
   turbopack: {},
-  // Business card QR code redirect
-  async redirects() {
-    return [
-      {
-        source: '/bc',
-        destination: '/?utm_source=visitenkarte&utm_medium=qr&utm_campaign=andrii_brand',
-        permanent: false, // 302 redirect for flexibility
-      },
-      // Legacy URL redirects (pages that were removed/renamed)
-      {
-        source: '/cases',
-        destination: '/projects',
-        permanent: true, // 301 redirect
-      },
-      {
-        source: '/work',
-        destination: '/projects',
-        permanent: true,
-      },
-      {
-        source: '/contact',
-        destination: '/#contact',
-        permanent: true,
-      },
-      {
-        source: '/resume',
-        destination: '/about',
-        permanent: true,
-      },
-      {
-        source: '/services',
-        destination: '/solutions',
-        permanent: true,
-      },
-      {
-        source: '/leistungen',
-        destination: '/solutions',
-        permanent: true,
-      },
-      {
-        source: '/leistungen/:slug',
-        destination: '/solutions/:slug',
-        permanent: true,
-      },
-    ];
-  },
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: securityHeaders,
-      },
-      {
-        source: '/favicon.ico',
-        headers: immutableCacheHeaders,
-      },
-      {
-        source: '/icon.svg',
-        headers: immutableCacheHeaders,
-      },
-      {
-        source: '/icon-light.svg',
-        headers: immutableCacheHeaders,
-      },
-      {
-        source: '/icon-dark.svg',
-        headers: immutableCacheHeaders,
-      },
-      {
-        source: '/icon-mask.png',
-        headers: immutableCacheHeaders,
-      },
-      {
-        source: '/icon-:size(16|32|48|192|512).png',
-        headers: immutableCacheHeaders,
-      },
-      {
-        source: '/apple-touch-icon.png',
-        headers: immutableCacheHeaders,
-      },
-      {
-        source: '/manifest.webmanifest',
-        headers: shortCacheHeaders,
-      },
-    ];
-  },
+  // Don't let `next dev` write AGENTS.md / CLAUDE.md into the repo
+  agentRules: false,
 };
 
 export default withBundleAnalyzer(nextConfig);

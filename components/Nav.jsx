@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import useScrollToSection, { MOBILE_NAV_TRANSITION_DURATION } from "@/hooks/useScrollToSection";
 import useActiveSection from "@/hooks/useActiveSection";
@@ -64,18 +64,19 @@ export default function Nav({ initialTheme = "dark" }) {
   const scrollTo = useScrollToSection();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const currentLocale = getLocaleFromPathname(pathname);
   const localeHomePath = localizePath("/", currentLocale);
   const basePathname = stripLocaleFromPathname(pathname);
   const isHomeRoute = basePathname === "/";
   const activeId = useActiveSection({ enabled: isHomeRoute });
   const [theme, setTheme] = useState(initialTheme);
+  // Static HTML always renders the dark default; persist only after the saved theme is read.
+  const [themeLoaded, setThemeLoaded] = useState(false);
   const transitionTimeoutRef = useRef(null);
   const { setLanguage, supportedLanguages } = useLanguage();
 
   useEffect(() => {
-    if (typeof document === "undefined") {
+    if (typeof document === "undefined" || !themeLoaded) {
       return;
     }
 
@@ -94,7 +95,7 @@ export default function Nav({ initialTheme = "dark" }) {
 
     const maxAge = 60 * 60 * 24 * 365; // one year
     document.cookie = `${THEME_COOKIE_KEY}=${theme};path=/;max-age=${maxAge};SameSite=Lax`;
-  }, [theme]);
+  }, [theme, themeLoaded]);
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -105,6 +106,7 @@ export default function Nav({ initialTheme = "dark" }) {
     if (stored) {
       setTheme((current) => (current === stored ? current : stored));
     }
+    setThemeLoaded(true);
 
     const handleStorage = (event) => {
       if (event.key === THEME_STORAGE_KEY && (event.newValue === "light" || event.newValue === "dark")) {
@@ -220,10 +222,10 @@ export default function Nav({ initialTheme = "dark" }) {
       return;
     }
 
-    const query = searchParams?.toString();
+    const query = typeof window !== "undefined" ? window.location.search : "";
     const hash = typeof window !== "undefined" ? window.location.hash : "";
     const targetPath = localizePath(pathname, normalizedTargetLanguage);
-    const targetUrl = `${targetPath}${query ? `?${query}` : ""}${hash}`;
+    const targetUrl = `${targetPath}${query}${hash}`;
 
     closeMobileNavIfNeeded(() => {
       setLanguage(normalizedTargetLanguage);

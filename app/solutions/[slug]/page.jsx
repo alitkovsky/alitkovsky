@@ -1,20 +1,15 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import SolutionDetail from "@/components/SolutionDetail";
 import { getAllSystemSlugs, getSystemBySlug } from "@/data/solutions";
+
+// Renamed legacy slugs redirect in public/_redirects.
+export const dynamicParams = false;
 
 // Generate static params for all solutions
 export async function generateStaticParams() {
   const slugs = getAllSystemSlugs();
   return slugs.map((slug) => ({ slug }));
 }
-
-const LEGACY_MAPPING = {
-  "seo": "growth-engine",
-  "google-ads": "intelligence-hub",
-  "paid-social": "growth-engine",
-  "web-analytics": "intelligence-hub",
-  "crm-automatisierung": "control-center",
-};
 
 // SEO metadata for each solution
 const SOLUTION_META = {
@@ -50,13 +45,6 @@ const SOLUTION_META = {
 // Generate metadata for each solution
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-
-  // Handle redirects in metadata? No, just let page redirect.
-  // But to avoid 500 error if slug is not found in systems, check legacy mapping.
-  if (LEGACY_MAPPING[slug]) {
-    return {}; // Return empty or basic meta, redirect will happen in page
-  }
-
   const solutionData = getSystemBySlug(slug, "de");
   const solutionMeta = SOLUTION_META[slug];
 
@@ -124,11 +112,6 @@ export async function generateMetadata({ params }) {
 
 export default async function SolutionDetailPage({ params }) {
   const { slug } = await params;
-
-  if (LEGACY_MAPPING[slug]) {
-    redirect(`/solutions/${LEGACY_MAPPING[slug]}`);
-  }
-
   const solutionData = getSystemBySlug(slug);
 
   if (!solutionData) {

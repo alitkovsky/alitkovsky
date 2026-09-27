@@ -118,11 +118,11 @@ const DATENSCHUTZ_COPY = {
     },
     hosting: {
       heading: "5. hosting & technische infrastruktur",
-      vercel: {
-        heading: "5.1 vercel",
-        text: "diese website wird auf servern von Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA gehostet. beim aufruf unserer website werden automatisch technische daten erfasst:",
+      cloudflare: {
+        heading: "5.1 cloudflare",
+        text: "diese website wird über das netzwerk von Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA ausgeliefert. beim aufruf unserer website werden automatisch technische daten erfasst:",
         items: [
-          "ip-adresse (anonymisiert)",
+          "ip-adresse",
           "datum und uhrzeit des zugriffs",
           "browsertyp und version",
           "betriebssystem",
@@ -130,11 +130,12 @@ const DATENSCHUTZ_COPY = {
           "angefragte seite",
         ],
         legal: "diese datenverarbeitung erfolgt auf grundlage unseres berechtigten interesses an einer sicheren und effizienten bereitstellung der website (Art. 6 Abs. 1 lit. f DSGVO).",
-        moreInfo: "vercel privacy policy:",
+        transfer: "Cloudflare ist unter dem EU-US Data Privacy Framework zertifiziert; zusätzlich gelten standardvertragsklauseln.",
+        moreInfo: "cloudflare privacy policy:",
       },
       ssl: {
         heading: "5.2 ssl/tls-verschlüsselung",
-        text: "diese website nutzt ssl/tls-verschlüsselung für die sichere übertragung deiner daten. die ssl-zertifikate werden von vercel bereitgestellt und gelten für die domains litkovskyi.de und litkovskyi.com. du erkennst eine verschlüsselte verbindung am schloss-symbol in der browserzeile.",
+        text: "diese website nutzt ssl/tls-verschlüsselung für die sichere übertragung deiner daten. die ssl-zertifikate werden von cloudflare bereitgestellt und gelten für die domains litkovskyi.de und litkovskyi.com. du erkennst eine verschlüsselte verbindung am schloss-symbol in der browserzeile.",
       },
       domains: {
         heading: "5.3 domain-registrierung",
@@ -143,6 +144,18 @@ const DATENSCHUTZ_COPY = {
       fonts: {
         heading: "5.4 schriftarten",
         text: "diese website verwendet die schriftarten Comfortaa und Gloria Hallelujah. die schriftarten werden lokal von unseren servern geladen (self-hosted), nicht von externen google-servern. es werden keine daten an google übermittelt.",
+      },
+      consentLog: {
+        heading: "5.5 einwilligungsnachweis (supabase)",
+        text: "wenn du im cookie-banner oder in den cookie-einstellungen eine auswahl triffst, sendet dein browser diese auswahl direkt an unsere datenbank bei Supabase, Inc. (serverstandort: irland, EU). gespeichert werden:",
+        items: [
+          "deine auswahl je kategorie und ggf. deine vorherige auswahl",
+          "eine zufällige einwilligungs-id, version und zeitpunkt der einwilligung",
+          "die seite, auf der du gewählt hast, und die sprache",
+          "deine ip-adresse in gekürzter form (der letzte block wird auf null gesetzt)",
+          "browsertyp und version (user-agent)",
+        ],
+        legal: "zweck ist der nachweis deiner einwilligung (Art. 7 Abs. 1 DSGVO), rechtsgrundlage ist Art. 6 Abs. 1 lit. c DSGVO. die einträge werden nach drei jahren automatisch gelöscht. supabase setzt keine cookies.",
       },
     },
     socialMedia: {
@@ -303,11 +316,11 @@ const DATENSCHUTZ_COPY = {
     },
     hosting: {
       heading: "5. hosting & technical infrastructure",
-      vercel: {
-        heading: "5.1 vercel",
-        text: "this website is hosted on servers of Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA. when you access our website, technical data is automatically collected:",
+      cloudflare: {
+        heading: "5.1 cloudflare",
+        text: "this website is delivered through the network of Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA. when you access our website, technical data is automatically collected:",
         items: [
-          "ip address (anonymized)",
+          "ip address",
           "date and time of access",
           "browser type and version",
           "operating system",
@@ -315,11 +328,12 @@ const DATENSCHUTZ_COPY = {
           "requested page",
         ],
         legal: "this data processing is based on our legitimate interest in secure and efficient website provision (Art. 6 (1) (f) GDPR).",
-        moreInfo: "vercel privacy policy:",
+        transfer: "Cloudflare is certified under the EU-US Data Privacy Framework; standard contractual clauses also apply.",
+        moreInfo: "cloudflare privacy policy:",
       },
       ssl: {
         heading: "5.2 ssl/tls encryption",
-        text: "this website uses ssl/tls encryption for secure transmission of your data. ssl certificates are provided by vercel and apply to the domains litkovskyi.de and litkovskyi.com. you can recognize an encrypted connection by the lock symbol in the browser bar.",
+        text: "this website uses ssl/tls encryption for secure transmission of your data. ssl certificates are provided by cloudflare and apply to the domains litkovskyi.de and litkovskyi.com. you can recognize an encrypted connection by the lock symbol in the browser bar.",
       },
       domains: {
         heading: "5.3 domain registration",
@@ -328,6 +342,18 @@ const DATENSCHUTZ_COPY = {
       fonts: {
         heading: "5.4 fonts",
         text: "this website uses the fonts Comfortaa and Gloria Hallelujah. the fonts are loaded locally from our servers (self-hosted), not from external google servers. no data is transmitted to google.",
+      },
+      consentLog: {
+        heading: "5.5 consent records (supabase)",
+        text: "when you make a choice in the cookie banner or cookie settings, your browser sends it directly to our database at Supabase, Inc. (server location: Ireland, EU). we store:",
+        items: [
+          "your choice per category and, if any, your previous choice",
+          "a random consent id, version and time of consent",
+          "the page where you chose, and the language",
+          "your ip address in shortened form (the last block is set to zero)",
+          "browser type and version (user agent)",
+        ],
+        legal: "the purpose is to prove your consent (Art. 7(1) GDPR); the legal basis is Art. 6(1)(c) GDPR. entries are deleted automatically after three years. supabase sets no cookies.",
       },
     },
     socialMedia: {
@@ -414,6 +440,9 @@ function DatenschutzDivTable({ headers, rows }) {
   );
 }
 
+// Date of the last change to this privacy policy (shown as "stand" / "last updated").
+const PRIVACY_POLICY_UPDATED = new Date("2026-09-27T12:00:00Z");
+
 export default function Datenschutz() {
   const { language } = useLanguage();
   const copy = DATENSCHUTZ_COPY[language] ?? DATENSCHUTZ_COPY.de;
@@ -423,7 +452,7 @@ export default function Datenschutz() {
   };
 
   const formatDate = (lang) => {
-    return new Date().toLocaleDateString(lang === "de" ? "de-DE" : "en-US", {
+    return PRIVACY_POLICY_UPDATED.toLocaleDateString(lang === "de" ? "de-DE" : "en-US", {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -613,22 +642,23 @@ export default function Datenschutz() {
         {/* Hosting & Technical Infrastructure */}
         <div className="left">
           <h2>{copy.hosting.heading}</h2>
-          <p className="title">{copy.hosting.vercel.heading}</p>
-          <p>{copy.hosting.vercel.text}</p>
+          <p className="title">{copy.hosting.cloudflare.heading}</p>
+          <p>{copy.hosting.cloudflare.text}</p>
           <ul>
-            {copy.hosting.vercel.items.map((item, idx) => (
+            {copy.hosting.cloudflare.items.map((item, idx) => (
               <li key={idx}>{item}</li>
             ))}
           </ul>
-          <p>{copy.hosting.vercel.legal}</p>
-            <p>{copy.hosting.vercel.moreInfo}</p>
+          <p>{copy.hosting.cloudflare.legal}</p>
+          <p>{copy.hosting.cloudflare.transfer}</p>
+            <p>{copy.hosting.cloudflare.moreInfo}</p>
             <p>
               <Link
-                href="https://vercel.com/legal/privacy-policy"
+                href="https://www.cloudflare.com/privacypolicy/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                https://vercel.com/legal/privacy-policy
+                https://www.cloudflare.com/privacypolicy/
               </Link>
             </p>
           <p className="title">{copy.hosting.ssl.heading}</p>
@@ -637,6 +667,14 @@ export default function Datenschutz() {
           <p>{copy.hosting.domains.text}</p>
           <p className="title">{copy.hosting.fonts.heading}</p>
           <p>{copy.hosting.fonts.text}</p>
+          <p className="title">{copy.hosting.consentLog.heading}</p>
+          <p>{copy.hosting.consentLog.text}</p>
+          <ul>
+            {copy.hosting.consentLog.items.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
+          <p>{copy.hosting.consentLog.legal}</p>
         </div>
 
         {/* Social Media Links */}

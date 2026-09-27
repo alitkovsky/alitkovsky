@@ -1,0 +1,34 @@
+# Moved from next.config.mjs redirects() and redirect() calls in app/.
+# Status codes match what Vercel served: permanent → 308, temporary → 307.
+
+# Business card QR code
+/bc  /?utm_source=visitenkarte&utm_medium=qr&utm_campaign=andrii_brand  307
+
+# Legacy URLs
+/cases  /projects  308
+/work  /projects  308
+/contact  /#contact  308
+/resume  /about  308
+/services  /solutions  308
+/leistungen  /solutions  308
+
+# About is a section on the home page
+/about  /#expertise  307
+/en/about  /en#expertise  307
+
+# Renamed solutions
+/solutions/seo  /solutions/growth-engine  307
+/solutions/google-ads  /solutions/intelligence-hub  307
+/solutions/paid-social  /solutions/growth-engine  307
+/solutions/web-analytics  /solutions/intelligence-hub  307
+/solutions/crm-automatisierung  /solutions/control-center  307
+/en/solutions/seo  /en/solutions/growth-engine  307
+/en/solutions/google-ads  /en/solutions/intelligence-hub  307
+/en/solutions/paid-social  /en/solutions/growth-engine  307
+/en/solutions/web-analytics  /en/solutions/intelligence-hub  307
+/en/solutions/crm-automatisierung  /en/solutions/control-center  307
+
+/leistungen/:slug  /solutions/:slug  308
+
+# Trailing slash → none (Next.js default)
+/*/  /:splat  308
