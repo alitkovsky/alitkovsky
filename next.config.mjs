@@ -17,6 +17,8 @@ const nextConfig = {
   // Allow cross-origin requests during development
   allowedDevOrigins: ['192.168.178.79'],
   turbopack: {},
+  // Don't let `next dev` write AGENTS.md / CLAUDE.md into the repo
+  agentRules: false,
 };
 
 export default withBundleAnalyzer(nextConfig);
