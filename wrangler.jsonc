@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "alitkovsky",
+  "compatibility_date": "2026-09-27",
+  // Assets-only Worker: serves the static export with public/_headers and public/_redirects.
+  "assets": {
+    "directory": "./out",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

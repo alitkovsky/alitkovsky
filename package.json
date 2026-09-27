@@ -16,12 +16,13 @@
     "dev": "next dev",
     "prebuild": "node -e \"require('fs').rmSync('.next', { recursive: true, force: true })\"",
     "build": "next build",
-    "postbuild": "node scripts/strip-polyfills.js",
+    "postbuild": "node scripts/finalize-export.js",
     "build:analyze": "ANALYZE=true next build",
-    "start": "next start",
+    "start": "wrangler dev",
     "lint": "eslint --config eslint.config.mjs .",
     "check-unused": "npx depcheck --ignores next,react,react-dom",
-    "clean-unused": "npx depcheck --json | jq -r '.dependencies[]' | grep -vE '^(postcss|autoprefixer|tailwindcss|@tailwindcss/.*|next|react|react-dom|eslint.*|prettier.*)$' | xargs npm uninstall"
+    "clean-unused": "npx depcheck --json | jq -r '.dependencies[]' | grep -vE '^(postcss|autoprefixer|tailwindcss|@tailwindcss/.*|next|react|react-dom|eslint.*|prettier.*)$' | xargs npm uninstall",
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -55,6 +56,7 @@
     "@types/react": "^19.3.0",
     "baseline-browser-mapping": "^2.11.26",
     "eslint": "^10.0.0",
-    "eslint-config-next": "^16.3.6"
+    "eslint-config-next": "^16.3.6",
+    "wrangler": "^4.142.0"
   }
 }
