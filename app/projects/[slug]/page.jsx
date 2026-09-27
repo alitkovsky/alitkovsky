@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import ProjectDetail from "@/components/ProjectDetail";
 import { getAllProjectSlugs, getProjectBySlug } from "@/data/projects";
 
+export const dynamicParams = false;
+
 // Generate static params for all projects
 export async function generateStaticParams() {
   const slugs = getAllProjectSlugs();

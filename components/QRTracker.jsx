@@ -9,7 +9,7 @@ import { hasConsent } from '@/lib/consent';
  * Detects business card QR scans via UTM parameters
  * Fires tracking event once per session
  */
-export default function QRTracker({ searchParams }) {
+export default function QRTracker() {
   useEffect(() => {
     // Only run client-side
     if (typeof window === 'undefined') return;
@@ -17,6 +17,15 @@ export default function QRTracker({ searchParams }) {
     // Check if already tracked in this session
     const hasTracked = sessionStorage.getItem('bc_scan_tracked');
     if (hasTracked) return;
+
+    // Static export: read the UTM parameters from the URL instead of page props.
+    const params = new URLSearchParams(window.location.search);
+    const searchParams = {
+      utm_source: params.get('utm_source') ?? undefined,
+      utm_medium: params.get('utm_medium') ?? undefined,
+      utm_campaign: params.get('utm_campaign') ?? undefined,
+      utm_content: params.get('utm_content') ?? undefined,
+    };
 
     // Check for business card UTM parameters
     const utmSource = searchParams?.utm_source;
@@ -47,7 +56,7 @@ export default function QRTracker({ searchParams }) {
       // Small delay to ensure GTM is loaded
       setTimeout(checkConsentAndTrack, 300);
     }
-  }, [searchParams]);
+  }, []);
 
   // This component doesn't render anything
   return null;

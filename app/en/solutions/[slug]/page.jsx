@@ -1,14 +1,9 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import SolutionDetail from "@/components/SolutionDetail";
 import { getAllSystemSlugs, getSystemBySlug } from "@/data/solutions";
 
-const LEGACY_MAPPING = {
-  seo: "growth-engine",
-  "google-ads": "intelligence-hub",
-  "paid-social": "growth-engine",
-  "web-analytics": "intelligence-hub",
-  "crm-automatisierung": "control-center",
-};
+// Renamed legacy slugs redirect in public/_redirects.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const slugs = getAllSystemSlugs();
@@ -17,11 +12,6 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-
-  if (LEGACY_MAPPING[slug]) {
-    return {};
-  }
-
   const serviceData = getSystemBySlug(slug, "en");
   if (!serviceData) {
     return {
@@ -51,11 +41,6 @@ export async function generateMetadata({ params }) {
 
 export default async function ServiceDetailPageEn({ params }) {
   const { slug } = await params;
-
-  if (LEGACY_MAPPING[slug]) {
-    redirect(`/en/solutions/${LEGACY_MAPPING[slug]}`);
-  }
-
   const serviceData = getSystemBySlug(slug);
   if (!serviceData) {
     notFound();

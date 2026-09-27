@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import useScrollToSection, { MOBILE_NAV_TRANSITION_DURATION } from "@/hooks/useScrollToSection";
 import useActiveSection from "@/hooks/useActiveSection";
@@ -64,7 +64,6 @@ export default function Nav({ initialTheme = "dark" }) {
   const scrollTo = useScrollToSection();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const currentLocale = getLocaleFromPathname(pathname);
   const localeHomePath = localizePath("/", currentLocale);
   const basePathname = stripLocaleFromPathname(pathname);
@@ -223,10 +222,10 @@ export default function Nav({ initialTheme = "dark" }) {
       return;
     }
 
-    const query = searchParams?.toString();
+    const query = typeof window !== "undefined" ? window.location.search : "";
     const hash = typeof window !== "undefined" ? window.location.hash : "";
     const targetPath = localizePath(pathname, normalizedTargetLanguage);
-    const targetUrl = `${targetPath}${query ? `?${query}` : ""}${hash}`;
+    const targetUrl = `${targetPath}${query}${hash}`;
 
     closeMobileNavIfNeeded(() => {
       setLanguage(normalizedTargetLanguage);

@@ -22,9 +22,7 @@ export const metadata = {
   },
 };
 
-export default async function EnHome({ searchParams }) {
-  const params = await searchParams;
-
+export default function EnHome() {
   return (
     <>
       <SkipLink />
@@ -32,7 +30,7 @@ export default async function EnHome({ searchParams }) {
       <LocalBusinessStructuredData />
       <main className="app-main" id="main-content">
         {/* Track business card QR scans */}
-        <QRTracker searchParams={params} />
+        <QRTracker />
 
       {/* <Cover /> */}
       <Intro />

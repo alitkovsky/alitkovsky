@@ -7,9 +7,7 @@ import { LocalBusinessStructuredData } from "@/components/StructuredData";
 
 const HomeLazySections = dynamic(() => import("@/components/HomeLazySections"));
 
-export default async function Home({ searchParams }) {
-  const params = await searchParams;
-
+export default function Home() {
   return (
     <>
       <SkipLink />
@@ -17,7 +15,7 @@ export default async function Home({ searchParams }) {
       <LocalBusinessStructuredData />
       <main className="app-main" id="main-content">
         {/* Track business card QR scans */}
-        <QRTracker searchParams={params} />
+        <QRTracker />
 
       {/* <Cover /> */}
       <Intro />
