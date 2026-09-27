@@ -31,11 +31,11 @@
     "@tailwindcss/typography": "^0.5.20",
     "autoprefixer": "^10.6.1",
     "clsx": "^2.1.1",
-    "framer-motion": "^13.4.1",
+    "framer-motion": "^13.4.4",
     "gsap": "^3.15.0",
-    "lucide-react": "^1.47.0",
+    "lucide-react": "^1.48.0",
     "mathjs": "^15.2.0",
-    "motion": "^13.4.1",
+    "motion": "^13.4.4",
     "next": "^16.3.6",
     "postcss": "^8.5.28",
     "react": "^19.3.0",
@@ -45,15 +45,15 @@
     "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.3.3",
     "tailwindcss-animate": "^1.0.7",
-    "three": "^0.186.0",
+    "three": "^0.186.1",
     "vara": "^1.4.1"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^16.3.6",
     "@playwright/test": "^1.63.0",
-    "@types/node": "^26.6.2",
+    "@types/node": "^26.6.3",
     "@types/react": "^19.3.0",
-    "baseline-browser-mapping": "^2.11.25",
+    "baseline-browser-mapping": "^2.11.26",
     "eslint": "^10.0.0",
     "eslint-config-next": "^16.3.6"
   }
